@@ -1,0 +1,2620 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="ja">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+    <LINK Type="text/css" Rel="stylesheet" Href="main.css">
+	<title></title>
+</head>
+<body>
+
+
+<table width="1280" background="TOP00A.jpg" border="1">
+	<tr >
+		<td width="200" height="100" colspan="10" background="TOP01A.jpg">1</td>
+	</tr>
+	<tr bgcolor="#32620E">
+		<td width="128" height="20" bgcolor="#84D016">
+		
+		<table align="center">
+		<tr>
+		<td><b>＜</b></td>
+		<td><b><a href="LHDLMANe.htm" target="_self"><font color="white">□</font></a></b></td>
+		<td><b>＞</b></td>
+		</tr>
+		</table>
+		
+		</td>
+
+		<td width="128" align="center"><font color="white"></font></td>
+		<td width="128" align="center"><font color="white"><a href="" target="_self"><font color="white"></font></a></td>
+		<td width="128" align="center"><font color="white"><a href="" target="_self"><font color="white"></font></a></td>
+		<td width="128" align="center"><font color="white"><a href="" target="_self"><font color="white"></font></a></td>
+		<td width="128" align="center"><font color="white"><a href="" target="_self"><font color="white"></font></a></td>
+		<td width="128" align="center"><font color="white"><a href="" target="_self"><font color="white"></font></a></td>
+		<td width="128" align="center"><font color="white"><a href="" target="_self"><font color="white"></font></a></td>
+		<td width="128" align="center"><font color="white"><a href="" target="_self"><font color="white"></font></a></td>
+		<td width="128" bgcolor="#84D016" align="center"><font color="white">LHDLman</font></td>
+		
+	</tr>
+	<tr>
+		<td height="820" background="TOP02A.jpg">4</td>
+		
+		<td  colspan="8" bgcolor="white" >
+
+<!-- ======================================== -->
+
+<table cellpadding="20" BACKGROUND="LHDLman/renga_006.jpg"><tr><td>
+
+<center>
+<table BORDER="4" BORDERCOLORLIGHT="olive" BORDERCOLORDARK="maroon" WIDTH="500" HEIGHT="60">
+<tr>
+<td BGCOLOR="green" ALIGN="center" VALIGN="middle">
+<font COLOR="white"><b>開発室A<br>8桁プロセッサ</b></font>
+</td>
+</tr>
+</table>
+<br>
+
+<!-- --------------------------------------------------------------- -->
+<!--                                                                 -->
+<!-- --------------------------------------------------------------- -->
+<table  BORDER="1" BGCOLOR="#808000" WIDTH="100">
+<tr>
+<td ALIGN="center">
+<font COLOR="white">はじめに</font>
+</td>
+</tr>
+</table>
+
+<table WIDTH="700">
+<tr>
+<td>
+<br>
+一般的な構成による8桁プロセッサを作ります。
+一般的とは命令符とデータとスタックを同じメモリ空
+間に配置していることです。<br>
+<br>
+同じメモリ空間とは命令符とデータとスタックのそれ
+ぞれのポインタの指す位置が<br>
+同じ値であれば実際のメモリの同じメモリ番地を指す
+という意味です。<br>
+<br>
+それと1クロックで1命令とするとプロセッサは簡単に
+なりますが当室のプロセッサ<br>
+は1命令が数クロックを必要とするものもある一般的
+な方式です。<br>
+<br>
+</td>
+</tr>
+</table>
+
+
+<hr WIDTH="500">
+
+<br>
+
+<!-- --------------------------------------------------------------- -->
+<!--                                                                 -->
+<!-- --------------------------------------------------------------- -->
+<table  BORDER="1" BGCOLOR="#808000" WIDTH="100">
+<tr>
+<td ALIGN="center">
+<font COLOR="white">基本仕様</font>
+</td>
+</tr>
+</table>
+
+<br>
+
+<table>
+<tr>
+<td>
+<ul>
+<li>4個の8桁汎用レジスタ
+<li>2個のメモリ番地、ポート番地指定用の番地レジスタ
+<li>命令符を指す命令ポインタ
+<li>スタックを指すスタックポインタ
+</ul>
+</td>
+</tr>
+</table>
+
+<table BORDER="1">
+<caption><b>レジスタと命令符</b></caption>
+<tr>
+<td BACKGROUND="LHDLman/pop4_pink.gif" WIDTH="123" HEIGHT="30" ALIGN="center">
+<A HREF="LHDLman/pro1.htm" TARGET="w1">命令符</A>
+</td>
+
+<td WIDTH="300">
+&nbsp;レジスタと命令符を決めています。
+</td>
+</tr>
+
+<tr>
+<td BACKGROUND="LHDLman/pop4_pink.gif" WIDTH="123" HEIGHT="30" ALIGN="center">
+<A HREF="LHDLman/pro2.htm" TARGET="w1">命令動作</A>
+</td>
+
+<td>
+&nbsp;命令符の動作を決めています。
+</td>
+</tr>
+
+<tr>
+<td BACKGROUND="LHDLman/pop4_pink.gif" WIDTH="123" HEIGHT="30" ALIGN="center">
+<A HREF="LHDLman/pro3.htm" TARGET="w1">命令解析</A>
+</td>
+
+<td>
+&nbsp;命令符の具体的な動作を整理します。
+</td>
+</tr>
+
+</table>
+
+<br>
+<br>
+
+<table>
+<tr>
+<td>
+<ul>
+<li><a HREF="LHDLman/pro5.htm#FT04K13L" TARGET="w1">初期化後の命令ポインタ</a>
+<li><a HREF="LHDLman/pro5.htm#FT04K13M" TARGET="w1">初期化後のスタックポインタ</a>
+<li><a HREF="LHDLman/pro5.htm#FT04K13N" TARGET="w1">割り込み呼び出し番地</a>
+</ul>
+</td>
+</tr>
+</table>
+
+<br>
+
+<!-- --------------------------------------------------------------- -->
+<!--                                                                 -->
+<!-- --------------------------------------------------------------- -->
+<hr WIDTH="500">
+<br>
+<table  BORDER="1" BGCOLOR="#808000" WIDTH="100">
+<tr>
+<td ALIGN="center">
+<font COLOR="white">設計</font>
+</td>
+</tr>
+</table>
+
+<br>
+
+<table>
+<tr>
+<td BACKGROUND="LHDLman/pop4_pink.gif" WIDTH="123" HEIGHT="30" ALIGN="center">
+<A HREF="LHDLman/pro5.htm" TARGET="w1">論理譜</A>
+</td>
+
+<td>
+&nbsp;&nbsp 基本仕様を具現化していきます。
+</td>
+</tr>
+</table>
+
+<br>
+
+<!-- --------------------------------------------------------------- -->
+<!--                                                                 -->
+<!-- --------------------------------------------------------------- -->
+<table>
+<tr>
+<td BACKGROUND="LHDLman/pop4_orange.gif" WIDTH="123" HEIGHT="30" ALIGN="center">
+<A HREF="#FT04J30S">命令ポインタ</A>
+</td>
+
+<td BACKGROUND="LHDLman/pop4_orange.gif" WIDTH="123" HEIGHT="30" ALIGN="center">
+<A HREF="#FT04J30T"><font SIZE="2">スタックポインタ</font></A>
+</td>
+
+<td BACKGROUND="LHDLman/pop4_orange.gif" WIDTH="123" HEIGHT="30" ALIGN="center">
+<A HREF="#FT04K01Q">命令取得</A>
+</td>
+
+<td BACKGROUND="LHDLman/pop4_orange.gif" WIDTH="123" HEIGHT="30" ALIGN="center">
+<A HREF="#FT04K01AL">命令行程</A>
+</td>
+
+<td BACKGROUND="LHDLman/pop4_orange.gif" WIDTH="123" HEIGHT="30" ALIGN="center">
+<A HREF="#FT04K01AX">命令類別</A>
+</td>
+
+<tr>
+<td BACKGROUND="LHDLman/pop4_orange.gif" WIDTH="123" HEIGHT="30" ALIGN="center">
+<A HREF="#FT04K02A">レジスタ選択</a>
+</td>
+
+<td BACKGROUND="LHDLman/pop4_orange.gif" WIDTH="123" HEIGHT="30" ALIGN="center">
+<A HREF="#FT04K02U">レジスタ設定</a>
+</td>
+
+<td BACKGROUND="LHDLman/pop4_orange.gif" WIDTH="123" HEIGHT="30" ALIGN="center">
+<a HREF="#FT04K02CY">番地</a>
+</td>
+
+<td BACKGROUND="LHDLman/pop4_orange.gif" WIDTH="123" HEIGHT="30" ALIGN="center">
+<a HREF="#FT04K02DQ">出力データ</a>
+</td>
+
+<td BACKGROUND="LHDLman/pop4_orange.gif" WIDTH="123" HEIGHT="30" ALIGN="center">
+<a HREF="#FT04K02DS">スタック操作</a>
+</td>
+</tr>
+
+<tr>
+<td BACKGROUND="LHDLman/pop4_orange.gif" WIDTH="123" HEIGHT="30" ALIGN="center">
+<a HREF="#FT04K02DY">メモリ操作</a>
+</td>
+
+<td BACKGROUND="LHDLman/pop4_orange.gif" WIDTH="123" HEIGHT="30" ALIGN="center">
+<a HREF="#FT04K02EC">ポート操作</a>
+</td>
+
+<td BACKGROUND="LHDLman/pop4_orange.gif" WIDTH="123" HEIGHT="30" ALIGN="center">
+<a HREF="#FT04K02EG">算術論理演算</a>
+</td>
+
+<td BACKGROUND="LHDLman/pop4_orange.gif" WIDTH="123" HEIGHT="30" ALIGN="center">
+<a HREF="#FT04K02FF">メモリ制御</a>
+</td>
+
+<td BACKGROUND="LHDLman/pop4_orange.gif" WIDTH="123" HEIGHT="30" ALIGN="center">
+<a HREF="#FT04K02FH">ポート制御</a>
+</td>
+</tr>
+
+<tr>
+<td BACKGROUND="LHDLman/pop4_orange.gif" WIDTH="123" HEIGHT="30" ALIGN="center">
+<a HREF="#FT04K02FK">割り込み制御</a>
+</td>
+</tr>
+
+</table>
+
+<br>
+<br>
+<!-- --------------------------------------------------------------- -->
+<!--                                                                 -->
+<!-- --------------------------------------------------------------- -->
+<hr WIDTH="500">
+<br>
+<table  BORDER="1" BGCOLOR="#808000" WIDTH="100">
+<tr>
+<td ALIGN="center">
+<font COLOR="white">検証</font>
+</td>
+</tr>
+</table>
+
+<br>
+
+<table><tr><td>
+論理譜を検証していきます。
+検証に使う命令符は
+<A HREF="#FT04K08B">アセンブラ</A>
+を使って作ります。
+</tr></td></table>
+
+<br>
+
+<br>
+命令符の個別の基本動作を簡単に見ていきます。<br>
+<br>
+
+<table>
+<tr>
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/sim0.htm" TARGET="s1">MOVI</a>
+</td>
+
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/sim1.htm" TARGET="s1">MOVR</a>
+</td>
+
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/sim2.htm" TARGET="s1">ADD</a>
+</td>
+
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/sim3.htm" TARGET="s1">SUB</a>
+</td>
+
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/sim4.htm" TARGET="s1">AND</a>
+</td>
+</tr>
+
+<tr>
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/sim5.htm" TARGET="s1">OR</a>
+
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/sim6.htm" TARGET="s1">XOR</a>
+</td>
+
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/sim7.htm" TARGET="s1">NOT</a>
+</td>
+
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/sim8.htm" TARGET="s1">SHU</a>
+</td>
+
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/sim9.htm" TARGET="s1">SHD</a>
+</td>
+</tr>
+
+<tr>
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/sim10.htm" TARGET="s1">MOVRX</a>
+</td>
+
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/sim11.htm" TARGET="s1">MOVMR</a>
+</td>
+
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/sim12.htm" TARGET="s1">MOVRM</a>
+</td>
+
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/sim13.htm" TARGET="s1">MOVPR</a>
+</td>
+
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/sim14.htm" TARGET="s1">MOVRP</a>
+</td>
+</tr>
+
+<tr>
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/sim15.htm" TARGET="s1">MOVRY</a>
+</td>
+
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/sim16.htm" TARGET="s1">MOVXR</a>
+</td>
+
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/sim17.htm" TARGET="s1">MOVYR</a>
+</td>
+
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/sim18.htm" TARGET="s1">JMP</a>
+</td>
+
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/sim19.htm" TARGET="s1">JMPC</a>
+</td>
+</tr>
+
+<tr>
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/sim20.htm" TARGET="s1">JMPZ</a>
+</td>
+
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/sim21.htm" TARGET="s1">MOVJ</a>
+</td>
+
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/sim22.htm" TARGET="s1">JMPR</a>
+</td>
+
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/sim23.htm" TARGET="s1">JMPRC</a>
+</td>
+
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/sim24.htm" TARGET="s1">JMPRZ</a>
+</td>
+</tr>
+
+<tr>
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/sim25.htm" TARGET="s1">CALL</a>
+</td>
+
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/sim25.htm" TARGET="s1">RET</a>
+</td>
+
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/sim26.htm" TARGET="s1">PUSH</a>
+</td>
+
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/sim27.htm" TARGET="s1">POP</a>
+</td>
+
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/sim28.htm" TARGET="s1">EI/DI</a>
+</td>
+</tr>
+
+<tr>
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/sim29.htm" TARGET="s1">INC/DEC</a>
+</td>
+
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/sim30.htm" TARGET="s1">RETI</a>
+</td>
+
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/sim31.htm" TARGET="s1">LDSR</a>
+</td>
+
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/sim32.htm" TARGET="s1">LDIR</a>
+</td>
+
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/sim33.htm" TARGET="s1">STMR</a>
+</td>
+</tr>
+
+<tr>
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/sim34.htm" TARGET="s1">ADDC</a>
+</td>
+
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/sim35.htm" TARGET="s1">SUBC</a>
+</td>
+
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/sim36.htm" TARGET="s1">ROU</a>
+</td>
+
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/sim37.htm" TARGET="s1">ROD</a>
+</td>
+
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/sim38.htm" TARGET="s1">CMP</a>
+</td>
+</tr>
+
+<tr>
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/sim39.htm" TARGET="s1">MOVX</a>
+</td>
+
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/sim39.htm" TARGET="s1">MOVY</a>
+</td>
+
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/sim39.htm" TARGET="s1">MOVS</a>
+</td>
+
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/sim40.htm" TARGET="s1">LDCPR</a>
+</td>
+
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/sim40.htm" TARGET="s1">STCPR</a>
+</td>
+</tr>
+
+<tr>
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/sim41.htm" TARGET="s1">LDDPR</a>
+</td>
+
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/sim41.htm" TARGET="s1">STDPR</a>
+</td>
+
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/sim42.htm" TARGET="s1">MOVFR</a>
+</td>
+
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/sim42.htm" TARGET="s1">MOVRF</a>
+</td>
+
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/sim42.htm" TARGET="s1">INCR2</a>
+</td>
+</tr>
+
+<tr>
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/sim42.htm" TARGET="s1">DECR2</a>
+</td>
+</tr>
+
+</table>
+
+<br>
+<br>
+<!-- --------------------------------------------------------------- -->
+<!--                                                                 -->
+<!-- --------------------------------------------------------------- -->
+<hr WIDTH="500">
+<br>
+<table  BORDER="1" BGCOLOR="#808000" WIDTH="100">
+<tr>
+<td ALIGN="center">
+<font COLOR="white">コンパイル</font>
+</td>
+</tr>
+</table>
+
+<br>
+●検証結果を得るためのコンパイルは下のファイルを用意
+して<br>
+<br>
+
+<!-- ----------------------------- -->
+<!-- table                         -->
+<!-- ----------------------------- -->
+<table>
+
+<tr>
+<td>
+SAMPLE .ASM
+</td>
+
+<td>
+&nbsp;&nbsp;&nbsp;&nbsp;
+</td>
+
+<td>
+テストプログラム
+</td>
+</tr>
+
+<!-- ----------------------------- -->
+<tr>
+<td>
+<A HREF="LHDLman/cpu8a.l">CPU8A .L </a>
+</td>
+
+<td>
+&nbsp;&nbsp;&nbsp;&nbsp;
+</td>
+
+<td>
+8桁プロセッサ ソースファイル
+</td>
+</tr>
+
+<!-- ----------------------------- -->
+
+<tr>
+<td>
+<A HREF="LHDLman/cpu8a.mac">CPU8A .MAC</A>
+</td>
+
+<td>
+&nbsp;&nbsp;&nbsp;&nbsp;
+</td>
+
+<td>
+アセンブラマクロファイル
+</td>
+</tr>
+
+<!-- ----------------------------- -->
+
+<tr>
+<td>
+<A HREF="LHDLman/lsim.lbl">LSIM .LBL</A>
+</td>
+
+<td>
+&nbsp;&nbsp;&nbsp;&nbsp;
+</td>
+
+<td>
+VIEW 用ラベルファイル
+</td>
+</tr>
+
+<!-- ----------------------------- -->
+</table>
+
+<br>
+下のコマンドを実行します。<br>
+<br>
+
+<!-- ----------------------------- -->
+<!-- table                         -->
+<!-- ----------------------------- -->
+<table>
+<tr>
+<td>
+アセンブル
+</td>
+
+<td>
+&nbsp;&nbsp;&nbsp;&nbsp;
+</td>
+
+<td>
+<b>AASM -Mcpu8a.mac -L sample.asm</b><br>
+</td>
+</tr>
+
+<!-- ----------------------------- -->
+
+<tr>
+<td>
+コンパイル
+</td>
+
+<td>
+&nbsp;&nbsp;&nbsp;&nbsp;
+</td>
+
+<td>
+<b>LDC cpu8a -ls -opt 0 -qm 0</b><br>
+</td>
+</tr>
+
+<!-- ----------------------------- -->
+
+<tr>
+<td>
+シミュレーション
+</td>
+
+<td>
+&nbsp;&nbsp;&nbsp;&nbsp;
+</td>
+
+<td>
+<b>SIM t1.sim</b><br>
+</td>
+</tr>
+
+<!-- ----------------------------- -->
+
+<tr>
+<td>
+結果確認
+</td>
+
+<td>
+&nbsp;&nbsp;&nbsp;&nbsp;
+</td>
+
+<td>
+<b>VIEW</b><br>
+</td>
+</tr>
+
+<!-- ----------------------------- -->
+</table>
+
+<br>
+●チップ作成のVHDLファイルを得るためのコマンドです
+。<br>
+<br>
+
+<!-- ----------------------------- -->
+<!-- table                         -->
+<!-- ----------------------------- -->
+<table>
+<tr>
+<td>
+コンパイル
+</td>
+
+<td>
+&nbsp;&nbsp;&nbsp;&nbsp;
+</td>
+
+<td>
+<b>LDC cpu8a -vh -opt 0 -qm 0</b><br>
+</td>
+</tr>
+
+<!-- ----------------------------- -->
+</table>
+
+<br>
+
+<!-- ----------------------------- -->
+<!-- table                         -->
+<!-- ----------------------------- -->
+<table>
+<tr>
+<td>
+<b>e0.vhd</b>
+</td>
+
+<td>
+&nbsp;&nbsp;&nbsp;&nbsp;
+</td>
+
+<td>
+チップ作成用ですがテスト端子を含んでいます。
+</td>
+</tr>
+<!-- ----------------------------- -->
+
+<tr>
+<td>
+<b>e1.vhd</b>
+</td>
+
+<td>
+&nbsp;&nbsp;&nbsp;&nbsp;
+</td>
+
+<td>
+検証用
+</td>
+</tr>
+<!-- ----------------------------- -->
+
+<tr>
+<td>
+<b>s1.vhd</b>
+</td>
+
+<td>
+&nbsp;&nbsp;&nbsp;&nbsp;
+</td>
+
+<td>
+テストベンチ</td>
+</tr>
+<!-- ----------------------------- -->
+</table>
+
+<br>
+
+<table WIDTH="500"><tr><td>
+最終的にチップ化する <b>e0 .vhd</b> は テスト端
+子(信号)と機能実行譜を注釈にしたソースをコンパイ
+ルしたものを使います。
+</td></tr></table>
+
+
+<br>
+<br>
+<!-- --------------------------------------------------------------- -->
+<hr WIDTH="500">
+<br>
+<br>
+<!-- --------------------------------------------------------------- -->
+
+<a NAME="FT04J30S"></a>
+<table BGCOLOR="#C0C0C0" WIDTH="700">
+<tr>
+<td ALIGN="center">
+<a HREF="LHDLman/pro5.htm#FT04J30A" TARGET="w1">命令ポインタ</a>
+</td>
+</tr>
+</table>
+<br>
+
+<table WIDTH="700"><tr><td>
+命令ポインタは命令符を読み出すメモリ番地を指します。
+まず命令ポインタが問題なく更新されていくようにします。<br>
+<br>
+チップ内のレジスタを変える命令を実行しているとき
+は命令ポインタはひとつずつ増やすだけです。<br>
+
+<br>
+
+<table>
+<tr>
+<td>
+<ul>
+<li> メモリを読み書きする命令。
+<li> 命令ポインタを変える命令。
+</ul>
+</td>
+</tr>
+</table>
+
+上のふたつは単純に増やさない場合です。
+
+メモリへの転送命令では読み書き中のクロックでは命
+令ポインタの値を保持します。
+
+命令ポインタを変える命令は「分岐」、「呼び出し」
+、「戻り」があります。
+
+命令ポインタへの操作としては
+<a HREF="LHDLman/pro5.htm#FT04J30Q" TARGET="w1">「1増やす」</a>
+のと
+<a HREF="LHDLman/pro5.htm#FT04J30R" TARGET="w1">「保持」</a>
+と「代入」があります。
+</td></tr></table>
+
+<br>
+
+
+<table>
+
+<tr>
+<td COLSPAN="5">
+<font COLOR="green">
+メモリから分岐値を読み出して、そこに分岐します。
+</font>
+</td>
+</tr>
+
+<tr>
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/pro5.htm#FT04J30B" TARGET="w1">JMP</a>
+</td>
+
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/pro5.htm#FT04J30C" TARGET="w1">JMPC</a>
+</td>
+
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/pro5.htm#FT04J30D" TARGET="w1">JMPZ</a>
+</td>
+
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/pro5.htm#FT04J30H" TARGET="w1">CALL</a>
+</td>
+
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/pro5.htm#FT04J30J" TARGET="w1">RET</a>
+</td>
+</tr>
+
+<tr><td><br></td></tr>
+
+<tr>
+<td COLSPAN="5">
+<font COLOR="green">
+分岐レジスタの分岐値を命令ポインタに代入して分岐
+します。
+</font>
+</td>
+</tr>
+
+<tr>
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/pro5.htm#FT04J30E" TARGET="w1">JMPR</a>
+</td>
+
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/pro5.htm#FT04J30F" TARGET="w1">JMPRC</a>
+</td>
+
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/pro5.htm#FT04J30G" TARGET="w1">JMPRZ</a>
+</td>
+
+</tr>
+
+<tr><td><br></td></tr>
+
+<tr>
+<td COLSPAN="5">
+<font COLOR="green">
+メモリの読み出し中は命令ポインタを保持します。
+</font>
+</td>
+</tr>
+
+<tr>
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/pro5.htm#FT04J30K" TARGET="w1">POP</a>
+</td>
+
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/pro5.htm#FT04J30L" TARGET="w1">INC</a>
+</td>
+
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/pro5.htm#FT04J30M" TARGET="w1">DEC</a>
+</td>
+
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/pro5.htm#FT04J30N" TARGET="w1">MOVJ</a>
+</td>
+</tr>
+
+<tr><td><br></td></tr>
+
+<tr>
+<td COLSPAN="5">
+<font COLOR="green">
+メモリの書き込み中は命令ポインタを保持します。
+</font>
+</td>
+</tr>
+
+<tr>
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/pro5.htm#FT04J30P" TARGET="w1">PUSH</a>
+</td>
+</tr>
+
+</tr>
+</table>
+<br>
+
+<!-- --------------------------------------------------------------- -->
+<!--                                                                 -->
+<!-- --------------------------------------------------------------- -->
+<a NAME="FT04J30T"></a>
+<table BGCOLOR="#C0C0C0" WIDTH="700">
+<tr>
+<td ALIGN="center">
+<a HREF="LHDLman/pro5.htm#FT04J30U" TARGET="w1">スタックポインタ</a>
+</td>
+</tr>
+</table>
+
+<br>
+スタックポインタはスタックに読み書きする位置を指します。<br>
+<br>
+
+<table>
+<tr>
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/pro5.htm#FT04J30V" TARGET="w1">CALL</a>
+</td>
+
+<td>
+<font COLOR="green">
+スタックに書き込んでスタックポインタを2減らします。
+</font>
+</td>
+</tr>
+
+<tr>
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/pro5.htm#FT04J30W" TARGET="w1">RET</a>
+</td>
+
+<td>
+<font COLOR="green">
+スタックを読み出してスタックポインタを2増やします。
+</font>
+</td>
+</tr>
+
+<tr>
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/pro5.htm#FT04J30X" TARGET="w1">PUSH</a>
+</td>
+
+<td>
+<font COLOR="green">
+スタックに書き込んでスタックポインタを減らします。
+</font>
+</td>
+</tr>
+
+<tr>
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/pro5.htm#FT04J30Y" TARGET="w1">POP</a>
+</td>
+
+<td>
+<font COLOR="green">
+スタックを読み出してスタックポインタを増やします。
+</font>
+</td>
+</tr>
+
+</table>
+
+<br>
+
+<!-- --------------------------------------------------------------- -->
+<!--                                                                 -->
+<!-- --------------------------------------------------------------- -->
+<a NAME="FT04J30T"></a>
+<table BGCOLOR="#C0C0C0" WIDTH="700">
+<tr>
+<td ALIGN="center">
+<a NAME="FT04K01Q">命令符取得</a>
+</td>
+</tr>
+</table>
+
+<br>
+<table WIDTH="500"><tr><td>
+プロセッサは命令符取得中か命令符実行中のどちらか
+にあります。
+命令符は1符、2符、3符のものがあって、必要符を読
+み終えた後に命令を実行します。
+</tr></td></table>
+<br>
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+<!--                                                                 -->
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+<a NAME="FT04J30T"></a>
+<table BGCOLOR="#008080" WIDTH="500">
+<tr>
+<td ALIGN="center">
+<a HREF="LHDLman/pro5.htm#FT04K01B" TARGET="w1"><font COLOR="white">符読み出し順番</font></a>
+</td>
+</tr>
+</table>
+
+<br>
+1番目の符をメモリデータから読み取って何符の命令
+かを判断します。<br>
+<br>
+
+<table><tr><td>
+<ul>
+<li>現在の符が何番目かは cp に記録しています。
+<li>何符の命令かは np に記録しています。
+</ul>
+<td><tr>
+</table>
+<br>
+
+<table>
+<tr>
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/pro5.htm#FT04K01C" TARGET="w1">MOVI</a>
+</td>
+
+<td>
+<font COLOR="green">&nbsp;&nbsp;2符の命令</font>
+</td>
+</tr>
+
+<tr><td><br></td></tr>
+
+<tr>
+<td COLSPAN="5" ALIGN="center">
+<font COLOR="green">3符の命令</font>
+</td>
+</tr>
+
+<tr>
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/pro5.htm#FT04K01D" TARGET="w1">JMP</a>
+</td>
+
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/pro5.htm#FT04K01E" TARGET="w1">JMPC</a>
+</td>
+
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/pro5.htm#FT04K01F" TARGET="w1">JMPZ</a>
+</td>
+
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/pro5.htm#FT04K01G" TARGET="w1">MOVJ</a>
+</td>
+
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/pro5.htm#FT04K01H" TARGET="w1">CALL</a>
+</td>
+</tr>
+
+<tr>
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/pro5.htm#FT04K01J" TARGET="w1">PUSH</a>
+</td>
+
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/pro5.htm#FT04K01K" TARGET="w1">POP</a>
+</td>
+</tr>
+
+</table>
+
+<br>
+上にない命令符は1符の命令です。<br>
+1符は1クロックで読み取りますので3符の命令なら3ク
+ロック後に命令を実行します。<br>
+<br>
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+<!--                                                                 -->
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+<a NAME="FT04J30T"></a>
+<table BGCOLOR="#008080" WIDTH="500">
+<tr>
+<td ALIGN="center">
+<a HREF="LHDLman/pro5.htm#FT04K01L" TARGET="w1"><font COLOR="white">符読み出し</font></a>
+</td>
+</tr>
+</table>
+
+<br>
+命令の実行中のときを除いてメモリデータを常時、1番目
+の命令符として取得しています。<br>
+<br>
+
+<table><tr><td>
+<ul>
+<li><a HREF="LHDLman/pro5.htm#FT04K01M" TARGET="w1">codea</a> に 1 番目の符を記録。
+<li><a HREF="LHDLman/pro5.htm#FT04K01N" TARGET="w1">codeb</a> に 2 番目の符を記録。
+<li><a HREF="LHDLman/pro5.htm#FT04K01P" TARGET="w1">codec</a> に 3 番目の符を記録。
+</ul>
+<td><tr>
+</table>
+<br>
+
+<!-- --------------------------------------------------------------- -->
+<!--                                                                 -->
+<!-- --------------------------------------------------------------- -->
+<a NAME="FT04J30T"></a>
+<table BGCOLOR="#C0C0C0" WIDTH="700">
+<tr>
+<td ALIGN="center">
+<a NAME="FT04K01AL">命令行程</a>
+</td>
+</tr>
+</table>
+
+<br>
+命令行程は命令符の読み取りと命令実行の期間です。<br>
+<br>
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+<!--                                                                 -->
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+<table BGCOLOR="#008080" WIDTH="500">
+<tr>
+<td ALIGN="center">
+<a HREF="LHDLman/pro5.htm#FT04K01R" TARGET="w1"><font COLOR="white">命令行程数設定</font></a>
+</td>
+</tr>
+</table>
+
+<br>
+命令行程のクロック数です。<br>
+<br>
+
+<table>
+<tr>
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/pro5.htm#FT04K01S" TARGET="w1">JMP</a>
+</td>
+
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/pro5.htm#FT04K01T" TARGET="w1">JMPC</a>
+</td>
+
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/pro5.htm#FT04K01U" TARGET="w1">JMPZ</a>
+</td>
+
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/pro5.htm#FT04K01V" TARGET="w1">JMPR</a>
+</td>
+
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/pro5.htm#FT04K01W" TARGET="w1">JMPRC</a>
+</td>
+</tr>
+
+<tr>
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/pro5.htm#FT04K01X" TARGET="w1">JMPRZ</a>
+</td>
+
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/pro5.htm#FT04K01Y" TARGET="w1">MOVJ</a>
+</td>
+
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/pro5.htm#FT04K01Z" TARGET="w1">CALL</a>
+</td>
+
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/pro5.htm#FT04K01AA" TARGET="w1">RET</a>
+</td>
+
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/pro5.htm#FT04K01AB" TARGET="w1">PUSH</a>
+</td>
+</tr>
+
+<tr>
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/pro5.htm#FT04K01AC" TARGET="w1">POP</a>
+</td>
+
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/pro5.htm#FT04K01AD" TARGET="w1">INC</a>
+</td>
+
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/pro5.htm#FT04K01AE" TARGET="w1">DEC</a>
+</td>
+
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/pro5.htm#FT04K01AF" TARGET="w1">MOVR</a>
+</td>
+
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/pro5.htm#FT04K01AG" TARGET="w1">MOVMR</a>
+</td>
+</tr>
+
+<tr>
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/pro5.htm#FT04K01AH" TARGET="w1">MOVRM</a>
+</td>
+
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/pro5.htm#FT04K01AJ" TARGET="w1">MOVPR</a>
+</td>
+
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/pro5.htm#FT04K01AK" TARGET="w1">MOVRP</a>
+</td>
+
+</tr>
+
+</table>
+
+<br>
+<table WIDTH="500"><tr><td>
+PUSH と POP は 8 桁レジスタと 16 桁レジスタでは
+行程数が変わります。
+両命令符は16桁の行程数を最初に与えます、レジスタ
+の種類は 2 番目の符で分かりますので 8 桁なら適当
+な行程に達したところで0にします。
+</td></tr></table>
+<br>
+
+<table BORDER="1">
+<tr>
+<td COLSPAN="5" ALIGN="center"><b>PUSH</b></td>
+<td COLSPAN="5" ALIGN="center"><b>POP</b></td>
+</tr>
+
+<tr>
+<td WIDTH="50" ALIGN="center"><a HREF="LHDLman/pro5.htm#FT04K01AL" TARGET="w1">R0</a></td>
+<td WIDTH="50" ALIGN="center"><a HREF="LHDLman/pro5.htm#FT04K01AM" TARGET="w1">R1</a></td>
+<td WIDTH="50" ALIGN="center"><a HREF="LHDLman/pro5.htm#FT04K01AN" TARGET="w1">R2</a></td>
+<td WIDTH="50" ALIGN="center"><a HREF="LHDLman/pro5.htm#FT04K01AP" TARGET="w1">R3</a></td>
+<td WIDTH="50" ALIGN="center"><a HREF="LHDLman/pro5.htm#FT04K01AQ" TARGET="w1">SR</a></td>
+<td WIDTH="50" ALIGN="center"><a HREF="LHDLman/pro5.htm#FT04K01AR" TARGET="w1">R0</a></td>
+<td WIDTH="50" ALIGN="center"><a HREF="LHDLman/pro5.htm#FT04K01AS" TARGET="w1">R1</a></td>
+<td WIDTH="50" ALIGN="center"><a HREF="LHDLman/pro5.htm#FT04K01AT" TARGET="w1">R2</a></td>
+<td WIDTH="50" ALIGN="center"><a HREF="LHDLman/pro5.htm#FT04K01AU" TARGET="w1">R3</a></td>
+<td WIDTH="50" ALIGN="center"><a HREF="LHDLman/pro5.htm#FT04K01AV" TARGET="w1">SR</a></td>
+</tr>
+</table>
+
+<br>
+<br>
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+<!--                                                                 -->
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+<table BGCOLOR="#008080" WIDTH="500">
+<tr>
+<td ALIGN="center">
+<a HREF="LHDLman/pro5.htm#FT04K01AW" TARGET="w1"><font COLOR="white">命令未実行</font></a>
+</td>
+</tr>
+</table>
+
+<br>
+命令工程にないときは行程数を15にします、命令行程
+の終わりには0にします。<br>
+<br>
+
+<!-- --------------------------------------------------------------- -->
+<!--                                                                 -->
+<!-- --------------------------------------------------------------- -->
+<a NAME="FT04K01AX"></a>
+<table BGCOLOR="#C0C0C0" WIDTH="700">
+<tr>
+<td ALIGN="center">
+<a HREF="LHDLman/pro5.htm#FT04K01BP" TARGET="w1">命令類別</a>
+</td>
+</tr>
+</table>
+
+<br>
+命令を特定するための補助信号です。<br>
+展開される論理を小さくするために用いますが、本信
+号でいつも命令を特定する訳ではありません。<br>
+<br>
+
+<table>
+<tr>
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/pro5.htm#FT04K01AZ" TARGET="w1">JMP</a>
+</td>
+
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/pro5.htm#FT04K01BA" TARGET="w1">JMPC</a>
+</td>
+
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/pro5.htm#FT04K01BB" TARGET="w1">JMPZ</a>
+</td>
+
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/pro5.htm#FT04K01BC" TARGET="w1">MOVJ</a>
+</td>
+
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/pro5.htm#FT04K01BD" TARGET="w1">CALL</a>
+</td>
+</tr>
+
+<tr>
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/pro5.htm#FT04K01BE" TARGET="w1">PUSH</a>
+</td>
+
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/pro5.htm#FT04K01BF" TARGET="w1">POP</a>
+</td>
+
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/pro5.htm#FT04K01BG" TARGET="w1">INC</a>
+</td>
+
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/pro5.htm#FT04K01BH" TARGET="w1">DEC</a>
+</td>
+
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/pro5.htm#FT04K01BJ" TARGET="w1">MOVI</a>
+</td>
+</tr>
+
+<tr>
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/pro5.htm#FT04K01BK" TARGET="w1">MOVMR</a>
+</td>
+
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/pro5.htm#FT04K01BL" TARGET="w1">MOVRM</a>
+</td>
+
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/pro5.htm#FT04K01BM" TARGET="w1">MOVPR</a>
+</td>
+
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/pro5.htm#FT04K01BN" TARGET="w1">MOVRP</a>
+</td>
+
+</tr>
+
+</table>
+
+<br>
+<br>
+
+<!-- --------------------------------------------------------------- -->
+<!--                                                                 -->
+<!-- --------------------------------------------------------------- -->
+<a NAME="FT04K02A"></a>
+<table BGCOLOR="#C0C0C0" WIDTH="700">
+<tr>
+<td ALIGN="center">
+<a HREF="LHDLman/pro5.htm#FT04K02B" TARGET="w1">レジスタ選択</a>
+</td>
+</tr>
+</table>
+
+<br>
+命令実行によって変更されるレジスタを選択します。<br>
+<br>
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+<!--                                                                 -->
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+<table BGCOLOR="#7A96DF" WIDTH="500">
+<tr>
+<td ALIGN="center">
+<a HREF="LHDLman/pro5.htm#FT04K02C" TARGET="w1"><font COLOR="white">早期に選択</font></a>
+</td>
+</tr>
+</table>
+
+<br>
+1番目の符を読み出した次のクロックでレジスタを操作する場合です。<br>
+<br>
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+<!--                                                                 -->
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+<table>
+<tr>
+<td ALIGN="center">
+<a HREF="LHDLman/pro5.htm#FT04K02D" TARGET="w1">● 算術論理演算</a>
+</td>
+</tr>
+</table>
+
+<br>
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+<!--                                                                 -->
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+<table>
+<tr>
+<td ALIGN="center">
+<a HREF="LHDLman/pro5.htm#FT04K02E" TARGET="w1">● レジスタ転送</a>
+</td>
+</tr>
+</table>
+
+<br>
+
+<table>
+<tr>
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/pro5.htm#FT04K02F" TARGET="w1">MOVR</a>
+</td>
+
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/pro5.htm#FT04K02G" TARGET="w1">MOVRX</a>
+</td>
+
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/pro5.htm#FT04K02H" TARGET="w1">MOVRY</a>
+</td>
+
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/pro5.htm#FT04K02J" TARGET="w1">MOVXR</a>
+</td>
+
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/pro5.htm#FT04K02K" TARGET="w1">MOVYR</a>
+</td>
+</tr>
+</table>
+
+<br>
+<br>
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+<!--                                                                 -->
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+<table BGCOLOR="#7A96DF" WIDTH="500">
+<tr>
+<td ALIGN="center">
+<a HREF="LHDLman/pro5.htm#FT04K02T" TARGET="w1"><font COLOR="white">通常の選択</font></a>
+</td>
+</tr>
+</table>
+
+<br>
+1番目の符を読み出してからメモリやポートを読み出
+して、その次にレジスタ操作がある場合です。<br>
+<br>
+
+<table>
+<tr>
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/pro5.htm#FT04K02L" TARGET="w1">MOVI</a>
+</td>
+
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/pro5.htm#FT04K02M" TARGET="w1">MOVMR</a>
+</td>
+
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/pro5.htm#FT04K02N" TARGET="w1">MOVPR</a>
+</td>
+
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/pro5.htm#FT04K02P" TARGET="w1">MOVJ</a>
+</td>
+
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/pro5.htm#FT04K02Q" TARGET="w1">POP</a>
+</td>
+</tr>
+
+<tr>
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/pro5.htm#FT04K02R" TARGET="w1">INC</a>
+</td>
+
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/pro5.htm#FT04K02S" TARGET="w1">DEC</a>
+</td>
+</tr>
+</table>
+
+<br>
+INC と DEC では 2 番目の符でレジスタを選択します。<br>
+<br>
+
+<!-- --------------------------------------------------------------- -->
+<!--                                                                 -->
+<!-- --------------------------------------------------------------- -->
+<a NAME="FT04K02U"></a>
+<table BGCOLOR="#C0C0C0" WIDTH="700">
+<tr>
+<td ALIGN="center">
+レジスタ設定
+</td>
+</tr>
+</table>
+
+<br>
+<table WIDTH="500"><tr><td>
+汎用レジスタ、番地レジスタ、分岐レジスタへの書き
+込み操作です。
+</td></tr></table>
+<br>
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+<!--                                                                 -->
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+<table BGCOLOR="#008080" WIDTH="500">
+<tr>
+<td ALIGN="center">
+<a HREF="LHDLman/pro5.htm#FT04K02V" TARGET="w1"><font COLOR="white">R0</font></a>
+</td>
+</tr>
+</table>
+
+<br>
+<table WIDTH="500"><tr><td>
+汎用レジスタ R0 の書き込み操作です。
+</td></tr></table>
+<br>
+
+<table>
+<tr>
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/pro5.htm#FT04K02W" TARGET="w1">MOVR</a>
+</td>
+
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/pro5.htm#FT04K02X" TARGET="w1">MOVPR</a>
+</td>
+
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/pro5.htm#FT04K02Y" TARGET="w1">MOVI</a>
+</td>
+
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/pro5.htm#FT04K02Z" TARGET="w1">MOVMR</a>
+</td>
+
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/pro5.htm#FT04K02AA" TARGET="w1">MOVPR</a>
+</td>
+</tr>
+
+<tr>
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/pro5.htm#FT04K02AB" TARGET="w1">POP</a>
+</td>
+
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/pro5.htm#FT04K02AC" TARGET="w1">INC</a>
+</td>
+
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/pro5.htm#FT04K02AD" TARGET="w1">DEC</a>
+</td>
+
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/pro5.htm#FT04K02AE" TARGET="w1">MOVXR</a>
+</td>
+
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/pro5.htm#FT04K02AF" TARGET="w1">MOVYR</a>
+</td>
+</tr>
+
+<tr>
+</table>
+
+<br>
+<a HREF="LHDLman/pro5.htm#FT04K02AW" TARGET="w1">● 算術論理演算</a>
+<br>
+<a HREF="LHDLman/pro5.htm#FT04K02AG" TARGET="w1">● RP0 の R0 部分に書き込む場合。</a>
+<br>
+<br>
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+<!--                                                                 -->
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+<table BGCOLOR="#008080" WIDTH="500">
+<tr>
+<td ALIGN="center">
+<a HREF="LHDLman/pro5.htm#FT04K02AU" TARGET="w1"><font COLOR="white">R1</font></a>
+</td>
+</tr>
+</table>
+
+<br>
+<table WIDTH="500"><tr><td>
+汎用レジスタ R1 の書き込み操作です。
+</td></tr></table>
+<br>
+
+<table>
+<tr>
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/pro5.htm#FT04K02AH" TARGET="w1">MOVR</a>
+</td>
+
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/pro5.htm#FT04K02AJ" TARGET="w1">MOVPR</a>
+</td>
+
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/pro5.htm#FT04K02AK" TARGET="w1">MOVI</a>
+</td>
+
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/pro5.htm#FT04K02AL" TARGET="w1">MOVMR</a>
+</td>
+
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/pro5.htm#FT04K02AM" TARGET="w1">MOVPR</a>
+</td>
+</tr>
+
+<tr>
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/pro5.htm#FT04K02AN" TARGET="w1">POP</a>
+</td>
+
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/pro5.htm#FT04K02AP" TARGET="w1">INC</a>
+</td>
+
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/pro5.htm#FT04K02AQ" TARGET="w1">DEC</a>
+</td>
+
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/pro5.htm#FT04K02AR" TARGET="w1">MOVXR</a>
+</td>
+
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/pro5.htm#FT04K02AS" TARGET="w1">MOVYR</a>
+</td>
+</tr>
+
+<tr>
+</table>
+
+<br>
+<a HREF="LHDLman/pro5.htm#FT04K02AV" TARGET="w1">● 算術論理演算</a>
+<br>
+<a HREF="LHDLman/pro5.htm#FT04K02AT" TARGET="w1">● RP0 の R1 部分に書き込む場合。</a>
+<br>
+<br>
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+<!--                                                                 -->
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+<table BGCOLOR="#008080" WIDTH="500">
+<tr>
+<td ALIGN="center">
+<a HREF="LHDLman/pro5.htm#FT04K02AX" TARGET="w1"><font COLOR="white">R2</font></a>
+</td>
+</tr>
+</table>
+
+<br>
+<table WIDTH="500"><tr><td>
+汎用レジスタ R2 の書き込み操作です。
+</td></tr></table>
+<br>
+
+<table>
+<tr>
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/pro5.htm#FT04K02AY" TARGET="w1">MOVR</a>
+</td>
+
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/pro5.htm#FT04K02AZ" TARGET="w1">MOVPR</a>
+</td>
+
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/pro5.htm#FT04K02BA" TARGET="w1">MOVI</a>
+</td>
+
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/pro5.htm#FT04K02BB" TARGET="w1">MOVMR</a>
+</td>
+
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/pro5.htm#FT04K02BC" TARGET="w1">MOVPR</a>
+</td>
+</tr>
+
+<tr>
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/pro5.htm#FT04K02BD" TARGET="w1">POP</a>
+</td>
+
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/pro5.htm#FT04K02BE" TARGET="w1">INC</a>
+</td>
+
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/pro5.htm#FT04K02BF" TARGET="w1">DEC</a>
+</td>
+
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/pro5.htm#FT04K02BG" TARGET="w1">MOVXR</a>
+</td>
+
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/pro5.htm#FT04K02BH" TARGET="w1">MOVYR</a>
+</td>
+</tr>
+
+<tr>
+</table>
+
+<br>
+<a HREF="LHDLman/pro5.htm#FT04K02BJ" TARGET="w1">● 算術論理演算</a>
+<br>
+<a HREF="LHDLman/pro5.htm#FT04K02BK" TARGET="w1">● RP1 の R2 部分に書き込む場合。</a>
+<br>
+<br>
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+<!--                                                                 -->
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+<table BGCOLOR="#008080" WIDTH="500">
+<tr>
+<td ALIGN="center">
+<a HREF="LHDLman/pro5.htm#FT04K02BL" TARGET="w1"><font COLOR="white">R3</font></a>
+</td>
+</tr>
+</table>
+
+<br>
+<table WIDTH="500"><tr><td>
+汎用レジスタ R3 の書き込み操作です。
+</td></tr></table>
+<br>
+
+<table>
+<tr>
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/pro5.htm#FT04K02BM" TARGET="w1">MOVR</a>
+</td>
+
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/pro5.htm#FT04K02BN" TARGET="w1">MOVPR</a>
+</td>
+
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/pro5.htm#FT04K02BP" TARGET="w1">MOVI</a>
+</td>
+
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/pro5.htm#FT04K02BQ" TARGET="w1">MOVMR</a>
+</td>
+
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/pro5.htm#FT04K02BR" TARGET="w1">MOVPR</a>
+</td>
+</tr>
+
+<tr>
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/pro5.htm#FT04K02BS" TARGET="w1">POP</a>
+</td>
+
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/pro5.htm#FT04K02BT" TARGET="w1">INC</a>
+</td>
+
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/pro5.htm#FT04K02BU" TARGET="w1">DEC</a>
+</td>
+
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/pro5.htm#FT04K02BV" TARGET="w1">MOVXR</a>
+</td>
+
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/pro5.htm#FT04K02BW" TARGET="w1">MOVYR</a>
+</td>
+</tr>
+
+<tr>
+</table>
+
+<br>
+<a HREF="LHDLman/pro5.htm#FT04K02BY" TARGET="w1">● 算術論理演算</a>
+<br>
+<a HREF="LHDLman/pro5.htm#FT04K02BX" TARGET="w1">● RP1 の R3 部分に書き込む場合。</a>
+<br>
+<br>
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+<!--                                                                 -->
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+<table BGCOLOR="#008080" WIDTH="500">
+<tr>
+<td ALIGN="center">
+<a HREF="LHDLman/pro5.htm#FT04K02BZ" TARGET="w1"><font COLOR="white">RP0</font></a>
+</td>
+</tr>
+</table>
+
+<br>
+<table WIDTH="500"><tr><td>
+汎用レジスタ 連結の RP0 の書き込み操作です。
+</td></tr></table>
+<br>
+
+<table>
+<tr>
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/pro5.htm#FT04K02CA" TARGET="w1">POP</a>
+</td>
+
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/pro5.htm#FT04K02CB" TARGET="w1">INC</a>
+</td>
+
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/pro5.htm#FT04K02CC" TARGET="w1">DEC</a>
+</td>
+
+</tr>
+</table>
+
+<br>
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+<!--                                                                 -->
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+<table BGCOLOR="#008080" WIDTH="500">
+<tr>
+<td ALIGN="center">
+<a HREF="LHDLman/pro5.htm#FT04K02CD" TARGET="w1"><font COLOR="white">RP1</font></a>
+</td>
+</tr>
+</table>
+
+<br>
+<table WIDTH="500"><tr><td>
+汎用レジスタ 連結の RP1 の書き込み操作です。
+</td></tr></table>
+<br>
+
+<table>
+<tr>
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/pro5.htm#FT04K02CE" TARGET="w1">POP</a>
+</td>
+
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/pro5.htm#FT04K02CF" TARGET="w1">INC</a>
+</td>
+
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/pro5.htm#FT04K02CG" TARGET="w1">DEC</a>
+</td>
+
+</tr>
+</table>
+
+<br>
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+<!--                                                                 -->
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+<table BGCOLOR="#008080" WIDTH="500">
+<tr>
+<td ALIGN="center">
+<a HREF="LHDLman/pro5.htm#FT04K02CH" TARGET="w1"><font COLOR="white">IX</font></a>
+</td>
+</tr>
+</table>
+
+<br>
+<table WIDTH="500"><tr><td>
+番地レジスタ IX の書き込み操作です。
+</td></tr></table>
+<br>
+
+<table>
+<tr>
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/pro5.htm#FT04K02CJ" TARGET="w1">MOVRX</a>
+</td>
+
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/pro5.htm#FT04K02CK" TARGET="w1">POP</a>
+</td>
+
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/pro5.htm#FT04K02CL" TARGET="w1">INC</a>
+</td>
+
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/pro5.htm#FT04K02CM" TARGET="w1">DEC</a>
+</td>
+
+</tr>
+</table>
+
+<br>
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+<!--                                                                 -->
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+<table BGCOLOR="#008080" WIDTH="500">
+<tr>
+<td ALIGN="center">
+<a HREF="LHDLman/pro5.htm#FT04K02CN" TARGET="w1"><font COLOR="white">IY</font></a>
+</td>
+</tr>
+</table>
+
+<br>
+<table WIDTH="500"><tr><td>
+番地レジスタ IY の書き込み操作です。
+</td></tr></table>
+<br>
+
+<table>
+<tr>
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/pro5.htm#FT04K02CP" TARGET="w1">MOVRX</a>
+</td>
+
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/pro5.htm#FT04K02CQ" TARGET="w1">POP</a>
+</td>
+
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/pro5.htm#FT04K02CR" TARGET="w1">INC</a>
+</td>
+
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/pro5.htm#FT04K02CS" TARGET="w1">DEC</a>
+</td>
+
+</tr>
+</table>
+
+<br>
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+<!--                                                                 -->
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+<table BGCOLOR="#008080" WIDTH="500">
+<tr>
+<td ALIGN="center">
+<a HREF="LHDLman/pro5.htm#FT04K02CT" TARGET="w1"><font COLOR="white">JR</font></a>
+</td>
+</tr>
+</table>
+
+<br>
+<table WIDTH="500"><tr><td>
+分岐レジスタ JR の書き込み操作です。
+</td></tr></table>
+<br>
+
+<table>
+<tr>
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/pro5.htm#FT04K02CU" TARGET="w1">MOVJ</a>
+</td>
+
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/pro5.htm#FT04K02CV" TARGET="w1">POP</a>
+</td>
+
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/pro5.htm#FT04K02CW" TARGET="w1">INC</a>
+</td>
+
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/pro5.htm#FT04K02CX" TARGET="w1">DEC</a>
+</td>
+
+</tr>
+</table>
+
+<br>
+<br>
+
+<!-- --------------------------------------------------------------- -->
+<!--                                                                 -->
+<!-- --------------------------------------------------------------- -->
+<a NAME="FT04K02CY"></a>
+<table BGCOLOR="#C0C0C0" WIDTH="700">
+<tr>
+<td ALIGN="center">
+<a HREF="LHDLman/pro5.htm#FT04K02CZ" TARGET="w1">番地</a>
+</td>
+</tr>
+</table>
+
+<br>
+<table WIDTH="500"><tr><td>
+番地端子に出力するデータとスタックとポートの書
+き込みの番地を選択します。
+</td></tr></table>
+<br>
+
+<table>
+<tr>
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/pro5.htm#FT04K02DA" TARGET="w1">MOVI</a>
+</td>
+
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/pro5.htm#FT04K02DB" TARGET="w1">MOVMR</a>
+</td>
+
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/pro5.htm#FT04K02DC" TARGET="w1">MOVRM</a>
+</td>
+
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/pro5.htm#FT04K02DD" TARGET="w1">MOVPR</a>
+</td>
+
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/pro5.htm#FT04K02DE" TARGET="w1">MOVRP</a>
+</td>
+</tr>
+
+<tr>
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/pro5.htm#FT04K02DF" TARGET="w1">CALL</a>
+</td>
+
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/pro5.htm#FT04K02DG" TARGET="w1">JMP</a>
+</td>
+
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/pro5.htm#FT04K02DH" TARGET="w1">JMPC</a>
+</td>
+
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/pro5.htm#FT04K02DJ" TARGET="w1">JMPZ</a>
+</td>
+
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/pro5.htm#FT04K02DK" TARGET="w1">MOVJ</a>
+</td>
+</tr>
+
+<tr>
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/pro5.htm#FT04K02DL" TARGET="w1">PUSH</a>
+</td>
+
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/pro5.htm#FT04K02DM" TARGET="w1">POP</a>
+</td>
+
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/pro5.htm#FT04K02DN" TARGET="w1">INC</a>
+</td>
+
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/pro5.htm#FT04K02DP" TARGET="w1">DEC</a>
+</td>
+
+</tr>
+
+</table>
+
+<br>
+<br>
+
+<!-- --------------------------------------------------------------- -->
+<!--                                                                 -->
+<!-- --------------------------------------------------------------- -->
+<a NAME="FT04K02DQ"></a>
+<table BGCOLOR="#C0C0C0" WIDTH="700">
+<tr>
+<td ALIGN="center">
+<a HREF="LHDLman/pro5.htm#FT04K02DR" TARGET="w1">出力データ</a>
+</td>
+</tr>
+</table>
+
+<br>
+<table WIDTH="500"><tr><td>
+データ端子に出力するデータとスタックとポートの書
+き込みのデータを選択します。
+</td></tr></table>
+<br>
+
+<table>
+<tr>
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/pro5.htm#FT04K02DS" TARGET="w1">MOVRM</a>
+</td>
+
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/pro5.htm#FT04K02DT" TARGET="w1">MOVRP</a>
+</td>
+
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/pro5.htm#FT04K02DU" TARGET="w1">CALL</a>
+</td>
+
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/pro5.htm#FT04K02DV" TARGET="w1">PUSH</a>
+</td>
+
+</tr>
+</table>
+
+<br>
+<a HREF="LHDLman/pro5.htm#FT04K03D" TARGET="w1">● 命令ポインタ一時記憶</a><br>
+
+<br>
+
+<!-- --------------------------------------------------------------- -->
+<!--                                                                 -->
+<!-- --------------------------------------------------------------- -->
+<a NAME="FT04K02DS"></a>
+<table BGCOLOR="#C0C0C0" WIDTH="700">
+<tr>
+<td ALIGN="center">
+<a HREF="LHDLman/pro5.htm#FT04K02DT" TARGET="w1">スタック操作</a>
+</td>
+</tr>
+</table>
+
+<br>
+<table WIDTH="500"><tr><td>
+下記の2個の命令符でスタックの操作を行います。
+</td></tr></table>
+<br>
+
+<table>
+<tr>
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/pro5.htm#FT04K02DU" TARGET="w1">CALL</a>
+</td>
+
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/pro5.htm#FT04K02DV" TARGET="w1">RET</a>
+</td>
+
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/pro5.htm#FT04K02DW" TARGET="w1">PUSH</a>
+</td>
+
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/pro5.htm#FT04K02DX" TARGET="w1">POP</a>
+</td>
+
+</tr>
+</table>
+
+<br>
+
+<!-- --------------------------------------------------------------- -->
+<!--                                                                 -->
+<!-- --------------------------------------------------------------- -->
+<a NAME="FT04K02DY"></a>
+<table BGCOLOR="#C0C0C0" WIDTH="700">
+<tr>
+<td ALIGN="center">
+<a HREF="LHDLman/pro5.htm#FT04K02DZ" TARGET="w1">メモリ操作</a>
+</td>
+</tr>
+</table>
+
+<br>
+<table WIDTH="500"><tr><td>
+下記の2個の命令符でデータメモリの操作を行います
+。
+</td></tr></table>
+<br>
+
+<table>
+<tr>
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/pro5.htm#FT04K02EA" TARGET="w1">MOVMR</a>
+</td>
+
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/pro5.htm#FT04K02EB" TARGET="w1">MOVRM</a>
+</td>
+
+</tr>
+</table>
+
+<br>
+
+<!-- --------------------------------------------------------------- -->
+<!--                                                                 -->
+<!-- --------------------------------------------------------------- -->
+<a NAME="FT04K02EC"></a>
+<table BGCOLOR="#C0C0C0" WIDTH="700">
+<tr>
+<td ALIGN="center">
+<a HREF="LHDLman/pro5.htm#FT04K02ED" TARGET="w1">ポート操作</a>
+</td>
+</tr>
+</table>
+
+<br>
+<table WIDTH="500"><tr><td>
+下記の2個の命令符でポートの操作を行います。
+</td></tr></table>
+<br>
+
+<table>
+<tr>
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/pro5.htm#FT04K02EE" TARGET="w1">MOVPR</a>
+</td>
+
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/pro5.htm#FT04K02EF" TARGET="w1">MOVRP</a>
+</td>
+
+</tr>
+</table>
+
+<br>
+
+<!-- --------------------------------------------------------------- -->
+<!--                                                                 -->
+<!-- --------------------------------------------------------------- -->
+<a NAME="FT04K02EG"></a>
+<table BGCOLOR="#C0C0C0" WIDTH="700">
+<tr>
+<td ALIGN="center">
+<a HREF="LHDLman/pro5.htm#FT04K02EH" TARGET="w1">算術論理演算</a>
+</td>
+</tr>
+</table>
+
+<br>
+<table WIDTH="500"><tr><td>
+演算の選択、対象レジスタの選択、演算指標、零指標
+の操作を行います。
+</td></tr></table>
+<br>
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+<!--                                                                 -->
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+<table BGCOLOR="#7A96DF" WIDTH="500">
+<tr>
+<td ALIGN="center">
+<a HREF="LHDLman/pro5.htm#FT04K02EJ" TARGET="w1"><font COLOR="white">第一引数と代入先</font></a>
+</td>
+</tr>
+</table>
+
+<br>
+<table WIDTH="500"><tr><td>
+算術論理演算の1番目の対象の汎用レジスタを選択し
+ます。
+</td></tr></table>
+<br>
+
+<ul>
+<li> <a HREF="LHDLman/pro5.htm#FT04K02EP" TARGET="w1">R0</a>
+<li> <a HREF="LHDLman/pro5.htm#FT04K02EQ" TARGET="w1">R1</a>
+<li> <a HREF="LHDLman/pro5.htm#FT04K02ER" TARGET="w1">R2</a>
+<li> <a HREF="LHDLman/pro5.htm#FT04K02ES" TARGET="w1">R3</a>
+</ul>
+
+<br>
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+<!--                                                                 -->
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+<table BGCOLOR="#7A96DF" WIDTH="500">
+<tr>
+<td ALIGN="center">
+<a HREF="LHDLman/pro5.htm#FT04K02EK" TARGET="w1"><font COLOR="white">第二引数</font></a>
+</td>
+</tr>
+</table>
+
+<br>
+<table WIDTH="500"><tr><td>
+算術論理演算の2番目の対象の汎用レジスタを選択し
+ます。
+</td></tr></table>
+<br>
+
+<ul>
+<li> <a HREF="LHDLman/pro5.htm#FT04K02ET" TARGET="w1">R0</a>
+<li> <a HREF="LHDLman/pro5.htm#FT04K02EU" TARGET="w1">R1</a>
+<li> <a HREF="LHDLman/pro5.htm#FT04K02EV" TARGET="w1">R2</a>
+<li> <a HREF="LHDLman/pro5.htm#FT04K02EW" TARGET="w1">R3</a>
+</ul>
+
+<br>
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+<!--                                                                 -->
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+<table BGCOLOR="#7A96DF" WIDTH="500">
+<tr>
+<td ALIGN="center">
+<a HREF="LHDLman/pro5.htm#FT04K02EL" TARGET="w1"><font COLOR="white">演算</font></a>
+</td>
+</tr>
+</table>
+
+<br>
+<table WIDTH="500"><tr><td>
+演算は算術演算が2種類、論理演算が4種類、桁移動が
+2種類の計8種類の演算があります。
+</td></tr></table>
+<br>
+
+<table><tr><td>
+<ul>
+<li> <a HREF="LHDLman/pro5.htm#FT04K02EX" TARGET="w1">加算</a>
+<li> <a HREF="LHDLman/pro5.htm#FT04K02EY" TARGET="w1">減算</a>
+<li> <a HREF="LHDLman/pro5.htm#FT04K02EZ" TARGET="w1">論理積</a>
+<li> <a HREF="LHDLman/pro5.htm#FT04K02FA" TARGET="w1">論理和</a>
+<li> <a HREF="LHDLman/pro5.htm#FT04K02FB" TARGET="w1">排他的論理和</a>
+<li> <a HREF="LHDLman/pro5.htm#FT04K02FC" TARGET="w1">論理否定</a>
+<li> <a HREF="LHDLman/pro5.htm#FT04K02FD" TARGET="w1">上位桁移動</a>
+<li> <a HREF="LHDLman/pro5.htm#FT04K02FE" TARGET="w1">下位桁移動</a>
+</ul>
+</tr></td></table>
+
+<br>
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+<!--                                                                 -->
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+<table BGCOLOR="#7A96DF" WIDTH="500">
+<tr>
+<td ALIGN="center">
+<a HREF="LHDLman/pro5.htm#FT04K02EM" TARGET="w1"><font COLOR="white">演算指標</font></a>
+</td>
+</tr>
+</table>
+
+<br>
+<table WIDTH="500"><tr><td>
+演算指標は算術論理演算の実行結果です、状態レジスタ
+の第7桁に配置しています。
+</td></tr></table>
+<br>
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+<!--                                                                 -->
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+<table BGCOLOR="#7A96DF" WIDTH="500">
+<tr>
+<td ALIGN="center">
+<a HREF="LHDLman/pro5.htm#FT04K02EN" TARGET="w1"><font COLOR="white">零指標</font></a>
+</td>
+</tr>
+</table>
+
+<br>
+<table WIDTH="500"><tr><td>
+零指標は算術論理演算の実行結果です、状態レジスタ
+の第6桁に配置しています。
+</td></tr></table>
+<br>
+
+<!-- --------------------------------------------------------------- -->
+<!--                                                                 -->
+<!-- --------------------------------------------------------------- -->
+<a NAME="FT04K02FF"></a>
+<table BGCOLOR="#C0C0C0" WIDTH="700">
+<tr>
+<td ALIGN="center">
+<a HREF="LHDLman/pro5.htm#FT04K02FG" TARGET="w1">メモリ制御</a>
+</td>
+</tr>
+</table>
+
+<br>
+<table WIDTH="700"><tr><td>
+メモリ空間はスタックと命令符とデータの3種類の領
+域を共用して使っています。<br>
+
+<ul>
+<li> ip 命令符領域
+<li> sp スタック領域
+<li> ix,iy データ領域
+</ul>
+</td></tr></table>
+<br>
+
+<!-- --------------------------------------------------------------- -->
+<!--                                                                 -->
+<!-- --------------------------------------------------------------- -->
+<a NAME="FT04K02FH"></a>
+<table BGCOLOR="#C0C0C0" WIDTH="700">
+<tr>
+<td ALIGN="center">
+<a HREF="LHDLman/pro5.htm#FT04K02FJ" TARGET="w1">ポート制御</a>
+</td>
+</tr>
+</table>
+
+<br>
+<table WIDTH="700"><tr><td>
+ポートはメモリと別の空間に配置されていますが番地
+とデータの端子を共有しています。
+書き込みと読み出しをポート固有の端子にすることで
+別の空間を操作します。
+</td></tr></table>
+<br>
+
+<br>
+
+<!-- --------------------------------------------------------------- -->
+<!--                                                                 -->
+<!-- --------------------------------------------------------------- -->
+<a NAME="FT04K02FK"></a>
+<table BGCOLOR="#C0C0C0" WIDTH="700">
+<tr>
+<td ALIGN="center">
+<a HREF="LHDLman/pro5.htm#FT04K02FL" TARGET="w1">割り込み制御</a>
+</td>
+</tr>
+</table>
+
+<br>
+<table WIDTH="700"><tr><td>
+割り込み制御は割り込みの有効と無効を制御します。
+有効と無効は状態レジスタの第3桁の指標でPUSH命令
+とPOP命令の対象になっています。
+</td></tr></table>
+<br>
+
+<table>
+<tr>
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/pro5.htm#FT04K03A" TARGET="w1">EI</a>
+</td>
+
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/pro5.htm#FT04K03B" TARGET="w1">DI</a>
+</td>
+
+<td  ALIGN="center" WIDTH="123" HEIGHT="30" BACKGROUND="LHDLman/pop4_pink.gif">
+<a HREF="LHDLman/pro5.htm#FT04K03C" TARGET="w1">POP</a>
+</td>
+
+</tr>
+</table>
+
+<br>
+<br>
+<table WIDTH="500"><tr><td>
+割り込み要求端子は8個あります。
+<br>
+<br>
+<A HREF="LHDLman/pro5.htm#FT04K13A" TARGET="w1">INT0</A>,
+<A HREF="LHDLman/pro5.htm#FT04K13B" TARGET="w1">INT1</A>,
+<A HREF="LHDLman/pro5.htm#FT04K13C" TARGET="w1">INT2</A>,
+<A HREF="LHDLman/pro5.htm#FT04K13D" TARGET="w1">INT3</A>,
+<A HREF="LHDLman/pro5.htm#FT04K13E" TARGET="w1">INT4</A>,
+<A HREF="LHDLman/pro5.htm#FT04K13F" TARGET="w1">INT5</A>,
+<A HREF="LHDLman/pro5.htm#FT04K13G" TARGET="w1">INT6</A>,
+<A HREF="LHDLman/pro5.htm#FT04K13H" TARGET="w1">INT7</A>
+<br>
+<br>
+INT0 から INT6 は割り込みの有効・無効を設定できます。
+INT7 は無効にできない割り込みです。<br>
+<br>
+割り込み要求は割り込みプログラムを呼び出すまで
+<a HREF="LHDLman/pro5.htm#FT04K13J" TARGET="w1">記憶</a>
+されます。<br>
+<br>
+割り込みプログラムを呼び出すまでのプロセッサの動
+作はスタックに現在の命令ポインタと指標を書き込む
+ことです。
+<a HREF="LHDLman/pro5.htm#FT04K13K" TARGET="w1">割り込み行程</a>
+と言います。<br>
+<br>
+割り込み行程は実行中の命令行程を避けて入るように
+なっています。<br>
+<br>
+割り込み行程直後に呼び出されたプログラムは LDIR
+ で割り込み端子を見て、どの割り込み要求に応じる
+かを決めます。<br>
+<br>
+割り込み行程直後に呼び出されたプログラムは RETI
+で戻ります。
+</tr></td></table>
+
+<br>
+<br>
+
+<!-- --------------------------------------------------------------- -->
+<!--                                                                 -->
+<!-- --------------------------------------------------------------- -->
+<a NAME="FT04K08B"></a>
+<table BGCOLOR="#C0C0C0" WIDTH="700">
+<tr>
+<td ALIGN="center">
+プログラム環境
+</td>
+</tr>
+</table>
+
+<br>
+
+<table WIDTH="700"><tr><td>
+当プロセッサのプログラムはアセンブリ言語で作りま
+す。
+アセンブリ言語から命令符への変換は
+<A HREF="http://www9.plala.or.jp/sagae_/index.html" TARGET="_blank">Electric House</A>
+さんのAASM用の
+<A HREF="LHDLman/cpu8a.mac">当プロセッサのマクロ</A>
+を作って行います。<br>
+<br>
+論理譜の中にプログラムを組み込むときはアセンブラ
+でインテルHEXファイルを作ってから、論理譜に<br>
+<br>
+<a HREF="LHDLman/pro5.htm#FT04K08A" TARGET="w1"><例></a>
+のような一文を記入します。
+これでプログラムの実行結果を機能実行として確認で
+きます。<br>
+<br>
+
+</td></tr></table>
+
+
+
+<!-- --------------------------------------------------------------- -->
+<!--                                                                 -->
+<!-- --------------------------------------------------------------- -->
+
+<br>
+<hr WIDTH="500">
+<br>
+<br>
+<a HREF="LHDLMANf00.htm">先頭</a>
+<br><br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+</center>
+
+</td></tr></table>
+
+<!-- ======================================== -->
+
+		</td>
+
+		<td  background="TOP03A.jpg">6</td>
+	</tr>
+	<tr bgcolor="#2E6C0B">
+		<td height="40"><font color="#2E6C0B">B0</font></td>
+		<td colspan="8" align="center"><font color="yellow">2016.2.7</font></td>
+		<td align="center"><font color="white">LDLABO</font></td>
+	</tr>
+</table>
+
+</body>
+</html>

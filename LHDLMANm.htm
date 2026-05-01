@@ -1,0 +1,358 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="ja">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+    <LINK Type="text/css" Rel="stylesheet" Href="main.css">
+	<title></title>
+</head>
+<body>
+
+
+<!-- ======================================== -->
+
+<table bgcolor="white" cellpadding="20" align="center"><tr><td>
+
+<a name="atama">&nbsp</a>
+
+<table align="center" border="0" bgcolor="#DEDD80" width="100%">
+
+<!-- ************************************************************************************* -->
+<tr bgcolor="#FFF5E3" >
+<td colspan="2">
+<br>
+
+<center>
+<font color="#bb7700" size="7">文法</font>
+</center>
+
+<br>
+</td>
+</tr>
+
+<!-- ************************************************************************************* -->
+<tr bgcolor="lightgreen" >
+<td colspan="2">
+
+<table border=0>
+<tr>
+<td><a href="index1g.htm"><img src="LHDLman/hyousi.jpg" border="0" alt="hyousi.jpg(2670 byte)" width="99" height="42"></a></td>
+<td><a href="LHDLMAN.htm"><img src="LHDLman/L.jpg" border="0" alt="L.jpg(2692 byte)" width="99" height="42"></a></td>
+<td><a href="LHDLMANk.htm"><img src="LHDLman/kihonwaku.jpg" border="0" alt="kihonwaku.jpg(2765 byte)" width="99" height="42"></a></td>
+<td><img src="LHDLman/singou_m.jpg" border="0" alt="singou_m.jpg(2865 byte)" width="99" height="42"></a></td>
+<td><a href="LHDLMANn.htm"><img src="LHDLman/jyousuu.jpg" border="0" alt="jyousuu.jpg(2586 byte)" width="99" height="42"></a></td>
+<td><a href="LHDLMANp.htm"><img src="LHDLman/enzannsitokigou.jpg" border="0" alt="enzannsitokigou.jpg(3088 byte)" width="99" height="42"></a></td>
+<td><a href="LHDLMANq.htm"><img src="LHDLman/jyoukenbun.jpg" border="0" alt="jyoukenbun.jpg(2754 byte)" width="99" height="42"></a></td>
+<td><a href="LHDLMANr.htm"><img src="LHDLman/tetsuduki.jpg" border="0" alt="tetsuduki.jpg(2732 byte)" width="99" height="42"></a></td>
+<td><a href="LHDLMANs.htm"><img src="LHDLman/inyou.jpg" border="0" alt="inyou.jpg(2526 byte)" width="99" height="42"></a></td>
+</tr>
+</table>
+
+</td>
+</tr>
+
+<!-- ************************************************************************************* -->
+
+
+<tr bgcolor="#FFF5E3" >
+<td width="160" valign="top">
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<font color="gray"><b>目次</b></font>
+<br><br>
+&nbsp<font color="green">●</font><a href="#singou">信号</a><br>
+&nbsp<font color="green">◎</font><a href="#zokusei">属性</a><br>
+&nbsp<font color="green">○</font><a href="#inputbun">input 文</a><br>
+&nbsp<font color="green">○</font><a href="#outputbun">output 文</a><br>
+&nbsp<font color="green">○</font><a href="#inoutbun">inout 文</a><br>
+&nbsp<font color="green">○</font><a href="#bitnbun">bitn 文</a><br>
+&nbsp<font color="green">○</font><a href="#bitrbun">bitr 文</a><br>
+&nbsp<font color="green">◎</font><a href="#singousuu">信号数</a><br>
+&nbsp<font color="green">◎</font><a href="#taketasingounosansyou">多桁信号の参照</a><br>
+&nbsp<font color="green">◎</font><a href="#souhoukousingou">双方向信号</a><br>
+<hr width="80" color="#FFF5E3" > 
+</td>
+
+<!-- ************************************************************************************* -->
+
+<td>
+
+<!-- ================================================================= -->
+<!--                                                                   -->
+<!-- ================================================================= -->
+<a name="singou">&nbsp</a>
+<br>
+<hr color="#003399" size="20" class="i">
+<font color="#003399" class="i">信号</font>
+<hr color="#003399" class="i">
+
+<p class="i">
+枠間のやり取りや端子に使う接続信号と内部信号の2
+種類あります。
+</p>
+
+<a href="#atama"><img src="LHDLman/modoru.jpg" border="0" alt="modoru.jpg(1480 byte)" width="42" height="23" class="i"></a>
+
+<!-- ================================================================= -->
+<!--                                                                   -->
+<!-- ================================================================= -->
+<a name="zokusei">&nbsp</a>
+<br>
+<hr color="#9999CC" size="20" class="i">
+<font color="blue" class="i">属性</font>
+<hr color="#9999CC" class="i">
+
+<p class="i">
+信号定義文は信号名に属性を割り当てます。
+</p>
+
+<a href="#atama"><img src="LHDLman/modoru.jpg" border="0" alt="modoru.jpg(1480 byte)" width="42" height="23" class="i"></a>
+
+<!-- ================================================================= -->
+<!--                                                                   -->
+<!-- ================================================================= -->
+<a name="inputbun">&nbsp</a>
+<br>
+<hr color="lightgreen" size="20" class="i">
+<font color="green" class="i">input 文</font>
+<hr color="lightgreen" class="i">
+
+<p class="i">
+input 文は枠の入力を表します、枠の先頭から置いて
+下さい。<br>
+
+機能実行譜は自己完結の論理なので外からの入力はで
+きませんから原則として input 文 は使いません。
+例外としてテストベンチに初期化を入れたいときに
+<font COLOR="red"><b>simres</b></font>
+と言う決められた名前の入力だけが有効です。
+</p>
+
+<a href="#atama"><img src="LHDLman/modoru.jpg" border="0" alt="modoru.jpg(1480 byte)" width="42" height="23" class="i"></a>
+
+<!-- ================================================================= -->
+<!--                                                                   -->
+<!-- ================================================================= -->
+<a name="outputbun">&nbsp</a>
+<br>
+<hr color="lightgreen" size="20" class="i">
+<font color="green" class="i">output 文</font>
+<hr color="lightgreen" class="i">
+
+<p class="i">
+output 文は枠の出力を表します、input 文があれば
+その次から置いて下さい。
+</p>
+
+<a href="#atama"><img src="LHDLman/modoru.jpg" border="0" alt="modoru.jpg(1480 byte)" width="42" height="23" class="i"></a>
+
+<!-- ================================================================= -->
+<!--                                                                   -->
+<!-- ================================================================= -->
+<a name="inoutbun">&nbsp</a>
+<br>
+<hr color="lightgreen" size="20" class="i">
+<font color="green" class="i">inout 文</font>
+<hr color="lightgreen" class="i">
+
+<p class="i">
+inout 文は手続き譜では使えません、実効譜でも他の
+実効譜から引用されることのない最上位にある実効譜
+で双方向の入出力端子を表します。
+enable 文と伴に使います。
+</p>
+
+<a href="#atama"><img src="LHDLman/modoru.jpg" border="0" alt="modoru.jpg(1480 byte)" width="42" height="23" class="i"></a>
+
+<!-- ================================================================= -->
+<!--                                                                   -->
+<!-- ================================================================= -->
+<a name="bitnbun">&nbsp</a>
+<br>
+<hr color="lightgreen" size="20" class="i">
+<font color="green" class="i">bitn 文</font>
+<hr color="lightgreen" class="i">
+
+<p class="i">
+bitn 文は枠内で使われる、非記憶の信号です。
+input/output 文の次に置いて下さい。
+</p>
+
+<a href="#atama"><img src="LHDLman/modoru.jpg" border="0" alt="modoru.jpg(1480 byte)" width="42" height="23" class="i"></a>
+
+<!-- ================================================================= -->
+<!--                                                                   -->
+<!-- ================================================================= -->
+<a name="bitrbun">&nbsp</a>
+<br>
+<hr color="lightgreen" size="20" class="i">
+<font color="green" class="i">bitr 文</font>
+<hr color="lightgreen" class="i">
+
+<p class="i">
+bitr 文は枠内で使われる、記憶の信号です。
+input/output 文の次に置いて下さい。
+</p>
+
+<a href="#atama"><img src="LHDLman/modoru.jpg" border="0" alt="modoru.jpg(1480 byte)" width="42" height="23" class="i"></a>
+
+<!-- ================================================================= -->
+<!--                                                                   -->
+<!-- ================================================================= -->
+<a name="singousuu">&nbsp</a>
+<br>
+<hr color="#9999CC" size="20" class="i">
+<font color="blue" class="i">信号数</font>
+<hr color="#9999CC" class="i">
+
+<p class="i">
+input 文で示しますが上に挙げた4種類に共通します。
+</p>
+
+<table bgcolor="white" border="1" class="i">
+<tr>
+<td>
+<pre>
+logicname sample
+
+entity main
+input  a;     {<font COLOR="red">一桁の場合</font>}
+input  b[4];  {<font COLOR="red">多桁の場合</font>}
+
+ende
+endlogic
+</pre>
+</td>
+</tr>
+</table>
+
+<br>
+
+<a href="#atama"><img src="LHDLman/modoru.jpg" border="0" alt="modoru.jpg(1480 byte)" width="42" height="23" class="i"></a>
+
+<!-- ================================================================= -->
+<!--                                                                   -->
+<!-- ================================================================= -->
+<a name="taketasingounosansyou">&nbsp</a>
+<br>
+<hr color="#9999CC" size="20" class="i">
+<font color="blue" class="i">多桁信号の参照</font>
+<hr color="#9999CC" class="i">
+
+<p class="i">
+多桁信号の参照は信号名だけで全桁参照になります。
+ . (ドット)を付けて1桁か連続する複数桁の参照がで
+きます。
+
+下の b から f への a の代入はすべて同じ代入にな
+ります。
+</p>
+
+<table bgcolor="white" class="i" border="1">
+<tr>
+<td>
+<pre>
+logicname sample
+
+entity main
+input  a[4];
+output b[4],c[4],d[4],e[4],f[4],g[4];
+
+   b=a;
+
+   c=a.0:3;
+
+   d.0=a.0;
+   d.1=a.1;
+   d.2=a.2;
+   d.3=a.3;
+
+   e.0:3=a;
+
+   f.0:1=a.0:1;
+   f.2:3=a.2:3;
+
+   g=a.3:0;   {<font COLOR="red">上位・下位を逆にして代入</font>}
+ende
+endlogic
+</pre>
+</td>
+</tr>
+</table>
+
+<br>
+
+<a href="#atama"><img src="LHDLman/modoru.jpg" border="0" alt="modoru.jpg(1480 byte)" width="42" height="23" class="i"></a>
+
+<!-- ================================================================= -->
+<!--                                                                   -->
+<!-- ================================================================= -->
+<a name="souhoukousingou">&nbsp</a>
+<br>
+<hr color="#9999CC" size="20" class="i">
+<font color="blue" class="i">双方向信号</font>
+<hr color="#9999CC" class="i">
+
+<p class="i">
+双方向の信号は <b>enable</b> 文で内部信号との関係付けを定義して使います。
+<br><br>
+<b>enable( </b>双方向信号 <b>,</b> 入力が代入される内部信号 <b>,</b> 出力が代入される内部信号 <b>,</b> 方向を決める内部信号 <b>)</b>
+<br><br>
+方向は1で出力に0で入力になります。
+入力に結びつけられた内部信号は確定信号が0になっており制御が可能です。
+確定信号は信号の最上位ビットの上にあります。
+確定信号はその信号が条件文で有効か無効かを決定します、確定信号が0の
+ときその信号を使った条件文は真になりません。
+確定信号をとくに制御しない場合は下記のように1に固定するとよいでしょ
+う。
+</p>
+
+<table bgcolor="white" border="1" class="i">
+<tr>
+<td>
+<pre><font color='#0000ff'><B>logicname</B></font> sample
+
+<font color='#0000ff'><B>entity</B></font> main
+inout  a<B>;</B>
+
+<font color='#0000ff'><B>bitn</B></font>   ina<B>,</B>outa<B>,</B>cnta<B>;</B>
+
+   <font color='#0000ff'><B>enable</B></font><B>(</B>a<B>,</B>ina<B>,</B>outa<B>,</B>cnta<B>)</B>
+
+   ina<B>.</B><font color='#ff0000'>1</font><B>=</B><font color='#ff0000'>1</font><B>;</B>   <font color='#808080'>{ 確定信号を1にする }</font>
+   
+   ～～～～～～～～～～～～～～～～～～～～～～～
+      省略
+   ～～～～～～～～～～～～～～～～～～～～～～～
+<font color='#0000ff'><B>ende</B></font>
+<font color='#0000ff'><B>endlogic</B></font>
+</pre>
+</td>
+</tr>
+</table>
+
+<br>
+
+<a href="#atama"><img src="LHDLman/modoru.jpg" border="0" alt="modoru.jpg(1480 byte)" width="42" height="23" class="i"></a>
+
+</td>
+
+</tr>
+
+
+<!-- ************************************************************************************* -->
+
+</table>
+
+<br>
+<br>
+<hr>
+<br>
+<br>
+
+</td></tr></table>
+
+<!-- ======================================== -->
+
+
+</body>
+</html>

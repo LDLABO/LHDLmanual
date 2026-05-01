@@ -1,0 +1,555 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="ja">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+    <LINK Type="text/css" Rel="stylesheet" Href="main.css">
+	<title></title>
+</head>
+<body>
+
+
+<!-- ======================================== -->
+
+<table bgcolor="white" cellpadding="20" align="center"><tr><td>
+
+<a name="atama">&nbsp</a>
+
+<TABLE border=0 width="100%" bgColor=#dedd80 align=center><!-- ************************************************************************************* -->
+  <TBODY>
+  <TR bgColor=#fff5e3>
+    <TD colSpan=2><BR>
+      <CENTER><FONT color=#bb7700 size=7>L言語</FONT> </CENTER><BR></TD></TR><!-- ************************************************************************************* -->
+  <TR bgColor=lightgreen>
+    <TD colSpan=2>
+      <TABLE border=0>
+        <TBODY>
+        <TR>
+          <TD><A 
+            href="index1g.htm"><IMG 
+            border=0 alt="hyousi.jpg(2670 byte)" src="LHDLman/hyousi.jpg" 
+            width=99 height=42></A></TD>
+          <TD><A 
+            href="LHDLMAN.htm"><IMG 
+            border=0 alt="hajimeni.jpg(2838 byte)" src="LHDLman/hajimeni.jpg" 
+            width=99 height=42></A></TD>
+          <TD><A 
+            href="LHDLMANg.htm"><IMG 
+            border=0 alt="seltukeihouhou.jpg(3001 byte)" 
+            src="LHDLman/seltukeihouhou.jpg" width=99 height=42></A></TD>
+          <TD><A 
+            href="LHDLMANh.htm"><IMG 
+            border=0 alt="tsukaikata.jpg(2731 byte)" 
+            src="LHDLman/tsukaikata.jpg" width=99 height=42></A></TD>
+          <TD><A 
+            href="LHDLMANj.htm"><IMG 
+            border=0 alt="seltukeikankyou.jpg(3031 byte)" 
+            src="LHDLman/seltukeikankyou.jpg" width=99 height=42></A></TD>
+          <TD><A 
+            href="LHDLMANk.htm"><IMG 
+            border=0 alt="bunpou.jpg(2505 byte)" src="LHDLman/bunpou.jpg" 
+            width=99 height=42></A></TD>
+          <TD><IMG border=0 alt="kinoujiltukou_m.jpg(3361 byte)" 
+            src="LHDLman/kinoujiltukou_m.jpg" width=99 height=42></TD>
+          <TD><A 
+            href="LHDLMANu.htm"><IMG 
+            border=0 alt="ronrialtusyuku.jpg(3033 byte)" 
+            src="LHDLman/ronrialtusyuku.jpg" width=99 height=42></A></TD>
+          <TD><A 
+            href="LHDLMANv.htm"><IMG 
+            border=0 alt="haifu.jpg(2514 byte)" src="LHDLman/haifu.jpg" 
+            width=99 height=42></A></TD></TR></TBODY></TABLE></TD></TR><!-- ************************************************************************************* -->
+  <TR bgColor=#fff5e3>
+    <TD vAlign=top width=250><BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      <FONT color=gray><B>目次</B></FONT> <BR><BR>&nbsp;<FONT 
+      color=green>●</FONT><A 
+      href="#kinoujilukou">機能実行</A><BR>&nbsp;<FONT 
+      color=green>◎</FONT><A 
+      href="#gaiyou">概要</A><BR>&nbsp;<FONT 
+      color=green>◎</FONT><A 
+      href="#kakikatatotsukaikata">書き方と使い方</A><BR>&nbsp;<FONT 
+      color=green>◎</FONT><A 
+      href="#lsimigaidenotsukaikata">LSIM以外での使い方</A><BR>&nbsp;<FONT 
+      color=green>○</FONT><A 
+      href="#jiltukoufutokinoujiltukoufu">実効譜と機能実行譜</A><BR>&nbsp;<FONT 
+      color=green>○</FONT><A 
+      href="#tesutobenti">テストベンチ</A><BR>
+      <HR color=#fff5e3 width=180>
+    </TD><!-- ************************************************************************************* -->
+    <TD><!-- ================================================================= --><!--                                                                   --><!-- ================================================================= --><A 
+      name=kinoujiltukou>&nbsp;</A> <BR>
+      <HR class=i color=#003399 SIZE=20>
+      <FONT class=i color=#003399>機能実行</FONT> 
+      <HR class=i color=#003399>
+
+      <P 
+      class=i>機能実行は素子の遅延を考慮しない機能シミュレーションにあたりますが、方法が従来のテストベンチと違いますので概要で説明します。<BR>機能実行譜の書き方は固有のものもありますが、基本的に論理設計なので実効譜と同じ文法で書きます。 
+      </P><A 
+      href="#atama"><IMG 
+      class=i border=0 alt="modoru.jpg(1480 byte)" src="LHDLman/modoru.jpg" 
+      width=42 height=23></A> <!-- ================================================================= --><!--                                                                   --><!-- ================================================================= --><A 
+      name=gaiyou>&nbsp;</A> <BR>
+      <HR class=i color=#9999cc SIZE=20>
+      <FONT class=i color=blue>概要</FONT> 
+      <HR class=i color=#9999cc>
+
+      <P class=i>L言語は LTOOL 
+      で提供される論理設計プログラム群で開発を行います。これはコンパイラ、シミュレータ、ビューワの3種類のプログラムから成っています。この中でシミュレータとビューワの開発を先に行いました、コンパイラは最後に完成しました。<BR><BR>シミュレータとビューワは 
+      L言語ではない言語の出力していた論理式をシミュレーションして閲覧するために開発を始めたのですが、完成してみると設計したロジックにデータを供給して駆動する方法が従来のテストベンチでもシミュレータの画面から直接入力する方法でも大規模な設計には使えないことが分かりました。<BR><BR>そこでロジックを論理設計して作るように 
+      <FONT color=red>検証データ</FONT> 
+      もロジックで作らせたらどうかと考えたわけです。さらに進めて、設計したロジックと検証するロジックをひとつにして駆動したらシミュレータ上でクロックを与えるだけで設計ロジックの振る舞いが観察できると分かりました。<BR><BR>この方法ならテストベンチに設計ロジックと検証ロジックのひとつになったものを指定してクロックを与えるだけですから、他の言語の開発環境でも同様のシミュレーションをさせることができます。 
+      </P><A 
+      href="#atama"><IMG 
+      class=i border=0 alt="modoru.jpg(1480 byte)" src="LHDLman/modoru.jpg" 
+      width=42 height=23></A> <!-- ================================================================= --><!--                                                                   --><!-- ================================================================= --><A 
+      name=kakikatatotsukaikata>&nbsp;</A> <BR>
+      <HR class=i color=#9999cc SIZE=20>
+      <FONT class=i color=blue>書き方と使い方</FONT> 
+      <HR class=i color=#9999cc>
+
+      <P class=i>機能実行譜をつけた論理譜は下のように書きます。 </P>
+      <TABLE class=i border=1 cellSpacing=0 cellPadding=10 bgColor=white>
+        <TBODY>
+        <TR>
+          <TD><PRE><FONT color=green>
+{ =============================================== }
+{     論理譜                                      }
+{ =============================================== }
+</FONT>
+logicname sample
+
+<FONT color=green>
+{ ----------------------------------------------- }
+{     手続き譜                                    }
+{ ----------------------------------------------- }
+</FONT>
+procedure add
+input  a[4];
+input  b[4];
+output c[4];
+
+   c=a+b;
+endp
+
+<FONT color=green>
+{ ----------------------------------------------- }
+{     実効譜                                      }
+{ ----------------------------------------------- }
+</FONT>
+entity main
+input  a[4],b[4];
+output c[4];
+
+   c=add(a,b);
+ende
+
+<FONT color=green>
+{ ----------------------------------------------- }
+{     機能実行譜                                  }
+{ ----------------------------------------------- }
+</FONT>
+entity sim   {<FONT color=red>機能実行譜は sim の名前にします。</FONT>}
+output a[4],b[4];
+output c[4];
+bitr   tc[5];
+
+   part main(a,b,c)   {<FONT color=red>実効譜の引用</FONT>}
+
+   tc=tc+1;
+
+   switch(tc)
+      case 5:  a=1; b=2;
+      case 6:  a=2; b=3;
+      case 7:  a=3; b=4;
+      case 8:  a=4; b=5;
+      case 9:  a=5; b=6;
+      case 10: a=6; b=7;
+   endswitch
+
+ende
+endlogic
+</PRE></TD></TR></TBODY></TABLE><BR>
+      <TABLE class=i>
+        <TBODY>
+        <TR>
+          <TH bgColor=gray>コマンド</TH>
+          <TH>&nbsp;&nbsp;&nbsp;</TH>
+          <TH bgColor=gray>LSIM .LBL</TH>
+        <TR>
+          <TD bgColor=silver><BR>
+            <OL>
+              <LI>LDC sample -ls &nbsp; 
+              <LI>SIM t1.sim 
+              <LI>VIEW </LI></OL></TD>
+          <TD></TD>
+          <TD bgColor=silver><PRE> c.3-0
+ b.3-0
+ a.3-0
+</PRE></TD></TR></TBODY></TABLE><BR>
+      <P class=i>上の LSIM .LBL を使ってコマンドを実行して得られた結果が下です。 </P><IMG class=i alt="" 
+      src="LHDLman/FG04G14D.jpg" width=356 height=246> <BR clear=left><BR><A 
+      href="#atama"><IMG 
+      class=i border=0 alt="modoru.jpg(1480 byte)" src="LHDLman/modoru.jpg" 
+      width=42 height=23></A> <!-- ================================================================= --><!--                                                                   --><!-- ================================================================= --><A 
+      name=lsimigaidenotsukaikata>&nbsp;</A> <BR>
+      <HR class=i color=#9999cc SIZE=20>
+      <FONT class=i color=blue>LSIM以外での使い方</FONT> 
+      <HR class=i color=#9999cc>
+
+      <P class=i>LSIM以外のシミュレータで検証する場合は下のように書いておきます。 初期化されない記憶信号は simres 
+      で同様の条件付けをした方が良いでしょう。 LSIMと共用はできませんが simres=0 を入れるとLSIM でも使えます。 </P>
+      <TABLE class=i border=1 cellSpacing=0 cellPadding=10 bgColor=white>
+        <TBODY>
+        <TR>
+          <TD><PRE>entity sim
+output a[4],b[4];
+output c[4];
+bitr   tc[5];
+input  simres;   {<FONT color=red>追加</FONT>}
+
+   { simres=0 }  {<FONT color=red>注釈を外すとLSIMでも使えます。</FONT>} 
+   part main(a,b,c)
+   if (!simres) tc=tc+1; endif   {<FONT color=red>条件を付ける</FONT>}
+
+   switch(tc)
+      case 5:  a=1; b=2;
+      case 6:  a=2; b=3;
+      case 7:  a=3; b=4;
+      case 8:  a=4; b=5;
+      case 9:  a=5; b=6;
+      case 10: a=6; b=7;
+   endswitch
+
+ende
+</PRE></TD></TR></TBODY></TABLE><BR>
+      <P class=i>下はコンパイラに <B>-vh </B>オプションを指定して VHDL のファイルを出力させたものです。 </P><A 
+      href="#atama"><IMG 
+      class=i border=0 alt="modoru.jpg(1480 byte)" src="LHDLman/modoru.jpg" 
+      width=42 height=23></A> <!-- ================================================================= --><!--                                                                   --><!-- ================================================================= --><A 
+      name=jiltukoufutokinoujiltukoufu>&nbsp;</A> <BR>
+      <HR class=i color=lightgreen SIZE=20>
+      <FONT class=i color=green>実効譜と機能実行譜</FONT> 
+      <HR class=i color=lightgreen>
+
+      <P class=i>実効譜の <FONT color=red>e0.vhd</FONT> はチップ化に使います。 機能実行譜の <FONT 
+      color=red>e1.vhd</FONT> とテストベンチの <FONT color=red>s1.vhd</FONT> 
+      でチップ化する設計環境のシミュレータで機能検証できます。 </P>
+      <TABLE class=i>
+        <TBODY>
+        <TR>
+          <TH bgColor=gray><FONT color=white>実効譜 e0.vhd</FONT></TH>
+          <TH>&nbsp;&nbsp;</TH>
+          <TH bgColor=gray><FONT color=white>機能実行譜 e1.vhd</FONT></TH>
+        <TR>
+          <TD bgColor=silver vAlign=top><PRE>library IEEE;
+
+use IEEE.std_logic_1164.all;
+
+entity main is
+
+   port(a0 : in    std_logic;
+        b0 : in    std_logic;
+        a1 : in    std_logic;
+        b1 : in    std_logic;
+        a2 : in    std_logic;
+        b2 : in    std_logic;
+        c0 : out   std_logic;
+        c1 : out   std_logic;
+        c2 : out   std_logic;
+        c3 : out   std_logic;
+        a3 : in    std_logic;
+        b3 : in    std_logic);
+
+end main;
+
+architecture RTL of main is
+signal n_n18 : std_logic ;
+signal n_n19 : std_logic ;
+signal n_n20 : std_logic ;
+
+begin
+
+n_n18 &lt;= (a0 and b0) ;
+
+n_n19 &lt;= (not a1 and b1 and a0 and b0)
+   or (a1 and not b1 and a0 and b0)
+   or (a1 and b1) ;
+
+n_n20 &lt;= (not a2 and b2 and n_n19)
+   or (a2 and not b2 and n_n19)
+   or (a2 and b2) ;
+
+c0 &lt;= (not a0 and b0)
+   or (a0 and not b0) ;
+
+c1 &lt;= (not a1 and not b1 and a0 and b0) 
+   or (not a1 and b1 and not n_n18)
+   or (a1 and not b1 and not n_n18)
+   or (a1 and b1 and a0 and b0) ;
+
+c2 &lt;= (not a2 and not b2 and n_n19)
+   or (not a2 and b2 and not n_n19)
+   or (a2 and not b2 and not n_n19)
+   or (a2 and b2 and n_n19) ;
+
+c3 &lt;= (not a3 and not b3 and n_n20)
+   or (not a3 and b3 and not n_n20)
+   or (a3 and not b3 and not n_n20)
+   or (a3 and b3 and n_n20) ;
+
+end RTL;
+</PRE></TD>
+          <TD></TD>
+          <TD bgColor=silver><PRE>library IEEE;
+
+use IEEE.std_logic_1164.all;
+
+entity sim is
+
+   port(clk     : in    std_logic;   <FONT color=red>← クロック</FONT>
+        sim_a0  : out   std_logic;
+        sim_b0  : out   std_logic;
+        sim_a1  : out   std_logic;
+        sim_b1  : out   std_logic;
+        sim_a2  : out   std_logic;
+        sim_b2  : out   std_logic;
+        sim_c0  : out   std_logic;
+        sim_c1  : out   std_logic;
+        sim_c2  : out   std_logic;
+        sim_c3  : out   std_logic;
+        sim_a3  : out   std_logic;
+        sim_b3  : out   std_logic;
+        simres0 : in    std_logic);   <FONT color=red>← 初期化</FONT>
+
+end sim;
+
+architecture RTL of sim is
+signal n_n40 : std_logic ;
+signal n_n41 : std_logic ;
+signal n_n42 : std_logic ;
+signal n_n43 : std_logic ;
+signal n_n44 : std_logic ;
+signal n_n18 : std_logic ;
+signal n_n19 : std_logic ;
+signal n_n20 : std_logic ;
+signal n_n54 : std_logic ;
+signal n_n55 : std_logic ;
+signal n_n56 : std_logic ;
+signal a0    : std_logic ;
+signal b0    : std_logic ;
+signal a1    : std_logic ;
+signal b1    : std_logic ;
+signal a2    : std_logic ;
+signal b2    : std_logic ;
+signal c0    : std_logic ;
+signal c1    : std_logic ;
+signal c2    : std_logic ;
+signal c3    : std_logic ;
+signal a3    : std_logic ;
+signal b3    : std_logic ;
+
+begin
+
+process(clk) begin
+   if (clk' event and clk='1') then
+
+      n_n40 &lt;= (not n_n40 and not simres0) ;
+
+      n_n41 &lt;= (not n_n41 and n_n40 and not simres0)
+         or (n_n41 and not n_n40 and not simres0) ;
+
+      n_n42 &lt;= (not n_n42 and n_n41 and n_n40 and not simres0)
+         or (n_n42 and not simres0 and not n_n54) ;
+
+      n_n43 &lt;= (not n_n43 and n_n42 and n_n41 and n_n40 and not simres0)
+         or (n_n43 and not simres0 and not n_n55) ;
+
+      n_n44 &lt;= (not n_n44 and n_n43 and n_n42 and n_n41 and n_n40 and not simres0) 
+         or (n_n44 and not simres0 and not n_n56) ;
+
+   end if;
+end process;
+<FONT color=blue>
+n_n18 &lt;= (a0 and b0) ;   <FONT color=red>← 実効譜</FONT>
+
+n_n19 &lt;= (not a1 and b1 and a0 and b0)
+   or (a1 and not b1 and a0 and b0)
+   or (a1 and b1) ;
+
+n_n20 &lt;= (not a2 and b2 and n_n19)
+   or (a2 and not b2 and n_n19)
+   or (a2 and b2) ;
+
+c0 &lt;= (not a0 and b0)
+   or (a0 and not b0) ;
+
+c1 &lt;= (not a1 and not b1 and a0 and b0)
+   or (not a1 and b1 and not n_n18)
+   or (a1 and not b1 and not n_n18)
+   or (a1 and b1 and a0 and b0) ;
+
+c2 &lt;= (not a2 and not b2 and n_n19)
+   or (not a2 and b2 and not n_n19)
+   or (a2 and not b2 and not n_n19)
+   or (a2 and b2 and n_n19) ;
+
+c3 &lt;= (not a3 and not b3 and n_n20)
+   or (not a3 and b3 and not n_n20)
+   or (a3 and not b3 and not n_n20)
+   or (a3 and b3 and n_n20) ;
+</FONT>
+n_n54 &lt;= (n_n41 and n_n40 and not simres0) ;
+
+n_n55 &lt;= (n_n42 and n_n41 and n_n40 and not simres0) ;
+
+n_n56 &lt;= (n_n43 and n_n42 and n_n41 and n_n40 and not simres0) ;
+<FONT color=maroon>
+a0 &lt;= (n_n40 and not n_n41 and not n_n42 and n_n43 and not n_n44) <FONT color=red>← 検証データ</FONT>
+   or (n_n40 and n_n42 and not n_n43 and not n_n44) ;
+
+a1 &lt;= (not n_n40 and n_n41 and not n_n42 and n_n43 and not n_n44)
+   or (n_n41 and n_n42 and not n_n43 and not n_n44) ;
+
+a2 &lt;= (not n_n41 and not n_n42 and n_n43 and not n_n44)
+   or (not n_n42 and n_n43 and not n_n44 and not n_n40) ;
+
+a3 &lt;= ('0') ;
+
+b0 &lt;= (not n_n40 and n_n41 and n_n42 and not n_n43 and not n_n44)
+   or (not n_n40 and not n_n42 and n_n43 and not n_n44) ;
+
+b1 &lt;= (n_n40 and not n_n41 and n_n42 and not n_n43 and not n_n44)
+   or (not n_n40 and n_n41 and n_n42 and not n_n43 and not n_n44)
+   or (n_n40 and not n_n41 and not n_n42 and n_n43 and not n_n44)
+   or (not n_n40 and n_n41 and not n_n42 and n_n43 and not n_n44) ; 
+
+b2 &lt;= (n_n40 and n_n41 and n_n42 and not n_n43 and not n_n44)
+   or (not n_n41 and not n_n42 and n_n43 and not n_n44)
+   or (not n_n40 and not n_n42 and n_n43 and not n_n44) ;
+
+b3 &lt;= ('0') ;
+</FONT>
+<FONT color=navy>
+sim_a0 &lt;= a0 ;   <FONT color=red>← 閲覧信号</FONT>
+sim_b0 &lt;= b0 ;
+sim_a1 &lt;= a1 ;
+sim_b1 &lt;= b1 ;
+sim_a2 &lt;= a2 ;
+sim_b2 &lt;= b2 ;
+sim_c0 &lt;= c0 ;
+sim_c1 &lt;= c1 ;
+sim_c2 &lt;= c2 ;
+sim_c3 &lt;= c3 ;
+sim_a3 &lt;= a3 ;
+sim_b3 &lt;= b3 ;
+</FONT>
+end RTL;
+</PRE></TD></TR></TBODY></TABLE><BR clear=left><BR><A 
+      href="#atama"><IMG 
+      class=i border=0 alt="modoru.jpg(1480 byte)" src="LHDLman/modoru.jpg" 
+      width=42 height=23></A> <!-- ================================================================= --><!--                                                                   --><!-- ================================================================= --><A 
+      name=tesutobenti>&nbsp;</A> <BR>
+      <HR class=i color=lightgreen SIZE=20>
+      <FONT class=i color=green>テストベンチ</FONT> 
+      <HR class=i color=lightgreen>
+
+      <P class=i>テストベンチ <FONT color=red>s1.vhd </FONT>は機能実行譜 <FONT 
+      color=red>e1.vhd </FONT>に対して用います。 機能実行譜があるときに VHDL Verilog ABEL 
+      の出力を指定したときはテストベンチも作られます。<BR>テストベンチのステップ数はコンパイラのオプションで指定できます、 500 
+      ステップにしたいときは <B>-sp 500 </B>とします。 </P>
+      <TABLE class=i>
+        <TBODY>
+        <TR>
+          <TH bgColor=gray><FONT color=white>テストベンチ s1.vhd</FONT></TH>
+        <TR>
+          <TD bgColor=silver><PRE>library IEEE;
+
+use IEEE.std_logic_1164.all;
+
+entity TESTBENCH is
+end TESTBENCH ;
+
+architecture  behavior of TESTBENCH is 
+
+   component sim   <FONT color=red>← 機能実行譜を引用します。</FONT>
+   port(clk     : in    std_logic;
+        sim_a0  : out   std_logic;
+        sim_b0  : out   std_logic;
+        sim_a1  : out   std_logic;
+        sim_b1  : out   std_logic;
+        sim_a2  : out   std_logic;
+        sim_b2  : out   std_logic;
+        sim_c0  : out   std_logic;
+        sim_c1  : out   std_logic;
+        sim_c2  : out   std_logic;
+        sim_c3  : out   std_logic;
+        sim_a3  : out   std_logic;
+        sim_b3  : out   std_logic;
+        simres0 : in    std_logic);
+   end component ;
+
+constant CLK_CYCLE : Time := 20 ns ;
+
+signal clk     : std_logic ;
+signal simres0 : std_logic ;
+signal sim_a0  : std_logic ;
+signal sim_b0  : std_logic ;
+signal sim_a1  : std_logic ;
+signal sim_b1  : std_logic ;
+signal sim_a2  : std_logic ;
+signal sim_b2  : std_logic ;
+signal sim_c0  : std_logic ;
+signal sim_c1  : std_logic ;
+signal sim_c2  : std_logic ;
+signal sim_c3  : std_logic ;
+signal sim_a3  : std_logic ;
+signal sim_b3  : std_logic ;
+
+begin
+
+   unit : sim port map (
+      clk =&gt; clk,
+      sim_a0 =&gt; sim_a0,
+      sim_b0 =&gt; sim_b0,
+      sim_a1 =&gt; sim_a1,
+      sim_b1 =&gt; sim_b1,
+      sim_a2 =&gt; sim_a2,
+      sim_b2 =&gt; sim_b2,
+      sim_c0 =&gt; sim_c0,
+      sim_c1 =&gt; sim_c1,
+      sim_c2 =&gt; sim_c2,
+      sim_c3 =&gt; sim_c3,
+      sim_a3 =&gt; sim_a3,
+      sim_b3 =&gt; sim_b3,
+      simres0 =&gt; simres0);
+
+   process begin
+      clk &lt;= '1';
+      wait for CLK_CYCLE/2;
+      clk &lt;= '0';
+      wait for CLK_CYCLE/2;
+   end process;
+
+   process begin
+      simres0 &lt;= '0';
+      wait for CLK_CYCLE*2;
+      simres0 &lt;= '1';
+      wait for CLK_CYCLE*5;   <FONT color=red>← 5クロック simres を 1 にする。</FONT>
+      simres0 &lt;= '0';
+      wait for CLK_CYCLE*30;  <FONT color=red>← 30クロック 供給する。 </FONT>
+   end process;
+end;
+</PRE></TD></TR></TBODY></TABLE><BR clear=left><BR><A 
+      href="#atama"><IMG 
+      class=i border=0 alt="modoru.jpg(1480 byte)" src="LHDLman/modoru.jpg" 
+      width=42 height=23></A> </TD></TR><!-- ************************************************************************************* --></TBODY></TABLE><BR><BR>
+<HR>
+<BR><BR>
+
+
+</td></tr></table>
+
+<!-- ======================================== -->
+
+
+</body>
+</html>

@@ -1,0 +1,1727 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="ja">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+    <LINK Type="text/css" Rel="stylesheet" Href="main.css">
+	<title></title>
+</head>
+<body>
+
+
+<table width="1280" background="TOP00A.jpg" border="1">
+	<tr >
+		<td width="200" height="100" colspan="10" background="TOP01A.jpg">1</td>
+	</tr>
+	<tr bgcolor="#32620E">
+		<td width="128" height="20" bgcolor="#84D016">
+		
+		<table align="center">
+		<tr>
+		<td><b>＜</b></td>
+		<td><b><a href="LHDLMANe.htm" target="_self"><font color="white">□</font></a></b></td>
+		<td><b>＞</b></td>
+		</tr>
+		</table>
+		
+		</td>
+
+		<td width="128" align="center"><font color="white"></font></td>
+		<td width="128" align="center"><font color="white"><a href="" target="_self"><font color="white"></font></a></td>
+		<td width="128" align="center"><font color="white"><a href="" target="_self"><font color="white"></font></a></td>
+		<td width="128" align="center"><font color="white"><a href="" target="_self"><font color="white"></font></a></td>
+		<td width="128" align="center"><font color="white"><a href="" target="_self"><font color="white"></font></a></td>
+		<td width="128" align="center"><font color="white"><a href="" target="_self"><font color="white"></font></a></td>
+		<td width="128" align="center"><font color="white"><a href="" target="_self"><font color="white"></font></a></td>
+		<td width="128" align="center"><font color="white"><a href="" target="_self"><font color="white"></font></a></td>
+		<td width="128" bgcolor="#84D016" align="center"><font color="white">LHDLman</font></td>
+		
+	</tr>
+	<tr>
+		<td height="820" background="TOP02A.jpg">4</td>
+		
+		<td  colspan="8" bgcolor="white" >
+
+<!-- ======================================== -->
+
+<table cellpadding="20" BACKGROUND="LHDLman/ba.gif"><tr><td>
+
+<center>
+<table BORDER="4" BORDERCOLORLIGHT="olive" BORDERCOLORDARK="maroon" WIDTH="500" HEIGHT="60">
+<tr>
+<td BGCOLOR="green" ALIGN="center" VALIGN="middle">
+<font COLOR="white">
+<b>プログラム支援室 A0</b>
+</font>
+<br>
+<font COLOR="white">
+CPU8A プログラミング<br>
+拡張レジスタ
+</font>
+</td>
+</tr>
+</table>
+<br>
+
+<!-- --------------------------------------------------------------- -->
+<!--                                                                 -->
+<!-- --------------------------------------------------------------- -->
+<table  BORDER="1" BGCOLOR="#808000" WIDTH="100">
+<tr>
+<td ALIGN="center">
+<font COLOR="white">はじめに</font>
+</td>
+</tr>
+</table>
+
+<br>
+
+<table WIDTH="500">
+<tr>
+<td ALIGN="left">
+CPU8Aのプログラミングは
+<font COLOR="white"><b>「プログラム支援室A」</b></font>
+にあります。
+プロセッサの8桁レジスタを使ってのプログラムでは
+レジスタの桁数と個数が少ないのでレジスタとメモリ
+間の転送を数多く行うためプログラムが複雑になりま
+す。<br>
+CPU8Aは最小の汎用プロセッサを目指したものですの
+でプロセッサにこれ以上の拡張はせず、性能の向上も
+求めないで使い勝手だけ良くします。<br>
+<br>
+使い勝手を良くするためにメモリに桁数の多いレジス
+タを必要分確保します。<br>
+<br>
+これらのメモリに拡張した仮想のレジスタをプロセッ
+サ本来のレジスタと同じように使うためにはマクロを
+増やすだけで済みます。<br>
+<br>
+</td>
+</tr>
+</table>
+
+<br>
+
+<table BGCOLOR="white" BORDER="5" BORDERCOLOR="white">
+<tr>
+<td>
+<pre>
+; ------------------------------------------
+;    メモリ上の拡張2進数16桁仮想レジスタ
+; ------------------------------------------
+const _ER   = DR0,DR1,DR2,DR3,DR4,DR5,DR6,DR7,DR8
+
+; ------------------------------------------
+;    メモリ位置
+; ------------------------------------------
+MBE      EQU       10H
+
+; ------------------------------------------
+;    MOVR
+; ------------------------------------------
+MACRO MOVR _ER,_ER
+         MOVX      #1*2+MBE
+         MOVY      #0*2+MBE
+         MOVMR     R0,IX
+         MOVRM     IY,R0
+         INC       IX
+         INC       IY
+         MOVMR     R0,IX
+         MOVRM     IY,R0
+ENDM
+</pre>
+</td>
+</tr>
+</table>
+
+<br>
+
+<table WIDTH="500">
+<tr>
+<td ALIGN="left">
+上はメモリ番地10Hから16桁のレジスタを8個確保して
+レジスタ間の転送命令 MOVR を追加した部分です。<br>
+<br>
+これで
+<b>&nbsp;&nbsp; MOVR &nbsp;&nbsp;DR0,DR1 &nbsp;&nbsp;</b>
+などの命令が使えるようになります。<br>
+<br>
+注意点は仮想レジスタを操作する命令では実レジスタ
+が使われているのでレジスタ値や状態値が命令の前後
+で変わります。<br>
+<br>
+実レジスタを保存するようにマクロを書くこともでき
+ますが、マクロを大きくすると実行速度も遅くなりま
+すから、保存が必要な値は実レジスタに置かず仮想レ
+ジスタに置く方が良いでしょう仮想レジスタを増やす
+方が効果的と思います。<br>
+</td>
+</tr>
+</table>
+
+<br>
+
+<!-- ---------------------------------------------- -->
+<!--    命令表                                      -->
+<!-- ---------------------------------------------- -->
+<table BGCOLOR="white" BORDER="1">
+<caption><b>仮想8桁レジスタ操作命令</b></caption>
+<tr>
+<th ROWSPAN="2">命令名</th>
+<th ROWSPAN="2">書式</th>
+<th COLSPAN="2">状態値</th>
+<th ROWSPAN="2">機能</th>
+</tr>
+
+<tr>
+<th>C</th>
+<th>Z</th>
+</th>
+
+<!-- ---------------------------------------------- -->
+<!--    MOVR                                        -->
+<!-- ---------------------------------------------- -->
+<tr>
+<td><a HREF="#MOVR8">MOVR</a></td>
+<td>MOVR &nbsp BRA,BRB</td>
+<td><br></td>
+<td><br></td>
+<td>BRA=BRB</td>
+</tr>
+
+<!-- ---------------------------------------------- -->
+<!--    MOVI                                        -->
+<!-- ---------------------------------------------- -->
+<tr>
+<td><a HREF="#MOVI8">MOVI</a></td>
+<td>MOVR &nbsp BRA,imm8</td>
+<td><br></td>
+<td><br></td>
+<td>BRA=imm8</td>
+</tr>
+
+<!-- ---------------------------------------------- -->
+<!--    ADD                                         -->
+<!-- ---------------------------------------------- -->
+<tr>
+<td><a HREF="#ADD8">ADD</a></td>
+<td>ADD &nbsp BRA,BRB</td>
+<td ALIGN="center" VALIGN="middle">○</td>
+<td ALIGN="center" VALIGN="middle">○</td>
+<td>BRA=BRA+BRB</td>
+</tr>
+
+<!-- ---------------------------------------------- -->
+<!--    SUB                                         -->
+<!-- ---------------------------------------------- -->
+<tr>
+<td><a HREF="#SUB8">SUB</a></td>
+<td>SUB &nbsp BRA,BRB</td>
+<td ALIGN="center" VALIGN="middle">○</td>
+<td ALIGN="center" VALIGN="middle">○</td>
+<td>BRA=BRA-BRB</td>
+</tr>
+
+<!-- ---------------------------------------------- -->
+<!--    ADDC                                        -->
+<!-- ---------------------------------------------- -->
+<tr>
+<td><a HREF="#ADDC8">ADDC</a></td>
+<td>ADDC &nbsp BRA,BRB</td>
+<td ALIGN="center" VALIGN="middle">○</td>
+<td ALIGN="center" VALIGN="middle">○</td>
+<td>BRA=BRA+BRB+C</td>
+</tr>
+
+<!-- ---------------------------------------------- -->
+<!--    SUBC                                        -->
+<!-- ---------------------------------------------- -->
+<tr>
+<td><a HREF="#SUBC8">SUBC</a></td>
+<td>SUBC &nbsp BRA,BRB</td>
+<td ALIGN="center" VALIGN="middle">○</td>
+<td ALIGN="center" VALIGN="middle">○</td>
+<td>BRA=BRA-BRB-C</td>
+</tr>
+
+<!-- ---------------------------------------------- -->
+<!--    SHU                                         -->
+<!-- ---------------------------------------------- -->
+<tr>
+<td><a HREF="#SHU8">SHU</a></td>
+<td>SHU &nbsp BRA,BRB</td>
+<td ALIGN="center" VALIGN="middle">○</td>
+<td ALIGN="center" VALIGN="middle"><BR></td>
+<td>C=BRA .7, BRA .1:7=BRB .0:6, BRA .0=0</td>
+</tr>
+
+<!-- ---------------------------------------------- -->
+<!--    SHD                                         -->
+<!-- ---------------------------------------------- -->
+<tr>
+<td><a HREF="#SHD8">SHD</a></td>
+<td>SHD &nbsp BRA,BRB</td>
+<td ALIGN="center" VALIGN="middle">○</td>
+<td ALIGN="center" VALIGN="middle"><BR></td>
+<td>C=BRA .0, BRA .0:6=BRB .1:7, BRA .7=0</td>
+</tr>
+
+<!-- ---------------------------------------------- -->
+<!--    ROU                                         -->
+<!-- ---------------------------------------------- -->
+<tr>
+<td><a HREF="#ROU8">ROU</a></td>
+<td>ROU &nbsp BRA,BRB</td>
+<td ALIGN="center" VALIGN="middle">○</td>
+<td ALIGN="center" VALIGN="middle"><BR></td>
+<td>C=BRA .7, BRA .1:7=BRB .0:6, BRA .0=C</td>
+</tr>
+
+<!-- ---------------------------------------------- -->
+<!--    ROD                                         -->
+<!-- ---------------------------------------------- -->
+<tr>
+<td><a HREF="#ROD8">ROD</a></td>
+<td>ROD &nbsp BRA,BRB</td>
+<td ALIGN="center" VALIGN="middle">○</td>
+<td ALIGN="center" VALIGN="middle"><BR></td>
+<td>C=BRA .0, BRA .0:6=BRB .1:7, BRA .7=C</td>
+</tr>
+
+<!-- ---------------------------------------------- -->
+<!--    CMP                                         -->
+<!-- ---------------------------------------------- -->
+<tr>
+<td><a HREF="#CMP8">CMP</a></td>
+<td>CMP &nbsp BRA,BRB</td>
+<td ALIGN="center" VALIGN="middle">○</td>
+<td ALIGN="center" VALIGN="middle">○</td>
+<td>BRA-BRBの結果を状態値に反映</td>
+</tr>
+
+<!-- ---------------------------------------------- -->
+<!--    AND                                         -->
+<!-- ---------------------------------------------- -->
+<tr>
+<td><a HREF="#AND8">AND</a></td>
+<td>AND &nbsp BRA,BRB</td>
+<td ALIGN="center" VALIGN="middle"><br></td>
+<td ALIGN="center" VALIGN="middle">○</td>
+<td>DRA = BRA & BRB</td>
+</tr>
+
+<!-- ---------------------------------------------- -->
+<!--    OR                                          -->
+<!-- ---------------------------------------------- -->
+<tr>
+<td><a HREF="#OR8">OR</a></td>
+<td>OR &nbsp BRA,BRB</td>
+<td ALIGN="center" VALIGN="middle"><br></td>
+<td ALIGN="center" VALIGN="middle">○</td>
+<td>BRA = BRA | BRB</td>
+</tr>
+
+<!-- ---------------------------------------------- -->
+<!--    XOR                                         -->
+<!-- ---------------------------------------------- -->
+<tr>
+<td><a HREF="#XOR8">XOR</a></td>
+<td>XOR &nbsp BRA,BRB</td>
+<td ALIGN="center" VALIGN="middle"><br></td>
+<td ALIGN="center" VALIGN="middle">○</td>
+<td>BRA = BRA ^ BRB</td>
+</tr>
+
+<!-- ---------------------------------------------- -->
+<!--    NOT                                         -->
+<!-- ---------------------------------------------- -->
+<tr>
+<td><a HREF="#NOT8">NOT</a></td>
+<td>NOT &nbsp BRA,BRB</td>
+<td ALIGN="center" VALIGN="middle"><br></td>
+<td ALIGN="center" VALIGN="middle">○</td>
+<td>BRA = !BRB</td>
+</tr>
+
+<!-- ---------------------------------------------- -->
+<!--    INC                                         -->
+<!-- ---------------------------------------------- -->
+<tr>
+<td><a HREF="#INC8">INC</a></td>
+<td>INC &nbsp BRA</td>
+<td ALIGN="center" VALIGN="middle"><br></td>
+<td ALIGN="center" VALIGN="middle"><br></td>
+<td>BRA = BRA + 1</td>
+</tr>
+
+<!-- ---------------------------------------------- -->
+<!--    DEC                                         -->
+<!-- ---------------------------------------------- -->
+<tr>
+<td><a HREF="#DEC8">DEC</a></td>
+<td>DEC &nbsp BRA</td>
+<td ALIGN="center" VALIGN="middle"><br></td>
+<td ALIGN="center" VALIGN="middle"><br></td>
+<td>BRA = BRA - 1</td>
+</tr>
+
+<!-- ---------------------------------------------- -->
+<!--    MOVRM                                       -->
+<!-- ---------------------------------------------- -->
+<tr>
+<td><a HREF="#MOVRM8">MOVRM</a></td>
+<td>MOVRM &nbsp (DRA),BRB</td>
+<td ALIGN="center" VALIGN="middle"><br></td>
+<td ALIGN="center" VALIGN="middle"><br></td>
+<td>(DRA) = BRB</td>
+</tr>
+
+<!-- ---------------------------------------------- -->
+<!--    MOVMR                                       -->
+<!-- ---------------------------------------------- -->
+<tr>
+<td><a HREF="#MOVMR8">MOVMR</a></td>
+<td>MOVMR &nbsp DRA,(BRB)</td>
+<td ALIGN="center" VALIGN="middle"><br></td>
+<td ALIGN="center" VALIGN="middle"><br></td>
+<td>BRA = (DRB)</td>
+</tr>
+
+<!-- ---------------------------------------------- -->
+<!--    MUL                                         -->
+<!-- ---------------------------------------------- -->
+<tr>
+<td><a HREF="#MUL8">MUL</a></td>
+<td>MUL &nbsp BRA,BRB</td>
+<td ALIGN="center" VALIGN="middle"><br></td>
+<td ALIGN="center" VALIGN="middle"><br></td>
+<td>BRB,BRA = BRA * BRB</td>
+</tr>
+
+<!-- ---------------------------------------------- -->
+<!--    DIV                                         -->
+<!-- ---------------------------------------------- -->
+<tr>
+<td><a HREF="#DIV8">DIV</a></td>
+<td>DIV &nbsp BRA,BRB</td>
+<td ALIGN="center" VALIGN="middle"><br></td>
+<td ALIGN="center" VALIGN="middle"><br></td>
+<td>
+BRA = BRA / BRB<BR>
+BRB = 余り
+</td>
+</tr>
+
+<!-- ---------------------------------------------- -->
+<!--    説明欄                                      -->
+<!-- ---------------------------------------------- -->
+<tr>
+<td COLSPAN="5">
+<br>
+<ul>
+<li>BRA, BRB は BR0 ～ BR15 です。
+<li>DRA, DRB は DR0 ～ DR7 です。
+<li>imm8 は2進数8桁の 即値 です。
+<li>(BRA)と(BRB)はレジスタ値を番地としたメモリを
+示します。
+</ul>
+
+</td>
+</tr>
+
+</table>
+
+<br>
+<br>
+
+<!-- ---------------------------------------------- -->
+<!--    命令表                                      -->
+<!-- ---------------------------------------------- -->
+<table BGCOLOR="white" BORDER="1">
+<caption><b>仮想16桁レジスタ操作命令</b></caption>
+<tr>
+<th ROWSPAN="2">命令名</th>
+<th ROWSPAN="2">書式</th>
+<th COLSPAN="2">状態値</th>
+<th ROWSPAN="2">機能</th>
+</tr>
+
+<tr>
+<th>C</th>
+<th>Z</th>
+</th>
+
+<!-- ---------------------------------------------- -->
+<!--    MOVR                                        -->
+<!-- ---------------------------------------------- -->
+<tr>
+<td><a HREF="#MOVR16">MOVR</a></td>
+<td>MOVR &nbsp DRA,DRB</td>
+<td><br></td>
+<td><br></td>
+<td>DRA=DRB</td>
+</tr>
+
+<!-- ---------------------------------------------- -->
+<!--    MOVI                                        -->
+<!-- ---------------------------------------------- -->
+<tr>
+<td><a HREF="#MOVI16">MOVI</a></td>
+<td>MOVR &nbsp DRA,imm16</td>
+<td><br></td>
+<td><br></td>
+<td>DRA=imm16</td>
+</tr>
+
+<!-- ---------------------------------------------- -->
+<!--    ADD                                         -->
+<!-- ---------------------------------------------- -->
+<tr>
+<td><a HREF="#ADD16">ADD</a></td>
+<td>ADD &nbsp DRA,DRB</td>
+<td ALIGN="center" VALIGN="middle">○</td>
+<td ALIGN="center" VALIGN="middle">○</td>
+<td>DRA=DRA+DRB</td>
+</tr>
+
+<!-- ---------------------------------------------- -->
+<!--    SUB                                         -->
+<!-- ---------------------------------------------- -->
+<tr>
+<td><a HREF="#SUB16">SUB</a></td>
+<td>SUB &nbsp DRA,DRB</td>
+<td ALIGN="center" VALIGN="middle">○</td>
+<td ALIGN="center" VALIGN="middle">○</td>
+<td>DRA=DRA-DRB</td>
+</tr>
+
+<!-- ---------------------------------------------- -->
+<!--    ADDC                                        -->
+<!-- ---------------------------------------------- -->
+<tr>
+<td><a HREF="#ADDC16">ADDC</a></td>
+<td>ADDC &nbsp DRA,DRB</td>
+<td ALIGN="center" VALIGN="middle">○</td>
+<td ALIGN="center" VALIGN="middle">○</td>
+<td>DRA=DRA+DRB+C</td>
+</tr>
+
+<!-- ---------------------------------------------- -->
+<!--    SUBC                                        -->
+<!-- ---------------------------------------------- -->
+<tr>
+<td><a HREF="#SUBC16">SUBC</a></td>
+<td>SUBC &nbsp DRA,DRB</td>
+<td ALIGN="center" VALIGN="middle">○</td>
+<td ALIGN="center" VALIGN="middle">○</td>
+<td>DRA=DRA-DRB-C</td>
+</tr>
+
+<!-- ---------------------------------------------- -->
+<!--    SHU                                         -->
+<!-- ---------------------------------------------- -->
+<tr>
+<td><a HREF="#SHU16">SHU</a></td>
+<td>SHU &nbsp DRA,DRB</td>
+<td ALIGN="center" VALIGN="middle">○</td>
+<td ALIGN="center" VALIGN="middle"><BR></td>
+<td>C=DRA .7, DRA .1:7=DRB .0:6, DRA .0=0</td>
+</tr>
+
+<!-- ---------------------------------------------- -->
+<!--    SHD                                         -->
+<!-- ---------------------------------------------- -->
+<tr>
+<td><a HREF="#SHD16">SHD</a></td>
+<td>SHD &nbsp DRA,DRB</td>
+<td ALIGN="center" VALIGN="middle">○</td>
+<td ALIGN="center" VALIGN="middle"><BR></td>
+<td>C=DRA .0, DRA .0:6=DRB .1:7, DRA .7=0</td>
+</tr>
+
+<!-- ---------------------------------------------- -->
+<!--    ROU                                         -->
+<!-- ---------------------------------------------- -->
+<tr>
+<td><a HREF="#ROU16">ROU</a></td>
+<td>ROU &nbsp DRA,DRB</td>
+<td ALIGN="center" VALIGN="middle">○</td>
+<td ALIGN="center" VALIGN="middle"><BR></td>
+<td>C=DRA .7, DRA .1:7=DRB .0:6, DRA .0=C</td>
+</tr>
+
+<!-- ---------------------------------------------- -->
+<!--    ROD                                         -->
+<!-- ---------------------------------------------- -->
+<tr>
+<td><a HREF="#ROD16">ROD</a></td>
+<td>ROD &nbsp DRA,DRB</td>
+<td ALIGN="center" VALIGN="middle">○</td>
+<td ALIGN="center" VALIGN="middle"><BR></td>
+<td>C=DRA .0, DRA .0:6=DRB .1:7, DRA .7=C</td>
+</tr>
+
+<!-- ---------------------------------------------- -->
+<!--    CMP                                         -->
+<!-- ---------------------------------------------- -->
+<tr>
+<td><a HREF="#CMP16">CMP</a></td>
+<td>CMP &nbsp DRA,DRB</td>
+<td ALIGN="center" VALIGN="middle">○</td>
+<td ALIGN="center" VALIGN="middle">○</td>
+<td>DRA-DRBの結果を状態値に反映</td>
+</tr>
+
+<!-- ---------------------------------------------- -->
+<!--    AND                                         -->
+<!-- ---------------------------------------------- -->
+<tr>
+<td><a HREF="#AND16">AND</a></td>
+<td>AND &nbsp DRA,DRB</td>
+<td ALIGN="center" VALIGN="middle"><br></td>
+<td ALIGN="center" VALIGN="middle">○</td>
+<td>DRA = DRA & DRB</td>
+</tr>
+
+<!-- ---------------------------------------------- -->
+<!--    OR                                          -->
+<!-- ---------------------------------------------- -->
+<tr>
+<td><a HREF="#OR16">OR</a></td>
+<td>OR &nbsp DRA,DRB</td>
+<td ALIGN="center" VALIGN="middle"><br></td>
+<td ALIGN="center" VALIGN="middle">○</td>
+<td>DRA = DRA | DRB</td>
+</tr>
+
+<!-- ---------------------------------------------- -->
+<!--    XOR                                         -->
+<!-- ---------------------------------------------- -->
+<tr>
+<td><a HREF="#XOR16">XOR</a></td>
+<td>XOR &nbsp DRA,DRB</td>
+<td ALIGN="center" VALIGN="middle"><br></td>
+<td ALIGN="center" VALIGN="middle">○</td>
+<td>DRA = DRA ^ DRB</td>
+</tr>
+
+<!-- ---------------------------------------------- -->
+<!--    NOT                                         -->
+<!-- ---------------------------------------------- -->
+<tr>
+<td><a HREF="#NOT16">NOT</a></td>
+<td>NOT &nbsp DRA,DRB</td>
+<td ALIGN="center" VALIGN="middle"><br></td>
+<td ALIGN="center" VALIGN="middle">○</td>
+<td>DRA = !DRB</td>
+</tr>
+
+<!-- ---------------------------------------------- -->
+<!--    INC                                         -->
+<!-- ---------------------------------------------- -->
+<tr>
+<td><a HREF="#INC16">INC</a></td>
+<td>INC &nbsp DRA</td>
+<td ALIGN="center" VALIGN="middle"><br></td>
+<td ALIGN="center" VALIGN="middle"><br></td>
+<td>DRA = DRA + 1</td>
+</tr>
+
+<!-- ---------------------------------------------- -->
+<!--    DEC                                         -->
+<!-- ---------------------------------------------- -->
+<tr>
+<td><a HREF="#DEC16">DEC</a></td>
+<td>DEC &nbsp DRA</td>
+<td ALIGN="center" VALIGN="middle"><br></td>
+<td ALIGN="center" VALIGN="middle"><br></td>
+<td>DRA = DRA - 1</td>
+</tr>
+
+<!-- ---------------------------------------------- -->
+<!--    MOVRM                                       -->
+<!-- ---------------------------------------------- -->
+<tr>
+<td><a HREF="#MOVRM16">MOVRM</a></td>
+<td>MOVRM &nbsp (DRA),DRB</td>
+<td ALIGN="center" VALIGN="middle"><br></td>
+<td ALIGN="center" VALIGN="middle"><br></td>
+<td>(DRA) = DRB</td>
+</tr>
+
+<!-- ---------------------------------------------- -->
+<!--    MOVMR                                       -->
+<!-- ---------------------------------------------- -->
+<tr>
+<td><a HREF="#MOVMR16">MOVMR</a></td>
+<td>MOVMR &nbsp DRA,(DRB)</td>
+<td ALIGN="center" VALIGN="middle"><br></td>
+<td ALIGN="center" VALIGN="middle"><br></td>
+<td>DRA = (DRB)</td>
+</tr>
+
+<!-- ---------------------------------------------- -->
+<!--    説明欄                                      -->
+<!-- ---------------------------------------------- -->
+<tr>
+<td COLSPAN="5">
+<br>
+<ul>
+<li>DRA, DRB は DR0 ～ DR7 です。
+<li>imm16 は2進数16桁の 即値 です。
+<li>(DRA)と(DRB)はレジスタ値を番地としたメモリを
+示します。
+</ul>
+
+</td>
+</tr>
+
+</table>
+
+
+<br>
+<hr WIDTH="500">
+<br>
+
+<table WIDTH="500">
+
+<tr>
+<td WIDTH="250">
+
+<ul>
+<!--
+<li>2進数8桁の加算  &nbsp;&nbsp;&nbsp;&nbsp;<a HREF="#add8">→</a>
+-->
+</ul>
+
+</td>
+
+<td WIDTH="250">
+<ul>
+<li>2進数16桁の乗算  &nbsp;&nbsp;&nbsp;<a HREF="#mul16">→</a>
+</ul>
+</td>
+
+</tr>
+</table>
+
+<hr WIDTH="500">
+
+<br>
+
+<!-- --------------------------------------------------------------- -->
+<!--                                                                 -->
+<!-- --------------------------------------------------------------- -->
+<table  BORDER="1" BGCOLOR="#000080" WIDTH="200">
+<tr>
+<td ALIGN="center">
+<font COLOR="white"><a NAME="mul16">2進数16桁の乗算</a></font>
+</td>
+</tr>
+</table>
+
+<br>
+
+<table WIDTH="500">
+<tr>
+<td>
+拡張レジスタだけを使った2進数16桁の乗算プログラ
+ムです。
+結果は2進数32桁になります。
+</td>
+</tr>
+</table>
+
+<br>
+
+<table BGCOLOR="white" BORDER="5" BORDERCOLOR="white">
+<tr>
+<td>
+<pre>
+; ================================================
+;    2進数16桁乗算
+; ================================================
+         ORG       0
+         JMP       E0
+
+         org       100H
+E0:
+         MOVI      DR0,1234H   ; 被乗数
+         MOVI      DR1,5678H   ; 乗数 0
+         MOVI      DR2,0       ; 乗数 1
+         MOVI      DR3,1       ; 行程
+         MOVI      DR4,0       ; 結果 0
+         MOVI      DR5,0       ; 結果 1
+
+         MOVR      DR6,DR0
+X0:
+         AND       DR0,DR3
+         JMPZ      X1          ; 加算なし
+         ADD       DR4,DR1
+         ADDC      DR5,DR2
+X1:
+         SHU       DR1,DR1
+         ROU       DR2,DR2     ; 乗数上桁移動
+         SHU       DR3,DR3     ; 行程上桁移動
+         JMPC      X2
+         MOVR      DR0,DR6
+         JMP       X0
+X2:
+         
+         NOP
+         NOP
+END
+</pre>
+</td>
+</tr>
+</table>
+
+<br>
+<hr WIDTH="500">
+<br>
+
+<!-- --------------------------------------------------------------- -->
+<!--                                                                 -->
+<!-- --------------------------------------------------------------- -->
+<table BGCOLOR="white" BORDER="5" BORDERCOLOR="white">
+<caption>
+<b>CPU8A .MAC 抜粋</b>
+</caption>
+<tr>
+<td>
+<pre>
+; ============================================================================
+;        2進数8桁レジスタ 拡張命令
+; ============================================================================
+MBEB     EQU       10H
+; ----------------------------------------------------------------------------
+;    <A NAME="MOVR8">MOVR</A>
+; ----------------------------------------------------------------------------
+MACRO MOVR _EBR,_EBR
+         MOVX      #0+MBEB
+         MOVY      #1+MBEB
+         MOVMR     R0,IY
+         MOVRM     IX,R0
+ENDM
+; ----------------------------------------------------------------------------
+;    <a NAME="MOVI8">MOVI</a>
+; ----------------------------------------------------------------------------
+MACRO MOVI _EBR,NUMBER
+         MOVX      #0+MBEB
+         MOVI      R0,NUMBER
+         MOVRM     IX,R0
+ENDM
+
+; ----------------------------------------------------------------------------
+;    <a NAME="ADD8">ADD</a>
+; ----------------------------------------------------------------------------
+MACRO ADD _EBR,_EBR
+         MOVX      #0+MBEB
+         MOVY      #1+MBEB
+         MOVMR     R0,IX
+         MOVMR     R1,IY
+         ADD       R0,R1
+         MOVRM     IX,R0
+ENDM
+
+; ----------------------------------------------------------------------------
+;    <a NAME="SUB8">SUB</a>
+; ----------------------------------------------------------------------------
+MACRO SUB _EBR,_EBR
+         MOVX      #0+MBEB
+         MOVY      #1+MBEB
+         MOVMR     R0,IX
+         MOVMR     R1,IY
+         SUB       R0,R1
+         MOVRM     IX,R0
+ENDM
+
+; ----------------------------------------------------------------------------
+;    <a NAME="ADDC8">ADDC</a>
+; ----------------------------------------------------------------------------
+MACRO ADDC _EBR,_EBR
+         MOVX      #0+MBEB
+         MOVY      #1+MBEB
+         MOVMR     R0,IX
+         MOVMR     R1,IY
+         ADDC      R0,R1
+         MOVRM     IX,R0
+ENDM
+
+; ----------------------------------------------------------------------------
+;    <a NAME="SUBC8">SUBC</a>
+; ----------------------------------------------------------------------------
+MACRO SUBC _EBR,_EBR
+         MOVX      #0+MBEB
+         MOVY      #1+MBEB
+         MOVMR     R0,IX
+         MOVMR     R1,IY
+         SUBC      R0,R1
+         MOVRM     IX,R0
+ENDM
+
+; ----------------------------------------------------------------------------
+;    <a NAME="SHU8">SHU</a>
+; ----------------------------------------------------------------------------
+MACRO SHU _EBR,_EBR
+         MOVX      #0+MBEB
+         MOVY      #1+MBEB
+         MOVMR     R0,IX
+         MOVMR     R1,IY
+         SHU       R0,R1
+         MOVRM     IX,R0
+ENDM
+
+; ----------------------------------------------------------------------------
+;    <a NAME="SHD8">SHD</a>
+; ----------------------------------------------------------------------------
+MACRO SHD _EBR,_EBR
+         MOVX      #0+MBEB
+         MOVY      #1+MBEB
+         MOVMR     R0,IX
+         MOVMR     R1,IY
+         SHD       R0,R1
+         MOVRM     IX,R0
+ENDM
+
+; ----------------------------------------------------------------------------
+;    <a NAME="ROU8">ROU</a>
+; ----------------------------------------------------------------------------
+MACRO ROU _EBR,_EBR
+         MOVX      #0+MBEB
+         MOVY      #1+MBEB
+         MOVMR     R0,IX
+         MOVMR     R1,IY
+         ROU       R0,R1
+         MOVRM     IX,R0
+ENDM
+
+; ----------------------------------------------------------------------------
+;    <a NAME="ROD8">ROD</a>
+; ----------------------------------------------------------------------------
+MACRO ROD _EBR,_EBR
+         MOVX      #0+MBEB
+         MOVY      #1+MBEB
+         MOVMR     R0,IX
+         MOVMR     R1,IY
+         ROD       R0,R1
+         MOVRM     IX,R0
+ENDM
+
+; ----------------------------------------------------------------------------
+;    <a NAME="CMP8">CMP</a>
+; ----------------------------------------------------------------------------
+MACRO CMP _EBR,_EBR
+         MOVX      #0+MBEB
+         MOVY      #1+MBEB
+         MOVMR     R0,IX
+         MOVMR     R1,IY
+         CMP
+ENDM
+
+; ----------------------------------------------------------------------------
+;    <a NAME="AND8">AND</a>
+; ----------------------------------------------------------------------------
+MACRO AND _EBR,_EBR
+         MOVX      #0+MBEB
+         MOVY      #1+MBEB
+         MOVMR     R0,IX
+         MOVMR     R1,IY
+         AND       R0,R1
+         MOVRM     IX,R0
+ENDM
+
+; ----------------------------------------------------------------------------
+;    <a NAME="OR8">OR</a>
+; ----------------------------------------------------------------------------
+MACRO OR _EBR,_EBR
+         MOVX      #0+MBEB
+         MOVY      #1+MBEB
+         MOVMR     R0,IX
+         MOVMR     R1,IY
+         OR        R0,R1
+         MOVRM     IX,R0
+ENDM
+
+; ----------------------------------------------------------------------------
+;    <a NAME="XOR8">XOR</a>
+; ----------------------------------------------------------------------------
+MACRO XOR _EBR,_EBR
+         MOVX      #0+MBEB
+         MOVY      #1+MBEB
+         MOVMR     R0,IX
+         MOVMR     R1,IY
+         XOR       R0,R1
+         MOVRM     IX,R0
+ENDM
+
+; ----------------------------------------------------------------------------
+;    <a NAME="NOT8">NOT</a>
+; ----------------------------------------------------------------------------
+MACRO NOT _EBR,_EBR
+         MOVX      #0+MBEB
+         MOVY      #1+MBEB
+         MOVMR     R0,IX
+         MOVMR     R1,IY
+         NOT       R0,R1
+         MOVRM     IX,R0
+ENDM
+
+; ----------------------------------------------------------------------------
+;    <a NAME="INC8">INC</a>
+; ----------------------------------------------------------------------------
+MACRO INC _EBR
+         MOVX      #0+MBEB
+         MOVMR     R0,IX
+         INC       R0
+         MOVRM     IX,R0
+ENDM
+
+; ----------------------------------------------------------------------------
+;    <a NAME="DEC8">DEC</a>
+; ----------------------------------------------------------------------------
+MACRO DEC _EBR
+         MOVX      #0+MBEB
+         MOVMR     R0,IX
+         DEC       R0
+         MOVRM     IX,R0
+ENDM
+
+; ----------------------------------------------------------------------------
+;    <a NAME="MOVRM8">MOVRM</a>
+; ----------------------------------------------------------------------------
+MACRO MOVRM (_ER),_EBR
+         MOVX      #0*2+MBE
+         MOVY      #1+MBEB
+         MOVMR     R0,IX
+         INC       IX
+         MOVMR     R1,IX
+         MOVRX     RP0
+         MOVMR     R0,IY
+         MOVRM     IX,R0
+ENDM
+
+; ----------------------------------------------------------------------------
+;    <a NAME="MOVMR8">MOVMR</a>
+; ----------------------------------------------------------------------------
+MACRO MOVMR _EBR,(_ER)
+         MOVX      #0+MBEB
+         MOVY      #1*2+MBE
+         MOVMR     R0,IY
+         INC       IY
+         MOVMR     R1,IY
+         MOVRY     RP0
+         MOVMR     R0,IY
+         MOVRM     IX,R0
+ENDM
+
+; ----------------------------------------------------------------------------
+;    <a NAME="MUL8">MUL</a>
+;    WORK0    行程
+;        1,2  加算
+;        3,4  累積
+; ----------------------------------------------------------------------------
+MACRO MUL _EBR,_EBR
+
+         MOVX      WORK
+         MOVI      R0,1
+         MOVRM     IX,R0   ; 行程初期化
+
+         MOVX      WORK+1
+         MOVY      #1+MBEB
+         MOVMR     R0,IY
+         MOVRM     IX,R0
+         INC       IX
+         XOR       R0,R0
+         MOVRM     IX,R0   ; 加算に乗数を設置
+
+         MOVX      WORK+3
+         MOVRM     IX,R0
+         INC       IX
+         MOVRM     IX,R0   ; 累積を初期化
+
+MULB_X0: MOVX      #0+MBEB
+         MOVMR     R0,IX
+         MOVX      WORK
+         MOVMR     R1,IX
+         AND       R0,R1
+         JMPZ      MULB_X1 ; 加算なし
+
+         MOVX      WORK+1
+         MOVY      WORK+3
+         MOVMR     R0,IX
+         MOVMR     R1,IY
+         ADD       R0,R1
+         MOVRM     IY,R0
+         INC       IX
+         INC       IY
+         MOVMR     R0,IX
+         MOVMR     R1,IY
+         ADDC
+         MOVRM     IY,R0   ; 累積
+
+MULB_X1: MOVX      WORK+1
+         MOVMR     R0,IX
+         SHU       R0,R0
+         MOVRM     IX,R0
+         INC       IX
+         MOVMR     R0,IX
+         ROU
+         MOVRM     IX,R0   ; 加算上移動
+
+         MOVX      WORK
+         MOVMR     R0,IX
+         SHU       R0,R0
+         MOVRM     IX,R0
+         JMPC      MULB_X2 ; 終わり
+         JMP       MULB_X0 ; 戻る
+
+MULB_X2: MOVX      #0+MBEB
+         MOVY      WORK+3
+         MOVMR     R0,IY
+         MOVRM     IX,R0
+         MOVX      #1+MBEB
+         INC       IY
+         MOVMR     R0,IY
+         MOVRM     IX,R0
+ENDM
+
+; ----------------------------------------------------------------------------
+;    <a NAME="DIV8">DIV</a>
+;    WORK0    行程
+;        1,2  被除数移動
+;        3    結果
+; ----------------------------------------------------------------------------
+MACRO DIV _EBR,_EBR
+         MOVY      #1+MBEB
+
+         MOVX      WORK
+         MOVI      R0,1
+         MOVRM     IX,R0   ; 行程初期化
+
+         MOVX      WORK+3
+         XOR       R0,R0
+         MOVRM     IX,R0   ; 結果初期化
+
+         MOVX      #0+MBEB
+         MOVMR     R0,IX
+         MOVX      WORK+1
+         MOVRM     IX,R0
+         INC       IX
+         XOR       R0,R0
+         MOVRM     IX,R0   ; 被除数設置
+
+DIVB_X0:
+         MOVX      WORK+1
+         MOVMR     R0,IX
+         SHU       R0,R0
+         MOVRM     IX,R0
+         INC       IX
+         MOVMR     R0,IX
+         ROU
+         MOVRM     IX,R0   ; 被除数上桁移動
+
+         MOVMR     R0,IX
+         MOVMR     R1,IY
+         CMP
+         JMPC      DIVB_X1 ; 減算なし
+         
+         SUB       R0,R1
+         MOVRM     IX,R0   ; 減算
+
+         MOVX      WORK+3
+         MOVMR     R0,IX
+         SHU       R0,R0
+         MOVI      R1,1
+         OR        R0,R1
+         MOVRM     IX,R0   ; 結果処理
+
+         JMP       DIVB_X2 ; 次行程
+
+         MOVX      WORK+1
+         MOVMR     R0,IX
+         JMP       DIVB_X0
+
+DIVB_X1:
+         MOVX      WORK+3
+         MOVMR     R0,IX
+         SHU       R0,R0
+         MOVRM     IX,R0
+DIVB_X2:
+         MOVX      WORK
+         MOVMR     R0,IX
+         SHU       R0,R0
+         MOVRM     IX,R0
+         JMPC      DIVB_X3 ; 終了
+
+         JMP       DIVB_X0 ; 戻る
+
+DIVB_X3:
+         MOVX      WORK+3
+         MOVMR     R0,IX
+         MOVX      #0+MBEB
+         MOVRM     IX,R0
+
+         MOVX      WORK+2
+         MOVMR     R0,IX
+         MOVX      #1+MBEB
+         MOVRM     IX,R0
+ENDM
+
+; ============================================================================
+;        2進数16桁レジスタ 拡張命令
+; ============================================================================
+MBE      EQU       MBEB+16
+WORK     EQU       MBE+16
+; ----------------------------------------------------------------------------
+;    <a NAME="DEC16">DEC</a>
+; ----------------------------------------------------------------------------
+MACRO DEC _ER
+         MOVX      #0*2+MBE
+         MOVMR     R0,IX
+         MOVI      R1,1
+         SUB       R0,R1
+         MOVRM     IX,R0
+         INC       IX
+         MOVMR     R0,IX
+         MOVI      R1,0
+         SUBC
+         MOVRM     IX,R0
+ENDM
+
+; ----------------------------------------------------------------------------
+;    <a NAME="INC16">INC</a>
+; ----------------------------------------------------------------------------
+MACRO INC _ER
+         MOVX      #0*2+MBE
+         MOVMR     R0,IX
+         MOVI      R1,1
+         ADD       R0,R1
+         MOVRM     IX,R0
+         INC       IX
+         MOVMR     R0,IX
+         MOVI      R1,0
+         ADDC
+         MOVRM     IX,R0
+ENDM
+
+; ----------------------------------------------------------------------------
+;    <a NAME="MOVMR16">MOVMR</a>
+; ----------------------------------------------------------------------------
+MACRO MOVMR _ER,(_ER)
+         MOVX      #1*2+MBE
+         MOVMR     R0,IX
+         INC       IX
+         MOVMR     R1,IX
+         MOVRY     RP0
+         MOVX      #0*2+MBE
+         MOVMR     R0,IY
+         MOVRM     IX,R0
+         INC       IX
+         INC       IY
+         MOVMR     R0,IY
+         MOVRM     IX,R0
+ENDM
+
+; ----------------------------------------------------------------------------
+;    <a NAME="MOVRM16">MOVRM</a>
+; ----------------------------------------------------------------------------
+MACRO MOVRM (_ER),_ER
+         MOVX      #0*2+MBE
+         MOVMR     R0,IX
+         INC       IX
+         MOVMR     R1,IX
+         MOVRX     RP0
+         MOVY      #1*2+MBE
+         MOVMR     R0,IY
+         MOVRM     IX,R0
+         INC       IX
+         INC       IY
+         MOVMR     R0,IY
+         MOVRM     IX,R0
+ENDM
+
+; ----------------------------------------------------------------------------
+;    <a NAME="NOT16">NOT</a>
+; ----------------------------------------------------------------------------
+MACRO NOT _ER,_ER
+         MOVX      #0*2+MBE
+         MOVY      #1*2+MBE
+         MOVMR     R0,IX
+         MOVMR     R1,IY
+         NOT       R0,R1
+         MOVRM     IX,R0
+         INC       IX
+         INC       IY
+
+         LDSR
+         MOVR      R2,R0
+
+         MOVMR     R0,IX
+         MOVMR     R1,IY
+         NOT       R0,R1
+         MOVRM     IX,R0
+
+         LDSR
+         AND       R0,R2
+         PUSH      R0
+         POP       SR
+ENDM
+
+; ----------------------------------------------------------------------------
+;    <a NAME="XOR16">XOR</a>
+; ----------------------------------------------------------------------------
+MACRO XOR  _ER,_ER
+         MOVX      #0*2+MBE
+         MOVY      #1*2+MBE
+         MOVMR     R0,IX
+         MOVMR     R1,IY
+         XOR       R0,R1
+         MOVRM     IX,R0
+         INC       IX
+         INC       IY
+
+         LDSR
+         MOVR      R2,R0
+
+         MOVMR     R0,IX
+         MOVMR     R1,IY
+         XOR       R0,R1
+         MOVRM     IX,R0
+
+         LDSR
+         AND       R0,R2
+         PUSH      R0
+         POP       SR
+ENDM
+
+; ----------------------------------------------------------------------------
+;    <a NAME="OR16">OR</a> 
+; ----------------------------------------------------------------------------
+MACRO OR  _ER,_ER
+         MOVX      #0*2+MBE
+         MOVY      #1*2+MBE
+         MOVMR     R0,IX
+         MOVMR     R1,IY
+         OR        R0,R1
+         MOVRM     IX,R0
+         INC       IX
+         INC       IY
+
+         LDSR
+         MOVR      R2,R0
+
+         MOVMR     R0,IX
+         MOVMR     R1,IY
+         OR        R0,R1
+         MOVRM     IX,R0
+
+         LDSR
+         AND       R0,R2
+         PUSH      R0
+         POP       SR
+ENDM
+
+; ----------------------------------------------------------------------------
+;    <a NAME="AND16">AND</a>
+; ----------------------------------------------------------------------------
+MACRO AND _ER,_ER
+         MOVX      #0*2+MBE
+         MOVY      #1*2+MBE
+         MOVMR     R0,IX
+         MOVMR     R1,IY
+         AND       R0,R1
+         MOVRM     IX,R0
+         INC       IX
+         INC       IY
+
+         LDSR
+         MOVR      R2,R0
+
+         MOVMR     R0,IX
+         MOVMR     R1,IY
+         AND       R0,R1
+         MOVRM     IX,R0
+
+         LDSR
+         AND       R0,R2
+         PUSH      R0
+         POP       SR
+ENDM
+
+; ----------------------------------------------------------------------------
+;    <a NAME="ROD16">ROD</a>
+; ----------------------------------------------------------------------------
+MACRO ROD _ER,_ER
+         MOVX      #0*2+MBE
+         MOVY      #1*2+MBE
+         MOVMR     R0,IY
+         ROD
+         MOVRM     IX,R0
+         INC       IX
+         INC       IY
+         MOVMR     R0,IY
+         ROD
+         MOVRM     IX,R0
+ENDM
+
+; ----------------------------------------------------------------------------
+;    <a NAME="SHD16">SHD</a>
+; ----------------------------------------------------------------------------
+MACRO SHD _ER,_ER
+         MOVX      #0*2+MBE
+         MOVY      #1*2+MBE
+         MOVMR     R0,IY
+         SHD       R0,R0
+         MOVRM     IX,R0
+         INC       IX
+         INC       IY
+         MOVMR     R0,IY
+         ROD
+         MOVRM     IX,R0
+ENDM
+
+; ----------------------------------------------------------------------------
+;    <a NAME="CMP16">CMP</a>
+; ----------------------------------------------------------------------------
+MACRO CMP _ER,_ER
+         MOVX      #0*2+MBE
+         MOVY      #1*2+MBE
+         MOVMR     R0,IX
+         MOVMR     R1,IY
+         SUB       R0,R1
+         INC       IX
+         INC       IY
+
+         LDSR
+         MOVI      R1,80H
+         OR        R0,R1
+         MOVR      R2,R0
+
+         MOVMR     R0,IX
+         MOVMR     R1,IY
+         SUBC
+
+         LDSR
+         AND       R0,R2
+         PUSH      R0
+         POP       SR
+ENDM
+
+; ----------------------------------------------------------------------------
+;    <a NAME="ROU16">ROU</a>
+; ----------------------------------------------------------------------------
+MACRO ROU _ER,_ER
+         MOVX      #0*2+MBE
+         MOVY      #1*2+MBE
+         MOVMR     R0,IY
+         ROU
+         MOVRM     IX,R0
+         INC       IX
+         INC       IY
+         MOVMR     R0,IY
+         ROU
+         MOVRM     IX,R0
+ENDM
+
+; ----------------------------------------------------------------------------
+;    <a NAME="SHU16">SHU</a>
+; ----------------------------------------------------------------------------
+MACRO SHU _ER,_ER
+         MOVX      #0*2+MBE
+         MOVY      #1*2+MBE
+         MOVMR     R0,IY
+         SHU       R0,R0
+         MOVRM     IX,R0
+         INC       IX
+         INC       IY
+         MOVMR     R0,IY
+         ROU
+         MOVRM     IX,R0
+ENDM
+
+; ----------------------------------------------------------------------------
+;    <a NAME="SUBC16">SUBC</a>
+; ----------------------------------------------------------------------------
+MACRO SUBC _ER,_ER
+         MOVX      #0*2+MBE
+         MOVY      #1*2+MBE
+         MOVMR     R0,IX
+         MOVMR     R1,IY
+         SUBC
+         MOVRM     IX,R0
+
+         LDSR
+         MOVI      R1,80H
+         OR        R0,R1
+         MOVR      R2,R0
+
+         INC       IX
+         INC       IY
+         MOVMR     R0,IX
+         MOVMR     R1,IY
+         SUBC
+         MOVRM     IX,R0
+
+         LDSR
+         AND       R0,R2
+         PUSH      R0
+         POP       SR
+ENDM
+
+; ----------------------------------------------------------------------------
+;    <a NAME="SUB16">SUB</a>
+; ----------------------------------------------------------------------------
+MACRO SUB _ER,_ER
+         MOVX      #0*2+MBE
+         MOVY      #1*2+MBE
+         MOVMR     R0,IX
+         MOVMR     R1,IY
+         SUB       R0,R1
+         MOVRM     IX,R0
+
+         LDSR
+         MOVI      R1,80H
+         OR        R0,R1
+         MOVR      R2,R0
+
+         INC       IX
+         INC       IY
+         MOVMR     R0,IX
+         MOVMR     R1,IY
+         SUBC
+         MOVRM     IX,R0
+
+         LDSR
+         AND       R0,R2
+         PUSH      R0
+         POP       SR
+ENDM
+
+; ----------------------------------------------------------------------------
+;    <a name="MOVR16">MOVR</a>
+; ----------------------------------------------------------------------------
+MACRO MOVR _ER,_ER
+         MOVX      #1*2+MBE
+         MOVY      #0*2+MBE
+         MOVMR     R0,IX
+         MOVRM     IY,R0
+         INC       IX
+         INC       IY
+         MOVMR     R0,IX
+         MOVRM     IY,R0
+ENDM
+
+; ----------------------------------------------------------------------------
+;    <a name="MOVI16">MOVI</a>
+; ----------------------------------------------------------------------------
+MACRO MOVI _ER,NUMBER
+         MOVX      #0*2+MBE
+         MOVI      R0,#1&0FFH
+         MOVRM     IX,R0
+         INC       IX
+         MOVI      R0,(#1>>8)&0FFH
+         MOVRM     IX,R0
+ENDM
+
+; ----------------------------------------------------------------------------
+;    <a NAME="ADD16">ADD</a>
+; ----------------------------------------------------------------------------
+MACRO ADD _ER,_ER
+         MOVX      #0*2+MBE
+         MOVY      #1*2+MBE
+         MOVMR     R0,IX
+         MOVMR     R1,IY
+         ADD       R0,R1
+         MOVRM     IX,R0
+
+         LDSR
+         MOVI      R1,80H
+         OR        R0,R1
+         MOVR      R2,R0
+
+         INC       IX
+         INC       IY
+         MOVMR     R0,IX
+         MOVMR     R1,IY
+         ADDC
+         MOVRM     IX,R0
+
+         LDSR
+         AND       R0,R2
+         PUSH      R0
+         POP       SR
+ENDM
+
+; ----------------------------------------------------------------------------
+;    <a NAME="ADDC16">ADDC</a>
+; ----------------------------------------------------------------------------
+MACRO ADDC _ER,_ER
+         MOVX      #0*2+MBE
+         MOVY      #1*2+MBE
+         MOVMR     R0,IX
+         MOVMR     R1,IY
+         ADDC
+         MOVRM     IX,R0
+
+         LDSR
+         MOVI      R1,80H
+         OR        R0,R1
+         MOVR      R2,R0
+
+         INC       IX
+         INC       IY
+         MOVMR     R0,IX
+         MOVMR     R1,IY
+         ADDC
+         MOVRM     IX,R0
+
+         LDSR
+         AND       R0,R2
+         PUSH      R0
+         POP       SR
+ENDM
+
+; ----------------------------------------------------------------------------
+;    MUL
+;    行程   WORK 0 - 1
+;    累積   WORK 2 - 5
+;    加数   WORK 6 - 9
+; ----------------------------------------------------------------------------
+MACRO MUL _ER,_ER
+         MOVX      WORK
+         MOVI      R0,1
+         MOVRM     IX,R0   ; No.0
+         INC       IX
+         XOR       R0,R0
+         MOVRM     IX,R0   ; No.1 行程初期化
+
+         MOVX      WORK+2
+         MOVRM     IX,R0   ; No.0
+         INC       IX
+         MOVRM     IX,R0   ; No.1
+         INC       IX
+         MOVRM     IX,R0   ; No.2
+         INC       IX
+         MOVRM     IX,R0   ; No.3 累積初期化
+
+         MOVX      #1*2+MBE
+         MOVY      WORK+6
+         MOVMR     R0,IX
+         MOVRM     IY,R0   ; No.0
+         INC       IX
+         INC       IY
+         MOVMR     R0,IX
+         MOVRM     IY,R0   ; No.1
+         INC       IY
+         XOR       R0,R0
+         MOVRM     IY,R0   ; No.2
+         INC       IY
+         MOVRM     IY,R0   ; No.3 乗数設置
+MUL_X0:
+         MOVX      WORK
+         MOVY      #0*2+MBE
+         MOVMR     R0,IX
+         MOVMR     R1,IY
+         AND       R0,R1
+         JMPZ      MUL_X1
+         JMP       MUL_X2  ; 加算
+MUL_X1:
+         INC       IX
+         INC       IY
+         MOVMR     R0,IX
+         MOVMR     R1,IY
+         AND       R0,R1
+         JMPZ      MUL_X3  ; 行程増
+MUL_X2:
+         MOVX      WORK+2
+         MOVY      WORK+6
+         MOVMR     R0,IX
+         MOVMR     R1,IY
+         ADD       R0,R1
+         MOVRM     IX,R0   ; No.0
+         INC       IX
+         INC       IY
+         MOVMR     R0,IX
+         MOVMR     R1,IY
+         ADDC      R0,R1
+         MOVRM     IX,R0   ; No.1
+         INC       IX
+         INC       IY
+         MOVMR     R0,IX
+         MOVMR     R1,IY
+         ADDC      R0,R1
+         MOVRM     IX,R0   ; No.2
+         INC       IX
+         INC       IY
+         MOVMR     R0,IX
+         MOVMR     R1,IY
+         ADDC      R0,R1
+         MOVRM     IX,R0   ; NO.3 累積加算
+MUL_X3:
+         MOVX      WORK
+         MOVMR     R0,IX
+         SHU       R0,R0
+         MOVRM     IX,R0   ; No.0
+         INC       IX
+         MOVMR     R0,IX
+         ROU       R0,R0
+         MOVRM     IX,R0   ; No.1 行程
+         JMPC      MUL_X4  ; 終了
+         JMP       MUL_X0  ; 戻る
+MUL_X4:
+         MOVX      #0*2+MBE
+         MOVY      WORK+2
+         MOVMR     R0,IY
+         MOVRM     IX,R0   ; No.0
+         INC       IX
+         INC       IY
+         MOVMR     R0,IY
+         MOVRM     IX,R0   ; No.1
+         
+         MOVX      #1*2+MBE
+         INC       IY
+         MOVMR     R0,IY
+         MOVRM     IX,R0   ; No.2
+         INC       IX
+         INC       IY
+         MOVMR     R0,IY
+         MOVRM     IX,R0   ; No.3
+ENDM
+</pre>
+</td>
+</tr>
+</table>
+
+<br>
+<hr WIDTH="500">
+<br>
+<br>
+<a HREF="LHDLMANf03.htm">先頭</a>
+<br><br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+</center>
+
+</td></tr></table>
+
+<!-- ======================================== -->
+
+		</td>
+
+		<td  background="TOP03A.jpg">6</td>
+	</tr>
+	<tr bgcolor="#2E6C0B">
+		<td height="40"><font color="#2E6C0B">B0</font></td>
+		<td colspan="8" align="center"><font color="yellow">2016.2.10</font></td>
+		<td align="center"><font color="white">LDLABO</font></td>
+	</tr>
+</table>
+
+</body>
+</html>

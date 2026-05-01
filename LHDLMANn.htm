@@ -1,0 +1,113 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="ja">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+    <LINK Type="text/css" Rel="stylesheet" Href="main.css">
+	<title></title>
+</head>
+<body>
+
+
+<!-- ======================================== -->
+
+<table bgcolor="white" cellpadding="20" align="center"><tr><td>
+
+<a name="atama">&nbsp</a>
+
+<TABLE border=0 width="100%" bgColor=#dedd80 align=center><!-- ************************************************************************************* -->
+  <TBODY>
+  <TR bgColor=#fff5e3>
+    <TD colSpan=2><BR>
+      <CENTER><FONT color=#bb7700 size=7>文法</FONT> </CENTER><BR></TD></TR><!-- ************************************************************************************* -->
+  <TR bgColor=lightgreen>
+    <TD colSpan=2>
+      <TABLE border=0>
+        <TBODY>
+        <TR>
+          <TD><A 
+            href="index1g.htm"><IMG 
+            border=0 alt="hyousi.jpg(2670 byte)" src="LHDLman/hyousi.jpg" 
+            width=99 height=42></A></TD>
+          <TD><A 
+            href="LHDLMAN.htm"><IMG 
+            border=0 alt="L.jpg(2692 byte)" src="LHDLman/L.jpg" width=99 
+            height=42></A></TD>
+          <TD><A 
+            href="LHDLMANk.htm"><IMG 
+            border=0 alt="kihonwaku.jpg(2765 byte)" 
+            src="LHDLman/kihonwaku.jpg" width=99 height=42></A></TD>
+          <TD><A 
+            href="LHDLMANm.htm"><IMG 
+            border=0 alt="singou.jpg(2527 byte)" src="LHDLman/singou.jpg" 
+            width=99 height=42></A></TD>
+          <TD><IMG border=0 alt="jyousuu_m.jpg(2917 byte)" 
+            src="LHDLman/jyousuu_m.jpg" width=99 height=42></TD>
+          <TD><A 
+            href="LHDLMANp.htm"><IMG 
+            border=0 alt="enzannsitokigou.jpg(3088 byte)" 
+            src="LHDLman/enzannsitokigou.jpg" width=99 height=42></A></TD>
+          <TD><A 
+            href="LHDLMANq.htm"><IMG 
+            border=0 alt="jyoukenbun.jpg(2754 byte)" 
+            src="LHDLman/jyoukenbun.jpg" width=99 height=42></A></TD>
+          <TD><A 
+            href="LHDLMANr.htm"><IMG 
+            border=0 alt="tetsuduki.jpg(2732 byte)" 
+            src="LHDLman/tetsuduki.jpg" width=99 height=42></A></TD>
+          <TD><A 
+            href="LHDLMANs.htm"><IMG 
+            border=0 alt="inyou.jpg(2526 byte)" src="LHDLman/inyou.jpg" 
+            width=99 height=42></A></TD></TR></TBODY></TABLE></TD></TR><!-- ************************************************************************************* -->
+  <TR bgColor=#fff5e3>
+    <TD vAlign=top width=160><BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      <FONT color=gray><B>目次</B></FONT> <BR><BR>&nbsp;<FONT 
+      color=green>●</FONT><A 
+      href="LHDLMANn.htm#jyousuu">定数</A><BR>
+      <HR color=#fff5e3 width=80>
+    </TD><!-- ************************************************************************************* -->
+    <TD><!-- ================================================================= --><!--                                                                   --><!-- ================================================================= --><A 
+      name=jyousuu>&nbsp;</A> <BR>
+      <HR class=i color=#003399 SIZE=20>
+      <FONT class=i color=#003399>定数</FONT> 
+      <HR class=i color=#003399>
+
+      <P class=i>定数は10進数、16進数、2進数が使えます。指定がなければ10進数、頭に0bと付けると2進数、0x 
+      と付けると16進数になります。 </P>
+      <TABLE class=i border=1 bgColor=white>
+        <TBODY>
+        <TR>
+          <TD><PRE>logicname sample
+
+entity main
+input  a[8];
+output b[8];
+bitn   c[8];   {<FONT color=red>←非記憶</FONT>}
+
+   c=5;   {<FONT color=red>cは定数と同じ</FONT>}
+
+              {<FONT color=red>2進数</FONT>}
+               {<FONT color=red>↓</FONT>}
+   b = a + c + 0b101 + 0xAa;
+          {<FONT color=red>↑</FONT>}         {<FONT color=red>↑</FONT>}
+          {<FONT color=red>↑</FONT>}        {<FONT color=red>16進数</FONT>}
+  {<FONT color=red>a と同じ桁数が必要</FONT>}
+
+ende
+endlogic
+</PRE></TD></TR></TBODY></TABLE>
+      <P class=i>上の例では c 
+      は非記憶の内部信号で割り当てられていますが、定数を代入しただけの非記憶の内部信号は信号の実体は論理式からは無くなり定数と同じになります。<BR>結果は定数と同じになりますがコンパイルの過程では信号ですので演算子を使った加算では 
+      a と c は同じ桁数でないと正しい論理になりませんので、その点は注意してください。 </P><A 
+      href="LHDLMANn.htm#atama"><IMG 
+      class=i border=0 alt="modoru.jpg(1480 byte)" src="LHDLman/modoru.jpg" 
+      width=42 height=23></A> </TD></TR><!-- ************************************************************************************* --></TBODY></TABLE><BR><BR>
+<HR>
+<BR><BR>
+
+</td></tr></table>
+
+<!-- ======================================== -->
+
+
+</body>
+</html>
