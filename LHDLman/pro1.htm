@@ -1,0 +1,1462 @@
+<HTML>
+<HEAD>
+   <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+   <meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+   <LINK Type="text/css" Rel="stylesheet" Href="../main.css">
+</HEAD>
+
+<BODY  STYLE="background-image: url(julbg03.gif); background-repeat: repeat-y: repeat-x ;" LEFTMARGIN="100"><!-- tok2_user_contents -->
+
+
+<center>
+
+<TABLE BACKGROUND="sea26.gif" WIDTH="337" HEIGHT="96">
+<TR>
+<TD ALIGN="center">
+<font SIZE="5"><b>命令符</b></font>
+</TD>
+</TR>
+</TABLE>
+
+<br>
+先に作った算術論理演算器を利用する8桁の命令実行
+器の命令符を作ります。<br>
+<br>
+
+<IMG SRC="sea28.gif">
+<IMG SRC="sea28.gif">
+
+<br>
+<br>
+
+<br>
+データ操作のための記憶器です。<br>
+<br>
+
+<table BORDER="1">
+<caption><b>レジスタ</b></caption>
+<tr>
+<td>
+<IMG SRC="FG04J16B.jpg" WIDTH="362" HEIGHT="263">
+</td>
+</tr>
+</table>
+
+<br>
+
+<table>
+<tr>
+<td>
+<ul>
+<li><b>汎用レジスタ</b><br>
+R0 から R3 の 4 個の 8 桁 汎用レジスタを置きます
+。<br>
+RP0 と RP1 の 16 桁レジスタを汎用レジスタの枠に
+はめます。<br>
+この 16 桁レジスタは汎用レジスタから 16 桁値を転
+送するために使います。<br>
+<br>
+<li><b>番地レジスタ</b><br>
+IX と IY をデータ転送に使うメモリ番地の指定に使
+います。<br>
+<br>
+<li><b>分岐レジスタ</b><br>
+繰り返しに使う分岐命令の分岐先番地の指定に使いま
+す。<br>
+<br>
+<li><b>命令ポインタ</b><br>
+命令を読み出すメモリ番地の指定に使います。<br>
+<br>
+<li><b>スタックポインタ</b><br>
+スタックデータを読み出すメモリ番地の指定に使いま
+す。<br>
+<br>
+</ul>
+</td>
+</tr>
+</table>
+
+<br>
+
+<IMG SRC="sea28.gif">
+<IMG SRC="sea28.gif">
+
+<br>
+<br>
+レジスタと算術論理演算器とメモリを結びつけて命令
+実行器を駆動する符です。<br>
+<br>
+
+<!-- -------------------------------------------------------- -->
+<!--                                                          -->
+<!-- -------------------------------------------------------- -->
+<table BORDER="1">
+<caption><b>命令符</b></caption>
+<th ROWSPAN="2">命令名</th>
+<th COLSPAN="8">符</th>
+<th ROWSPAN="2">書式</th>
+<th ROWSPAN="2">機能</th>
+
+<tr>
+<td ALIGN="center">7</td>
+<td ALIGN="center">6</td>
+<td ALIGN="center">5</td>
+<td ALIGN="center">4</td>
+<td ALIGN="center">3</td>
+<td ALIGN="center">2</td>
+<td ALIGN="center">1</td>
+<td ALIGN="center">0</td>
+</tr>
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
+<!--                                                          -->
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
+<tr>
+<td>ADD</td>
+
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>ra1</td>
+<td>ra0</td>
+<td>rb1</td>
+<td>rb0</td>
+
+<td>ADD ra,rb</td>
+
+<td>ra = ra + rb , c と z を変化</td>
+</tr>
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
+<!--                                                          -->
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
+<tr>
+<td>SUB</td>
+
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>ra1</td>
+<td>ra0</td>
+<td>rb1</td>
+<td>rb0</td>
+
+<td>SUB ra,rb</td>
+
+<td>ra = ra - rb , 　↑</td>
+</tr>
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
+<!--                                                          -->
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
+<tr>
+<td>AND</td>
+
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>ra1</td>
+<td>ra0</td>
+<td>rb1</td>
+<td>rb0</td>
+
+<td>AND ra,rb</td>
+
+<td>ra = ra & rb , 　↑</td>
+</tr>
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
+<!--                                                          -->
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
+<tr>
+<td>OR</td>
+
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>ra1</td>
+<td>ra0</td>
+<td>rb1</td>
+<td>rb0</td>
+
+<td>OR ra,rb</td>
+
+<td>ra = ra | rb , 　↑</td>
+</tr>
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
+<!--                                                          -->
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
+<tr>
+<td>XOR</td>
+
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>ra1</td>
+<td>ra0</td>
+<td>rb1</td>
+<td>rb0</td>
+
+<td>XOR ra,rb</td>
+
+<td>ra = ra ^ rb , 　↑</td>
+</tr>
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
+<!--                                                          -->
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
+<tr>
+<td>NOT</td>
+
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>ra1</td>
+<td>ra0</td>
+<td>rb1</td>
+<td>rb0</td>
+
+<td>NOT ra,rb</td>
+
+<td>ra = !rb , 　　　↑</td>
+</tr>
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
+<!--                                                          -->
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
+<tr>
+<td>SHU</td>
+
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>ra1</td>
+<td>ra0</td>
+<td>rb1</td>
+<td>rb0</td>
+
+<td>SHU ra,rb</td>
+
+<td>ra = rb >> 1 , c = rb.7 , z を変化</td>
+</tr>
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
+<!--                                                          -->
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
+<tr>
+<td>SHD</td>
+
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>ra1</td>
+<td>ra0</td>
+<td>rb1</td>
+<td>rb0</td>
+
+<td>SHD ra,rb</td>
+
+<td>ra = rb << 1 , c = rb.0 , z を変化</td>
+</tr>
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
+<!--                                                          -->
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
+<tr>
+<td>MOVR</td>
+
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>ra1</td>
+<td>ra0</td>
+<td>rb1</td>
+<td>rb0</td>
+
+<td>MOVR ra,rb</td>
+
+<td>ra = rb</td>
+</tr>
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
+<!--                                                          -->
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
+<tr>
+<td>MOVI</td>
+
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td ALIGN="center">0</td>
+<td ALIGN="center">0</td>
+<td>ra1</td>
+<td>ra0</td>
+
+<td>MOVI ra,imm</td>
+
+<td>ra = imm</td>
+</tr>
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
+<!--                                                          -->
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
+<tr>
+<td>MOVMR</td>
+
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>ra1</td>
+<td>ra0</td>
+<td>ir1</td>
+<td>ir0</td>
+
+<td>MOVMR ra,ir</td>
+
+<td>ra = m[ir]</td>
+</tr>
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
+<!--                                                          -->
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
+<tr>
+<td>MOVRM</td>
+
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>ra1</td>
+<td>ra0</td>
+<td>ir1</td>
+<td>ir0</td>
+
+<td>MOVRM ir,ra</td>
+
+<td>m[ir] = ra</td>
+</tr>
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
+<!--                                                          -->
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
+<tr>
+<td>MOVPR</td>
+
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>ra1</td>
+<td>ra0</td>
+<td>ir1</td>
+<td>ir0</td>
+
+<td>MOVPR ra,ir</td>
+
+<td>ra = p[ir]</td>
+</tr>
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
+<!--                                                          -->
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
+<tr>
+<td>MOVRP</td>
+
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>ra1</td>
+<td>ra0</td>
+<td>ir1</td>
+<td>ir0</td>
+
+<td>MOVRP ir,ra</td>
+
+<td>p[ir] = ra</td>
+</tr>
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
+<!--                                                          -->
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
+<tr>
+<td>MOVRX</td>
+
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>rp1</td>
+<td>rp0</td>
+<td ALIGN="center">0</td>
+<td ALIGN="center">0</td>
+
+<td>MOVRX rp</td>
+
+<td>ix = rp</td>
+</tr>
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
+<!--                                                          -->
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
+<tr>
+<td>MOVRY</td>
+
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>rp1</td>
+<td>rp0</td>
+<td ALIGN="center">0</td>
+<td ALIGN="center">1</td>
+
+<td>MOVRY rp</td>
+
+<td>iy = rp</td>
+</tr>
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
+<!--                                                          -->
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
+<tr>
+<td>MOVXR</td>
+
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>rp1</td>
+<td>rp0</td>
+<td ALIGN="center">1</td>
+<td ALIGN="center">0</td>
+
+<td>MOVXR rp</td>
+
+<td>rp = ix</td>
+</tr>
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
+<!--                                                          -->
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
+<tr>
+<td>MOVYR</td>
+
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>rp1</td>
+<td>rp0</td>
+<td ALIGN="center">1</td>
+<td ALIGN="center">1</td>
+
+<td>MOVYR rp</td>
+
+<td>rp = iy</td>
+</tr>
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
+<!--                                                          -->
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
+<tr>
+<td>JMP</td>
+
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td ALIGN="center">0</td>
+<td ALIGN="center">0</td>
+<td ALIGN="center">0</td>
+<td ALIGN="center">0</td>
+
+<td>JMP address</td>
+
+<td>ip = address</td>
+</tr>
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
+<!--                                                          -->
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
+<tr>
+<td>JMPC</td>
+
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td ALIGN="center">0</td>
+<td ALIGN="center">0</td>
+<td ALIGN="center">0</td>
+<td ALIGN="center">1</td>
+
+<td>JMPC address</td>
+
+<td>c が 1 なら ip = address</td>
+</tr>
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
+<!--                                                          -->
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
+<tr>
+<td>JMPZ</td>
+
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td ALIGN="center">0</td>
+<td ALIGN="center">0</td>
+<td ALIGN="center">1</td>
+<td ALIGN="center">0</td>
+
+<td>JMPZ address</td>
+
+<td>z が 1 なら ip = address</td>
+</tr>
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
+<!--                                                          -->
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
+<tr>
+<td>JMPR</td>
+
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td ALIGN="center">0</td>
+<td ALIGN="center">0</td>
+<td ALIGN="center">1</td>
+<td ALIGN="center">1</td>
+
+<td>JMPR jr</td>
+
+<td>ip = jr</td>
+</tr>
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
+<!--                                                          -->
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
+<tr>
+<td>JMPRC</td>
+
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td ALIGN="center">0</td>
+<td ALIGN="center">1</td>
+<td ALIGN="center">0</td>
+<td ALIGN="center">0</td>
+
+<td>JMPRC jr</td>
+
+<td>c が 1 なら ip = jr</td>
+</tr>
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
+<!--                                                          -->
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
+<tr>
+<td>JMPRZ</td>
+
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td ALIGN="center">0</td>
+<td ALIGN="center">1</td>
+<td ALIGN="center">0</td>
+<td ALIGN="center">1</td>
+
+<td>JMPRZ jr</td>
+
+<td>z が 1 なら ip = jr</td>
+</tr>
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
+<!--                                                          -->
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
+<tr>
+<td>MOVJ</td>
+
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td ALIGN="center">0</td>
+<td ALIGN="center">1</td>
+<td ALIGN="center">1</td>
+<td ALIGN="center">0</td>
+
+<td>MOVJ address</td>
+
+<td>jr = address</td>
+</tr>
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
+<!--                                                          -->
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
+<tr>
+<td>CALL</td>
+
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td ALIGN="center">0</td>
+<td ALIGN="center">1</td>
+<td ALIGN="center">1</td>
+<td ALIGN="center">1</td>
+
+<td>CALL address</td>
+
+<td>m[sp] = ip, ip = address, sp = sp - 2</td>
+</tr>
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
+<!--                                                          -->
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
+<tr>
+<td>RET</td>
+
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td ALIGN="center">1</td>
+<td ALIGN="center">0</td>
+<td ALIGN="center">0</td>
+<td ALIGN="center">0</td>
+
+<td>RET</td>
+
+<td>ip = m[sp], sp = sp + 2</td>
+</tr>
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
+<!--                                                          -->
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
+<tr>
+<td>PUSH</td>
+
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td ALIGN="center">1</td>
+<td ALIGN="center">0</td>
+<td ALIGN="center">0</td>
+<td ALIGN="center">1</td>
+
+<td>PUSH rx</td>
+
+<td>m[sp] = rx, sp = sp - sc</td>
+</tr>
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
+<!--                                                          -->
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
+<tr>
+<td>POP</td>
+
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td ALIGN="center">1</td>
+<td ALIGN="center">0</td>
+<td ALIGN="center">1</td>
+<td ALIGN="center">0</td>
+
+<td>POP rx</td>
+
+<td>rx = m[sp], sp = sp + sc</td>
+</tr>
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
+<!--                                                          -->
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
+<tr>
+<td>EI</td>
+
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td ALIGN="center">1</td>
+<td ALIGN="center">0</td>
+<td ALIGN="center">1</td>
+<td ALIGN="center">1</td>
+
+<td>EI</td>
+
+<td>割り込み有効</td>
+</tr>
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
+<!--                                                          -->
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
+<tr>
+<td>DI</td>
+
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td ALIGN="center">1</td>
+<td ALIGN="center">1</td>
+<td ALIGN="center">0</td>
+<td ALIGN="center">0</td>
+
+<td>DI</td>
+
+<td>割り込み無効</td>
+</tr>
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
+<!--                                                          -->
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
+<tr>
+<td>INC</td>
+
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td ALIGN="center">1</td>
+<td ALIGN="center">1</td>
+<td ALIGN="center">0</td>
+<td ALIGN="center">1</td>
+
+<td>INC rx</td>
+
+<td>rx = rx + 1</td>
+</tr>
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
+<!--                                                          -->
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
+<tr>
+<td>DEC</td>
+
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td ALIGN="center">1</td>
+<td ALIGN="center">1</td>
+<td ALIGN="center">1</td>
+<td ALIGN="center">0</td>
+
+<td>DEC rx</td>
+
+<td>rx = rx - 1</td>
+</tr>
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
+<!--                                                          -->
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
+<tr>
+<td>NOP</td>
+
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td ALIGN="center">1</td>
+<td ALIGN="center">1</td>
+<td ALIGN="center">1</td>
+<td ALIGN="center">1</td>
+
+<td>NOP</td>
+
+<td>動作なし</td>
+</tr>
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
+<!--                                                          -->
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
+<tr>
+<td>LDSR</td>
+
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+
+<td>LDSR</td>
+
+<td>R0 = SR</td>
+</tr>
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
+<!--                                                          -->
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
+<tr>
+<td>LDIR</td>
+
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+
+<td>LDIR</td>
+
+<td>R0 = IR</td>
+</tr>
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
+<!--                                                          -->
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
+<tr>
+<td>STMR</td>
+
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+
+<td>STMR</td>
+
+<td>MR = R0</td>
+</tr>
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
+<!--                                                          -->
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
+<tr>
+<td>RETI</td>
+
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+
+<td>RETI</td>
+
+<td>
+ip = m[sp]<br>
+SR = m[sp]<br>
+sp = sp + 3</td>
+</tr>
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
+<!--                                                          -->
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
+<tr>
+<td>ADDC</td>
+
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+
+<td>ADDC</td>
+
+<td>
+r0 = r0 + r1 + c , c と z を変化<br>
+</tr>
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
+<!--                                                          -->
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
+<tr>
+<td>SUBC</td>
+
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+
+<td>SUBC</td>
+
+<td>
+r0 = r0 - r1 - c , c と z を変化<br>
+</tr>
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
+<!--                                                          -->
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
+<tr>
+<td>ROU</td>
+
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+
+<td>ROU</td>
+
+<td>
+r0 = r0 >> 1 , c = r0.7 , z を変化<br>
+</tr>
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
+<!--                                                          -->
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
+<tr>
+<td>ROD</td>
+
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+
+<td>ROD</td>
+
+<td>
+r0 = r0 << 1 , c = r0.0 , z を変化<br>
+</tr>
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
+<!--                                                          -->
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
+<tr>
+<td>CMP</td>
+
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+
+<td>CMP</td>
+
+<td>
+r0 - r1 , c と z を変化<br>
+</tr>
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
+<!--                                                          -->
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
+<tr>
+<td>MOVX</td>
+
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+
+<td>MOVX address</td>
+
+<td>
+IX = address<br>
+</tr>
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
+<!--                                                          -->
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
+<tr>
+<td>MOVY</td>
+
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+
+<td>MOVY address</td>
+
+<td>
+IY = address<br>
+</tr>
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
+<!--                                                          -->
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
+<tr>
+<td>MOVS</td>
+
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+
+<td>MOVS address</td>
+
+<td>
+SP = address<br>
+</tr>
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
+<!--                                                          -->
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
+<tr>
+<td>LDCPR</td>
+
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+
+<td>LDCPR</td>
+
+<td>
+R0 = CPR<br>
+</tr>
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
+<!--                                                          -->
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
+<tr>
+<td>LDDPR</td>
+
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+
+<td>LDDPR</td>
+
+<td>
+R0 = DPR<br>
+</tr>
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
+<!--                                                          -->
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
+<tr>
+<td>STCPR</td>
+
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+
+<td>STCPR</td>
+
+<td>
+CPR = R0<br>
+</tr>
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
+<!--                                                          -->
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
+<tr>
+<td>STDPR</td>
+
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+
+<td>STDPR</td>
+
+<td>
+DPR = R0<br>
+</tr>
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
+<!--                                                          -->
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
+<tr>
+<td>MOVFR</td>
+
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+
+<td>MOVFR</td>
+
+<td>
+R0 = RF(R2)<br>
+</tr>
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
+<!--                                                          -->
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
+<tr>
+<td>MOVRF</td>
+
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+
+<td>MOVRF</td>
+
+<td>
+RF(R2) = R0<br>
+</tr>
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
+<!--                                                          -->
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
+<tr>
+<td>INCR2</td>
+
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+
+<td>INCR2</td>
+
+<td>
+R2 = R2 + 1<br>
+</tr>
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
+<!--                                                          -->
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
+<tr>
+<td>DECR2</td>
+
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+
+<td>DECR2</td>
+
+<td>
+R2 = R2 - 1<br>
+</tr>
+
+</table>
+
+<!-- -------------------------------------------------------- -->
+<!--                                                          -->
+<!-- -------------------------------------------------------- -->
+
+<br>
+<br>
+
+<table>
+<tr>
+<td>
+<ul>
+<li><b>ra, rb</b><br>
+R0, R1, R2, R3 の 8 桁汎用レジスタです。<br>
+4 個のレジスタを 2 進数の 2 桁で指定します。<br>
+
+<br>
+
+<table BORDER="1">
+<tr>
+<td>ra1<br>rb1</td>
+<td>ra0<br>rb0</td>
+<td>選択</td>
+</tr>
+
+<tr>
+<td ALIGN="center">0</td>
+<td ALIGN="center">0</td>
+<td ALIGN="center">R0</td>
+</tr>
+
+<tr>
+<td ALIGN="center">0</td>
+<td ALIGN="center">1</td>
+<td ALIGN="center">R1</td>
+</tr>
+
+<tr>
+<td ALIGN="center">1</td>
+<td ALIGN="center">0</td>
+<td ALIGN="center">R2</td>
+</tr>
+
+<tr>
+<td ALIGN="center">1</td>
+<td ALIGN="center">1</td>
+<td ALIGN="center">R3</td>
+</tr>
+
+</table>
+
+
+<br>
+<li><b>rp</b><br>
+RP0 か RP1 を 2 進数の 2 桁で指定します。<br>
+<br>
+
+<table BORDER="1">
+<tr>
+<td>rp</td>
+<td>選択</td>
+</tr>
+
+<tr>
+<td ALIGN="center">0</td>
+<td ALIGN="center">RP0</td>
+</tr>
+
+<tr>
+<td ALIGN="center">1</td>
+<td ALIGN="center">RP1</td>
+</tr>
+</table>
+
+<br>
+<li><b>ir</b><br>
+IX か IY を 2 進数の 2 桁で指定します。<br>
+<br>
+
+<table BORDER="1">
+<tr>
+<td>ir</td>
+<td>選択</td>
+</tr>
+
+<tr>
+<td ALIGN="center">0</td>
+<td ALIGN="center">IX</td>
+</tr>
+
+<tr>
+<td ALIGN="center">1</td>
+<td ALIGN="center">IY</td>
+</tr>
+</table>
+
+<br>
+<li><b>ix, iy, ip, sp, jr</b><br>
+IX , IY , IP , SP , JR です。<br>
+<br>
+<li><b>rx</b><br>
+IP と SP を除くすべてのレジスタの内のひとつを指
+定します。<br>
+<br>
+
+<table BORDER="1">
+<tr>
+<td>rx</td>
+<td>選択</td>
+</tr>
+
+<tr>
+<td ALIGN="center">1</td>
+<td ALIGN="center">R0</td>
+</tr>
+
+<tr>
+<td ALIGN="center">2</td>
+<td ALIGN="center">R1</td>
+</tr>
+
+<tr>
+<td ALIGN="center">3</td>
+<td ALIGN="center">R2</td>
+</tr>
+
+<tr>
+<td ALIGN="center">4</td>
+<td ALIGN="center">R3</td>
+</tr>
+
+<tr>
+<td ALIGN="center">5</td>
+<td ALIGN="center">RP0</td>
+</tr>
+
+<tr>
+<td ALIGN="center">6</td>
+<td ALIGN="center">RP1</td>
+</tr>
+
+<tr>
+<td ALIGN="center">7</td>
+<td ALIGN="center">IX</td>
+</tr>
+
+<tr>
+<td ALIGN="center">8</td>
+<td ALIGN="center">IY</td>
+</tr>
+
+<tr>
+<td ALIGN="center">9</td>
+<td ALIGN="center">JR</td>
+</tr>
+
+<tr>
+<td ALIGN="center">10</td>
+<td ALIGN="center">SR</td>
+</tr>
+
+</table>
+<br>
+<li><b>m[ir]</b><br>
+番地レジスタの指定するメモリ番地のメモリ値を示し
+ます。<br>
+<br>
+<li><b>p[ir]</b><br>
+番地レジスタの指定するポート番号のポート値を示し
+ます。<br>
+<br>
+<li><b>m[sp]</b><br>
+スタックポインタの指定するメモリ番地のスタック値
+を示します。<br>
+<br>
+<li><b>c</b><br>
+算術論理演算器の演算結果です。桁上がりがあったと
+き 1 になります。<br>
+<br>
+<li><b>z</b><br>
+算術論理演算器の演算結果です。 結果が 0 のとき 1 
+になります。<br>
+<br>
+<li><b>imm</b><br>
+8 桁の即値です、2 番目の符に置きます。<br>
+<br>
+<li><b>address</b><br>
+16 桁の即値です、2 番目の符に下位 8 桁を、3 番目
+の符に上位 8 桁を置きます。<br>
+<br>
+<li><b>sc</b><br>
+スタックの書き込み、または読み出し数です。<br>
+8桁レジスタで 1 、16桁レジスタで 2 です。<br>
+<br>
+
+
+<li><b>SR</b><br>
+指標を集めた状態レジスタです。<br>
+<br>
+
+<li><b>MR</b><br>
+割り込みの有効/無効を決めるレジスタです。
+1で該当端子の割り込みを無効にします。
+<br>
+
+<li><b>IR</b><br>
+割り込みの端子の値です。
+各桁が1なら割り込み要求があり、0なら要求なしです。
+
+<li><b>CPR</b><br>
+コード頁レジスタです。
+分岐命令で有効になります。
+
+<li><b>DPR</b><br>
+データ頁レジスタです。
+
+<li><b>RF(R2)</b><br>
+R2の値を番号としたレジスタファイル、CPU8Aでは標
+準で2進数8桁を8個実装します。
+<br>
+
+
+
+</ul>
+</td>
+</tr>
+</table>
+
+
+<br>
+<br>
+
+<IMG SRC="sea28.gif">
+<IMG SRC="sea28.gif">
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<a HREF="pro1.htm">先頭</a>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+</center>
+
+
+</body>
+</html>
