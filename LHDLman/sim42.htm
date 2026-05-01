@@ -1,0 +1,98 @@
+<HTML>
+<HEAD>
+   <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+   <meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+   <LINK Type="text/css" Rel="stylesheet" Href="../main.css">
+</HEAD>
+
+<body  BACKGROUND="renga_006.jpg"><!-- tok2_user_contents -->
+
+
+<center>
+<table WIDTH="500" HEIGHT="30">
+<tr>
+<td BGCOLOR="#7A96DF" ALIGN="center" VALIGN="middle">
+<font COLOR="white"><b>MOVRF,MOVFR,INCR2,DECR2</b></font>
+</td>
+</tr>
+</table>
+<br>
+
+<tr></tr>
+
+<table BGCOLOR="#FFFFFF">
+<tr>
+<td COLSPAN="3" ALIGN="center" BGCOLOR="#C0C0C0">
+プログラム
+</td>
+</tr>
+
+<tr></tr>
+<td>&nbsp</td>
+<td>
+<pre>
+         org       0
+         JMP       START
+
+         org       100h
+START:   MOVI      R0,50H
+         XOR       R2,R2
+         MOVRF
+         INCR2
+         INC       R0
+         MOVRF
+         INCR2
+         INC       R0
+         MOVRF
+         INCR2
+         INC       R0
+         MOVRF
+         INCR2
+         INC       R0
+         MOVRF
+         INCR2
+         INC       R0
+         MOVRF
+         INCR2
+         INC       R0
+         MOVRF
+         INCR2
+         INC       R0
+         MOVRF
+
+         XOR       R0,R0
+         MOVFR
+         DECR2
+         MOVFR
+         DECR2
+         MOVFR
+         DECR2
+         MOVFR
+         DECR2
+         MOVFR
+         DECR2
+         MOVFR
+         DECR2
+         MOVFR
+         DECR2
+         MOVFR
+
+         NOP
+         NOP
+
+end
+</pre>
+</td>
+<td>&nbsp</td>
+
+</table>
+
+<br>
+
+<A HREF="FG04L17A.pdf">PDF</A><br>
+<br>
+
+<A HREF="lsim.lbl">LSIM.LBL</A>
+
+<body>
+<html>
