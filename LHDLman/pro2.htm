@@ -1,0 +1,211 @@
+<HTML>
+<HEAD>
+   <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+   <meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+   <LINK Type="text/css" Rel="stylesheet" Href="../main.css">
+</HEAD>
+
+<BODY  STYLE="background-image: url(julbg03.gif); background-repeat: repeat-y: repeat-x ;" LEFTMARGIN="100"><!-- tok2_user_contents -->
+
+
+<center>
+
+<TABLE BACKGROUND="sea26.gif" WIDTH="337" HEIGHT="96">
+<TR>
+<TD ALIGN="center">
+<font SIZE="5"><b>命令動作</b></font>
+</TD>
+</TR>
+</TABLE>
+
+<br>
+命令符に対応した動作を決めます。<br>
+<br>
+
+<IMG SRC="sea28.gif">
+<IMG SRC="sea28.gif">
+
+<br>
+<br>
+<b>算術論理演算器を使う命令</b>
+<br>
+
+<br>
+算術論理演算器の出力で汎用レジスタを変更する1 符
+だけの命令です。<br>
+<br>
+
+ADD, SUB, AND, OR, XOR, NOT, SHU, SHD<br>
+<br>
+
+
+<br>
+<b>汎用レジスタの転送命令</b>
+<br>
+
+<br>
+汎用レジスタと他のレジスタ間の転送をする 1 符の
+命令です。<br>
+<br>
+
+MOVR, MOVRX, MOVRY, MOVXR, MOVYR<br>
+<br>
+
+<br>
+汎用レジスタからメモリやポート、メモリやポートか
+ら汎用レジスタへ転送する 1 符の命令です。<br>
+<br>
+
+MOVMR, MOVRM, MOVPR, MOVRP<br>
+<br>
+
+<br>
+<b>分岐命令</b>
+<br>
+
+<br>
+分岐先の16桁の番地の指定に 2 符を使う計 3 符の命
+令です。<br>
+<br>
+
+JMP, JMPC, JMPZ<br>
+<br>
+
+
+<br>
+分岐先の16桁の番地の指定に 分岐レジスタ 使う 1 
+符の命令です。<br>
+<br>
+
+JMPR, JMPRC, JMPRZ<br>
+<br>
+
+<br>
+<b>分岐レジスタ設定命令</b>
+<br>
+
+<br>
+設定分岐先の16桁の番地の指定に 2 符を使う計 3 符
+の命令です。<br>
+<br>
+
+MOVJ<br>
+
+<br>
+<b>呼び出し、戻り命令</b>
+<br>
+
+<br>
+呼び出し先の16桁の番地の指定に 2 符を使う計 3 符
+の命令です。<br>
+スタックポインタの示す番地のメモリに現在の命令ポ
+インタを書き込んでスタックポインタを 2 減らしま
+す。<br>
+<br>
+
+CALL<br>
+<br>
+
+<br>
+呼び出し先から戻る 1 符の命令です。<br>
+スタックポインタの示す番地のメモリから値を読み出
+し、命令ポインタに書き込んでスタックポインタを 2
+ 増やします。<br>
+<br>
+
+RET<br>
+<br>
+
+<br>
+<b>スタック命令</b>
+<br>
+
+<br>
+スタックにレジスタを転送する、レジスタの指定に 1
+ 符を使う計 2 符の命令です。<br>
+スタックポインタの示す番地にレジスタ値を書き込ん
+で 8 桁レジスタなら スタックポインタを 1 減らし
+ます、 16 桁レジスタなら スタックポインタを 2 減
+らします。
+16 桁の場合は下位 8 桁から上位 8 桁と書き込みま
+す。<br>
+<br>
+
+PUSH<br>
+<br>
+
+<br>
+レジスタにスタックを転送する、レジスタの指定に 1
+ 符を使う計 2 符の命令です。<br>
+スタックポインタの示す番地からレジスタ値を読み出
+して 8 桁レジスタなら スタックポインタを 1 増や
+します、 16 桁レジスタなら スタックポインタを 2 
+増やします。
+16 桁の場合は上位 8 桁から下位 8 桁と読み出しま
+す。<br>
+<br>
+POP<br>
+<br>
+
+<br>
+<b>割り込み制御命令</b>
+<br>
+
+<br>
+割り込みを有効にする 1 符の命令です。<br>
+<br>
+
+EI<br>
+<br>
+
+<br>
+割り込みを無効にする 1 符の命令です。<br>
+<br>
+
+DI<br>
+<br>
+
+<br>
+<b>レジスタ増減命令</b>
+<br>
+
+<br>
+指定したレジスタを 1 増やします、レジスタの指定
+に 1 符を使う計 2 符の命令です。<br>
+<br>
+
+INC<br>
+<br>
+
+<br>
+指定したレジスタを 1 減らします、レジスタの指定
+に 1 符を使う計 2 符の命令です。<br>
+<br>
+
+DEC<br>
+<br>
+
+<br>
+<br>
+
+<IMG SRC="sea28.gif">
+<IMG SRC="sea28.gif">
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<a HREF="pro2.htm">先頭</a>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+</center>
+
+
+</body>
+</html>
+
