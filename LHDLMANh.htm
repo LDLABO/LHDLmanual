@@ -1,0 +1,459 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+    <LINK Type="text/css" Rel="stylesheet" Href="main.css">
+	<title></title>
+</head>
+<body>
+
+
+<!-- ======================================== -->
+
+<table bgcolor="white" cellpadding="20" align="center"><tr><td>
+
+<a name="atama">&nbsp</a>
+<TABLE border=0 width="100%" bgColor=#dedd80 align=center><!-- ************************************************************************************* -->
+  <TBODY>
+  <TR bgColor=#fff5e3>
+    <TD colSpan=2><BR>
+      <CENTER><FONT color=#bb7700 size=7>L言語</FONT> </CENTER><BR></TD></TR><!-- ************************************************************************************* -->
+  <TR bgColor=lightgreen>
+    <TD colSpan=2>
+      <TABLE border=0>
+        <TBODY>
+        <TR>
+          <TD><A 
+            href="index1g.htm"><IMG 
+            border=0 alt="hyousi.jpg(2670 byte)" src="LHDLman/hyousi.jpg" 
+            width=99 height=42></A></TD>
+          <TD><A 
+            href="LHDLMAN.htm"><IMG 
+            border=0 alt="hajimeni.jpg(2838 byte)" src="LHDLman/hajimeni.jpg" 
+            width=99 height=42></A></TD>
+          <TD><A 
+            href="LHDLMANg.htm"><IMG 
+            border=0 alt="seltukeihouhou.jpg(3001 byte)" 
+            src="LHDLman/seltukeihouhou.jpg" width=99 height=42></A></TD>
+          <TD><IMG border=0 alt="tsukaikata_m.jpg(3068 byte)" 
+            src="LHDLman/tsukaikata_m.jpg" width=99 height=42></TD>
+          <TD colSpan=2><A 
+            href="LHDLMANj.htm"><IMG 
+            border=0 alt="seltukeikankyou.jpg(3031 byte)" 
+            src="LHDLman/seltukeikankyou.jpg" width=99 height=42></A></TD>
+          <TD><A 
+            href="LHDLMANk.htm"><IMG 
+            border=0 alt="bunpou.jpg(2505 byte)" src="LHDLman/bunpou.jpg" 
+            width=99 height=42></A></TD>
+          <TD><A 
+            href="LHDLMANt.htm"><IMG 
+            border=0 alt="kinoujiltukou.jpg(3022 byte)" 
+            src="LHDLman/kinoujiltukou.jpg" width=99 height=42></A></TD>
+          <TD><A 
+            href="LHDLMANu.htm"><IMG 
+            border=0 alt="ronrialtusyuku.jpg(3033 byte)" 
+            src="LHDLman/ronrialtusyuku.jpg" width=99 height=42></A></TD>
+          <TD><A 
+            href="LHDLMANv.htm"><IMG 
+            border=0 alt="haifu.jpg(2514 byte)" src="LHDLman/haifu.jpg" 
+            width=99 height=42></A></TD></TR></TBODY></TABLE></TD></TR><!-- ************************************************************************************* -->
+  <TR bgColor=#fff5e3>
+    <TD vAlign=top width=200><BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      <FONT color=gray><B>目次</B></FONT> <BR><BR>&nbsp;<FONT 
+      color=green>●</FONT><A 
+      href="LHDLMANh.htm#tsukaikata">使い方</A><BR>&nbsp;<FONT 
+      color=green>◎</FONT><A 
+      href="LHDLMANh.htm#LDC">LDC</A><BR>&nbsp;<FONT 
+      color=green>◎</FONT><A 
+      href="LHDLMANh.htm#LSIM">LSIM</A><BR>&nbsp;<FONT 
+      color=green>◎</FONT><A 
+      href="LHDLMANh.htm#LSIM_View">LSIM 
+      View</A><BR>&nbsp;<FONT color=green>○</FONT><A 
+      href="LHDLMANh.htm#sousa">操作</A><BR>&nbsp;<FONT 
+      color=green>◇</FONT><A 
+      href="LHDLMANh.htm#komado">小窓</A><BR>&nbsp;<FONT 
+      color=green>○</FONT><A 
+      href="LHDLMANh.htm#filesyutsuryoku">ファイル出力</A><BR>&nbsp;<FONT 
+      color=green>○</FONT><A 
+      href="LHDLMANh.htm#iroseltutei">色設定</A><BR>&nbsp;<FONT 
+      color=green>○</FONT><A 
+      href="LHDLMANh.htm#sentakukakudai">選択拡大</A><BR>
+      <HR color=#fff5e3 width=120>
+    </TD><!-- ************************************************************************************* -->
+    <TD><!-- ================================================================= --><!--                                                                   --><!-- ================================================================= --><A 
+      name=tsukaikata>&nbsp;</A> <BR>
+      <HR class=i color=#4f9177 SIZE=20>
+      <FONT class=i color=#4f9177>使い方</FONT> 
+      <HR class=i color=#4f9177>
+
+      <P class=i>L言語で設計するための　<B>LTOOL</B>　の各プログラムの使い方の説明です。 </P><A 
+      href="LHDLMANh.htm#atama"><IMG 
+      class=i border=0 alt="modoru.jpg(1480 byte)" src="LHDLman/modoru.jpg" 
+      width=42 height=23></A> <!-- ================================================================= --><!--                                                                   --><!-- ================================================================= --><A 
+      name=LDC>&nbsp;</A> <BR>
+      <HR class=i color=#9999cc SIZE=20>
+      <FONT class=i color=blue>LDC</FONT> 
+      <HR class=i color=#9999cc>
+      <BR><IMG class=i alt=コマンドプロンプト align=right src="LHDLman/FG04G06A.jpg"> 
+      <UL class=i>
+        <LI class=i>LDC は L言語 で書かれた論理譜に最適化と論理圧縮を行って積和型の論理に展開するコンパイラです。<BR>
+        <LI class=i><FONT face="MS UI Gothic">LDC</FONT> 
+        だけで実行したときは選択機能が羅列されます。<BR>
+        <LI class=i>LDC を実行するときは同梱された STD.LIB を同一のディレクトリに置いて実行してください。 
+        <LI class=i>STD.LIB はユーザで論理を追加してあっても構いません。 
+        <LI class=i>論理譜のファイル名だけを指定して実行したときはファイルの出力はなくエラーの有無だけを確認できます。 
+        <LI class=i>ファイル名の拡張子を省略したときは　<FONT color=red>.L</FONT>　が付きます。 
+        <LI class=i>オプションはファイル名の後に付けます。 
+        <LI class=i>LDC 
+        にファイルの出力をさせるのはチップ化するときと検証のファイルを得るときです。<BR>チップ化する場合には使用する言語に応じて下の4種類のオプションがあります。<BR><BR>
+        <TABLE class=i border=1>
+          <CAPTION>【言語】</CAPTION>
+          <TBODY>
+          <TR bgColor=#c0c0c0>
+            <TH>言語</TH>
+            <TH>オプション</TH>
+            <TH>論理ファイル</TH>
+            <TH>テストベンチ</TH></TR>
+          <TR>
+            <TD>ABEL</TD>
+            <TD align=middle>-ab</TD>
+            <TD>e□.abl</TD>
+            <TD>e□.abv</TD></TR>
+          <TR>
+            <TD>AHDL</TD>
+            <TD align=middle>-ah</TD>
+            <TD>e□.tdf</TD>
+            <TD><BR></TD></TR>
+          <TR>
+            <TD>VHDL</TD>
+            <TD align=middle>-vh</TD>
+            <TD>e□.vhd</TD>
+            <TD>s□.vhd</TD></TR>
+          <TR>
+            <TD>Verilog</TD>
+            <TD align=middle>-vr</TD>
+            <TD>e□.v</TD>
+            <TD>s□.v</TD></TR>
+          <TR>
+            <TD>LSIM</TD>
+            <TD align=middle>-ls</TD>
+            <TD>e□.sim</TD>
+            <TD>t□.sim</TD></TR></TBODY></TABLE><BR>□　は entity の順番で 0 から振られます。 
+        <BR>論理譜に機能実行譜があるときはテストベンチも出力されます。<BR>
+        <LI class=i>テストベンチのステップ数は無指定なら 30 ステップです。 　<B>-sp 数</B>　でステップ数を指定できます。 
+        <LI class=i>論理譜に機能実行譜があるときは同一ディレクトリに LSIM .LBL 
+        がなければ出力します。<BR><B>-lbl</B>　を付けると LSIM .LBL を更新します。<BR>
+        <LI class=i>STD.LIB にユーザの論理を追加することができます。　<B>-lib</B>　は手続き譜を STD.LIB 
+        に追加した NEW.LIB を出力します。 
+        <LI class=i>論理が大きかったり、信号数が多いときは最適化や論理圧縮に時間がかかります。そのときは　<B>-opt 0 -qm 
+        0</B>　のオプションを付けてください。<BR>1番目が最適化を2番目が論理圧縮を無効にするオプションです。これを指定すると最適化を最小限度に留めて、論理圧縮はまったく行いません。<BR>LDCのコンパイル出力は多少は大きくなりますが論理的に違いはありませんので時間が気になる場合はこうしてください。 
+
+        <LI class=i>強制終了させたい場合は Ctrl-C を押してください。 </LI></UL><A 
+      href="LHDLMANh.htm#atama"><IMG 
+      class=i border=0 alt="modoru.jpg(1480 byte)" src="LHDLman/modoru.jpg" 
+      width=42 height=23></A> <!-- ================================================================= --><!--                                                                   --><!-- ================================================================= --><A 
+      name=LSIM>&nbsp;</A> <BR>
+      <HR class=i color=#9999cc SIZE=20>
+      <FONT class=i color=blue>LSIM</FONT> 
+      <HR class=i color=#9999cc>
+      <BR><IMG class=i alt="" align=right src="LHDLman/FG04G06C.jpg"> 
+      <P class=i>LSIM は LDC に -ls を付けて出力されたファイルを処理してステップ数に応じたシミュレーション値を　 <B>LSIM 
+      .OUT </B>　に出力します。<BR>LSIM はシミュレーションデータを作るだけのプログラムで閲覧は LSIM View で行います。 
+</P>
+      <UL class=i>
+        <LI class=i>LSIM の実行プログラムは SIM.EXE です。 
+        <LI class=i>ファイル名の拡張子は省略できません。 
+        <LI class=i>LSIM のオプションはひとつだけでファイル名の次にステップ数を指定できます。<BR>指定しないときは 100 
+        ステップになります。<BR>500 ステップにしたいときは <B>　 <FONT 
+        face=Arial>SIM　s1.sim　500</FONT>　 </B>とします。 
+        <LI 
+        class=i>深度解析が失敗したときは非記憶信号だけの論理に、その出力が入力に返されて非同期記憶になっています。実効譜か機能実行譜を見直してください。<BR><BR>
+        <TABLE class=i width=250>
+          <TBODY>
+          <TR>
+            <TD bgColor=#ece9d8 width=70><PRE>bitn a;
+
+a=a+1;
+</PRE></TD>
+            <TD>&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+            <TD>非記憶の信号で左の様に書くと深度解析が失敗します。 </TD></TR></TBODY></TABLE><BR>
+        <LI class=i>シミュレーションが正常に終了している場合は<BR>　<B>simulation -&gt; 
+        end</B>　まで表示して実行を終了しています。 
+        <LI class=i>強制終了させたい場合は Ctrl-C を押してください。 </LI></UL><BR clear=right><BR><A 
+      href="LHDLMANh.htm#atama"><IMG 
+      class=i border=0 alt="modoru.jpg(1480 byte)" src="LHDLman/modoru.jpg" 
+      width=42 height=23></A> <!-- ================================================================= --><!--                                                                   --><!-- ================================================================= --><A 
+      name=LSIM_View>&nbsp;</A> <BR>
+      <HR class=i color=#9999cc SIZE=20>
+      <FONT class=i color=blue>LSIM View</FONT> 
+      <HR class=i color=#9999cc>
+      <BR><IMG class=i alt="" src="LHDLman/FG04H21A.jpg"> 
+      <P class=i>上記の画面は <A title=PDF 
+      href="LHDLman/FG04H21B.pdf" 
+      target=_blank>PDF</A> と <A title=EPS 
+      href="LHDLman/FG04H21C.eps" 
+      target=_blank>EPS</A> でファイルに出力することができます。 </P>
+      <HR class=i>
+
+      <P class=i>LSIM View は LSIM .OUT を閲覧するプログラムです、実行プログラムは VIEW.EXE です。 </P>
+      <UL class=i>
+        <LI class=i>スクリーンショットを PDF や EPS のファイルに保存できます。<BR>
+        <P class=i>信号名が重なるので画面の倍率 <FONT color=green size=1>(上の LSIM View 
+        の画面の左下隅にあります)</FONT> は2倍以上にしておいてください。 </P>
+        <LI class=i>閲覧する信号は LSIM .LBL に書いてあります。 LSIM .LBL は LDC 
+が出力しています。<BR><BR>
+        <TABLE>
+          <TBODY>
+          <TR>
+            <TD bgColor=#ece9d8><PRE>co0      
+Q3
+Q2
+Q1
+Q0
+data3
+data2
+data1
+data0
+ud0
+et0
+ep0
+Load0
+Reset0
+</PRE></TD>
+            <TD>&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+            <TD vAlign=center>左が LDC が出力したままの LSIM .LBL です。<BR><BR>Q3,Q2,Q1,Q0 
+              の様に連続した番号の信号はまとめて表示することができます。　<B>Q.3-0</B>　と表記します。<BR><BR>色を指定するときは 
+              <B>co0:red</B> と表記します。<BR>red は色指定ですが他に green, maron, olive, navy, 
+              purple, teal, gray, silver, lime, blue, fuchsia, aqua, white 
+              を指定できます。 </TD></TR></TBODY></TABLE>もっと細かく色指定するには　<B>Reset0:RGB 0 0 0 128 
+        128 128 255 255 255</B>　などと表記します。<BR>詳細は下表を見てください。<BR>
+        <TABLE border=1>
+          <CAPTION><B>【色指定書式】</B></CAPTION>
+          <TBODY>
+          <TR>
+            <TH rowSpan=2 colSpan=2><BR></TH>
+            <TH colSpan=3 align=middle>枠</TH>
+            <TH colSpan=3 align=middle>中</TH>
+            <TH colSpan=3 align=middle>文字</TH></TR>
+          <TR>
+            <TH align=middle>R</TH>
+            <TH align=middle>G</TH>
+            <TH align=middle>B</TH>
+            <TH align=middle>R</TH>
+            <TH align=middle>G</TH>
+            <TH align=middle>B</TH>
+            <TH align=middle>R</TH>
+            <TH align=middle>G</TH>
+            <TH align=middle>B</TH></TR>
+          <TR>
+            <TD>信号名</TD>
+            <TD>:RGB</TD>
+            <TD>0〜255</TD>
+            <TD>0〜255</TD>
+            <TD>0〜255</TD>
+            <TD>0〜255</TD>
+            <TD>0〜255</TD>
+            <TD>0〜255</TD>
+            <TD>0〜255</TD>
+            <TD>0〜255</TD>
+            <TD>0〜255</TD></TR></TBODY></TABLE><BR>
+        <TABLE>
+          <TBODY>
+          <TR>
+            <TD bgColor=#ece9d8><PRE>co0:red
+Q.3-0
+data.3-0
+ud0
+et0
+ep0
+Load0
+Reset0:RGB 0 0 0 128 128 128 255 255 255
+</PRE></TD>
+            <TD>&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+            <TD>LSIM .LBL を左に書き直して View を実行したのが下の画面です。 
+        </TD></TR></TBODY></TABLE><BR><IMG alt="" src="LHDLman/FG04H21D.jpg" 
+        width=906 height=393> <BR>
+        <LI 
+        class=i>信号名に別名を割り当てることができます。<BR>　<B>出力[Q.3-0]:blue</B>　と表記します。前に別名を置いて [ 
+        ] に信号名を入れて続けます。例の様に色の指定もできます。<BR><BR>
+        <TABLE width=500>
+          <TBODY>
+          <TR>
+            <TD bgColor=#ece9d8><PRE>桁あふれ[co0]:red
+出力[Q.3-0]:blue
+DATA[data.3-0]
+UD[ud0]
+ET[et0]
+EP[ep0]
+再設定[Load0]
+初期化[Reset0]:RGB 0 0 0 128 128 128 255 255 255
+</PRE></TD>
+            <TD>&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+            <TD>LSIM .LBL を左に書き直して View を実行したのが下の画面です。 
+        </TD></TR></TBODY></TABLE><BR><IMG alt="" src="LHDLman/FG04H21E.jpg" 
+        width=889 height=403> <BR>上の画面の<A title=PDF 
+        href="LHDLman/FG04H21F.pdf" 
+        target=_blank>PDF</A>です。 </LI></UL><A 
+      href="LHDLMANh.htm#atama"><IMG 
+      class=i border=0 alt="modoru.jpg(1480 byte)" src="LHDLman/modoru.jpg" 
+      width=42 height=23></A> <!-- ================================================================= --><!--                                                                   --><!-- ================================================================= --><A 
+      name=sousa>&nbsp;</A> <BR>
+      <HR class=i color=lightgreen SIZE=20>
+      <FONT class=i color=green>操作</FONT> 
+      <HR class=i color=lightgreen>
+
+      <UL class=i>
+        <LI class=i>LSIM View は同一ディレクトリにある LSIM.OUT 
+        を読み込んで起動するのでファイル名を指定したり、起動後に閲覧ファイルを選択したりすることはありません。<BR>
+        <LI class=i>LSIM View が起動すると上の画面のように直ちに閲覧できる状態になっています。<BR>
+        <LI class=i>縦と横のスクロールバーを使って目的のステップ位置に移動して値を確認してください。<BR>
+        <LI 
+        class=i>画面の左下で画面の倍率が1から5までの5段階で変えられます。<BR>2桁以上の信号の波形画面での値の表示は2倍からです。<BR>
+        <LI 
+        class=i>カーソルは赤と青の二本が使えます。<BR>信号画面と波形画面との間にカーソルの位置する信号の値が表示されます。<BR></LI></UL><A 
+      href="LHDLMANh.htm#atama"><IMG 
+      class=i border=0 alt="modoru.jpg(1480 byte)" src="LHDLman/modoru.jpg" 
+      width=42 height=23></A> <!-- ================================================================= --><!--                                                                   --><!-- ================================================================= --><A 
+      name=komado>&nbsp;</A> <BR>
+      <HR class=i color=lightblue SIZE=20>
+      <FONT class=i color=blue>小窓</FONT> 
+      <HR class=i color=lightblue>
+      <BR>
+      <TABLE class=i border=0>
+        <TBODY>
+        <TR>
+          <TD vAlign=top width=100><IMG alt="" src="LHDLman/FG04H22A.jpg" 
+            width=109 height=187> LSIM View の波形画面を右クリックしたときに現れる小窓です。 </TD>
+          <TD>　</TD>
+          <TD vAlign=top width=100><IMG alt="" src="LHDLman/FG04H22B.jpg" 
+            width=61 height=74> <BR><B>間隔変更</B> は信号画面と波形画面との間を5段階で広げます。<B> 
+          </B></TD>
+          <TD>　</TD>
+          <TD vAlign=top width=100><IMG alt="" src="LHDLman/FG04H22C.jpg" 
+            width=68 height=73> <B>カーソル値</B> 
+            は信号画面と波形画面との間に表示する値を決めます。<BR><BR><B>赤</B>をクリックしたときはそのときの赤のカーソル値を表示します。<BR><BR><B>青</B>をクリックしたときはそのときの青のカーソル値を表示します。<BR></TD>
+          <TD>　</TD>
+          <TD vAlign=top width=100><B>差</B> をクリックしたときは、それ以降のカーソル操作で <BR><FONT 
+            color=red>　赤 - 青　</FONT> <BR>の値を表示します。<BR><BR><B>位置</B> 
+            をクリックしたときは、それ以降の赤または青のカーソル操作が行われた位置を表示します。 </TD>
+          <TD>　</TD>
+          <TD vAlign=top width=100><IMG alt="" src="LHDLman/FG04H22D.jpg" 
+            width=56 height=41> <BR><B>画面移動</B> 
+            はカーソル位置を波形画面の左端に位置して画面を移動します。<BR><BR><B>赤</B> 
+            カーソルに赤を選んで移動します。<BR><BR><B>青</B> カーソルに青を選んで移動します。<BR></TD>
+          <TD>　</TD>
+          <TD vAlign=top width=100><IMG alt="" src="LHDLman/FG04H22E.jpg" 
+            width=68 height=72> <BR><B>カーソル移動</B> 
+            <BR>は画面の外にあるカーソルを画面に呼び戻します。<BR><BR><B>赤</B> 
+            をクリックすると赤カーソルを画面に呼び戻します。<BR><BR><B>青</B> 
+            をクリックすると青カーソルを画面に呼び戻します。<BR><BR><B>両方</B> 
+            をクリックすると両方のカーソルを画面に呼び戻します。<BR></TD>
+          <TD>　</TD>
+          <TD vAlign=top width=100><IMG alt="" src="LHDLman/FG04H22F.jpg" 
+            width=56 height=73> <BR><B>進数</B> <BR>カーソルの左右の移動をクリックしたときの移動数を決めます。 
+          </TD></TR>
+        <TR>
+          <TD vAlign=top width=100><IMG alt="" src="LHDLman/FG04H22G.jpg" 
+            width=79 height=56> <BR><B>集合信号値</B> 
+            <BR>波形画面に信号値を表示するか、しないかと、2桁以上の信号値を表示するときの基数を決めます。 </TD>
+          <TD>　</TD>
+          <TD vAlign=top width=100><IMG alt="" src="LHDLman/FG04H22H.jpg" 
+            width=79 height=41> <BR><B>基数</B> 
+            <BR>集合信号値の基数を決めます。<BR><BR><B>10進数</B> 
+            <BR>基数を10にします。<BR><BR><B>16進数</B> <BR>基数を16にします。 </TD>
+          <TD>　</TD>
+          <TD vAlign=top width=100><IMG alt="" src="LHDLman/FG04H22J.jpg" 
+            width=79 height=40> <BR><B>ページ移動棒</B> 
+            波形画面が2頁以上あるときに横スクロールバーが波形画面の上に表示されます。これの表示、非表示を決めます。<BR><BR><B>表示</B> 
+            ページ移動棒を表示します。<BR><BR><B>非表示</B> ページ移動棒を表示しません。<BR><BR></TD>
+          <TD>　</TD>
+          <TD vAlign=top width=100><IMG alt="" src="LHDLman/FG04H22K.jpg" 
+            width=72 height=40> <BR><B>設定保存</B> <BR>LSIM View 
+            の色設定以外の設定値を保存するかどうかを決めます。<BR>保存された設定値は LSIM View 
+            が次に起動するときの初期値になります。<BR><BR><B>する</B> <BR>現在のLSIM View 
+            の設定値を保存します。<BR><BR><B>しない</B> 
+      <BR>設定値は保存しません。<BR><BR></TD></TR></TBODY></TABLE><A 
+      href="LHDLMANh.htm#atama"><IMG 
+      class=i border=0 alt="modoru.jpg(1480 byte)" src="LHDLman/modoru.jpg" 
+      width=42 height=23></A> <!-- ================================================================= --><!--                                                                   --><!-- ================================================================= --><A 
+      name=filesyutsuryoku>&nbsp;</A> <BR>
+      <HR class=i color=lightgreen SIZE=20>
+      <FONT class=i color=green>ファイル出力</FONT> 
+      <HR class=i color=lightgreen>
+      <BR><IMG class=i hspace=10 alt="" vspace=20 align=left 
+      src="LHDLman/FG04H22L.jpg" width=245 height=216> 
+      <P class=i>LSIM View は画面をファイルに保存することができます。ファイル形式は PDF と EPS 
+      です。どちらのファイル形式が選択されているかは小窓の最下段に表示されています。<BR><B>PDF出力</B> あるいは <B>EPS出力</B> 
+      をクリックするとファイルを保存するダイアログが開くのでファイル名を指定して保存します。 ファイル形式を変更するには <B>出力設定</B> から 
+      <B>出力形式</B> をポイントして <B>PDF</B> と <B>EPS</B> のどちらかの望む形式をクリックしてください。<BR><BR 
+      clear=left><IMG class=i hspace=10 alt="" vspace=20 align=left 
+      src="LHDLman/FG04H22M.jpg" width=289 height=200> 
+      <BR>ファイル形式にEPSを選択した場合は画面を回転させて保存することができます。保存画面の回転位置を変更するには <B>出力設定</B> から 
+      <B>画面出力</B> をポイントして <B>画面と同じ</B> か <B>90度左回転</B> か <B>270度左回転</B> 
+      から望むものをクリックしてください。<BR><BR clear=left><IMG class=i hspace=10 alt="" 
+      vspace=20 align=left src="LHDLman/FG04H22N.jpg" width=229 height=352> 
+      <BR>パソコンの画面より大きい範囲を出力したいとき、あるいは 2 頁以上の出力を行いときは <B>出力設定</B> から <B>範囲設定</B> 
+      をクリックすると左のダイアログが開きますので、必要な項目を記入後に設定ボタンを押してください。なお、 <B>原点</B> ・ <B>角度</B> ・ 
+      <B>大きさ</B> は出力形式にEPSを選択したときにだけ記入できる項目です。<BR><B>タイトル</B> は Adobe Reader でも 
+      GSview でもファイル情報に表示されますが 英文字 でないと正しく表示されません。<BR><B>作成者</B> は Adobe Reader 
+      ではファイル情報に表示されます、これも 英文字 で記入してください。<BR></P><BR clear=left><A 
+      href="LHDLMANh.htm#atama"><IMG 
+      class=i border=0 alt="modoru.jpg(1480 byte)" src="LHDLman/modoru.jpg" 
+      width=42 height=23></A> <!-- ================================================================= --><!--                                                                   --><!-- ================================================================= --><A 
+      name=iroseltutei>&nbsp;</A> <BR>
+      <HR class=i color=lightgreen SIZE=20>
+      <FONT class=i color=green>色設定</FONT> 
+      <HR class=i color=lightgreen>
+      <BR><IMG class=i hspace=30 alt="" vspace=20 align=left 
+      src="LHDLman/FG04H22P.jpg" width=361 height=376> 
+      <UL>
+        <LI class=i>LSIM View 
+        の画面はユーザが自由に設定できるようになっています。それはPDFとEPSで保存するファイルにも適用されます。 <B>画面設定</B> から 
+        <B>色設定</B> 
+        をポイントして色変更したい項目を選んでクリックすると「色の設定」のダイアログが開きますので望む色を選んで設定してください。<BR>
+        <LI class=i>信号枠の個々の信号名の色設定は LSIM .LBL で行っていますが、信号名に一律に同じ色設定を LSIM .LBL 
+        とは別に行うのが <B>信号名枠統一</B> です。 <B>使う</B> をクリックして適用され <B>使わない</B> 
+        をクリックして外されます。 <B>枠色</B>, <B>枠内色</B>, <B>文字色</B> は一律にする色の指定です。 
+        <LI class=i>色設定は <B>保存</B> で8個まで登録することができます。 <IMG class=i hspace=10 
+        alt="" align=right src="LHDLman/FG04H22Q.jpg" width=61 height=136> 
+        <B>読み出し</B> で8個の内のひとつを現在画面に適用します。<BR>LSIM View の起動時には <B>0番</B> 
+        を登録しているときは 0番 の設定を読み出して画面に適用します。 0番 の登録がないときは 初期値 を適用します、信号名の色は LSIM 
+        .LBL から適用します。 
+        <LI class=i>色設定を初期値に戻すには <B>初期値に戻す</B> をクリックしてください。 信号名の色は LSIM .LBL 
+        から適用します。 </LI></UL><BR clear=left><IMG class=i hspace=10 alt="" vspace=20 
+      align=left src="LHDLman/FG04H23B.jpg" width=472 height=400> 
+      <BR>左は色設定を変更して <B>信号名枠統一</B> を適用した例です。<BR><A 
+      href="LHDLman/FG04H23A.pdf" 
+      target=_blank>PDF</A> <BR clear=left><A 
+      href="LHDLMANh.htm#atama"><IMG 
+      class=i border=0 alt="modoru.jpg(1480 byte)" src="LHDLman/modoru.jpg" 
+      width=42 height=23></A> <!-- ================================================================= --><!--                                                                   --><!-- ================================================================= --><A 
+      name=sentakukakudai>&nbsp;</A> <BR>
+      <HR class=i color=lightgreen SIZE=20>
+      <FONT class=i color=green>選択拡大</FONT> 
+      <HR class=i color=lightgreen>
+      <BR>
+      <P class=i>矢印カーソルで画面の一部を選択して拡大した画面で表示させることができます。 </P><IMG class=i 
+      hspace=10 alt="" vspace=20 align=left src="LHDLman/FG04C24J.jpg" 
+      width=537 height=338> <BR 
+      clear=left>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ↓ <IMG class=i hspace=10 alt="" 
+      vspace=20 align=left src="LHDLman/FG04C24K.jpg" width=534 height=334> 
+      <BR clear=left><A 
+      href="LHDLMANh.htm#atama"><IMG 
+      class=i border=0 alt="modoru.jpg(1480 byte)" src="LHDLman/modoru.jpg" 
+      width=42 height=23></A> </TD></TR><!-- ************************************************************************************* --></TBODY></TABLE><BR><BR>
+<HR>
+<BR><BR>
+
+</td></tr></table>
+
+<!-- ======================================== -->
+
+</body>
+</html>

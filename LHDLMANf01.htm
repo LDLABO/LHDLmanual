@@ -1,0 +1,264 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+    <LINK Type="text/css" Rel="stylesheet" Href="main.css">
+	<title></title>
+</head>
+<body>
+
+
+<table width="1280" background="TOP00A.jpg" border="1">
+	<tr >
+		<td width="200" height="100" colspan="10" background="TOP01A.jpg">1</td>
+	</tr>
+	<tr bgcolor="#32620E">
+		<td width="128" height="20" bgcolor="#84D016">
+		
+		<table align="center">
+		<tr>
+		<td><b>＜</b></td>
+		<td><b><a href="LHDLMANe.htm" target="_self"><font color="white">□</font></a></b></td>
+		<td><b>＞</b></td>
+		</tr>
+		</table>
+		
+		</td>
+
+		<td width="128" align="center"><font color="white"></font></td>
+		<td width="128" align="center"><font color="white"><a href="" target="_self"><font color="white"></font></a></td>
+		<td width="128" align="center"><font color="white"><a href="" target="_self"><font color="white"></font></a></td>
+		<td width="128" align="center"><font color="white"><a href="" target="_self"><font color="white"></font></a></td>
+		<td width="128" align="center"><font color="white"><a href="" target="_self"><font color="white"></font></a></td>
+		<td width="128" align="center"><font color="white"><a href="" target="_self"><font color="white"></font></a></td>
+		<td width="128" align="center"><font color="white"><a href="" target="_self"><font color="white"></font></a></td>
+		<td width="128" align="center"><font color="white"><a href="" target="_self"><font color="white"></font></a></td>
+		<td width="128" bgcolor="#84D016" align="center"><font color="white">LHDLman</font></td>
+		
+	</tr>
+	<tr>
+		<td height="820" background="TOP02A.jpg">4</td>
+		
+		<td  colspan="8" bgcolor="white" >
+
+<!-- ======================================== -->
+
+<table cellpadding="20" BACKGROUND="LHDLman/ba.gif"><tr><td>
+
+<center>
+<table BORDER="4" BORDERCOLORLIGHT="olive" BORDERCOLORDARK="maroon" WIDTH="500" HEIGHT="60">
+<tr>
+<td BGCOLOR="green" ALIGN="center" VALIGN="middle">
+<font COLOR="white">
+<b>支援室 A</b>
+</font>
+<br>
+8桁プロセッサ
+<br>
+<font COLOR="white">
+プログラムシミュレータ PSIM
+</font>
+</td>
+</tr>
+</table>
+<br>
+
+<!-- --------------------------------------------------------------- -->
+<!--                                                                 -->
+<!-- --------------------------------------------------------------- -->
+<table  BORDER="1" BGCOLOR="#808000" WIDTH="100">
+<tr>
+<td ALIGN="center">
+<font COLOR="white">はじめに</font>
+</td>
+</tr>
+</table>
+
+<table WIDTH="500">
+<tr>
+<td>
+<br>
+開発室 A で設計した 8桁プロセッサのアセンブラプ
+
+ログラムを実行するプログラムシミュレータです。<br>
+<br>
+
+<IMG SRC="LHDLman/FG04K30A.jpg" WIDTH="557" HEIGHT="577">
+<br>
+
+AASM の -L オプションで出力されるリストファイル
+を読み込んで実行します。<br>
+レジスタとメモリの読み書きを自在に行い任意の位置
+からプログラムを実行できます。<br>
+<br>
+</td>
+</tr>
+</table>
+
+<!-- --------------------------------------------------------------- -->
+<!--                                                                 -->
+<!-- --------------------------------------------------------------- -->
+<table  BORDER="1" BGCOLOR="#808000" WIDTH="100">
+<tr>
+<td ALIGN="center">
+<font COLOR="white">ダウンロード</font>
+</td>
+</tr>
+</table>
+
+<table WIDTH="500">
+<tr>
+<td ALIGN="center">
+<br>
+実行プログラムをLZH圧縮したものです。<br>
+<br>
+<A HREF="LHDLman/PSIM_CPU8A100.lzh">PSIM CPU8A ver 1.00 for Windows</A>
+<br>
+<br>
+実習用のサンプルプログラムを付けます。
+
+メモリにある1から10の値を累積加算してレジスタ R0
+に計算値を残します。<br>
+<A HREF="LHDLman/SAMPLE.asm">SAMPLE.ASM</A><br>
+<br>
+アセンブルは
+<b>AASM -Mcpu8a.mac -L SAMPLE.ASM</b>
+で行います。<br>
+<br>
+
+アセンブラが出力した
+
+<A HREF="LHDLman/SAMPLE.LST">SAMPLE.LST</A>
+を PSIM から読み込みます。<br>
+<br>
+</td>
+</tr>
+</table>
+
+<!-- --------------------------------------------------------------- -->
+<!--                                                                 -->
+<!-- --------------------------------------------------------------- -->
+<table  BORDER="1" BGCOLOR="#808000" WIDTH="100">
+<tr>
+<td ALIGN="center">
+<font COLOR="white">使い方</font>
+</td>
+</tr>
+</table>
+
+<table WIDTH="500">
+<tr>
+<td ALIGN="center">
+<br>
+PSIMの最上段にあるメニュー枠のファイルからアセン
+ブルリストを読み込みます。<br>
+<br>
+PSIMの画面は上段の左にレジスタ操作、右にメモリ操
+
+作、下段にアセンブルリスト表示になっています。<br>
+<br>
+レジスタは表示枠の値を書き換えて変更できます。
+
+メモリの書き換えは矢印ボタンで赤表示の位置を目的
+
+番地に移動させてから[書き込み]をクリックすると、
+
+その右横の表示枠の値が書き込まれます。<br>
+<br>
+値の変更できる白地の囲み枠の基数は実行数と経過数
+が10進数、他は16進数です。<br>
+<br>
+アセンブルリストの表示枠は番地の値枠で表示開始位
+
+置を指定できます。<br>
+[実行]をクリックしたときは IP の値に表示位置が連
+動します。
+
+番地と IP の値枠をクリックするとその番地に移動し
+ます。
+
+アセンブルリストの IP の位置は赤地の白抜きになり
+
+ます。<br>
+<br>
+<b>[実行]</b>
+をクリックしてプログラムを駆動するのに前もって設
+定するものは
+<b>実行数</b>
+と
+<b>停止番地</b>
+です。
+
+<b>実行数</b>
+は
+<b>[実行]</b>
+をクリックしたときに実行される命令数です。
+
+<b>停止番地</b>
+は
+<b>[実行]</b>
+を無効にする番地です、IP が
+
+<b>停止番地</b>
+と同じときには
+<b>[実行]</b>
+をクリックしてもプログラムは進みませんし
+
+、
+
+<b>実行数</b>
+の途中で IP が
+
+<b>停止番地</b>
+になったときはプログラムの実行は中断されます。
+
+<br>
+<br>
+
+
+</td>
+</tr>
+</table>
+
+
+<hr WIDTH="500">
+
+<br>
+
+<!-- --------------------------------------------------------------- -->
+<!--                                                                 -->
+<!-- --------------------------------------------------------------- -->
+
+<br>
+<hr WIDTH="500">
+<br>
+<br>
+<a HREF="LHDLMANf01.htm">先頭</a>
+<br><br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+</center>
+
+
+</td></tr></table>
+
+<!-- ======================================== -->
+
+		</td>
+
+		<td  background="TOP03A.jpg">6</td>
+	</tr>
+	<tr bgcolor="#2E6C0B">
+		<td height="40"><font color="#2E6C0B">B0</font></td>
+		<td colspan="8" align="center"><font color="yellow">2016.2.8</font></td>
+		<td align="center"><font color="white">LDLABO</font></td>
+	</tr>
+</table>
+
+</body>
+</html>
