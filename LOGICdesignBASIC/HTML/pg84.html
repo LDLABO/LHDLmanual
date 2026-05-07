@@ -1,0 +1,282 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+   <title></title>
+<LINK Type="TEXT/css" Rel="stylesheet" Href="main.css">
+<style type="text/css">
+<!--
+body, th, td { line-height: 150%; }
+.i { MARGIN-left: 1em; MARGIN-right: 1em; }
+-->
+</style>
+</head>
+<body  background="../LIB/TOPIMG.JPG">
+<table border="1" cellspacing="0" width=" 900 " height=" 450 ">
+   <tr bgcolor="navy">
+<td>
+<table>
+<tr>
+<td><a href="pg83.html"><font color="white">＜</font></a></td>
+<td><font color="white"><a href="pg0.html">□</a></font></td>
+<td><a href="pg85.html"><font color="white">＞</font></a></td>
+</tr>
+</table>
+</td>
+      <td width=" 500 " height=" 20 " colspan="1" align="left">
+<td align="center"><font color="white">
+No.84
+</font></td>
+   </td>
+   </tr>
+   <tr>
+      <td width=" 20 " bgcolor="lightgray">　
+</td>
+      <td height=" 500 " bgcolor="white">
+<!--  -->
+<table border="0" cellspacing="0">
+   <tr>
+      <td height=" 20 " colspan="3">
+</td>
+   </tr>
+   <tr>
+      <td width=" 50 ">
+</td>
+      <td>
+<!--  -->
+<hr color="#CC9966" size="10">
+<font size="4" color="#666633"><b>　　　命令解読</b></font><br>
+<hr color="#CC9966">
+
+<br>
+
+<table align="right">
+<a name="LST83"></a>
+<caption><font color="red">　リスト83</font>　命令解読</caption>
+<tr>
+<td >&nbsp;　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+{ PPU 命令解読 }
+switch(DATAINb.24:31)
+   case 21: codeb21p=1;   { ADD rx,n }
+   case 19: codeb19p=1;   { CP rx,n }
+endswitch
+</font>
+</pre>
+</td>
+<td >&nbsp;　&nbsp;</td>
+</tr>
+</table>
+
+<p class="i">
+<font color="red">リスト83</font> 
+はプロセッサの基本部分に追加した命令の解読の論理です。
+</p>
+
+<br clear="right">
+
+<hr color="#CC9966" size="10">
+<font size="4" color="#666633"><b>　　　レジスタR0 R5 R6 R7</b></font><br>
+<hr color="#CC9966">
+
+<br>
+
+<table align="right">
+<a name="LST84"></a>
+<caption><font color="red">　リスト84</font>　レジスタR0 R5 R6 R7</caption>
+<tr>
+<td >&nbsp;　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+reg0Rb=SCLK;
+
+if (RESET)
+   reg5Rb=0;
+   reg6Rb=0;
+   reg7Rb=0;
+else
+   if (reg7R)
+      reg5Rb=reg5R.0:3;
+      reg6Rb=reg4R.0:3;
+      reg7Rb=reg2R.0:3;
+   else
+      reg5Rb=reg5Rb;
+      reg6Rb=reg6Rb;
+      reg7Rb=reg7Rb;
+   endif
+endif
+</font>
+</pre>
+</td>
+<td >&nbsp;　&nbsp;</td>
+</tr>
+</table>
+
+<p class="i">
+<font color="red">リスト84</font> 
+の
+<font color="blue">reg0Rb</font> 
+は
+<font color="blue">SCLK</font> 
+をプログラムから読み取れるようにそのまま代入しています。
+<font color="blue">reg7R</font> 
+はBCD 変換部のプロセッサの
+<font color="blue">R7</font> 
+で変換の終了を示していますが
+<font color="blue">reg7R</font> 
+が1 のときにBCD の値をLED 表示を担当する本プロセッサの
+<font color="blue">reg5Rb</font> ,
+<font color="blue">reg6Rb</font> , 
+<font color="blue">reg7Rb</font> 
+に記憶します。
+</p>
+
+<ul>
+<li class="i">
+<font color="blue">reg5Rb</font> 
+は
+<font color="blue">1</font> 
+の位の値
+</li>
+
+<li class="i">
+<font color="blue">reg6Rb</font> 
+は
+<font color="blue">10</font> 
+の位の値
+</li>
+
+<li class="i">
+<font color="blue">reg7Rb</font> 
+は
+<font color="blue">100</font> 
+の位の値
+</li>
+</ul>
+
+<br clear="right">
+
+<hr color="#CC9966" size="10">
+<font size="4" color="#666633"><b>　　　レジスタR1</b></font><br>
+<hr color="#CC9966">
+
+<br>
+
+<table align="right">
+<a name="LST85"></a>
+<caption><font color="red">　リスト85</font>　レジスタR1</caption>
+<tr>
+<td >&nbsp;　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+if (RESET)
+   reg1Rb=0;
+else
+   if (codeb21p)            { ADD r1,n }
+      reg1Rb=opbout.0:1;
+   else
+      if (RWb)
+         switch(PORT0ADDb)
+            case 1:  reg1Rb=PORT0OUTb.0:1;
+            default: reg1Rb=reg1Rb;
+         endswitch
+      else
+         reg1Rb=reg1Rb;
+      endif
+   endif
+endif
+</font>
+</pre>
+</td>
+<td >&nbsp;　&nbsp;</td>
+</tr>
+</table>
+
+<p class="i">
+<font color="red">リスト85</font> 
+の
+<font color="blue">reg1Rb</font> 
+は3 ビットの桁計数で表示する桁をどこにするかを示しています。本レジスタは
+<font color="blue">ADD</font> 
+命令の対象レジスタになっているので
+<font color="blue">ADD</font> 
+命令が実行中の
+<font color="blue">codeb21p</font> 
+が1 のときに演算器の出力の
+<font color="blue">opbout</font> 
+を記憶します。
+</p>
+
+<br clear="right">
+
+<hr color="#CC9966" size="10">
+<font size="4" color="#666633"><b>　　　レジスタR2</b></font><br>
+<hr color="#CC9966">
+
+<br>
+
+<table align="right">
+<a name="LST85"></a>
+<caption><font color="red">　リスト86</font>　レジスタR2</caption>
+<tr>
+<td >&nbsp;　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+if (RESET)
+   reg2Rb=0;
+else
+   if (RWb)
+      switch(PORT0ADDb)
+         case 2:  reg2Rb=PORT0OUTb.0:2;
+         default: reg2Rb=reg2Rb;
+      endswitch
+   else
+      reg2Rb=reg2Rb;
+   endif
+endif
+</font>
+</pre>
+</td>
+<td >&nbsp;　&nbsp;</td>
+</tr>
+</table>
+
+<p class="i">
+<font color="red">リスト86</font> 
+の
+<font color="blue">reg2Rb</font> 
+は桁を駆動する信号で
+<font color="red">図4.30</font> 
+の
+<font color="blue">KETA</font> 
+に代入される元信号です。
+</p>
+
+<br clear="right">
+<!--  -->
+      </td>
+      <td width=" 50 ">
+</td>
+   </tr>
+   <tr>
+      <td height=" 20 "  colspan="3">
+</td>
+   </tr>
+</table>
+<!--  -->
+      </td>
+      <td width=" 50 " bgcolor="lightgray">
+</td>
+   </tr>
+   <tr bgcolor="gray">
+      <td height=" 20 "  colspan="3">
+</td>
+   </tr>
+</table>
+</body>
+</html>

@@ -1,0 +1,210 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+   <title></title>
+<LINK Type="TEXT/css" Rel="stylesheet" Href="main.css">
+<style type="text/css">
+<!--
+body, th, td { line-height: 150%; }
+.i { MARGIN-left: 1em; MARGIN-right: 1em; }
+-->
+</style>
+</head>
+<body  background="../LIB/TOPIMG.JPG">
+<table border="1" cellspacing="0" width=" 900 " height=" 450 ">
+   <tr bgcolor="navy">
+<td>
+<table>
+<tr>
+<td><a href="pg11.html"><font color="white">＜</font></a></td>
+<td><font color="white"><a href="pg0.html">□</a></font></td>
+<td><a href="pg13.html"><font color="white">＞</font></a></td>
+</tr>
+</table>
+</td>
+      <td width=" 500 " height=" 20 " colspan="1" align="left">
+<td align="center"><font color="white">
+No.12
+</font></td>
+   </td>
+   </tr>
+   <tr>
+      <td width=" 20 " bgcolor="lightgray">　
+</td>
+      <td height=" 500 " bgcolor="white">
+<!--  -->
+<table border="0" cellspacing="0">
+   <tr>
+      <td height=" 20 " colspan="3">
+</td>
+   </tr>
+   <tr>
+      <td width=" 50 ">
+</td>
+      <td>
+<!--  -->
+<hr color="#4F9177" size="15">
+<font color="#336633"><b>　　論理設計とプログラミング</b></font>
+<hr color="#4F9177">
+
+<p class="i">
+言語で論理設計したもをプログラムと呼ぶ人もあるようですからマイコンのプログラム言語と論理設計の言語
+の相違を見てみたいと思います。左がマイコンのプログラムで右が同様の機能を持つ論理設計の言語表記です。
+</p>
+
+<table align="right" class="i">
+<tr>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+entity main
+input  RESET;
+output ADDRESS[4];
+output DATA[8];
+output WE;
+
+bitr i[4];
+bitr memseq[3];
+bitn we;
+
+   ADDRESS=i;
+   DATA=0xff;
+   WE=we;
+
+   if (RESET)
+      i=0;
+   else
+      if (i<5)
+         switch(memseq)
+            case 4:  i=i+1;
+            default: i=i;
+         endswitch
+      else
+         i=i;
+      endif
+   endif
+
+   if (RESET)
+      memseq=0;
+   else
+      switch(i)
+         case 5: memseq=memseq;
+         default:
+            switch(memseq)
+               case 4: memseq=0;
+               default: memseq=memseq+1;
+            endswitch
+      endswitch
+   endif
+
+   switch(memseq)
+      case 1:
+      case 2:
+      case 3:
+      from: we=1;
+   endswitch
+
+ende
+</font>
+</pre>
+</td>
+</tr>
+</table>
+
+<hr color="#6666CC" size="10">
+<font size="4" color="#5454AB"><b>　　　プログラミング</b></font><br>
+<hr color="#6666CC">
+
+<table class="i">
+<tr>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+main()
+{
+int i,a[5];
+
+   for(i=0; i<5; i++)
+      {
+      a[i]=0xff;
+      }
+}
+</font>
+</pre>
+</td>
+</tr>
+</table>
+
+<p class="i">
+マイコンのプログラムのデータ操作はほぼメモリに対す
+るものです。しかしこれがマイコンのコードにコンパイ
+ルされた実行プログラムではマイコンの内部のレジスタ
+も操作しているはずです。他のメモリを操作したり他の
+プログラムを呼び出しているかも知れません。これらの
+動きはコンパイラによって行われていますがアセンブ
+リ言語でプログラムを書く人はこれを自分で書いてい
+ます。
+</p>
+
+<table class="i">
+<tr>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+       .8086
+        CODE segment
+
+        MOV   BX,0
+        MOV   AX,0FFH
+ROOP:
+        MOV   DS:[BX],AX
+        INC   BX
+        CMP   BX,5
+        JC    ROOP
+
+        HLT
+        CODE ends
+        end
+</font>
+</pre>
+</td>
+</tr>
+</table>
+
+<br clear="right">
+
+<p class="i">
+同じマイコンのプログラムとは言っても高級言語でプロ
+グラム作る人とアセンブリ言語でプログラムを作る人の
+意識は大きく異なると思います。高級言語はマイコンの
+種類は問いませんデータ操作についてどのメモリで行う
+のかを指定する必要もありません。アセンブリ言語はメ
+モリの種類は問いませんどのような種類であってもマイ
+コンで読み書きできるように作られている前提があり
+ます。
+高級言語でもアセンブリ言語でも感知できないかあるいは感知する必要のない前提を持っています。
+</p>
+
+<!--  -->
+      </td>
+      <td width=" 50 ">
+</td>
+   </tr>
+   <tr>
+      <td height=" 20 "  colspan="3">
+</td>
+   </tr>
+</table>
+<!--  -->
+      </td>
+      <td width=" 50 " bgcolor="lightgray">
+</td>
+   </tr>
+   <tr bgcolor="gray">
+      <td height=" 20 "  colspan="3">
+</td>
+   </tr>
+</table>
+</body>
+</html>

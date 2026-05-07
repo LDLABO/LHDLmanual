@@ -1,0 +1,254 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+   <title></title>
+<LINK Type="TEXT/css" Rel="stylesheet" Href="main.css">
+<style type="text/css">
+<!--
+body, th, td { line-height: 150%; }
+.i { MARGIN-left: 1em; MARGIN-right: 1em; }
+-->
+</style>
+</head>
+<body  background="../LIB/TOPIMG.JPG">
+<table border="1" cellspacing="0" width=" 900 " height=" 450 ">
+   <tr bgcolor="navy">
+<td>
+<table>
+<tr>
+<td><a href="pg97.html"><font color="white">＜</font></a></td>
+<td><font color="white"><a href="pg0.html">□</a></font></td>
+<td><a href="pg99.html"><font color="white">＞</font></a></td>
+</tr>
+</table>
+</td>
+      <td width=" 500 " height=" 20 " colspan="1" align="left">
+<td align="center"><font color="white">
+No.98
+</font></td>
+   </td>
+   </tr>
+   <tr>
+      <td width=" 20 " bgcolor="lightgray">　
+</td>
+      <td height=" 500 " bgcolor="white">
+<!--  -->
+<table border="0" cellspacing="0">
+   <tr>
+      <td height=" 20 " colspan="3">
+</td>
+   </tr>
+   <tr>
+      <td width=" 50 ">
+</td>
+      <td>
+<!--  -->
+<hr color="#6666CC" size="10">
+<font size="4" color="#5454AB"><b>　　　キートップと番号の割り当て</b></font><br>
+<hr color="#6666CC">
+
+<p class="i">
+キートップで示されるキーを押したときに
+<font color="blue">Q</font> 
+に表れる値は
+<font color="red">図5.11</font> 
+のように決められます。
+</p>
+
+<table class="i">
+<tr>
+<td>
+
+<table>
+<caption><font color="red">図5.10</font> キートップと番号の割り当て</caption>
+<tr>
+<td>&nbsp;&nbsp</td>
+<td align="center">
+<a href="../LIB/FG09F27A.png" target="_blank">
+<img src="../LIB/FG09F27A.png" border="0" alt="FG09F27A.png(192159 byte)" width="300">
+</a>
+</td>
+<td>&nbsp;　　　&nbsp</td>
+</tr>
+</table>
+
+</td>
+
+<td>
+
+<table>
+<tr>
+<td>&nbsp;&nbsp</td>
+<td align="center">
+<a href="../LIB/FG09F27B.png" target="_blank">
+<img src="../LIB/FG09F27B.jpg" border="0" alt="FG09F27B.jpg(29628 byte)" width="300">
+</a>
+</td>
+<td>&nbsp;　　　&nbsp</td>
+</tr>
+</table>
+
+</td>
+</tr>
+</table>
+
+<hr color="#6666CC" size="10">
+<font size="4" color="#5454AB"><b>　　　SCLK 行程</b></font><br>
+<hr color="#6666CC">
+
+<p class="i">
+<font color="blue">SCLK</font> 
+は
+<font color="red">図5.10</font> 
+のようにキーボードを駆動しています。駆動の起点は
+<font color="blue">SCLK</font> 
+が0 から1 になったところです。
+<font color="blue">SCLK</font> 
+の変化を2 ビットの値にして
+捉(とら)えようとしたのが
+<font color="red">リスト92</font> 
+の
+<font color="blue">SCLK</font> 
+行程の
+<font color="blue">sclkp</font> 
+です、意味は
+<font color="red">図5.12</font>
+のようになります。
+</p>
+
+<table class="i">
+<tr>
+<td valign="top">
+
+<table>
+<a name="LST92"></a>
+<caption><font color="red">　リスト92</font>　SCLK行程</caption>
+<tr>
+<td >&nbsp;　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+if (RESET)
+   sclkp=0;
+else
+   if (SCLK)
+      switch(sclkp)
+         case 0: sclkp=1;
+         case 1: sclkp=2;
+         default: sclkp=sclkp;
+      endswitch
+   else
+      sclkp=0;
+   endif
+endif
+</font>
+</pre>
+</td>
+<td >&nbsp;　&nbsp;</td>
+</tr>
+</table>
+
+</td>
+
+<td valign="top">
+
+<table>
+<caption><font color="red">図5.12</font> SCLK行程</caption>
+<tr>
+<td>&nbsp;&nbsp</td>
+<td align="center">
+<a href="../LIB/FG09F27C.png" target="_blank">
+<img src="../LIB/FG09F27C.png" border="0" alt="FG09F27C.png(17910 byte)" width="280">
+</a>
+</td>
+<td>&nbsp;　　　&nbsp</td>
+</tr>
+</table>
+
+</td>
+</tr>
+</table>
+
+<hr color="#6666CC" size="10">
+<font size="4" color="#5454AB"><b>　　　駆動計数</b></font><br>
+<hr color="#6666CC">
+
+<br>
+
+<table align="right">
+<a name="LST93"></a>
+<caption><font color="red">　リスト93</font>　駆動計数</caption>
+<tr>
+<td >&nbsp;　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+if (RESET)
+   count=0;
+else
+   if (sclkp.0)
+      if (count==3)
+         count=0;
+      else
+         count=count+1;
+      endif
+   else
+      count=count;
+   endif
+endif
+</font>
+</pre>
+</td>
+<td >&nbsp;　&nbsp;</td>
+</tr>
+</table>
+
+<p class="i">
+<font color="red">リスト93</font> 
+の
+<font color="blue">count</font> 
+は
+<font color="red">図5.10</font> 
+のようにキーボードの列を駆動する計数です。
+計数の起点は
+<font color="blue">SCLK</font> 
+が0 から1 になところで
+<font color="blue">sclkp.0</font> 
+が1 のところは
+<font color="red">図5.12</font>
+の
+<font color="blue">SCLK</font> 
+行程の
+<font color="red">1</font> 
+のところです。今回のキーボードは列が4 本なので
+<font color="blue">count</font>
+は
+<font color="blue">0〜3</font> 
+までの値になります。
+</p>
+
+<br clear="right">
+
+<!--  -->
+      </td>
+      <td width=" 50 ">
+</td>
+   </tr>
+   <tr>
+      <td height=" 20 "  colspan="3">
+</td>
+   </tr>
+</table>
+<!--  -->
+      </td>
+      <td width=" 50 " bgcolor="lightgray">
+</td>
+   </tr>
+   <tr bgcolor="gray">
+      <td height=" 20 "  colspan="3">
+</td>
+   </tr>
+</table>
+</body>
+</html>

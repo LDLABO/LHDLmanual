@@ -1,0 +1,251 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+   <title></title>
+<LINK Type="TEXT/css" Rel="stylesheet" Href="main.css">
+<style type="text/css">
+<!--
+body, th, td { line-height: 150%; }
+.i { MARGIN-left: 1em; MARGIN-right: 1em; }
+-->
+</style>
+</head>
+<body  background="../LIB/TOPIMG.JPG">
+<table border="1" cellspacing="0" width=" 900 " height=" 450 ">
+   <tr bgcolor="navy">
+<td>
+<table>
+<tr>
+<td><a href="pg9.html"><font color="white">＜</font></a></td>
+<td><font color="white"><a href="pg0.html">□</a></font></td>
+<td><a href="pg11.html"><font color="white">＞</font></a></td>
+</tr>
+</table>
+</td>
+      <td width=" 500 " height=" 20 " colspan="1" align="left">
+<td align="center"><font color="white">
+No.10
+</font></td>
+   </td>
+   </tr>
+   <tr>
+      <td width=" 20 " bgcolor="lightgray">　
+</td>
+      <td height=" 500 " bgcolor="white">
+<!--  -->
+<table border="0" cellspacing="0">
+   <tr>
+      <td height=" 20 " colspan="3">
+</td>
+   </tr>
+   <tr>
+      <td width=" 50 ">
+</td>
+      <td>
+<!--  -->
+<hr color="#6666CC" size="10">
+<font size="4" color="#5454AB"><b>　　　PLD の内部の概念</b></font><br>
+<hr color="#6666CC">
+
+<p class="i">
+論理設計をするときにPLD の中身は論理的に概ね
+<font color="red">図2.5</font> 
+のようになっていると考えてよいと思います。
+<font color="red">J</font> 
+と
+<font color="red">K</font> 
+が外部の端子です。
+<font color="red">A</font> 
+と
+<font color="red">B</font> 
+と
+<font color="red">G</font> 
+と
+<font color="red">D</font> 
+がマクロセルに含まれる部分です。
+<font color="red">N</font> 
+がマクロセルの入力で
+<font color="red">L</font> 
+がマク
+ロセルの出力です。
+<font color="red">E</font> 
+が論理和で
+<font color="red">F</font> 
+が論理積です。
+<font color="red">C</font> 
+が結線領域でこの中に真理値表が組み込まれます。結線
+領域には
+<font color="red">L</font> 
+の外部からの入出力端子と
+<font color="red">M</font> 
+のマクロセルの出力が
+<font color="red">H</font> 
+を通じて入ります。
+</p>
+
+<table align="right" class="i">
+<a name="FG09C27A.svg"></a>
+<caption><font color="red">図2.5</font> PLD の内部の概念</caption>
+<tr>
+<td>
+<a href="../LIB/FG09C27A.svg" target="_blank">
+<img src="../LIB/FG09C27A.svg" border="0" alt="FG09C27A.svg(36464 byte)" width="350">
+</a>
+</td>
+</tr>
+</table>
+
+<p class="i">
+<font color="red">図2.5</font> 
+の薄緑色の部分はチップデータの書き込
+みによって固定する部分です。
+<font color="red">A</font> 
+と
+<font color="red">B</font> 
+はセレクタ
+ですからどの入力を出力にするかを固定します。
+<font color="red">C</font>
+は入力のどれを
+<font color="red">F</font> 
+につなぐかを固定します。PLD
+の入出力端子には
+<font color="red">G</font> 
+があるので
+<font color="red">J</font> 
+をデータバスの
+ように双方向の端子にすることができます。記憶素
+子の
+<font color="red">D</font> 
+はCLK の立ち上がりエッジで記憶します。
+CLK はCLK 専用端子の
+<font color="red">K</font> 
+から入力し
+<font color="red">P</font> 
+から他
+の記憶素子ともつながります。論理を外部に出すと
+き
+<font color="red">G</font> 
+は
+<font color="red">J</font> 
+につなげられます。内部で使うときは
+<font color="red">M → B → H → C</font> 
+と結線領域につながれます。論理
+を記憶しないときは
+<font color="red">E → N → A</font> 
+とつながります。論理を記憶するときは
+<font color="red">E → D → A</font> 
+とつながります。
+<font color="red">J</font> 
+が
+入力端子であれば
+<font color="red">G</font> 
+が外されて
+<font color="red">J → L → B → H → C</font> 
+と結線領域につながれます。
+</p>
+
+<br clear="right">
+
+<hr color="#6666CC" size="10">
+<font size="4" color="#5454AB"><b>　　　結線領域と真理値表</b></font><br>
+<hr color="#6666CC">
+
+<table align="right" class="i">
+<caption><font color="red">図2.6</font> PLD と真理値表</caption>
+<tr>
+<td>
+<a href="../LIB/FG09C27B.svg" target="_blank">
+<img src="../LIB/FG09C27B.svg" border="0" alt="FG09C27B.svg(51940 byte)" width="160">
+</a>
+</td>
+</tr>
+</table>
+
+<p class="i">
+下位の加算器からの桁上げの入力と上位の加算器への桁上げの出力を持つ1
+ビットの加算器を
+<font color="red">図2.6</font> 
+に示します。
+<font color="red">J0</font> 
+と
+<font color="red">J1</font> 
+が加算器の2 入力で
+<font color="red">J2</font> 
+が下位
+の加算結果のビットの桁上がりです。
+<font color="red">N0</font> 
+が加算値で
+<font color="red">N1</font> 
+が上位の加算器への
+桁上げです。この結線は
+<font color="red">C</font> 
+の中で行われ
+<font color="red">E</font>
+を通すことで真理値表の値を
+<font color="red">N</font> 
+に
+出します。
+<font color="red">J</font> 
+や
+<font color="red">F</font> 
+が増えると
+<font color="red">C</font> 
+の容量を消費します。
+<font color="red">C1</font> 
+の
+<font color="red">F2</font> 
+と
+<font color="red">F3</font> 
+を見ると
+<font color="red">J2</font> 
+を
+外して
+<font color="red">F2</font> 
+だけにして
+<font color="red">F3</font> 
+を削除しても結果は同じです。このような論理圧縮
+を行ってPLD の容量をなるべく消費しないようにします。
+</p>
+
+<p class="i">
+<font color="red">図2.6</font> 
+の真理値表は次の論理式になります。
+</p>
+
+<font color="blue">
+<pre class="i">
+N0 =!J0 *!J1 * J2 +!J0 * J1 *!J2 + J0 *!J1*!J2 + J0 * J1 * J2
+N1 =!J0 * J1 * J2 + J0 *!J1 * J2 + J0 * J1*!J2 + J0 * J1 * J2
+</pre>
+</font>
+
+<p class="i">
+真理値表と論理式は表記の方法が違うだけで等価なものです真理値表があれ
+ば論理式が分かります論理式があれば真理値表が分かります。
+</p>
+
+<br clear="right">
+
+<!--  -->
+      </td>
+      <td width=" 50 ">
+</td>
+   </tr>
+   <tr>
+      <td height=" 20 "  colspan="3">
+</td>
+   </tr>
+</table>
+<!--  -->
+      </td>
+      <td width=" 50 " bgcolor="lightgray">
+</td>
+   </tr>
+   <tr bgcolor="gray">
+      <td height=" 20 "  colspan="3">
+</td>
+   </tr>
+</table>
+</body>
+</html>

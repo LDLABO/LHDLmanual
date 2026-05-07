@@ -1,0 +1,247 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+   <title></title>
+<LINK Type="TEXT/css" Rel="stylesheet" Href="main.css">
+<style type="text/css">
+<!--
+body, th, td { line-height: 150%; }
+.i { MARGIN-left: 1em; MARGIN-right: 1em; }
+-->
+</style>
+</head>
+<body  background="../LIB/TOPIMG.JPG">
+<table border="1" cellspacing="0" width=" 900 " height=" 450 ">
+   <tr bgcolor="navy">
+<td>
+<table>
+<tr>
+<td><a href="pg64.html"><font color="white">＜</font></a></td>
+<td><font color="white"><a href="pg0.html">□</a></font></td>
+<td><a href="pg66.html"><font color="white">＞</font></a></td>
+</tr>
+</table>
+</td>
+      <td width=" 500 " height=" 20 " colspan="1" align="left">
+<td align="center"><font color="white">
+No.65
+</font></td>
+   </td>
+   </tr>
+   <tr>
+      <td width=" 20 " bgcolor="lightgray">　
+</td>
+      <td height=" 500 " bgcolor="white">
+<!--  -->
+<table border="0" cellspacing="0">
+   <tr>
+      <td height=" 20 " colspan="3">
+</td>
+   </tr>
+   <tr>
+      <td width=" 50 ">
+</td>
+      <td>
+<!--  -->
+<hr color="#4F9177" size="15">
+<font color="#336633">　　通常のBCD 変換器LED 表示</font>
+<hr color="#4F9177">
+
+<br>
+
+<table align="right">
+<a name="LST62"></a>
+<caption><font color="red">　リスト62</font>　BCD 変換器LED 表示</caption>
+<tr>
+<td >&nbsp;　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+logicname bcdconvled
+
+library bcdconv        { BCD変換器 ライブラリ }
+library led7dspdyd     { LED表示器 ライブラリ }
+
+entity main
+input RESET;               { 初期化 }
+input SCLK;                { 桁駆動CLK }
+input REQ;                 { 変換要求 }
+input ADATA[8];            { データ }
+output LED7SEG[7];         { セグメントデータ }
+output KETA[3];            { 桁 }
+
+bitn int_bcdconv[13];      { BCD変換器 手続き }
+bitn int_led7dspdyd[10];   { LED表示器 手続き }
+bitn bcd0p[4];             { BCD 第1桁 }
+bitn bcd1p[4];             { BCD 第2桁 }
+bitn bcd2p[4];             { BCD 第3桁 }
+bitn we;                   { BCD書き込み }
+bitn led7seg[7];           { セグメントデータ }
+bitn keta[3];              { 桁 }
+
+   LED7SEG=led7seg;
+   KETA=keta;
+
+   int_bcdconv=bcdconv(RESET,REQ,ADATA);
+
+   int_bcdconv.13=1;
+
+   bcd0p=int_bcdconv.0:3;
+   bcd1p=int_bcdconv.4:7;
+   bcd2p=int_bcdconv.8:11;
+   we=int_bcdconv.12;
+
+   int_led7dspdyd=led7dspdyd(RESET,SCLK
+                 ,bcd0p,bcd1p,bcd2p,we);
+
+   int_led7dspdyd.10=1;
+
+   led7seg=int_led7dspdyd.0:6;
+   keta=int_led7dspdyd.7:9;
+
+ende
+endlogic
+</font>
+</pre>
+</td>
+<td >&nbsp;　&nbsp;</td>
+</tr>
+</table>
+
+<p class="i">
+これまでに論理設計で作ったBCD 変換器とLED 表
+示器を手続きにしてライブラリを作ります。このライ
+ブラリから手続きを引用してふたつの論理設計をひと
+つにまとめます。
+</p>
+
+<p class="i">
+BCD 変換器とLED 表示器を手続きにしてひとつの論理譜にしたのが
+<font color="red">リスト62</font> 
+です。これを
+<font color="blue">XC95144</font> 
+でワンチップにしたものが
+<font color="red">リスト63</font> 
+です。この論理譜に引用した論理は次のファイルを参照して下さい。
+</p>
+
+<ul>
+<li class="i">
+BCD 変換器手続き: 
+<a href="../LIB/pro_bcdconv.l" target="_blank">
+<font color="blue">pro_bcdconv.l</font>
+</a>
+</li>
+
+<li class="i">
+LED 表示器手続き: 
+<a href="../LIB/pro_led7seg.l" target="_blank">
+<font color="blue">
+pro_led7dspdyd.l
+</font>
+</a>
+</li>
+
+<li class="i">
+BCD 変換器ライブラリ: 
+<a href="../LIB/bcdconv.lib" target="_blank">
+<font color="blue">
+bcdconv.lib
+</font>
+</a>
+</li>
+
+<li class="i">
+LED 表示器ライブラリ: 
+<a href="../LIB/led7dspdyd.lib" target="_blank">
+<font color="blue">
+led7dspdyd.lib
+</font>
+</a>
+</li>
+</ul>
+
+<p class="i">
+論理を手続きにして引用して使うことで論理設計を
+階層化することができます。手続きのあるライブラリ
+ファイルの導入はBCD 変換器については
+</p>
+
+<pre class="i">
+<font face="Lucida Console" color="#CC0000" size="2">
+library bcdconv
+</font>
+</pre>
+
+<p class="i">
+のように書きます。
+<font color="blue">bcdconv</font> 
+はライブラリファイルの
+名前です、今回は手続きをひとつだけ入れたライブラ
+リを使っていますがライブラリには複数の手続きが入
+ります。このライブラリの中から手続きを引用するに
+は次のように書きます。
+</p>
+
+<pre class="i">
+<font face="Lucida Console" color="#CC0000" size="2">
+int bcdconv=bcdconv(RESET,REQ,ADATA)
+</font>
+</pre>
+
+<p class="i">
+<font color="blue">bcdconv</font> 
+が手続き名でこの名前をライブラリの中か
+ら探し出して論理に展開しています。
+</p>
+
+<br clear="right">
+
+<table class="i">
+<a name="LST63"></a>
+<caption><font color="red">　リスト63</font>　XC95144</caption>
+<tr>
+<td >&nbsp;　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+cpldfit:  version I.33                              Xilinx Inc.
+                                  Fitter Report
+Design Name: main                                Date:  8-14-2008,  9:38PM
+Device Used: XC95144-7-PQ100
+Fitting Status: Successful
+
+*************************  Mapped Resource Summary  **************************
+
+Macrocells     Product Terms    Function Block   Registers      Pins           
+Used/Tot       Used/Tot         Inps Used/Tot    Used/Tot       Used/Tot       
+125/144 ( 87%) 330 /720  ( 46%) 247/288 ( 86%)   90 /144 ( 62%) 11 /81  ( 14%)
+</font>
+</pre>
+</td>
+<td >&nbsp;　&nbsp;</td>
+</tr>
+</table>
+<!--  -->
+      </td>
+      <td width=" 50 ">
+</td>
+   </tr>
+   <tr>
+      <td height=" 20 "  colspan="3">
+</td>
+   </tr>
+</table>
+<!--  -->
+      </td>
+      <td width=" 50 " bgcolor="lightgray">
+</td>
+   </tr>
+   <tr bgcolor="gray">
+      <td height=" 20 "  colspan="3">
+</td>
+   </tr>
+</table>
+</body>
+</html>

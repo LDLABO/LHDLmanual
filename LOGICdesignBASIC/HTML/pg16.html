@@ -1,0 +1,226 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+   <title></title>
+<LINK Type="TEXT/css" Rel="stylesheet" Href="main.css">
+<style type="text/css">
+<!--
+body, th, td { line-height: 150%; }
+.i { MARGIN-left: 1em; MARGIN-right: 1em; }
+-->
+</style>
+</head>
+<body  background="../LIB/TOPIMG.JPG">
+<table border="1" cellspacing="0" width=" 900 " height=" 450 ">
+   <tr bgcolor="navy">
+<td>
+<table>
+<tr>
+<td><a href="pg15.html"><font color="white">＜</font></a></td>
+<td><font color="white"><a href="pg0.html">□</a></font></td>
+<td><a href="pg17.html"><font color="white">＞</font></a></td>
+</tr>
+</table>
+</td>
+      <td width=" 500 " height=" 20 " colspan="1" align="left">
+<td align="center"><font color="white">
+No.16
+</font></td>
+   </td>
+   </tr>
+   <tr>
+      <td width=" 20 " bgcolor="lightgray">　
+</td>
+      <td height=" 500 " bgcolor="white">
+<!--  -->
+<table border="0" cellspacing="0">
+   <tr>
+      <td height=" 20 " colspan="3">
+</td>
+   </tr>
+   <tr>
+      <td width=" 50 ">
+</td>
+      <td>
+<!--  -->
+<hr color="#6666CC" size="10">
+<font size="4" color="#5454AB"><b>　　　時分割で書いた場合</b></font><br>
+<hr color="#6666CC">
+
+
+<table align="right"><tr><td>
+<table>
+<caption><font color="red">リスト4</font>　8 ビットの加算器no.3</caption>
+<tr>
+<td >&nbsp;　　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+entity main
+input  RESET;
+input  A[8];
+input  B[8];
+input  C[8];
+input  D[8];
+output E[8];
+output F[8];
+
+bitr sel;
+bitr e[8];
+bitr f[8];
+bitn seldataa[8];
+bitn seldatab[8];
+bitn add[8];
+
+   E=e;
+   F=f;
+
+   if (RESET)               { 選択計数器 }
+      sel=0;
+   else
+      sel=sel+1;
+   endif
+
+   if (sel)
+      seldataa=D;           { 入力選択f }
+   else
+      seldataa=A;        　 { 入力選択e }
+   endif
+
+   if (sel)
+      seldatab=C;           { 入力選択f }
+   else
+      seldatab=B;           { 入力選択e }
+   endif
+
+   if (RESET)               { 記憶 e }
+      e=0;
+   else
+      if (sel)
+         e=e;
+      else
+         e=add;
+      endif
+   endif
+
+   if (RESET)               { 記憶f }
+      f=0;
+   else
+      if (sel)
+         f=add;
+      else
+         f=f;
+      endif
+   endif
+
+   add=seldataa+seldatab;   { 加算器 }
+
+ende
+</font>
+</pre>
+</td>
+</tr>
+</table>
+</td></tr></table>
+
+<p class="i">
+次の式を1 個の加算器で行うために時分割の論理
+を
+<font color="red">リスト4</font> 
+に書いてみました。
+</p>
+
+<table align="center"><tr><td>
+<pre>
+<font face="Lucida Console" color="#330099">
+E=A+B
+F=C+D
+</font>
+</pre>
+</td></tr></table>
+
+<p class="i">
+実行の結果は
+<font color="red">図3.2</font> 
+のように
+<font color="blue">E</font> 
+と
+<font color="blue">F</font> 
+の結果が出てくるのには時間差があります。
+</p>
+
+<table class="i">
+<caption><font color="red">図3.2</font> 8 ビットの加算器no.3</caption>
+<tr>
+<td>
+<a href="../LIB/FG09D01A.png" target="_blank">
+<img src="../LIB/FG09D01A.png" border="0" alt="FG09D01A.png(66848 byte)" width="400">
+</a>
+</td>
+</tr>
+</table>
+
+<p class="i">
+<font color="blue">sel</font>
+はチップのCLKで計数されており 0 1 0 1 0 ・・・ と動いています。
+<font color="blue">sel</font>
+が0のときに
+<font color="blue">E</font>
+の計算を行い
+<font color="blue">sel</font>
+が1のときに
+<font color="blue">F</font>
+の計算を行っています。
+
+<font color="blue">E</font>
+と
+<font color="blue">F</font>
+の計算は時分割で行われているので結果は
+<font color="blue">e</font>
+と
+<font color="blue">f</font>
+に記憶しています。
+</p>
+
+<p class="i">
+論理設計の工夫はどちらかと言うと速度を上げるこ
+とよりも論理を小さくする方に向けられる事が多いと
+思います。CPLD に入れるつもりで設計を始めても
+ギリギリで入らないなどはよくあることですので論
+理を減らして時分割で行うなどは今のCPLD の容量
+ならまだまだあり得る話です。今回は加算器でしたが
+もっと大きな論理を時分割で利用する場合は効果が大
+きいです。
+</p>
+
+<p class="i">
+加算器を他の演算器に変えても同様の事が行えま
+す。演算器を多機能に変えて算術演算ユニットALU
+にして、その機能の選択を固定ぜずプログラムで変え
+ていけばマイクロプロセッサになります。
+</p>
+
+<br clear="right">
+<!--  -->
+      </td>
+      <td width=" 50 ">
+</td>
+   </tr>
+   <tr>
+      <td height=" 20 "  colspan="3">
+</td>
+   </tr>
+</table>
+<!--  -->
+      </td>
+      <td width=" 50 " bgcolor="lightgray">
+</td>
+   </tr>
+   <tr bgcolor="gray">
+      <td height=" 20 "  colspan="3">
+</td>
+   </tr>
+</table>
+</body>
+</html>

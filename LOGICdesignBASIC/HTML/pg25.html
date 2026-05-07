@@ -1,0 +1,178 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+   <title></title>
+<LINK Type="TEXT/css" Rel="stylesheet" Href="main.css">
+<style type="text/css">
+<!--
+body, th, td { line-height: 150%; }
+.i { MARGIN-left: 1em; MARGIN-right: 1em; }
+-->
+</style>
+</head>
+<body  background="../LIB/TOPIMG.JPG">
+<table border="1" cellspacing="0" width=" 900 " height=" 450 ">
+   <tr bgcolor="navy">
+<td>
+<table>
+<tr>
+<td><a href="pg24.html"><font color="white">＜</font></a></td>
+<td><font color="white"><a href="pg0.html">□</a></font></td>
+<td><a href="pg26.html"><font color="white">＞</font></a></td>
+</tr>
+</table>
+</td>
+      <td width=" 500 " height=" 20 " colspan="1" align="left">
+<td align="center"><font color="white">
+No.25
+</font></td>
+   </td>
+   </tr>
+   <tr>
+      <td width=" 20 " bgcolor="lightgray">　
+</td>
+      <td height=" 500 " bgcolor="white">
+<!--  -->
+<table border="0" cellspacing="0">
+   <tr>
+      <td height=" 20 " colspan="3">
+</td>
+   </tr>
+   <tr>
+      <td width=" 50 ">
+</td>
+      <td>
+<!--  -->
+<hr color="#4F9177" size="15">
+<font color="#336633"><b>　　記憶</b></font>
+<hr color="#4F9177">
+
+<hr color="#6666CC" size="10">
+<font size="4" color="#5454AB"><b>　　　基本構成</b></font><br>
+<hr color="#6666CC">
+
+<p class="i">
+計数器とかシフトレジスタとか時間を追って動くものに使う論理設計には欠かせないものです。ここでいう記
+憶とは
+<font color="red">図3.16</font> 
+の同期式の論理設計を前提にしています。いつ記憶するのかを
+<font color="blue">p</font> 
+に何を記憶するのかを
+<font color="blue">d</font> 
+に設計
+します。
+</p>
+
+<table class="i">
+<caption><font color="red">図3.16</font> 記憶の構成</caption>
+<tr>
+<td align="center">
+<a href="../LIB/FG09D10A.png" target="_blank">
+<img src="../LIB/FG09D10A.png" border="0" alt="FG09D10A.png(32694 byte)" width="600">
+</a>
+</td>
+</tr>
+</table>
+
+<table align="right">
+<a name="LST14"></a>
+<caption><font color="red">　リスト14</font>　1 ビットの記憶</caption>
+<tr>
+<td >&nbsp;　　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+entity main
+input  RESET;
+input  P;
+input  D;
+output Q;
+
+bitr q;
+
+   Q=q;
+
+   if (RESET)
+      q=0;
+   else
+      if (P)
+         q=D;
+      else
+         q=q;
+      endif
+   endif
+
+ende
+</font>
+</pre>
+</td>
+<td >&nbsp;　　　　　&nbsp;</td>
+</tr>
+</table>
+
+<p class="i">
+<font color="red">リスト14</font> 
+が
+<font color="red">図3.16</font> 
+の最も簡単な例です
+<font color="blue">bitr q</font> 
+が記憶信号であることを示
+します。
+</p>
+
+<table class="i">
+<caption><font color="red">図3.17</font> リスト14 の実行</caption>
+<tr>
+<td align="center">
+<a href="../LIB/FG09D10B.png" target="_blank">
+<img src="../LIB/FG09D10B.png" border="0" alt="FG09D10B.png(56186 byte)" width="400">
+</a>
+</td>
+</tr>
+</table>
+
+<p class="i">
+<font color="red">図3.17</font> 
+が
+<font color="red">リスト14</font> 
+を実行したものです。
+<font color="blue">P</font> 
+は
+1CLK 
+だけ
+1 
+になっています
+が1 点で記憶したい場合はこのような信号を使います。
+<font color="blue">P</font> 
+が1CLK 以上の信
+号なら
+<font color="blue">P</font> 
+が1 の最後のCLK の
+<font color="blue">D</font> 
+の値で記憶します。
+</p>
+
+<br clear="right">
+<!--  -->
+      </td>
+      <td width=" 50 ">
+</td>
+   </tr>
+   <tr>
+      <td height=" 20 "  colspan="3">
+</td>
+   </tr>
+</table>
+<!--  -->
+      </td>
+      <td width=" 50 " bgcolor="lightgray">
+</td>
+   </tr>
+   <tr bgcolor="gray">
+      <td height=" 20 "  colspan="3">
+</td>
+   </tr>
+</table>
+</body>
+</html>

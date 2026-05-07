@@ -1,0 +1,128 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+   <title></title>
+<LINK Type="TEXT/css" Rel="stylesheet" Href="main.css">
+<style type="text/css">
+<!--
+body, th, td { line-height: 150%; }
+.i { MARGIN-left: 1em; MARGIN-right: 1em; }
+-->
+</style>
+</head>
+<body  background="../LIB/TOPIMG.JPG">
+<table border="1" cellspacing="0" width=" 900 " height=" 450 ">
+   <tr bgcolor="navy">
+<td>
+<table>
+<tr>
+<td><a href="pg3.html"><font color="white">＜</font></a></td>
+<td><font color="white"><a href="pg0.html">□</a></font></td>
+<td><a href="pg5.html"><font color="white">＞</font></a></td>
+</tr>
+</table>
+</td>
+      <td width=" 500 " height=" 20 " colspan="1" align="left">
+<td align="center"><font color="white">
+No.4
+</font></td>
+   </td>
+   </tr>
+   <tr>
+      <td width=" 20 " bgcolor="lightgray">　
+</td>
+      <td height=" 500 " bgcolor="white">
+<!--  -->
+<table border="0" cellspacing="0">
+   <tr>
+      <td height=" 20 " colspan="3">
+</td>
+   </tr>
+   <tr>
+      <td width=" 50 ">
+</td>
+      <td>
+<!--  -->
+<table class="i">
+<a name="../LIB/TAB09C18A.jpg"></a>
+<caption><font color="red">表1.1</font> FPGA</caption>
+<tr>
+<td>
+<a href="../LIB/TAB09C18A.jpg" target="_blank">
+<img src="../LIB/TAB09C18A.jpg" border="0" alt="TAB09C18A.jpg(24269 byte)" width="497" height="210">
+</a>
+</td>
+</tr>
+
+</table>
+
+<table class="i">
+<a name="../LIB/TAB09C18B.jpg"></a>
+<caption><font color="red">表1.2</font> コンフィギュレーションROM</caption>
+<tr>
+<td>
+<a href="../LIB/TAB09C18B.jpg" target="_blank">
+<img src="../LIB/TAB09C18B.jpg" border="0" alt="TAB09C18B.jpg(13545 byte)" width="531" height="103">
+</a>
+</td>
+</tr>
+</table>
+
+<p class="i">
+書き込み器はPLD メーカの純正品やブレッドボードメーカの製品があります自分で作れば安価に得られま
+す、現在は回路図がメーカの公開情報から外されているかもしれません私は下に示した資料から自作したもので
+書き込んでいますが開発ツールから書き込み器を経由したデバイスが認識されて書き込みも正常に行われていま
+す。しかしパラレルポートを装備するパソコンも減ってきているそうですのでその全廃を待たずに開発ツールの
+サポートからも外されるかもしれません。
+</p>
+
+<ul class="i">
+<li class="i">ALTERA : ByteBlasterMV Parallel Port Download Cable, July 2002, Version 3.3 Data Sheet</li>
+<li class="i">XILINX : JTAG/Parallel Download Cable, July 10, 1996 回路図</li>
+</ul>
+
+<p class="i">
+ALTERA でもXILINX でも無償の開発ツールでシミュレーションが行えます、XILINX の方はテストベン
+チをコンパイルするとModelSim で結果を見ることができます。ALTERA の方は現在の私の手元ではテストベ
+ンチが使えないように思われます、それでもシミュレータの画面で入力信号の値を書き込む(描く) とそれに応
+じた結果を見ることができます。
+</p>
+
+<hr color="#4F9177" size="15">
+<font color="#336633">　　設計方法</font>
+<hr color="#4F9177">
+
+<p class="i">
+設計の方法は言語かロジックシンボルの接続図で行います。言語で行う場合にはエディタで作業を行えばよく
+シミュレーションも実デバイスの遅延を含まない機能の確認なら開発ツールのシミュレータでなくてもかまいま
+せん。ロジックシンボルを使った場合は論理設計を開発ツールから独立させることが難しくなります。マイコ
+ンの場合はC 言語やアセンブリ言語などを使ってプログラムを作りますC 言語の中にインライン文を使ってア
+センブリ言語を埋め込む場合もあります。論理設計でもPLD が普及しはじめたときにメーカの提供した言語は
+ブール代数が書ける程度の言語でしたPAL のチップデータを作ったPALASM と呼ばれたツールの名称はマイ
+コンのアセンブラを意識したものだと思います。その後はマイコンのプログラム言語のif 文やswitch 文などの
+条件文に似た文が論理設計の言語に導入されていきました。VHDL やVerilog でもそれを踏襲していてC 言語
+の文に似た書き方からブール代数の書き方まで混在して書けるようになっています。
+</p>
+<!--  -->
+      </td>
+      <td width=" 50 ">
+</td>
+   </tr>
+   <tr>
+      <td height=" 20 "  colspan="3">
+</td>
+   </tr>
+</table>
+<!--  -->
+      </td>
+      <td width=" 50 " bgcolor="lightgray">
+</td>
+   </tr>
+   <tr bgcolor="gray">
+      <td height=" 20 "  colspan="3">
+</td>
+   </tr>
+</table>
+</body>
+</html>

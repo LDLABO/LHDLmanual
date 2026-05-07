@@ -1,0 +1,243 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+   <title></title>
+<LINK Type="TEXT/css" Rel="stylesheet" Href="main.css">
+<style type="text/css">
+<!--
+body, th, td { line-height: 150%; }
+.i { MARGIN-left: 1em; MARGIN-right: 1em; }
+-->
+</style>
+</head>
+<body  background="../LIB/TOPIMG.JPG">
+<table border="1" cellspacing="0" width=" 900 " height=" 450 ">
+   <tr bgcolor="navy">
+<td>
+<table>
+<tr>
+<td><a href="pg36.html"><font color="white">＜</font></a></td>
+<td><font color="white"><a href="pg0.html">□</a></font></td>
+<td><a href="pg38.html"><font color="white">＞</font></a></td>
+</tr>
+</table>
+</td>
+      <td width=" 500 " height=" 20 " colspan="1" align="left">
+<td align="center"><font color="white">
+No.37
+</font></td>
+   </td>
+   </tr>
+   <tr>
+      <td width=" 20 " bgcolor="lightgray">　
+</td>
+      <td height=" 500 " bgcolor="white">
+<!--  -->
+<table border="0" cellspacing="0">
+   <tr>
+      <td height=" 20 " colspan="3">
+</td>
+   </tr>
+   <tr>
+      <td width=" 50 ">
+</td>
+      <td>
+<!--  -->
+<hr color="#6666CC" size="10">
+<font size="4" color="#5454AB"><b>　　　比較交換位置</b></font><br>
+<hr color="#6666CC">
+
+<br>
+
+<table align="right">
+<a name="LST26"></a>
+<caption><font color="red">　リスト26</font>　比較交換位置</caption>
+<tr>
+<td >&nbsp;　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+if (reset)
+   point=0;
+else
+   if (stateend)
+      if (point==8)
+         point=0;
+      else
+         point=point+1;
+      endif
+   else
+      point=point;
+   endif
+endif
+</font>
+</pre>
+</td>
+<td >&nbsp;　&nbsp;</td>
+</tr>
+</table>
+
+<p class="i">
+<font color="red">リスト26</font> 
+のpoint は10 個のメモリを比較するための位置です。
+</p>
+
+<ul class="i">
+<li class="i">
+<font color="blue">point</font> が0 : 番地0 と番地1 を比較交換する位置です。
+</li>
+<li class="i">
+<font color="blue">point</font> が1 : 番地1 と番地2 を比較交換する位置です。
+</li>
+<li class="i">
+<font color="blue">point</font> が2 : 番地2 と番地3 を比較交換する位置です。
+</li>
+<li class="i">
+<font color="blue">point</font> が3 : 番地3 と番地4 を比較交換する位置です。
+</li>
+<li class="i">
+<font color="blue">point</font> が4 : 番地4 と番地5 を比較交換する位置です。
+</li>
+<li class="i">
+<font color="blue">point</font> が5 : 番地5 と番地6 を比較交換する位置です。
+</li>
+<li class="i">
+<font color="blue">point</font> が6 : 番地6 と番地7 を比較交換する位置です。
+</li>
+<li class="i">
+<font color="blue">point</font> が7 : 番地7 と番地8 を比較交換する位置です。
+</li>
+<li class="i">
+<font color="blue">point</font> が8 : 番地8 と番地9 を比較交換する位置です。
+</li>
+</ul>
+
+<br clear="right"><br>
+
+<hr color="#6666CC" size="10">
+<font size="4" color="#5454AB"><b>　　　比較交換行程</b></font><br>
+<hr color="#6666CC">
+
+<br>
+
+<table align="right">
+<a name="LST27"></a>
+<caption><font color="red">　リスト27</font>　比較交換行程</caption>
+<tr>
+<td >&nbsp;　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+if (reset)
+   state=0;
+else
+   if (exec)
+      if (stateend)
+         state=0;
+      else
+         state=state+1;
+      endif
+   else
+      state=0;
+   endif
+endif
+</font>
+</pre>
+</td>
+<td >&nbsp;　&nbsp;</td>
+</tr>
+</table>
+
+<p class="i">
+<font color="red">リスト27</font> 
+の
+<font color="blue">state</font> 
+の比較交換行程はメモリのデータの比較とメモリ
+のデータの交換の2 行程です。
+</p>
+
+<ul class="i">
+<li class="i">
+<font color="blue">state</font> 
+が0 : 二つのメモリのデータを比較する行程です。
+</li>
+
+<li class="i">
+<font color="blue">state</font> 
+が1 : 二つのメモリのデータを交換する行程です。
+また比較交換行程の終わりです。
+</li>
+</ul>
+
+<br clear="right">
+
+<table align="right">
+<a name="LST28"></a>
+<caption><font color="red">　リスト28</font>　行程位置</caption>
+<tr>
+<td >&nbsp;　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+if (exec)
+   switch(state)
+      case 0: state0p=1;
+      case 1: state1p=1;
+              stateend=1;
+   endswitch
+endif
+</font>
+</pre>
+</td>
+<td >&nbsp;　&nbsp;</td>
+</tr>
+</table>
+
+<p class="i">
+<font color="red">リスト28</font> 
+は
+<font color="blue">state</font> 
+から必要な位置を取り出して信号にします。
+</p>
+
+<ul class="i">
+<li class="i">
+<font color="blue">state0p</font> 
+が1 : 二つのメモリのデータを比較する位置です。
+</li>
+
+<li class="i">
+<font color="blue">state1p</font> 
+が1 : 二つのメモリのデータを交換する位置です。
+</li>
+
+<li class="i">
+<font color="blue">stateend</font> 
+が1 : 比較交換行程の終わりを示す位置です。
+</li>
+</ul>
+
+<br clear="right">
+<!--  -->
+      </td>
+      <td width=" 50 ">
+</td>
+   </tr>
+   <tr>
+      <td height=" 20 "  colspan="3">
+</td>
+   </tr>
+</table>
+<!--  -->
+      </td>
+      <td width=" 50 " bgcolor="lightgray">
+</td>
+   </tr>
+   <tr bgcolor="gray">
+      <td height=" 20 "  colspan="3">
+</td>
+   </tr>
+</table>
+</body>
+</html>

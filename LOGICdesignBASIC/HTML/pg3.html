@@ -1,0 +1,194 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+   <title></title>
+<LINK Type="TEXT/css" Rel="stylesheet" Href="main.css">
+<style type="text/css">
+<!--
+body, th, td { line-height: 150%; }
+.i { MARGIN-left: 1em; MARGIN-right: 1em; }
+-->
+</style>
+</head>
+<body  background="../LIB/TOPIMG.JPG">
+<table border="1" cellspacing="0" width=" 900 " height=" 450 ">
+   <tr bgcolor="navy">
+<td>
+<table>
+<tr>
+<td><a href="pg2.html"><font color="white">＜</font></a></td>
+<td><font color="white"><a href="pg0.html">□</a></font></td>
+<td><a href="pg4.html"><font color="white">＞</font></a></td>
+</tr>
+</table>
+</td>
+      <td width=" 500 " height=" 20 " colspan="1" align="left">
+<td align="center"><font color="white">
+No.3
+</font></td>
+   </td>
+   </tr>
+   <tr>
+      <td width=" 20 " bgcolor="lightgray">　
+</td>
+      <td height=" 500 " bgcolor="white">
+<!--  -->
+<table border="0" cellspacing="0">
+   <tr>
+      <td height=" 20 " colspan="3">
+</td>
+   </tr>
+   <tr>
+      <td width=" 50 ">
+</td>
+      <td>
+<!--  -->
+<hr color="#4F9177" size="15">
+<font color="#336633"><b>　　デバイス</b></font>
+<hr color="#4F9177">
+
+<br>
+
+<p class="i">
+アマチュアのよく利用する電子工作の通販店で入手できるデバイスはCPLD で
+<a href="pg5.html#TAB1P3.jpg" target="_blank">
+<font color="red">表1.3</font>
+</a>
+のものとFPGA で
+<a href="pg4.html#TAB09C18A.jpg" target="_blank">
+<font color="red">表1.1</font> 
+</a>
+のものと
+<a href="pg4.html#TAB09C18B.jpg" target="_blank">
+<font color="red">表1.2</font> 
+</a>
+のものがあります。PLD の代表的なメーカは
+<a href="http://www.altera.co.jp/" target="_blank"><font color="blue"><b>アルテラ</b></font></a>
+や
+<a href="http://japan.xilinx.com/" target="_blank"><font color="blue"><b>ザイリンクス</b></font></a>
+などですが表中に掲
+載したメーカはCPLD でもFPGA でもザイリンクスがほとんどです。書き込み器はメーカごとですがメーカ
+が同じならCPLD にもFPGA にもコンフィギュレーションROM にも同じ書き込み器で書き込めます。表中
+にあげたデバイスはメーカがWEB で提供している無償の開発ツールでチップデータを作ることができます。
+</p>
+
+<table align="left" class="i">
+<caption><font color="red">図1.5</font> ブレッドボード</caption>
+<tr>
+<td>
+<a href="../LIB/FIG5.jpg" target="_blank">
+<img src="../LIB/FIG5.jpg" border="0" alt="FIG5.jpg(145861 byte)" width="320" height="202">
+</a>
+</td>
+</tr>
+<tr>
+<td>
+<font size="1">
+<a href="http://www.hdl.co.jp/home.html" target="_blank"><font color="blue"><b>ヒューマンデータ社</b></font></a>
+のSpartan3 ブレッドボード
+です
+</font>
+
+<br>
+
+<img src="../LIB/FIG5sub.jpg" border="0" alt="FIG5sub.jpg(5035 byte)" width="267" height="67" >
+
+</td>
+</tr>
+</table>
+
+<p class="i">
+デバイスの選択項目としては次のようなものがあります。
+</p>
+
+<ul class="i">
+<li class="i">利用できるパッケージか</li>
+<li class="i">利用できる電源電圧と入力電圧に合うか</li>
+<li class="i">端子数は足りているか</li>
+<li class="i">設計した論理が収まる容量か</li>
+</ul>
+
+<p class="i">
+他に低消費電力かどうか速度が速いかどうかなどがあると思い
+ます。単体で入手できるデバイスのマクロセルは5000 程度で
+すがそれ以上の容量を求めるときには
+<font color="red">図1.5</font> 
+のようなPLD の
+ブレッドボードのメーカの製品があります。
+<font color="red">図1.6</font> 
+のような
+フラットパッケージを変換基板に装着する手間が省けてメー
+カのサポートも受けられますし書き込み器なども取り扱い製品
+に入っていますからPLD の導入を安心して行いたい人にはお
+勧めします。さらに高容量のデバイスを求める場合にはBGA
+パッケージなどになって個人的な工作で対処できる範囲を超えるのでブレッドボードがほぼ唯一の選択肢になり
+ます。
+</p>
+
+<br clear="left">
+
+<hr color="#4F9177" size="15">
+<font color="#336633"><b>　　開発ツール</b></font>
+<hr color="#4F9177">
+
+<br>
+
+<table align="right" class="i">
+<caption><font color="red">図1.6</font> 自作FPGA 基板</caption>
+<tr>
+<td>
+<a href="../LIB/FIG6.jpg" target="_blank">
+<img src="../LIB/FIG6.jpg" border="0" alt="FIG6.jpg(229794 byte)" width="300">
+</a>
+</td>
+</tr>
+<tr>
+<td>
+<font size="1">
+<font color="red">表1.1</font> 
+のXC2S100-5TQ144C と
+XCF01SV020C を使った基板です。
+</font>
+</td>
+</tr>
+</table>
+
+<p class="i">
+PLD を利用するときにチップデータを作るのが開発ツールです。
+デバイスへの書き込みはJTAG 方式などを使えば必ずしもメーカの
+開発ツールでなくても行えるようですがチップデータの作成はメー
+カの開発ツールでしか行えません。マイコンならば命令コードが公
+開されているのでそれを基に実行コードを作ることができますPLD
+もPAL やGAL の時代には構造が簡単だったのと情報が知られてい
+たので論理式からチップデータを手作りもしていたようですしマイ
+コンで言うところのアセンブラのようなものを自作する人もあった
+のですが現在のPLD ではそのようなことは行われておらずメーカ
+の開発ツールのみが頼みです。そのメーカの開発ツールはWEB か
+ら無償のものを登録することでライセンスと共に入手できます、ライセンスには期限が付いている場合もありま
+すがほかの試用版のソフトウェアのように1 回だけ試用を許されるような形態のもではなく何回でもダウンロー
+ドしてインストールができます。これでVHDL またはVerilog 言語のソースをコンパイルして端子の割付を行
+いチップデータを作ってデバイスに書き込むまでが行えます。
+</p>
+<!--  -->
+      </td>
+      <td width=" 50 ">
+</td>
+   </tr>
+   <tr>
+      <td height=" 20 "  colspan="3">
+</td>
+   </tr>
+</table>
+<!--  -->
+      </td>
+      <td width=" 50 " bgcolor="lightgray">
+</td>
+   </tr>
+   <tr bgcolor="gray">
+      <td height=" 20 "  colspan="3">
+</td>
+   </tr>
+</table>
+</body>
+</html>

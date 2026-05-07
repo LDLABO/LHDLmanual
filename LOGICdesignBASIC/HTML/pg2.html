@@ -1,0 +1,156 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+   <title></title>
+<LINK Type="TEXT/css" Rel="stylesheet" Href="main.css">
+<style type="text/css">
+<!--
+body, th, td { line-height: 150%; }
+.i { MARGIN-left: 1em; MARGIN-right: 1em; }
+-->
+</style>
+</head>
+<body  background="../LIB/TOPIMG.JPG">
+<table border="1" cellspacing="0" width=" 900 " height=" 450 ">
+   <tr bgcolor="navy">
+<td>
+<table>
+<tr>
+<td><a href="pg1.html"><font color="white">＜</font></a></td>
+<td><font color="white"><a href="pg0.html">□</a></font></td>
+<td><a href="pg3.html"><font color="white">＞</font></a></td>
+</tr>
+</table>
+</td>
+      <td width=" 500 " height=" 20 " colspan="1" align="left">
+<td align="center"><font color="white">
+No.2
+</font></td>
+   </td>
+   </tr>
+   <tr>
+      <td width=" 20 " bgcolor="lightgray">　
+</td>
+      <td height=" 500 " bgcolor="white">
+<!--  -->
+<table border="0" cellspacing="0">
+   <tr>
+      <td height=" 20 " colspan="3">
+</td>
+   </tr>
+   <tr>
+      <td width=" 50 ">
+</td>
+      <td>
+<!--  -->
+<hr color="#6666CC" size="10">
+<font size="4" color="#5454AB"><b>　　　コンピュータとの違い</b></font><br>
+<hr color="#6666CC">
+
+<br>
+
+<p class="i">
+マイコンは厚い支援がないと使えませんがPLD は薄い支援でも使えます。
+</p>
+
+<hr color="#CC9966" size="10">
+<font size="4" color="#666633"><b>　　　マイコンの事情</b></font><br>
+<hr color="#CC9966">
+
+<br>
+
+<p class="i">
+マイコンの場合は設計の当初からデバイスを特定してプログラミングに取り掛かっていると思います。なぜな
+らマイコンは多機能になっているので求める機能があるかないかでデバイスを選択することが多くC 言語でプ
+ログラミングしたとしてもデバイスを意識しないプログラミングは不可能だからです。マイコンが多機能になっ
+ている原因はプログラムで解決することに限界があるからですが、そのことでまたプログラムの汎用性を失わせ
+てしまっています。マイコンに内蔵された便利な機能を使うにはメーカの情報が必要なので厚い支援もあり派手
+なのですが窮屈な感じは拭えません。
+</p>
+
+<hr color="#CC9966" size="10">
+<font size="4" color="#666633"><b>　　　PLDの事情</b></font><br>
+<hr color="#CC9966">
+
+<br>
+
+<table align="right" class="i">
+<a name="../LIB/FIG4.jpg"></a>
+<caption>図1.4 GAL のマクロセル</caption>
+<tr>
+<td>
+<a href="../LIB/FIG4.jpg" target="_blank">
+<img src="../LIB/FIG4.jpg" border="0" alt="FIG4.jpg(38536 byte)" width="300">
+</a>
+</td>
+</tr>
+<tr>
+<td width="190">
+<font size="1">
+これは1992 年のLattice のGAL のData Book の中
+の図です。
+</font>
+</td>
+</tr>
+</table>
+
+<p class="i">
+PLD の場合もチップデータを作るときやデバイスへの書き
+込みを行うときにはメーカの支援がなければどうにもなりま
+せん部品だけ持っていてもメーカの支援がなくなってしまうよ
+うなことがあってはどうにもなりません。この点ではマイコン
+でもPLD でも大差のない部品でメーカの支援がなければ困る
+訳ですがマイコンは情報が取ってあってコンパイラや書き込み
+器があれば手持ちの部品は使えます。設計ツールにおいてもア
+マチュアが支援してくれる場合もあると思います。PLD では
+メーカの支援がなくなれば部品があってもチップデータを作る
+こともデバイスへ書き込むこともできなくなります。アマチュ
+アの場合はメーカの無償の開発ツールでチップの作業を行うの
+で半年か1 年で新規の設計も設計の変更もできなくなりますの
+で現実に作ってしまっている場合はマイコンよりも深刻です。
+私の経験でも大容量の高価なCPLD を購入して何かに使おうと置いてあったのですが5 年くらいで無償の開発
+ツールのサポートの対象外になってどうにもならなくなったことがあります。
+</p>
+
+<br clear="right">
+
+<hr color="#CC9966" size="10">
+<font size="4" color="#666633"><b>　　　PLD は容器</b></font><br>
+<hr color="#CC9966">
+
+<br>
+
+<p class="i">
+私は今でもZ80 を数個持っていて昔は買えなかったコンパイラをインターネットで入手してプログラミング
+して自作の基板でZ80 を動かしています、初期のPLD であるGAL や初期のCPLD も持っていますが利用す
+る手立ては最早ありません。部品としてのPLD にはマイコンのようにこだわりを持って決まった種類を使い続
+けると言う事はできないと思います。マイコンのプログラムと言うものは別の種類のマイコンで動かすのは不可
+能ではないが予測できないトラブルに見舞われることを覚悟します、なぜならプログラムを解釈するマイコンの
+細かな動きはプログラムからは読めないからです。論理設計ではCLK 単位で動きを設計していますがどの種類
+のPLD でも同じソースファイルからチップデータを作りCLK 単位で同じ動きのはずです論理的にはPLD の
+種類は関係がありませんPLD は最終的に実現するときに最適のものから選択したらよいので論理設計と切り離
+して考えられます、これがマイコンのプログラミングとPLD の論理設計とが大きく異なるところだと思います。
+</p>
+<!--  -->
+      </td>
+      <td width=" 50 ">
+</td>
+   </tr>
+   <tr>
+      <td height=" 20 "  colspan="3">
+</td>
+   </tr>
+</table>
+<!--  -->
+      </td>
+      <td width=" 50 " bgcolor="lightgray">
+</td>
+   </tr>
+   <tr bgcolor="gray">
+      <td height=" 20 "  colspan="3">
+</td>
+   </tr>
+</table>
+</body>
+</html>

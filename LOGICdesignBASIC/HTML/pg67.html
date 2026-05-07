@@ -1,0 +1,215 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+   <title></title>
+<LINK Type="TEXT/css" Rel="stylesheet" Href="main.css">
+<style type="text/css">
+<!--
+body, th, td { line-height: 150%; }
+.i { MARGIN-left: 1em; MARGIN-right: 1em; }
+-->
+</style>
+</head>
+<body  background="../LIB/TOPIMG.JPG">
+<table border="1" cellspacing="0" width=" 900 " height=" 450 ">
+   <tr bgcolor="navy">
+<td>
+<table>
+<tr>
+<td><a href="pg66.html"><font color="white">＜</font></a></td>
+<td><font color="white"><a href="pg0.html">□</a></font></td>
+<td><a href="pg68.html"><font color="white">＞</font></a></td>
+</tr>
+</table>
+</td>
+      <td width=" 500 " height=" 20 " colspan="1" align="left">
+<td align="center"><font color="white">
+No.67
+</font></td>
+   </td>
+   </tr>
+   <tr>
+      <td width=" 20 " bgcolor="lightgray">　
+</td>
+      <td height=" 500 " bgcolor="white">
+<!--  -->
+<table border="0" cellspacing="0">
+   <tr>
+      <td height=" 20 " colspan="3">
+</td>
+   </tr>
+   <tr>
+      <td width=" 50 ">
+</td>
+      <td>
+<!--  -->
+<br>
+
+
+<table align="right">
+<caption><font color="red">図4.19</font> フローチャート</caption>
+<tr>
+<td>&nbsp;&nbsp</td>
+<td align="center">
+<a href="../LIB/FG09E25A.png" target="_blank">
+<img src="../LIB/FG09E25A.png" border="0" alt="FG09E25A.png(87893 byte)" width="400">
+</a>
+</td>
+<td>&nbsp;　　　&nbsp</td>
+</tr>
+</table>
+
+
+<p class="i">
+<font color="blue">FE</font> 
+は除算命令の実行後に除算の計算が終了してい
+ることを知るためのフラグです。除算命令を実行した
+直後に0 になり計算が終わると1 になります。
+</p>
+
+<p class="i">
+<font color="blue">FZ</font> 
+は論理演算の結果を知るためのフラグです論理
+演算の結果が0 のとき1 になります。
+</p>
+
+<p class="i">
+<font color="red">リスト64</font> 
+はBCD 変換のプログラムです、プログラムの意味は
+<font color="red">図4.20</font> 
+のフローチャートに示します。
+プログラムの大部分は同じ事を繰り返していますが基
+本的な部分は次のようになっています。
+</p>
+
+<hr color="#6666CC" size="10">
+<font size="4" color="#5454AB"><b>　　　プログラム</b></font><br>
+<hr color="#6666CC">
+
+<p class="i">
+<font color="red">リスト64</font> 
+はBCD 変換のプログラムです、プログラムの意味は
+<font color="red">図4.20</font> 
+のフローチャートに示します。
+プログラムの大部分は同じ事を繰り返していますが基
+本的な部分は次のようになっています。
+</p>
+
+<pre class="i">
+<font face="Lucida Console" color="#CC0000" size="2">
+       DIV  r0,100
+roop:
+      AND  fe,1
+      JZ   roop
+</font>
+</pre>
+
+<p class="i">
+本プロセッサの命令は1CLK で実行していますが
+<font color="blue">DIV</font> 
+命令の実行には数CLK が必要です。
+<font color="blue">DIV</font> 
+命令の終了はフラグ
+<font color="blue">FE</font> 
+が1 になることで分かります。
+上のプログラムの
+<font color="blue">AND</font> 
+命令はプロセッサの基本部分が持っている命令
+ですから基本部分がひとつだけ持っているフラグ
+<font color="blue">Z</font> 
+を使って
+<font color="blue">JZ</font> 
+で分岐できます。
+</p>
+
+<pre class="i">
+<font face="Lucida Console" color="#CC0000" size="2">
+      CP   r2,0
+     AND  fz,1
+     JNZ  x5
+</font>
+</pre>
+
+<p class="i">
+<font color="blue">CP</font> 
+命令は後から追加した命令なのでフラグ
+<font color="blue">Z</font> 
+を変化させることはできません。
+<font color="blue">CP</font> 
+命令は追加したフラグ
+<font color="blue">FZ</font> 
+を変化させることができるのでこの値を調べて
+分岐します。上のプログラムは
+<font color="blue">R2</font> 
+が0 なら
+<font color="blue">x5</font> 
+に分岐します。
+</p>
+
+<hr color="#6666CC" size="10">
+<font size="4" color="#5454AB"><b>　　　追加命令</b></font><br>
+<hr color="#6666CC">
+
+<p class="i">
+今回のプログラムのために追加した命令は次のもの
+です。
+</p>
+
+<ul>
+<li class="i">
+<b>DIV r0,n</b><br>
+<font color="blue">r0</font> 
+を即値
+<font color="blue">n</font> 
+で除算する命令です結果は
+<font color="blue">r1</font> 
+に記憶します、また除算の終了で
+<font color="blue">FE</font> 
+に1 を記憶します。
+</li>
+
+<li class="i">
+<b>CP rx,n</b><br>
+<font color="blue">rx</font> 
+と即値
+<font color="blue">n</font> 
+を比較する命令です
+<font color="blue">rx</font> 
+から
+<font color="blue">n</font> 
+を引いて結果が0 のとき
+<font color="blue">fz</font> 
+に1 を記憶します。
+<font color="blue">rx</font> 
+は
+<font color="blue">r1</font> 
+か
+<font color="blue">r2</font> 
+です。
+</li>
+</ul>
+
+<br clear="right">
+<!--  -->
+      </td>
+      <td width=" 50 ">
+</td>
+   </tr>
+   <tr>
+      <td height=" 20 "  colspan="3">
+</td>
+   </tr>
+</table>
+<!--  -->
+      </td>
+      <td width=" 50 " bgcolor="lightgray">
+</td>
+   </tr>
+   <tr bgcolor="gray">
+      <td height=" 20 "  colspan="3">
+</td>
+   </tr>
+</table>
+</body>
+</html>

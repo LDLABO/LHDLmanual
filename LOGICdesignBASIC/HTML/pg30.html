@@ -1,0 +1,243 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+   <title></title>
+<LINK Type="TEXT/css" Rel="stylesheet" Href="main.css">
+<style type="text/css">
+<!--
+body, th, td { line-height: 150%; }
+.i { MARGIN-left: 1em; MARGIN-right: 1em; }
+-->
+</style>
+</head>
+<body  background="../LIB/TOPIMG.JPG">
+<table border="1" cellspacing="0" width=" 900 " height=" 450 ">
+   <tr bgcolor="navy">
+<td>
+<table>
+<tr>
+<td><a href="pg29.html"><font color="white">＜</font></a></td>
+<td><font color="white"><a href="pg0.html">□</a></font></td>
+<td><a href="pg31.html"><font color="white">＞</font></a></td>
+</tr>
+</table>
+</td>
+      <td width=" 500 " height=" 20 " colspan="1" align="left">
+<td align="center"><font color="white">
+No.30
+</font></td>
+   </td>
+   </tr>
+   <tr>
+      <td width=" 20 " bgcolor="lightgray">　
+</td>
+      <td height=" 500 " bgcolor="white">
+<!--  -->
+<table border="0" cellspacing="0">
+   <tr>
+      <td height=" 20 " colspan="3">
+</td>
+   </tr>
+   <tr>
+      <td width=" 50 ">
+</td>
+      <td>
+<!--  -->
+<hr color="#4F9177" size="15">
+<font color="#336633"><b>　　乗算器</b></font>
+<hr color="#4F9177">
+
+<p class="i">
+2 桁以上の乗算は筆算で
+<font color="red">図3.27</font> 
+のように行われます。この中でも乗算がありますがこれは1 桁の乗算で九九
+の表を使います。乗算結果のところで乗算をしていますがこれは桁位置を変えるだけで実際に計算する必要はあ
+りません。
+</p>
+
+<table align="left">
+<caption><font color="red">図3.27</font> 筆算の乗算</caption>
+<tr>
+<td>&nbsp;　　　&nbsp</td>
+<td align="center">
+<a href="../LIB/FG09D15A.png" target="_blank">
+<img src="../LIB/FG09D15A.png" border="0" alt="FG09D15A.png(13257 byte)" width="350">
+</a>
+</td>
+<td>&nbsp;&nbsp</td>
+</tr>
+</table>
+
+<p class="i">
+<br>
+桁位置をずらして加算するだけで乗算の結果が得られます。
+たくさんの加算器を使う非記憶の方法と加算器をひとつだけ使
+う記憶の方法があります。どちらの場合も2 進数で計算します
+から1 桁の計算は次の4 種類です。
+</p>
+
+<br clear="left">
+
+<table align="right"><tr><td>
+<ul>
+<li>0 × 0 = 0</li>
+<li>0 × 1 = 0</li>
+<li>1 × 0 = 0</li>
+<li>1 × 1 = 1</li>
+</ul>
+</td>
+<td>&nbsp;　&nbsp;</td>
+</tr></table>
+
+<br>
+
+<p class="i">
+これを真理値表と見ると論理積と同じ結果になっていますから2 進数の1 桁の乗算にはとくに論理を作る必
+要はありません。
+<font color="red">図3.27</font> 
+の乗算結果は10 進数の場合ですから10 倍から100 倍,1000 倍・・・・となりますが
+2 進数では2 倍から4 倍，8 倍・・・・となります、これらは10 進数の場合でも2 進数の場合でも1 桁上位にず
+らすことでできますが2 進数の場合は1 ビット上位にずらすことで行えます。
+</p>
+
+<br clear="left">
+
+<hr color="#6666CC" size="10">
+<font size="4" color="#5454AB"><b>　　　非記憶方式</b></font><br>
+<hr color="#6666CC">
+
+<p class="i">
+<font color="red">図3.27</font> 
+と同じ方法で2 進数の8 ビットどうしを乗算して16 ビットの結果を得る非記憶の乗算器をリスト21
+に作りました。
+</p>
+
+
+<table class="i" width="300">
+<a name="LST21"></a>
+<caption><font color="red">　リスト21</font>　8 ビットの乗算器(非記憶)</caption>
+<tr>
+<td >&nbsp;　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+entity main
+input  A[8];
+input  B[8];
+output C[16];
+
+bitn n0p[16];
+bitn n1p[16];
+bitn n2p[16];
+bitn n3p[16];
+bitn n4p[16];
+bitn n5p[16];
+bitn n6p[16];
+bitn n7p[16];
+
+   n0p.0=B.0&A.0;
+   n0p.1=B.0&A.1;
+   n0p.2=B.0&A.2;
+   n0p.3=B.0&A.3;
+   n0p.4=B.0&A.4;
+   n0p.5=B.0&A.5;
+   n0p.6=B.0&A.6;
+   n0p.7=B.0&A.7;
+
+   n1p.1=B.1&A.0;
+   n1p.2=B.1&A.1;
+   n1p.3=B.1&A.2;
+   n1p.4=B.1&A.3;
+   n1p.5=B.1&A.4;
+   n1p.6=B.1&A.5;
+   n1p.7=B.1&A.6;
+   n1p.8=B.1&A.7;
+
+   n2p.2=B.2&A.0;
+   n2p.3=B.2&A.1;
+   n2p.4=B.2&A.2;
+   n2p.5=B.2&A.3;
+   n2p.6=B.2&A.4;
+   n2p.7=B.2&A.5;
+   n2p.8=B.2&A.6;
+   n2p.9=B.2&A.7;
+
+   n3p.3 =B.3&A.0;
+   n3p.4 =B.3&A.1;
+   n3p.5 =B.3&A.2;
+   n3p.6 =B.3&A.3;
+   n3p.7 =B.3&A.4;
+   n3p.8 =B.3&A.5;
+   n3p.9 =B.3&A.6;
+   n3p.10=B.3&A.7;
+
+   n4p.4 =B.4&A.0;
+   n4p.5 =B.4&A.1;
+   n4p.6 =B.4&A.2;
+   n4p.7 =B.4&A.3;
+   n4p.8 =B.4&A.4;
+   n4p.9 =B.4&A.5;
+   n4p.10=B.4&A.6;
+   n4p.11=B.4&A.7;
+
+   n5p.5 =B.5&A.0;
+   n5p.6 =B.5&A.1;
+   n5p.7 =B.5&A.2;
+   n5p.8 =B.5&A.3;
+   n5p.9 =B.5&A.4;
+   n5p.10=B.5&A.5;
+   n5p.11=B.5&A.6;
+   n5p.12=B.5&A.7;
+
+   n6p.6 =B.6&A.0;
+   n6p.7 =B.6&A.1;
+   n6p.8 =B.6&A.2;
+   n6p.9 =B.6&A.3;
+   n6p.10=B.6&A.4;
+   n6p.11=B.6&A.5;
+   n6p.12=B.6&A.6;
+   n6p.13=B.6&A.7;
+
+   n7p.7 =B.7&A.0;
+   n7p.8 =B.7&A.1;
+   n7p.9 =B.7&A.2;
+   n7p.10=B.7&A.3;
+   n7p.11=B.7&A.4;
+   n7p.12=B.7&A.5;
+   n7p.13=B.7&A.6;
+   n7p.14=B.7&A.7;
+
+   C=n0p+n1p+n2p+n3p
+    +n4p+n5p+n6p+n7p;
+
+ende
+</font>
+</pre>
+</td>
+<td >&nbsp;　&nbsp;</td>
+</tr>
+</table>
+
+<!--  -->
+      </td>
+      <td width=" 50 ">
+</td>
+   </tr>
+   <tr>
+      <td height=" 20 "  colspan="3">
+</td>
+   </tr>
+</table>
+<!--  -->
+      </td>
+      <td width=" 50 " bgcolor="lightgray">
+</td>
+   </tr>
+   <tr bgcolor="gray">
+      <td height=" 20 "  colspan="3">
+</td>
+   </tr>
+</table>
+</body>
+</html>

@@ -1,0 +1,108 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+   <title></title>
+<LINK Type="TEXT/css" Rel="stylesheet" Href="main.css">
+<style type="text/css">
+<!--
+body, th, td { line-height: 150%; }
+.i { MARGIN-left: 1em; MARGIN-right: 1em; }
+-->
+</style>
+</head>
+<body  background="../LIB/TOPIMG.JPG">
+<table border="1" cellspacing="0" width=" 900 " height=" 450 ">
+   <tr bgcolor="navy">
+<td>
+<table>
+<tr>
+<td><a href="pg79.html"><font color="white">＜</font></a></td>
+<td><font color="white"><a href="pg0.html">□</a></font></td>
+<td><a href="pg81.html"><font color="white">＞</font></a></td>
+</tr>
+</table>
+</td>
+      <td width=" 500 " height=" 20 " colspan="1" align="left">
+<td align="center"><font color="white">
+No.80
+</font></td>
+   </td>
+   </tr>
+   <tr>
+      <td width=" 20 " bgcolor="lightgray">　
+</td>
+      <td height=" 500 " bgcolor="white">
+<!--  -->
+<table border="0" cellspacing="0">
+   <tr>
+      <td height=" 20 " colspan="3">
+</td>
+   </tr>
+   <tr>
+      <td width=" 50 ">
+</td>
+      <td>
+<!--  -->
+<hr color="#6666CC" size="10">
+<font size="4" color="#5454AB"><b>　　　論理</b></font><br>
+<hr color="#6666CC">
+
+<p class="i">
+論理を部分的に抜粋して説明しますので全部は
+<a href="../LIB/BCDPPU.pdf" target="_blank">
+<font color="blue">BCDPPU.pdf</font>
+</a>
+を参照して下さい。プロセッサの基本部分と追加部分との構成は
+<font color="red">図4.30</font> 
+のようになっています。本プロセッサの担当するLED 表示器の部分は右にあります、
+左の部分はBCD 変換を担当するプロセッサです。7 セグメントLED 表示のBCD 変換器の全体はマルチプロ
+セッサ構成になっています。
+</p>
+
+<table>
+<caption><font color="red">図4.30</font> 全体構成</caption>
+<tr>
+<td>&nbsp;&nbsp</td>
+<td align="center">
+<a href="../LIB/FG09F09A.png" target="_blank">
+<img src="../LIB/FG09F09A.png" border="0" alt="FG09F09A.png(127447 byte)" width="800">
+</a>
+</td>
+<td>&nbsp;　　　&nbsp</td>
+</tr>
+</table>
+
+<p class="i">
+マルチプロセッサにしたのでプログラムは簡単にできたように思います。シングルプロセッサにした場合は
+BCD 変換のプログラムはLED 表示のプログラムの間を縫うように実行することになったでしょう。割り込み
+を使えばシングルプロセッサでも両プログラムを分けることはできます。両プロセッサはレジスタの値を共有し
+ている部分もありますが、そこは論理で作っています。従来のプロセッサではプログラムを独立して実行してい
+るように扱うために割り込みやマルチタスクを行ってきましたがプログラミングでは難しい割り込みやマルチタ
+スクをプログラムから解放できたかも知れません。今回はマルチプロセッサといってもプログラムも完全に独立
+して読み出しているので両プロセッサの動きを調整している論理はひとつもありませんから非常に簡単な構成に
+なっていると思います。
+</p>
+
+<!--  -->
+      </td>
+      <td width=" 50 ">
+</td>
+   </tr>
+   <tr>
+      <td height=" 20 "  colspan="3">
+</td>
+   </tr>
+</table>
+<!--  -->
+      </td>
+      <td width=" 50 " bgcolor="lightgray">
+</td>
+   </tr>
+   <tr bgcolor="gray">
+      <td height=" 20 "  colspan="3">
+</td>
+   </tr>
+</table>
+</body>
+</html>

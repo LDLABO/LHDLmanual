@@ -1,0 +1,281 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+   <title></title>
+<LINK Type="TEXT/css" Rel="stylesheet" Href="main.css">
+<style type="text/css">
+<!--
+body, th, td { line-height: 150%; }
+.i { MARGIN-left: 1em; MARGIN-right: 1em; }
+-->
+</style>
+</head>
+<body  background="../LIB/TOPIMG.JPG">
+<table border="1" cellspacing="0" width=" 900 " height=" 450 ">
+   <tr bgcolor="navy">
+<td>
+<table>
+<tr>
+<td><a href="pg70.html"><font color="white">＜</font></a></td>
+<td><font color="white"><a href="pg0.html">□</a></font></td>
+<td><a href="pg72.html"><font color="white">＞</font></a></td>
+</tr>
+</table>
+</td>
+      <td width=" 500 " height=" 20 " colspan="1" align="left">
+<td align="center"><font color="white">
+No.71
+</font></td>
+   </td>
+   </tr>
+   <tr>
+      <td width=" 20 " bgcolor="lightgray">　
+</td>
+      <td height=" 500 " bgcolor="white">
+<!--  -->
+<table border="0" cellspacing="0">
+   <tr>
+      <td height=" 20 " colspan="3">
+</td>
+   </tr>
+   <tr>
+      <td width=" 50 ">
+</td>
+      <td>
+<!--  -->
+<table>
+<tr>
+<td valign="top">
+<hr color="#CC9966" size="10">
+<font size="4" color="#666633"><b>　　　レジスタR3</b></font><br>
+<hr color="#CC9966">
+
+<p class="i">
+<font color="red">リスト72</font> 
+のレジスタ
+<font color="blue">R3</font> 
+は作業用のレジスタでプログラムで自由に使うレジスタです。また
+<font color="blue">SLA</font> 
+命令は本レジスタだけで使うことのできる命令です。
+<font color="blue">code27p</font>
+が1 のときは
+<font color="blue">SLA</font> 
+命令が実行中であることを示しています。
+</p>
+
+<table>
+<a name="LST72"></a>
+<caption><font color="red">　リスト72</font>　レジスタR3</caption>
+<tr>
+<td >&nbsp;　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+{ PPU レジスタR3 }
+if (RESET)
+   reg3R=0;
+else
+   if (code27p)          { SLA r3,n }
+      switch(PORT0ADD)
+         case 3:  reg3R=reg3R>>DATAIN.8:11;
+         default: reg3R=reg3R;
+      endswitch
+   else
+      if (RW)
+         switch(PORT0ADD)
+            case 3:  reg3R=PORT0OUT;
+            default: reg3R=reg3R;
+         endswitch
+      else
+         reg3R=reg3R;
+      endif
+   endif
+endif
+</font>
+</pre>
+</td>
+<td >&nbsp;　&nbsp;</td>
+</tr>
+</table>
+
+</td>
+<td valign="top">
+<hr color="#CC9966" size="10">
+<font size="4" color="#666633"><b>　　　レジスタR4</b></font><br>
+<hr color="#CC9966">
+
+<p class="i">
+<font color="red">リスト73</font> 
+のレジスタ
+<font color="blue">R4</font> 
+はプログラムによって10の位の値を記憶するレジスタです。また
+<font color="blue">SUB</font> 
+命令は本レジスタでも使うことのできる命令です。
+<font color="blue">code24p</font>
+が1 のときは
+<font color="blue">SUB</font> 
+命令が実行中であることを示しています。
+</p>
+
+<table>
+<a name="LST73"></a>
+<caption><font color="red">　リスト73</font>　レジスタR4</caption>
+<tr>
+<td >&nbsp;　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+{ PPU レジスタR4 }
+if (RESET)
+   reg4R=0;
+else
+   if (code24p)          { SUB r4,n }
+      switch(PORT0ADD)
+         case 4:  reg4R=opout;
+         default: reg4R=reg4R;
+      endswitch
+   else
+      if (RW)
+         switch(PORT0ADD)
+            case 4:  reg4R=PORT0OUT;
+            default: reg4R=reg4R;
+         endswitch
+      else
+         reg4R=reg4R;
+      endif
+   endif
+endif
+</font>
+</pre>
+</td>
+<td >&nbsp;　&nbsp;</td>
+</tr>
+</table>
+
+</td>
+</tr>
+</table>
+
+<table>
+<tr>
+<td valign="top">
+<hr color="#CC9966" size="10">
+<font size="4" color="#666633"><b>　　　レジスタR5</b></font><br>
+<hr color="#CC9966">
+
+<p class="i">
+<font color="red">リスト74</font> 
+のレジスタ
+<font color="blue">R5</font> 
+はプログラムによって1 の位の値を記憶するレジスタです。また
+<font color="blue">SUB</font> 
+命令は本レジスタでも使うことのできる命令です。
+<font color="blue">code24p</font>
+が1 のときは
+<font color="blue">SUB</font> 
+命令が実行中であることを示しています。
+</p>
+
+<table>
+<a name="LST74"></a>
+<caption><font color="red">　リスト74</font>　レジスタR5</caption>
+<tr>
+<td >&nbsp;　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+{ PPU レジスタR5 }
+if (RESET)
+   reg5R=0;
+else
+   if (code24p)          { SUB r5,n }
+      switch(PORT0ADD)
+         case 5:  reg5R=opout;
+         default: reg5R=reg5R;
+      endswitch
+   else
+      if (RW)
+         switch(PORT0ADD)
+            case 5:  reg5R=PORT0OUT;
+            default: reg5R=reg5R;
+         endswitch
+      else
+         reg5R=reg5R;
+     endif
+   endif
+endif
+</font>
+</pre>
+</td>
+<td >&nbsp;　&nbsp;</td>
+</tr>
+</table>
+
+</td>
+<td valign="top">
+<hr color="#CC9966" size="10">
+<font size="4" color="#666633"><b>　　　レジスタR7</b></font><br>
+<hr color="#CC9966">
+
+<p class="i">
+<font color="red">リスト75</font> 
+のレジスタ
+<font color="blue">R7</font> 
+はプログラムによって変換の終了の値を記憶する1 ビットのレジスタです。
+</p>
+
+<table>
+<a name="LST75"></a>
+<caption><font color="red">　リスト75</font>　レジスタR7</caption>
+<tr>
+<td >&nbsp;　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+{ PPU レジスタR7}
+if (RESET)
+   reg7R=0;
+else
+   if (RW)
+      switch(PORT0ADD)
+         case 7:  reg7R=PORT0OUT.0;
+         default: reg7R=reg7R;
+      endswitch
+   else
+      reg7R=reg7R;
+   endif
+endif
+</font>
+</pre>
+</td>
+<td >&nbsp;　&nbsp;</td>
+</tr>
+</table>
+
+</td>
+</tr>
+</table>
+
+<!--  -->
+      </td>
+      <td width=" 50 ">
+</td>
+   </tr>
+   <tr>
+      <td height=" 20 "  colspan="3">
+</td>
+   </tr>
+</table>
+<!--  -->
+      </td>
+      <td width=" 50 " bgcolor="lightgray">
+</td>
+   </tr>
+   <tr bgcolor="gray">
+      <td height=" 20 "  colspan="3">
+</td>
+   </tr>
+</table>
+</body>
+</html>

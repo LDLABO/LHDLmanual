@@ -1,0 +1,150 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+   <title></title>
+<LINK Type="TEXT/css" Rel="stylesheet" Href="main.css">
+<style type="text/css">
+<!--
+body, th, td { line-height: 150%; }
+.i { MARGIN-left: 1em; MARGIN-right: 1em; }
+-->
+</style>
+</head>
+<body  background="../LIB/TOPIMG.JPG">
+<table border="1" cellspacing="0" width=" 900 " height=" 450 ">
+   <tr bgcolor="navy">
+<td>
+<table>
+<tr>
+<td><a href="pg8.html"><font color="white">＜</font></a></td>
+<td><font color="white"><a href="pg0.html">□</a></font></td>
+<td><a href="pg10.html"><font color="white">＞</font></a></td>
+</tr>
+</table>
+</td>
+      <td width=" 500 " height=" 20 " colspan="1" align="left">
+<td align="center"><font color="white">
+No.9
+</font></td>
+   </td>
+   </tr>
+   <tr>
+      <td width=" 20 " bgcolor="lightgray">　
+</td>
+      <td height=" 500 " bgcolor="white">
+<!--  -->
+<table border="0" cellspacing="0">
+   <tr>
+      <td height=" 20 " colspan="3">
+</td>
+   </tr>
+   <tr>
+      <td width=" 50 ">
+</td>
+      <td>
+<!--  -->
+<hr color="#4F9177" size="15">
+<font color="#336633"><b>　　設計原理</b></font>
+<hr color="#4F9177">
+
+<br>
+
+<table align="right" class="i">
+<caption><font color="red">図2.3</font> PAL の内部ブロック</caption>
+<tr>
+<td>
+<a href="../LIB/FIG9.PNG" target="_blank">
+<img src="../LIB/FIG9.PNG" width="350">
+</a>
+</td>
+</tr>
+</table>
+
+<hr color="#6666CC" size="10">
+<font size="4" color="#5454AB"><b>　　　真理値表とPLD</b></font><br>
+<hr color="#6666CC">
+
+<p class="i">
+初期のPLD であるPAL ではチップデータを手作業で作っ
+ていた時期もあります
+<font color="red">図2.3</font> 
+はその内部ブロックです。書き
+込み前は線の交差する点は全部つながっていますが書き込み
+後は必要な点を除いて切断されます。論理和には8 本の横線
+があってこれにつなぐ縦線が論理積になります。横並びの要
+素が16 個で縦並びの要素が8 個の真理値表の構造をしていま
+す。PAL のチップデータとは切断させない交差する点の場所
+を示すデータを作っていたことになります。PAL の書き込み
+とは切断するところを大電流を流して焼き切ることだったそう
+です。PLD の中に真理値表が入っているのでブールの論理で
+動作できる訳です。PAL 以降のGAL などのPLD では切るか
+切らないかのデータはメモリの1 ビットの記憶値に置き換えら
+れましたCPLD ではEEPROM を使いFPGA はSRAM を
+使っています。SRAM では電源を断ったときに記憶値を喪失
+するので電源投入後に外に置いたROM からチップデータが
+書き込まれて論理動作ができるようになる訳です。
+<font color="red">図2.4</font> 
+のようなPAL のチップデータを手作業で作らないと
+いけなかった人は論理式よりも真理値表で設計していたかもしれません。このような状況でしたから論理式から
+切るか切らないかのチップデータを作るPALASM などのソフトウェアがいくつか作られました。
+このときのソフトウェアはすでにシミュレーションの機能を
+持っていましたが真理値表なのですから入力値が分かれば答え
+は簡単に出てきます。
+</p>
+
+<br clear="right">
+
+<hr color="#6666CC" size="10">
+<font size="4" color="#5454AB"><b>　　　PLD の設計</b></font><br>
+<hr color="#6666CC">
+
+<table align="right" class="i">
+<caption><font color="red">図2.4</font> PAL のチップデータ作成表</caption>
+<tr>
+<td>
+<a href="../LIB/FIG10.jpg" target="_blank">
+<img src="../LIB/FIG10.jpg" border="0" alt="FIG10.jpg(195676 byte)" width="350">
+</a>
+</td>
+</tr>
+</table>
+
+<p class="i">
+PAL の全ての記憶素子のCLK は共通になっていますから
+非同期の順序論理を作ることはできませんこれを作った人達は
+同期式の順序論理だけにしても何の問題も無いはずだと思って
+いたはずです。同期式の順序論理はCLK の立ち上がり時の瞬
+間の入力値で一斉に出力値が動くので順序論理でも真理値表で
+作ることができるしシミュレーションも真理値表の答えを出す
+だけなので簡単です。CPLD やFPGA の設計をする人はシン
+ボルで設計する人も言語で設計する人も中身はPAL と同じだ
+と考えて設計すると論理設計を円滑にすることができると思い
+ます。PLD を大きな真理値表にすぎないと思えば複雑怪奇な
+ことは考えないでしょう論理設計を電気理論と混同している人
+が難しい問題を引き起こしているように思います。
+</p>
+
+<br clear="right">
+<!--  -->
+      </td>
+      <td width=" 50 ">
+</td>
+   </tr>
+   <tr>
+      <td height=" 20 "  colspan="3">
+</td>
+   </tr>
+</table>
+<!--  -->
+      </td>
+      <td width=" 50 " bgcolor="lightgray">
+</td>
+   </tr>
+   <tr bgcolor="gray">
+      <td height=" 20 "  colspan="3">
+</td>
+   </tr>
+</table>
+</body>
+</html>

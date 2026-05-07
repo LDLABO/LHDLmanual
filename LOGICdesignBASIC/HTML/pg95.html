@@ -1,0 +1,212 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+   <title></title>
+<LINK Type="TEXT/css" Rel="stylesheet" Href="main.css">
+<style type="text/css">
+<!--
+body, th, td { line-height: 150%; }
+.i { MARGIN-left: 1em; MARGIN-right: 1em; }
+-->
+</style>
+</head>
+<body  background="../LIB/TOPIMG.JPG">
+<table border="1" cellspacing="0" width=" 900 " height=" 450 ">
+   <tr bgcolor="navy">
+<td>
+<table>
+<tr>
+<td><a href="pg94.html"><font color="white">＜</font></a></td>
+<td><font color="white"><a href="pg0.html">□</a></font></td>
+<td><a href="pg96.html"><font color="white">＞</font></a></td>
+</tr>
+</table>
+</td>
+      <td width=" 500 " height=" 20 " colspan="1" align="left">
+<td align="center"><font color="white">
+No.95
+</font></td>
+   </td>
+   </tr>
+   <tr>
+      <td width=" 20 " bgcolor="lightgray">　
+</td>
+      <td height=" 500 " bgcolor="white">
+<!--  -->
+<table border="0" cellspacing="0">
+   <tr>
+      <td height=" 20 " colspan="3">
+</td>
+   </tr>
+   <tr>
+      <td width=" 50 ">
+</td>
+      <td>
+<!--  -->
+<hr color="#4F9177" size="15">
+<font color="#336633">　　IC の特性</font>
+<hr color="#4F9177">
+
+<p class="i">
+キーボードはIC の入力と出力の両方を利用しますから電気的にはどのように使うのかを調べておきます。例
+としてXC9536 のデータシートに掲載されていた値を使います。
+</p>
+
+<ul>
+<li class="i"><b>低電位の認識</b><br>
+<p class="i">
+IC に低電位を認識させるための入力端子の電圧は
+<font color="red">図5.4</font> 
+の
+<font color="blue">Vil</font> 
+が基準になります。入力端子の電圧が
+<font color="blue">Vil</font> 
+以下ならば「IC が低電位を認識することを保障しますよ」という値です。IC の入力端子は高い電圧になればIC
+の中に電流が流れて行きます。低い電圧になればIC の外に電流が流れて行きます。これを入力電流と言います
+が、
+<font color="blue">Iil</font> 
+はこれの最大値を表しています。
+<font color="red">図5.4</font> 
+の左図の
+<font color="blue">R</font> 
+が
+<font color="blue">10KΩ</font> 
+だったとすると
+<font color="blue">10kΩ×10uA=0.1V</font> 
+になります。この電圧は
+<font color="blue">0.8V</font> 
+より低いので低電位を認識させるのに十分な抵抗値といえます。低電位を認識させる
+ための抵抗値の限界は
+<font color="blue">Vil=Iil=0.8V=10uA=80kΩ</font> 
+になります。これ以上の抵抗値だと電圧が
+<font color="blue">0.8V</font> 
+を超えるのでIC が低電位を認識する基準値を超えています。
+</p>
+</li>
+
+<li class="i"><b>高電位の認識</b>
+<p class="i">
+IC に高電位を認識させるための入力端子の電圧は
+<font color="red">図5.4</font> 
+の
+<font color="blue">Vih</font> 
+が基準になります。入力端子の電圧が
+<font color="blue">Vih</font> 
+以上ならば「IC が高電位を認識することを保障しますよ」という値です。IC の中に流れていく入力電流の最大値
+は
+<font color="blue">Iih</font> 
+で表されています。
+<font color="red">図5.4</font> 
+の右図の
+<font color="blue">R</font> 
+が
+<font color="blue">10kΩ</font> 
+で
+<font color="blue">Vp</font> 
+が
+<font color="blue">5V</font> 
+だったとすると
+<font color="blue">Vp-10kΩ×10uA=5.0-0.1=4.9V</font> 
+になります。この電圧は
+<font color="blue">2.0V</font> 
+より高いので高電位を認識させるのに十分な抵
+抗値といえます。高電位を認識させるための抵抗値の限界は
+<font color="blue">(Vp-Vih)=Iih=(5.0-2.0)=10uA=300kΩ</font> 
+になります。これ以上の抵抗値だと電圧が
+<font color="blue">2.0V</font> 
+を下まわるのでIC が高電位を認識する基準値を満たしません。
+</p>
+
+<table>
+<caption><font color="red">図5.4</font> IC の入力特性</caption>
+<tr>
+<td>&nbsp;&nbsp</td>
+<td align="center">
+<a href="../LIB/FG09F24A.png" target="_blank">
+<img src="../LIB/FG09F24A.png" border="0" alt="FG09F24A.png(42514 byte)" width="550">
+</a>
+</td>
+<td>&nbsp;　　　&nbsp</td>
+</tr>
+</table>
+
+</li>
+
+<li class="i"><b>高電位の電流駆動</b><br>
+<p class="i">
+IC の出力端子を高電位にしてIC から外に電流を流す場合に、その能力の基準を示すのが
+<font color="blue">Voh</font> 
+と
+<font color="blue">Ioh</font> 
+です。これは
+<font color="red">図5.5</font> 
+の左図でいうと電流を
+<font color="blue">4mA</font> 
+流しているときでも端子電圧が
+<font color="blue">2.4V</font> 
+以下にならないこと、または電流が
+<font color="blue">4mA</font> 
+以下なら端子電圧が
+<font color="blue">2.4V</font> 
+以上になることを保障しています。例えばトランジスタを駆動する場合に
+<font color="blue">Vbe</font>
+が
+<font color="blue">1V</font> 
+でベース電流に
+<font color="blue">1mA</font> 
+以上を流したければ
+<font color="blue">(2.4V-1.0V)/1mA=1.4kΩ</font> 
+になります。
+</p>
+</li>
+
+<li class="i"><b>低電位の電流駆動</b><br>
+<p class="i">
+IC の出力端子を低電位してIC の中に電流を流す場合に、その能力の基準を示すのが
+<font color="blue">Vol</font> 
+と
+<font color="blue">Iol</font> 
+です。これ
+は
+<font color="red">図5.5</font> 
+の右図でいうと電流を
+<font color="blue">24mA</font> 
+流しているときでも端子電圧が
+<font color="blue">0.5V</font> 
+以上にならないこと、または電流が
+<font color="blue">24mA</font> 
+以下なら端子電圧が
+<font color="blue">0.5V</font> 
+以下になることを保障しています。
+<font color="red">図5.5</font> 
+の右図のトランジスタのベースにはほとんど電流は流れないのでIC の端子電圧は
+<font color="blue">0.5V</font> 
+以下になりトランジスタのベースの電圧もほぼ同じですからトランジスタは遮断されます。
+</p>
+</li>
+</ul>
+
+<br>
+<!--  -->
+      </td>
+      <td width=" 50 ">
+</td>
+   </tr>
+   <tr>
+      <td height=" 20 "  colspan="3">
+</td>
+   </tr>
+</table>
+<!--  -->
+      </td>
+      <td width=" 50 " bgcolor="lightgray">
+</td>
+   </tr>
+   <tr bgcolor="gray">
+      <td height=" 20 "  colspan="3">
+</td>
+   </tr>
+</table>
+</body>
+</html>

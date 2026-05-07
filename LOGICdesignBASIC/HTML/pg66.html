@@ -1,0 +1,224 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+   <title></title>
+<LINK Type="TEXT/css" Rel="stylesheet" Href="main.css">
+<style type="text/css">
+<!--
+body, th, td { line-height: 150%; }
+.i { MARGIN-left: 1em; MARGIN-right: 1em; }
+-->
+</style>
+</head>
+<body  background="../LIB/TOPIMG.JPG">
+<table border="1" cellspacing="0" width=" 900 " height=" 450 ">
+   <tr bgcolor="navy">
+<td>
+<table>
+<tr>
+<td><a href="pg65.html"><font color="white">＜</font></a></td>
+<td><font color="white"><a href="pg0.html">□</a></font></td>
+<td><a href="pg67.html"><font color="white">＞</font></a></td>
+</tr>
+</table>
+</td>
+      <td width=" 500 " height=" 20 " colspan="1" align="left">
+<td align="center"><font color="white">
+No.66
+</font></td>
+   </td>
+   </tr>
+   <tr>
+      <td width=" 20 " bgcolor="lightgray">　
+</td>
+      <td height=" 500 " bgcolor="white">
+<!--  -->
+<table border="0" cellspacing="0">
+   <tr>
+      <td height=" 20 " colspan="3">
+</td>
+   </tr>
+   <tr>
+      <td width=" 50 ">
+</td>
+      <td>
+<!--  -->
+<hr color="#4F9177" size="15">
+<font color="#336633">　　プロセッサによるBCD 変換器</font>
+<hr color="#4F9177">
+
+<p class="i">
+8 ビットのデータを3 桁のBCD に変換する変換器をプロセッサの基本部分の
+<font color="blue">PPU.L</font> 
+を使って作ります。
+</p>
+
+<hr color="#6666CC" size="10">
+<font size="4" color="#5454AB"><b>　　　レジスタ</b></font><br>
+<hr color="#6666CC">
+
+<br>
+
+<table align="right">
+<tr><td>
+R0 : BCD に変換する8 ビットデータ<br>
+R1 : 除算命令の除算結果<br>
+R2 : 100 の位の値<br>
+R3 : 作業用<br>
+R4 : 10 の位の値<br>
+R5 : 1 の位の値<br>
+R6 : 変換指示<br>
+R7 : 変換終了<br>
+FE : 除算終了<br>
+FZ : ゼロフラグ<br>
+</td></tr>
+</table>
+
+<table align="right">
+<caption><font color="red">図4.18</font> レジスタ構成</caption>
+<tr>
+<td>&nbsp;&nbsp</td>
+<td align="center">
+<a href="../LIB/FG09E24A.png" target="_blank">
+<img src="../LIB/FG09E24A.png" border="0" alt="FG09E24A.png(15332 byte)" width="200">
+</a>
+</td>
+<td>&nbsp;　　　&nbsp</td>
+</tr>
+</table>
+
+<p class="i">
+本プロセッサはメモリを持っていませ
+んのでプログラムはレジスタの操作だけ
+になります。レジスタは通常のプロセッ
+サのようにプログラムで自由に使える
+汎用レジスタは少なく入力ポートを読み
+出すレジスタや出力ポートに書き込むレ
+ジスタや論理と連携するための専用のレ
+ジスタを多く持ちます。レジスタの構成
+は
+<font color="red">図4.19</font> 
+のようになっています。
+</p>
+
+<br clear="right"><br>
+
+<p class="i">
+<font color="blue"><b>R0</b></font> はチップの外から入力される8 ビットのデータを読み取るためのレジスタで書き込みはできません。<br>
+<font color="blue"><b>R1</b></font> は除算命令の実行の後に除算結果を読み取るためのレジスタでプログラムで任意の値を書き込むことはできません。<br>
+<font color="blue"><b>R2</b></font> は100 の位の値を書き込むレジスタです。このレジスタの値を他のレジスタに読み出すことはできます。<br>
+<font color="blue"><b>R3</b></font> はプログラムで自由に使うことのできるレジスタです。<br>
+<font color="blue"><b>R4</b></font> は10 の位の値を書き込むレジスタです。このレジスタの値を他のレジスタに読み出すことはできます。<br>
+<font color="blue"><b>R5</b></font> は1 の位の値を書き込むレジスタです。このレジスタの値を他のレジスタに読み出すことはできます。<br>
+<font color="blue"><b>R6</b></font> はチップの外から入力される変換指示を読み取るためのレジスタで書き込みはできません。<br>
+<font color="blue"><b>R7</b></font> はチップの外に変換の終了を示す1 ビットのレジスタです。このレジスタの値を他のレジスタに読み出すことはできます。<br>
+</p>
+
+<table class="i">
+<a name="LST63"></a>
+<caption><font color="red">　リスト64</font>　プログラム</caption>
+<tr>
+<td >&nbsp;　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">1:          org 4
+2:  start:
+3:           DIV  r0,100
+4:  roop:
+5:           AND  fe,1
+6:           JZ   roop
+7:
+8:           LD   r2,r1
+9:
+10:          CP   r1,0
+11:          AND  fz,1
+12:          JNZ  x1
+13:          CP   r1,1
+14:          AND  fz,1
+15:          JNZ  x2
+16:          CP   r1,2
+17:          AND  fz,1
+18:          JNZ  x3
+19: 
+20: x1:      LD   r3,0
+21:          JP   x4
+22: x2:      LD   r3,10
+23:          JP   x4
+24: x3:      LD   r3,20
+25:
+26: x4:
+27:          DIV  r0,10
+28: roop1:
+29:          AND  fe,1
+30:          JZ   roop1
+31:
+32:          LD   r4,r1
+33:          SUB  r4,r3
+34:
+35:          CP   r2,0
+36:          AND  fz,1
+37:          JNZ  x5
+38:          CP   r2,1
+39:          AND  fz,1
+40:          JNZ  x6
+41:          CP   r2,2
+42:          AND  fz,1
+43:          JNZ  x7
+44:
+45: x5:      LD   r3,0
+46:          JP   x8
+47: x6:      LD   r3,100
+48:          JP   x8
+49: x7:      LD   r3,200
+50:
+51: x8:
+52:          LD   r5,r0
+53:          SUB  r5,r3
+54:
+55:          LD   r3,r4
+56:          SLA  r3,3
+57:          SUB  r5,r3
+58:          LD   r3,r4
+59:          SLA  r3,1
+60:          SUB  r5,r3
+61:
+62:          OR   r7,1
+63:
+64: roop2:
+65:          AND  r6,1
+66:          JZ   roop2
+67:
+68:          AND  r7,0
+69:
+70:          JP   start
+71: end
+</font>
+</pre>
+</td>
+<td >&nbsp;　&nbsp;</td>
+</tr>
+</table>
+
+<!--  -->
+      </td>
+      <td width=" 50 ">
+</td>
+   </tr>
+   <tr>
+      <td height=" 20 "  colspan="3">
+</td>
+   </tr>
+</table>
+<!--  -->
+      </td>
+      <td width=" 50 " bgcolor="lightgray">
+</td>
+   </tr>
+   <tr bgcolor="gray">
+      <td height=" 20 "  colspan="3">
+</td>
+   </tr>
+</table>
+</body>
+</html>

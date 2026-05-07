@@ -1,0 +1,262 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+   <title></title>
+<LINK Type="TEXT/css" Rel="stylesheet" Href="main.css">
+<style type="text/css">
+<!--
+body, th, td { line-height: 150%; }
+.i { MARGIN-left: 1em; MARGIN-right: 1em; }
+-->
+</style>
+</head>
+<body  background="../LIB/TOPIMG.JPG">
+<table border="1" cellspacing="0" width=" 900 " height=" 450 ">
+   <tr bgcolor="navy">
+<td>
+<table>
+<tr>
+<td><a href="pg22.html"><font color="white">＜</font></a></td>
+<td><font color="white"><a href="pg0.html">□</a></font></td>
+<td><a href="pg24.html"><font color="white">＞</font></a></td>
+</tr>
+</table>
+</td>
+      <td width=" 500 " height=" 20 " colspan="1" align="left">
+<td align="center"><font color="white">
+No.23
+</font></td>
+   </td>
+   </tr>
+   <tr>
+      <td width=" 20 " bgcolor="lightgray">　
+</td>
+      <td height=" 500 " bgcolor="white">
+<!--  -->
+<table border="0" cellspacing="0">
+   <tr>
+      <td height=" 20 " colspan="3">
+</td>
+   </tr>
+   <tr>
+      <td width=" 50 ">
+</td>
+      <td>
+<!--  -->
+<table align="right">
+<a name="LST12"></a>
+<caption><font color="red">　リスト12</font>　8 ビットの比較器</caption>
+<tr>
+<td >&nbsp;　　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+procedure cmp
+input  a,b,ci,di;
+output c,d;
+
+   switch(a,b,ci)
+      case 0,0,0: c=0;
+      case 0,1,0: c=0;
+      case 1,0,0: c=1;
+      case 1,1,0: c=0;
+      case 0,0,1: c=1;
+      case 0,1,1: c=1;
+      case 1,0,1: c=1;
+      case 1,1,1: c=1;
+   endswitch
+
+   switch(a,b,di)
+      case 0,0,0: d=0;
+      case 0,1,0: d=0;
+      case 1,0,0: d=0;
+      case 1,1,0: d=0;
+      case 0,0,1: d=1;
+      case 0,1,1: d=0;
+      case 1,0,1: d=0;
+      case 1,1,1: d=1;
+   endswitch
+
+endp
+
+entity main
+input  a[8],b[8];
+output c,d;
+
+bitn int0cmp[2];
+bitn int1cmp[2];
+bitn int2cmp[2];
+bitn int3cmp[2];
+bitn int4cmp[2];
+bitn int5cmp[2];
+bitn int6cmp[2];
+bitn int7cmp[2];
+
+   c=int0cmp.0;
+   d=int0cmp.1;
+
+   int0cmp=cmp(a.0,b.0,int1cmp.0,int1cmp.1);
+   int1cmp=cmp(a.1,b.1,int2cmp.0,int2cmp.1);
+   int2cmp=cmp(a.2,b.2,int3cmp.0,int3cmp.1);
+   int3cmp=cmp(a.3,b.3,int4cmp.0,int4cmp.1);
+   int4cmp=cmp(a.4,b.4,int5cmp.0,int5cmp.1);
+   int5cmp=cmp(a.5,b.5,int6cmp.0,int6cmp.1);
+   int6cmp=cmp(a.6,b.6,int7cmp.0,int7cmp.1);
+   int7cmp=cmp(a.7,b.7,0,1);
+
+   int0cmp.2=1;
+   int1cmp.2=1;
+   int2cmp.2=1;
+   int3cmp.2=1;
+   int4cmp.2=1;
+   int5cmp.2=1;
+   int6cmp.2=1;
+   int7cmp.2=1;
+ende
+</font>
+</pre>
+</td>
+<td >&nbsp;　　&nbsp;</td>
+</tr>
+</table>
+
+<table class="i">
+<caption><font color="red">図3.14</font> 8 ビットの比較器の実行</caption>
+<tr>
+<td align="center">
+<a href="../LIB/FG09D08A.png" target="_blank">
+<img src="../LIB/FG09D08A.png" border="0" alt="FG09D08A.png(45358 byte)" width="350">
+</a>
+</td>
+</tr>
+</table>
+
+<p class="i">
+<font color="red">図3.14</font> 
+は
+<font color="red">リスト12</font> 
+を実行したものですが入力値
+の
+<font color="blue">a</font> 
+と
+<font color="blue">b</font> 
+に対応する結果は
+<font color="red">図3.12</font> 
+の真理値表のよう
+になっています。
+</p>
+
+<hr color="#6666CC" size="10">
+<font size="4" color="#5454AB"><b>　　　信号値と信号値の大小比較</b></font><br>
+<hr color="#6666CC">
+
+<p class="i">
+<font color="red">リスト12</font> 
+のように作らないでも演算子で
+<font color="red">リスト13</font>
+のように簡単に利用できます。
+</p>
+
+
+<table align="right">
+<a name="LST13"></a>
+<caption><font color="red">　リスト13</font>　信号値どうしの比較器の使用例</caption>
+<tr>
+<td >&nbsp;　　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+entity main
+input  RESET;
+output QA[8];
+output QB[8];
+output C,D;
+
+bitr qa[8];
+bitr qb[8];
+
+   QA=qa;
+   QB=qb;
+
+   if (RESET)
+      qa=100;
+   else
+      qa=qa-1;
+   endif
+
+   if (RESET)
+      qb=0;
+   else
+      qb=qb+1;
+   endif
+
+   if (qa==qb)
+      D=1;
+   else
+      if (qa>qb)
+         C=1;
+      else
+         C=0;
+      endif
+   endif
+ende
+</font>
+</pre>
+</td>
+<td >&nbsp;　　&nbsp;</td>
+</tr>
+</table>
+
+<p class="i">
+比較器の使用は
+<font color="red">リスト13</font>
+のように信号値どうしを比
+較しなければならないとき
+だけ利用して信号値が定数
+と一致しているかどうかな
+どの判断は前記の方法を利
+用するのがよいでしょう。
+<font color="red">図3.15</font> 
+は
+<font color="red">リスト13</font> 
+を実行
+したものです。
+演算子を使った設計は便
+利なものですが
+<font color="red">リスト12</font>
+で作った8 ビットの比較
+器を手続きにすれば例え
+ば
+<font color="blue">y=cmp8(a,b);</font> 
+のよう
+に使えるので演算子を使わ
+ないで自分で組み上げた論
+理だけでも簡単に言語で設
+計することができます。
+</p>
+
+
+<br clear="right">
+<!--  -->
+      </td>
+      <td width=" 50 ">
+</td>
+   </tr>
+   <tr>
+      <td height=" 20 "  colspan="3">
+</td>
+   </tr>
+</table>
+<!--  -->
+      </td>
+      <td width=" 50 " bgcolor="lightgray">
+</td>
+   </tr>
+   <tr bgcolor="gray">
+      <td height=" 20 "  colspan="3">
+</td>
+   </tr>
+</table>
+</body>
+</html>
