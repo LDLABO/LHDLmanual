@@ -1,0 +1,598 @@
+name     bcdconv
+time     0g
+input    RESET0,REQ0,ADATA0,ADATA1,ADATA2,ADATA3,ADATA4,ADATA5,ADATA6,ADATA7;
+infoin   3,1,1,8;
+infoinc  3,0,0,0;
+output   Q0,Q1,Q2,Q3,Q4,Q5,Q6,Q7,Q8,Q9,Q10,Q11,Q12;
+infoout  1,13;
+infointr  1,72;
+interr   _n93,_n94,_n95,_n96,_n97,_n98,_n99,_n100,_n101,_n102
+        ,_n103,_n104,_n105,_n106,_n107,_n108,_n109,_n110,_n111,_n112
+        ,_n113,_n114,_n115,_n116,_n187,_n188,_n189,_n190,_n191,_n192
+        ,_n193,_n194,_n195,_n196,_n197,_n198,_n199,_n200,_n201,_n202
+        ,_n203,_n204,_n205,_n206,_n207,_n208,_n209,_n210,_n259,_n260
+        ,_n261,_n262,_n281,_n282,_n283,_n284,_n285,_n286,_n287,_n288
+        ,_n289,_n290,_n291,_n292,_n293,_n294,_n295,_n296,_n297,_n298
+        ,_n299,_n300;
+infointn  1,100;
+intern   _n33,_n34,_n35,_n43,_n44,_n45,_n50,_n63,_n125,_n126
+        ,_n127,_n128,_n129,_n130,_n131,_n132,_n133,_n134,_n135,_n136
+        ,_n137,_n139,_n140,_n141,_n144,_n146,_n147,_n148,_n149,_n150
+        ,_n151,_n152,_n153,_n155,_n156,_n160,_n161,_n162,_n218,_n219
+        ,_n220,_n221,_n222,_n223,_n224,_n225,_n226,_n227,_n228,_n229
+        ,_n230,_n231,_n233,_n234,_n235,_n243,_n244,_n245,_n246,_n247
+        ,_n248,_n249,_n250,_n253,_n254,_n255,_n256,_n264,_n265,_n304
+        ,_n305,_n306,_n307,_n308,_n309,_n310,_n311,_n312,_n313,_n314
+        ,_n315,_n316,_n317,_n319,_n320,_n321,_n329,_n330,_n331,_n332
+        ,_n333,_n334,_n335,_n336,_n339,_n340,_n341,_n342,_n390,_n391
+        ;
+
+equ
+
+Q0 = _n282 & !RESET0 & !REQ0 ;
+
+Q1 = _n283 & !RESET0 & !REQ0 ;
+
+Q2 = _n284 & !RESET0 & !REQ0 ;
+
+Q3 = _n285 & !RESET0 & !REQ0 ;
+
+Q4 = _n207 & !RESET0 & !REQ0 ;
+
+Q5 = !_n43 & _n113 & !RESET0 & !REQ0
+   | !RESET0 & !REQ0 & _n208 & !_n33 ;
+
+Q6 = !_n44 & !_n34 & !_n43 & _n113 & !RESET0 & !REQ0
+   | !_n44 & !RESET0 & !REQ0 & _n114 & !_n390
+   | !_n34 & !RESET0 & !REQ0 & !_n390 & _n209
+   | !_n43 & _n113 & !RESET0 & !REQ0 & _n114 & _n209 ;
+
+Q7 = !_n45 & !_n63 & _n391
+   | !_n45 & _n63 & !_n391
+   | !_n63 & !_n391 & _n210 & !RESET0 & !REQ0
+   | _n63 & _n391 & _n210 & !RESET0 & !REQ0 ;
+
+Q8 = _n113 & !RESET0 & !REQ0 ;
+
+Q9 = _n114 & !RESET0 & !REQ0 ;
+
+Q10 = _n115 & !RESET0 & !REQ0 ;
+
+Q11 = _n116 & !RESET0 & !REQ0 ;
+
+Q12 = !_n259 & !_n260 & _n261 & _n262 ;
+
+_n130 = _n112 & _n111 & !RESET0 & !REQ0 ;
+
+_n131 = _n112 & !_n130 & !_n110 & !RESET0 & !REQ0
+   | !_n112 & !_n130 & !RESET0 & !REQ0 ;
+
+_n132 = _n112 & _n111 & !RESET0 & !REQ0 ;
+
+_n133 = !_n131 & !_n132 & !_n109 & !RESET0 & !REQ0
+   | _n131 & !_n132 & !RESET0 & !REQ0 ;
+
+_n134 = !_n131 & _n112 & _n111 & !RESET0 & !REQ0 ;
+
+_n129 = !_n133 & !_n131 & _n112 & _n111 & !RESET0 & !REQ0
+   | !_n133 & !RESET0 & !REQ0 & !_n134 ;
+
+_n109  = _n109 & _n129 & !RESET0 & !REQ0
+   | !_n109 & !_n129 & !RESET0 & !REQ0 ;
+
+_n110  = _n110 & _n129 & !RESET0 & !REQ0
+   | !_n110 & !_n129 & !RESET0 & !REQ0 & _n109
+   | _n110 & !_n129 & !RESET0 & !REQ0 & !_n109 ;
+
+_n111  = _n111 & _n129 & !RESET0 & !REQ0
+   | !_n111 & !_n129 & !RESET0 & !REQ0 & _n110 & _n109
+   | _n111 & !_n129 & !RESET0 & !REQ0 & !_n135 ;
+
+_n112  = _n112 & _n129 & !RESET0 & !REQ0
+   | !_n112 & !_n129 & !RESET0 & !REQ0 & _n111 & _n110 & _n109
+   | _n112 & !_n129 & !RESET0 & !REQ0 & !_n136 ;
+
+_n93  = _n93 & _n129 & !RESET0 & !REQ0
+   | !_n129 & !RESET0 & !REQ0 & _n108 & _n137 ;
+
+_n94  = _n94 & _n129 & !RESET0 & !REQ0
+   | !_n129 & !RESET0 & !REQ0 & _n93 & _n137 & !_n156
+   | !_n129 & !RESET0 & !REQ0 & _n93 & _n137 & _n152 & !_n153 & !_n155 ;
+
+_n95  = _n95 & _n129 & !RESET0 & !REQ0
+   | !_n129 & !RESET0 & !REQ0 & _n94 & _n137 & !_n156
+   | !_n129 & !RESET0 & !REQ0 & _n94 & _n137 & _n152 & !_n153 & !_n155 ;
+
+_n96  = _n96 & _n129 & !RESET0 & !REQ0
+   | !_n129 & !RESET0 & !REQ0 & !_n95 & _n137 & !_n156
+   | !_n129 & !RESET0 & !REQ0 & _n95 & _n137 & _n152 & !_n153 & !_n155 ;
+
+_n97  = _n97 & _n129 & !RESET0 & !REQ0
+   | !_n129 & !RESET0 & !REQ0 & _n125 & _n137 & !_n156
+   | !_n129 & !RESET0 & !REQ0 & _n137 & _n152 & !_n153 & !_n155 & _n96 ;
+
+_n98  = _n98 & _n129 & !RESET0 & !REQ0
+   | !_n129 & !RESET0 & !REQ0 & _n126 & _n137 & !_n156
+   | !_n129 & !RESET0 & !REQ0 & _n137 & _n152 & !_n153 & !_n155 & _n97 ;
+
+_n99  = _n99 & _n129 & !RESET0 & !REQ0
+   | !_n129 & !RESET0 & !REQ0 & _n127 & _n137 & !_n156
+   | !_n129 & !RESET0 & !REQ0 & _n137 & _n152 & !_n153 & !_n155 & _n98 ;
+
+_n100  = _n100 & _n129 & !RESET0 & !REQ0
+   | !_n129 & !RESET0 & !REQ0 & _n128 & _n137 & !_n156
+   | !_n129 & !RESET0 & !REQ0 & _n137 & _n152 & !_n153 & !_n155 & _n99 ;
+
+_n101  = _n101 & _n129 & !RESET0 & !REQ0
+   | !_n129 & !RESET0 & !REQ0 & ADATA0 & !_n137 ;
+
+_n102  = _n102 & _n129 & !RESET0 & !REQ0
+   | !_n129 & !RESET0 & !REQ0 & _n101 & _n137
+   | !_n129 & !RESET0 & !REQ0 & !_n137 & ADATA1 ;
+
+_n103  = _n103 & _n129 & !RESET0 & !REQ0
+   | !_n129 & !RESET0 & !REQ0 & _n102 & _n137
+   | !_n129 & !RESET0 & !REQ0 & !_n137 & ADATA2 ;
+
+_n104  = _n104 & _n129 & !RESET0 & !REQ0
+   | !_n129 & !RESET0 & !REQ0 & _n103 & _n137
+   | !_n129 & !RESET0 & !REQ0 & !_n137 & ADATA3 ;
+
+_n105  = _n105 & _n129 & !RESET0 & !REQ0
+   | !_n129 & !RESET0 & !REQ0 & _n104 & _n137
+   | !_n129 & !RESET0 & !REQ0 & !_n137 & ADATA4 ;
+
+_n106  = _n106 & _n129 & !RESET0 & !REQ0
+   | !_n129 & !RESET0 & !REQ0 & _n105 & _n137
+   | !_n129 & !RESET0 & !REQ0 & !_n137 & ADATA5 ;
+
+_n107  = _n107 & _n129 & !RESET0 & !REQ0
+   | !_n129 & !RESET0 & !REQ0 & _n106 & _n137
+   | !_n129 & !RESET0 & !REQ0 & !_n137 & ADATA6 ;
+
+_n108  = _n108 & _n129 & !RESET0 & !REQ0
+   | !_n129 & !RESET0 & !REQ0 & _n107 & _n137
+   | !_n129 & !RESET0 & !REQ0 & !_n137 & ADATA7 ;
+
+_n113  = _n113 & _n129 & !RESET0 & !REQ0
+   | !_n129 & !RESET0 & !REQ0 & _n137 & !_n156 ;
+
+_n114  = _n114 & _n129 & !RESET0 & !REQ0
+   | !_n129 & !RESET0 & !REQ0 & _n113 & _n137 ;
+
+_n115  = _n115 & _n129 & !RESET0 & !REQ0
+   | !_n129 & !RESET0 & !REQ0 & _n114 & _n137 ;
+
+_n116  = _n116 & _n129 & !RESET0 & !REQ0
+   | !_n129 & !RESET0 & !REQ0 & _n115 & _n137 ;
+
+_n135 = _n110 & _n109 & !_n129 & !RESET0 & !REQ0 ;
+
+_n136 = _n111 & _n110 & _n109 & !_n129 & !RESET0 & !REQ0 ;
+
+_n139 = _n110 & !RESET0 & !REQ0
+   | !RESET0 & !REQ0 & _n111
+   | !RESET0 & !REQ0 & _n112 ;
+
+_n140 = !_n110 & !_n111 & !_n112 & !_n109 & !RESET0 & !REQ0 ;
+
+_n141 = _n110 & !RESET0 & !REQ0
+   | !RESET0 & !REQ0 & _n111
+   | !RESET0 & !REQ0 & _n112 ;
+
+_n137 = !_n110 & !_n111 & !_n112 & !_n109 & !_n141 & !RESET0 & !REQ0
+   | !RESET0 & !REQ0 & _n139 & !_n140 ;
+
+_n144 = !_n100 & !_n99 & !RESET0 & !REQ0 ;
+
+_n146 = !_n144 & !_n100 & !_n98 & !RESET0 & !REQ0
+   | !_n100 & !RESET0 & !REQ0 & !_n99 ;
+
+_n147 = !_n144 & _n100 & !RESET0 & !REQ0 ;
+
+_n148 = _n146 & !_n147 & !RESET0 & !REQ0 ;
+
+_n149 = !_n146 & !_n147 & _n97 & !RESET0 & !REQ0
+   | !_n146 & !RESET0 & !REQ0 & !_n144 & _n100 ;
+
+_n150 = _n146 & !_n147 & !_n149 & !RESET0 & !REQ0 ;
+
+_n151 = !_n148 & !_n149 & _n96 & !RESET0 & !REQ0
+   | !_n148 & _n149 & !RESET0 & !REQ0 ;
+
+_n152 = !_n150 & !_n151 & !_n95 & !RESET0 & !REQ0
+   | !_n151 & !RESET0 & !REQ0 & _n146 & !_n147 & !_n149 ;
+
+_n153 = !_n150 & _n151 & !RESET0 & !REQ0 ;
+
+_n155 = !_n152 & !_n153 & _n94 & !RESET0 & !REQ0
+   | !_n152 & !RESET0 & !REQ0 & !_n150 & _n151 ;
+
+_n156 = _n152 & !_n153 & !_n155 & !RESET0 & !REQ0 ;
+
+_n125 = !_n96 & !_n95 & !RESET0 & !REQ0
+   | _n96 & _n95 & !RESET0 & !REQ0 ;
+
+_n160 = !_n96 & !_n95 & !RESET0 & !REQ0 ;
+
+_n126 = !_n97 & !_n96 & !_n95 & !RESET0 & !REQ0
+   | _n97 & !RESET0 & !REQ0 & !_n160 ;
+
+_n161 = !_n97 & !_n96 & !_n95 & !RESET0 & !REQ0 ;
+
+_n127 = !_n98 & !_n161 & !RESET0 & !REQ0
+   | _n98 & !RESET0 & !REQ0 & !_n97 & !_n96 & !_n95 ;
+
+_n162 = !_n98 & !RESET0 & !REQ0
+   | !RESET0 & !REQ0 & !_n97 & !_n96 & !_n95 ;
+
+_n128 = !_n99 & !_n162 & !RESET0 & !REQ0
+   | _n99 & _n162 & !RESET0 & !REQ0 ;
+
+_n33 = _n113 & !RESET0 & !REQ0 ;
+
+_n34 = _n114 & !RESET0 & !REQ0 ;
+
+_n35 = _n115 & !RESET0 & !REQ0 ;
+
+_n224 = _n206 & _n205 & !RESET0 & !REQ0 ;
+
+_n225 = _n206 & !_n224 & !_n204 & !RESET0 & !REQ0
+   | !_n206 & !_n224 & !RESET0 & !REQ0 ;
+
+_n226 = _n206 & _n205 & !RESET0 & !REQ0 ;
+
+_n227 = !_n225 & !_n226 & !_n203 & !RESET0 & !REQ0
+   | _n225 & !_n226 & !RESET0 & !REQ0 ;
+
+_n228 = !_n225 & _n206 & _n205 & !RESET0 & !REQ0 ;
+
+_n223 = !_n227 & !_n225 & _n206 & _n205 & !RESET0 & !REQ0
+   | !_n227 & !RESET0 & !REQ0 & !_n228 ;
+
+_n203  = _n203 & _n223 & !RESET0 & !REQ0
+   | !_n203 & !_n223 & !RESET0 & !REQ0 ;
+
+_n204  = _n204 & _n223 & !RESET0 & !REQ0
+   | !_n204 & !_n223 & !RESET0 & !REQ0 & _n203
+   | _n204 & !_n223 & !RESET0 & !REQ0 & !_n203 ;
+
+_n205  = _n205 & _n223 & !RESET0 & !REQ0
+   | !_n205 & !_n223 & !RESET0 & !REQ0 & _n204 & _n203
+   | _n205 & !_n223 & !RESET0 & !REQ0 & !_n229 ;
+
+_n206  = _n206 & _n223 & !RESET0 & !REQ0
+   | !_n206 & !_n223 & !RESET0 & !REQ0 & _n205 & _n204 & _n203
+   | _n206 & !_n223 & !RESET0 & !REQ0 & !_n230 ;
+
+_n187  = _n187 & _n223 & !RESET0 & !REQ0
+   | !_n223 & !RESET0 & !REQ0 & _n202 & _n231 ;
+
+_n188  = _n188 & _n223 & !RESET0 & !REQ0
+   | !_n223 & !RESET0 & !REQ0 & _n187 & _n231 & !_n250
+   | !_n223 & !RESET0 & !REQ0 & _n187 & _n231 & _n248 & !_n249 ;
+
+_n189  = _n189 & _n223 & !RESET0 & !REQ0
+   | !_n223 & !RESET0 & !REQ0 & !_n188 & _n231 & !_n250
+   | !_n223 & !RESET0 & !REQ0 & _n188 & _n231 & _n248 & !_n249 ;
+
+_n190  = _n190 & _n223 & !RESET0 & !REQ0
+   | !_n223 & !RESET0 & !REQ0 & _n218 & _n231 & !_n250
+   | !_n223 & !RESET0 & !REQ0 & _n231 & _n248 & !_n249 & _n189 ;
+
+_n191  = _n191 & _n223 & !RESET0 & !REQ0
+   | !_n223 & !RESET0 & !REQ0 & _n219 & _n231 & !_n250
+   | !_n223 & !RESET0 & !REQ0 & _n231 & _n248 & !_n249 & _n190 ;
+
+_n192  = _n192 & _n223 & !RESET0 & !REQ0
+   | !_n223 & !RESET0 & !REQ0 & _n220 & _n231 & !_n250
+   | !_n223 & !RESET0 & !REQ0 & _n231 & _n248 & !_n249 & _n191 ;
+
+_n193  = _n193 & _n223 & !RESET0 & !REQ0
+   | !_n223 & !RESET0 & !REQ0 & _n221 & _n231 & !_n250
+   | !_n223 & !RESET0 & !REQ0 & _n231 & _n248 & !_n249 & _n192 ;
+
+_n194  = _n194 & _n223 & !RESET0 & !REQ0
+   | !_n223 & !RESET0 & !REQ0 & _n222 & _n231 & !_n250
+   | !_n223 & !RESET0 & !REQ0 & _n231 & _n248 & !_n249 & _n193 ;
+
+_n195  = _n195 & _n223 & !RESET0 & !REQ0
+   | !_n223 & !RESET0 & !REQ0 & ADATA0 & !_n231 ;
+
+_n196  = _n196 & _n223 & !RESET0 & !REQ0
+   | !_n223 & !RESET0 & !REQ0 & _n195 & _n231
+   | !_n223 & !RESET0 & !REQ0 & !_n231 & ADATA1 ;
+
+_n197  = _n197 & _n223 & !RESET0 & !REQ0
+   | !_n223 & !RESET0 & !REQ0 & _n196 & _n231
+   | !_n223 & !RESET0 & !REQ0 & !_n231 & ADATA2 ;
+
+_n198  = _n198 & _n223 & !RESET0 & !REQ0
+   | !_n223 & !RESET0 & !REQ0 & _n197 & _n231
+   | !_n223 & !RESET0 & !REQ0 & !_n231 & ADATA3 ;
+
+_n199  = _n199 & _n223 & !RESET0 & !REQ0
+   | !_n223 & !RESET0 & !REQ0 & _n198 & _n231
+   | !_n223 & !RESET0 & !REQ0 & !_n231 & ADATA4 ;
+
+_n200  = _n200 & _n223 & !RESET0 & !REQ0
+   | !_n223 & !RESET0 & !REQ0 & _n199 & _n231
+   | !_n223 & !RESET0 & !REQ0 & !_n231 & ADATA5 ;
+
+_n201  = _n201 & _n223 & !RESET0 & !REQ0
+   | !_n223 & !RESET0 & !REQ0 & _n200 & _n231
+   | !_n223 & !RESET0 & !REQ0 & !_n231 & ADATA6 ;
+
+_n202  = _n202 & _n223 & !RESET0 & !REQ0
+   | !_n223 & !RESET0 & !REQ0 & _n201 & _n231
+   | !_n223 & !RESET0 & !REQ0 & !_n231 & ADATA7 ;
+
+_n207  = _n207 & _n223 & !RESET0 & !REQ0
+   | !_n223 & !RESET0 & !REQ0 & _n231 & !_n250 ;
+
+_n208  = _n208 & _n223 & !RESET0 & !REQ0
+   | !_n223 & !RESET0 & !REQ0 & _n207 & _n231 ;
+
+_n209  = _n209 & _n223 & !RESET0 & !REQ0
+   | !_n223 & !RESET0 & !REQ0 & _n208 & _n231 ;
+
+_n210  = _n210 & _n223 & !RESET0 & !REQ0
+   | !_n223 & !RESET0 & !REQ0 & _n209 & _n231 ;
+
+_n229 = _n204 & _n203 & !_n223 & !RESET0 & !REQ0 ;
+
+_n230 = _n205 & _n204 & _n203 & !_n223 & !RESET0 & !REQ0 ;
+
+_n233 = _n204 & !RESET0 & !REQ0
+   | !RESET0 & !REQ0 & _n205
+   | !RESET0 & !REQ0 & _n206 ;
+
+_n234 = !_n204 & !_n205 & !_n206 & !_n203 & !RESET0 & !REQ0 ;
+
+_n235 = _n204 & !RESET0 & !REQ0
+   | !RESET0 & !REQ0 & _n205
+   | !RESET0 & !REQ0 & _n206 ;
+
+_n231 = !_n204 & !_n205 & !_n206 & !_n203 & !_n235 & !RESET0 & !REQ0
+   | !RESET0 & !REQ0 & _n233 & !_n234 ;
+
+_n243 = !_n192 & !_n193 & !_n194 & _n191 & !RESET0 & !REQ0
+   | _n192 & !RESET0 & !REQ0
+   | _n193 & !RESET0 & !REQ0
+   | _n194 & !RESET0 & !REQ0 ;
+
+_n244 = !_n243 & !_n190 & !RESET0 & !REQ0 ;
+
+_n245 = !_n192 & !_n193 & !_n194 & _n191 & !RESET0 & !REQ0
+   | _n192 & !RESET0 & !REQ0
+   | _n193 & !RESET0 & !REQ0
+   | _n194 & !RESET0 & !REQ0 ;
+
+_n246 = !_n243 & !_n190 & !_n245 & !RESET0 & !REQ0 ;
+
+_n247 = !_n244 & !_n245 & _n189 & !RESET0 & !REQ0
+   | !_n244 & !RESET0 & !REQ0 & _n243 ;
+
+_n248 = !_n246 & !_n247 & !_n188 & !RESET0 & !REQ0
+   | !_n247 & !RESET0 & !REQ0 & !_n243 & !_n190 & !_n245 ;
+
+_n249 = !_n246 & _n247 & !RESET0 & !REQ0 ;
+
+_n250 = _n248 & !_n249 & !RESET0 & !REQ0 ;
+
+_n218 = !_n189 & !_n188 & !RESET0 & !REQ0
+   | _n189 & _n188 & !RESET0 & !REQ0 ;
+
+_n253 = !_n189 & !_n188 & !RESET0 & !REQ0 ;
+
+_n219 = !_n190 & !_n253 & !RESET0 & !REQ0
+   | _n190 & !RESET0 & !REQ0 & !_n189 & !_n188 ;
+
+_n254 = !_n190 & !RESET0 & !REQ0
+   | !RESET0 & !REQ0 & !_n189 & !_n188 ;
+
+_n220 = !_n191 & _n254 & !RESET0 & !REQ0
+   | _n191 & !_n254 & !RESET0 & !REQ0 ;
+
+_n255 = !_n191 & _n254 & !RESET0 & !REQ0 ;
+
+_n221 = !_n192 & !_n191 & _n254 & !RESET0 & !REQ0
+   | _n192 & !RESET0 & !REQ0 & !_n255 ;
+
+_n256 = !_n192 & !_n191 & _n254 & !RESET0 & !REQ0 ;
+
+_n222 = !_n193 & !_n192 & !_n191 & _n254 & !RESET0 & !REQ0
+   | _n193 & !RESET0 & !REQ0 & !_n256 ;
+
+_n43 = _n208 & !RESET0 & !REQ0 ;
+
+_n44 = _n209 & !RESET0 & !REQ0 ;
+
+_n45 = _n210 & !RESET0 & !REQ0 ;
+
+_n259  = !_n259 & !_n50 & !RESET0 & !REQ0 ;
+
+_n260  = _n260 & !_n259 & !_n50 & !RESET0 & !REQ0
+   | !_n260 & _n259 & !_n50 & !RESET0 & !REQ0 ;
+
+_n261  = _n261 & !_n264 & !_n50 & !RESET0 & !REQ0
+   | !_n261 & !_n50 & !RESET0 & !REQ0 & _n259 & _n260
+   | _n261 & !RESET0 & !REQ0 & !_n259 & !_n260 & _n262 ;
+
+_n262  = _n262 & !_n265 & !_n50 & !RESET0 & !REQ0
+   | !_n262 & !_n50 & !RESET0 & !REQ0 & _n259 & _n260 & _n261
+   | _n262 & !RESET0 & !REQ0 & !_n259 & !_n260 & _n261 ;
+
+_n264 = _n259 & _n260 & !RESET0 & !REQ0 ;
+
+_n265 = _n259 & _n260 & _n261 & !RESET0 & !REQ0 ;
+
+_n50 = !_n259 & !_n260 & _n261 & _n262 ;
+
+_n310 = _n300 & _n299 & !RESET0 & !REQ0 ;
+
+_n311 = _n300 & !_n310 & !_n298 & !RESET0 & !REQ0
+   | !_n300 & !_n310 & !RESET0 & !REQ0 ;
+
+_n312 = _n300 & _n299 & !RESET0 & !REQ0 ;
+
+_n313 = !_n311 & !_n312 & !_n297 & !RESET0 & !REQ0
+   | _n311 & !_n312 & !RESET0 & !REQ0 ;
+
+_n314 = !_n311 & _n300 & _n299 & !RESET0 & !REQ0 ;
+
+_n309 = !_n313 & !_n311 & _n300 & _n299 & !RESET0 & !REQ0
+   | !_n313 & !RESET0 & !REQ0 & !_n314 ;
+
+_n297  = _n297 & _n309 & !RESET0 & !REQ0
+   | !_n297 & !_n309 & !RESET0 & !REQ0 ;
+
+_n298  = _n298 & _n309 & !RESET0 & !REQ0
+   | !_n298 & !_n309 & !RESET0 & !REQ0 & _n297
+   | _n298 & !_n309 & !RESET0 & !REQ0 & !_n297 ;
+
+_n299  = _n299 & _n309 & !RESET0 & !REQ0
+   | !_n299 & !_n309 & !RESET0 & !REQ0 & _n298 & _n297
+   | _n299 & !_n309 & !RESET0 & !REQ0 & !_n315 ;
+
+_n300  = _n300 & _n309 & !RESET0 & !REQ0
+   | !_n300 & !_n309 & !RESET0 & !REQ0 & _n299 & _n298 & _n297
+   | _n300 & !_n309 & !RESET0 & !REQ0 & !_n316 ;
+
+_n281  = _n281 & _n309 & !RESET0 & !REQ0
+   | !_n309 & !RESET0 & !REQ0 & _n296 & _n317 ;
+
+_n282  = _n282 & _n309 & !RESET0 & !REQ0
+   | !_n309 & !RESET0 & !REQ0 & _n281 & _n317 & !_n336
+   | !_n309 & !RESET0 & !REQ0 & _n281 & _n317 & _n334 & !_n335 ;
+
+_n283  = _n283 & _n309 & !RESET0 & !REQ0
+   | !_n309 & !RESET0 & !REQ0 & !_n282 & _n317 & !_n336
+   | !_n309 & !RESET0 & !REQ0 & _n282 & _n317 & _n334 & !_n335 ;
+
+_n284  = _n284 & _n309 & !RESET0 & !REQ0
+   | !_n309 & !RESET0 & !REQ0 & _n304 & _n317 & !_n336
+   | !_n309 & !RESET0 & !REQ0 & _n317 & _n334 & !_n335 & _n283 ;
+
+_n285  = _n285 & _n309 & !RESET0 & !REQ0
+   | !_n309 & !RESET0 & !REQ0 & _n305 & _n317 & !_n336
+   | !_n309 & !RESET0 & !REQ0 & _n317 & _n334 & !_n335 & _n284 ;
+
+_n286  = _n286 & _n309 & !RESET0 & !REQ0
+   | !_n309 & !RESET0 & !REQ0 & _n306 & _n317 & !_n336
+   | !_n309 & !RESET0 & !REQ0 & _n317 & _n334 & !_n335 & _n285 ;
+
+_n287  = _n287 & _n309 & !RESET0 & !REQ0
+   | !_n309 & !RESET0 & !REQ0 & _n307 & _n317 & !_n336
+   | !_n309 & !RESET0 & !REQ0 & _n317 & _n334 & !_n335 & _n286 ;
+
+_n288  = _n288 & _n309 & !RESET0 & !REQ0
+   | !_n309 & !RESET0 & !REQ0 & _n308 & _n317 & !_n336
+   | !_n309 & !RESET0 & !REQ0 & _n317 & _n334 & !_n335 & _n287 ;
+
+_n289  = _n289 & _n309 & !RESET0 & !REQ0
+   | !_n309 & !RESET0 & !REQ0 & ADATA0 & !_n317 ;
+
+_n290  = _n290 & _n309 & !RESET0 & !REQ0
+   | !_n309 & !RESET0 & !REQ0 & _n289 & _n317
+   | !_n309 & !RESET0 & !REQ0 & !_n317 & ADATA1 ;
+
+_n291  = _n291 & _n309 & !RESET0 & !REQ0
+   | !_n309 & !RESET0 & !REQ0 & _n290 & _n317
+   | !_n309 & !RESET0 & !REQ0 & !_n317 & ADATA2 ;
+
+_n292  = _n292 & _n309 & !RESET0 & !REQ0
+   | !_n309 & !RESET0 & !REQ0 & _n291 & _n317
+   | !_n309 & !RESET0 & !REQ0 & !_n317 & ADATA3 ;
+
+_n293  = _n293 & _n309 & !RESET0 & !REQ0
+   | !_n309 & !RESET0 & !REQ0 & _n292 & _n317
+   | !_n309 & !RESET0 & !REQ0 & !_n317 & ADATA4 ;
+
+_n294  = _n294 & _n309 & !RESET0 & !REQ0
+   | !_n309 & !RESET0 & !REQ0 & _n293 & _n317
+   | !_n309 & !RESET0 & !REQ0 & !_n317 & ADATA5 ;
+
+_n295  = _n295 & _n309 & !RESET0 & !REQ0
+   | !_n309 & !RESET0 & !REQ0 & _n294 & _n317
+   | !_n309 & !RESET0 & !REQ0 & !_n317 & ADATA6 ;
+
+_n296  = _n296 & _n309 & !RESET0 & !REQ0
+   | !_n309 & !RESET0 & !REQ0 & _n295 & _n317
+   | !_n309 & !RESET0 & !REQ0 & !_n317 & ADATA7 ;
+
+_n315 = _n298 & _n297 & !_n309 & !RESET0 & !REQ0 ;
+
+_n316 = _n299 & _n298 & _n297 & !_n309 & !RESET0 & !REQ0 ;
+
+_n319 = _n298 & !RESET0 & !REQ0
+   | !RESET0 & !REQ0 & _n299
+   | !RESET0 & !REQ0 & _n300 ;
+
+_n320 = !_n298 & !_n299 & !_n300 & !_n297 & !RESET0 & !REQ0 ;
+
+_n321 = _n298 & !RESET0 & !REQ0
+   | !RESET0 & !REQ0 & _n299
+   | !RESET0 & !REQ0 & _n300 ;
+
+_n317 = !_n298 & !_n299 & !_n300 & !_n297 & !_n321 & !RESET0 & !REQ0
+   | !RESET0 & !REQ0 & _n319 & !_n320 ;
+
+_n329 = !_n286 & !_n287 & !_n288 & _n285 & !RESET0 & !REQ0
+   | _n286 & !RESET0 & !REQ0
+   | _n287 & !RESET0 & !REQ0
+   | _n288 & !RESET0 & !REQ0 ;
+
+_n330 = !_n329 & !_n284 & !RESET0 & !REQ0 ;
+
+_n331 = !_n286 & !_n287 & !_n288 & _n285 & !RESET0 & !REQ0
+   | _n286 & !RESET0 & !REQ0
+   | _n287 & !RESET0 & !REQ0
+   | _n288 & !RESET0 & !REQ0 ;
+
+_n332 = !_n329 & !_n284 & !_n331 & !RESET0 & !REQ0 ;
+
+_n333 = !_n330 & !_n331 & _n283 & !RESET0 & !REQ0
+   | !_n330 & !RESET0 & !REQ0 & _n329 ;
+
+_n334 = !_n332 & !_n333 & !_n282 & !RESET0 & !REQ0
+   | !_n333 & !RESET0 & !REQ0 & !_n329 & !_n284 & !_n331 ;
+
+_n335 = !_n332 & _n333 & !RESET0 & !REQ0 ;
+
+_n336 = _n334 & !_n335 & !RESET0 & !REQ0 ;
+
+_n304 = !_n283 & !_n282 & !RESET0 & !REQ0
+   | _n283 & _n282 & !RESET0 & !REQ0 ;
+
+_n339 = !_n283 & !_n282 & !RESET0 & !REQ0 ;
+
+_n305 = !_n284 & !_n339 & !RESET0 & !REQ0
+   | _n284 & !RESET0 & !REQ0 & !_n283 & !_n282 ;
+
+_n340 = !_n284 & !RESET0 & !REQ0
+   | !RESET0 & !REQ0 & !_n283 & !_n282 ;
+
+_n306 = !_n285 & _n340 & !RESET0 & !REQ0
+   | _n285 & !_n340 & !RESET0 & !REQ0 ;
+
+_n341 = !_n285 & _n340 & !RESET0 & !REQ0 ;
+
+_n307 = !_n286 & !_n285 & _n340 & !RESET0 & !REQ0
+   | _n286 & !RESET0 & !REQ0 & !_n341 ;
+
+_n342 = !_n286 & !_n285 & _n340 & !RESET0 & !REQ0 ;
+
+_n308 = !_n287 & !_n286 & !_n285 & _n340 & !RESET0 & !REQ0
+   | _n287 & !RESET0 & !REQ0 & !_n342 ;
+
+_n63 = !_n33 & _n115 & !RESET0 & !REQ0
+   | !RESET0 & !REQ0 & _n113 & !_n35 ;
+
+_n390 = !_n43 & _n113 & !RESET0 & !REQ0 ;
+
+_n391 = !_n44 & !_n43 & _n113 & !RESET0 & !REQ0
+   | !_n44 & !RESET0 & !REQ0 & _n114
+   | !_n43 & _n113 & !RESET0 & !REQ0 & _n114 ;
+
+endequ
