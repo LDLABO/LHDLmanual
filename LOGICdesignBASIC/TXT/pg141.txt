@@ -1,0 +1,157 @@
+<br>
+
+<table>
+<caption><font color="red">図5.75</font>　実行</caption>
+<tr>
+<td>&nbsp;&nbsp</td>
+<td align="center">
+<a href="../LIB/FG09H09A.png" target="_blank">
+<img src="../LIB/FG09H09A.png" border="0" alt="FG09H09A.png(108384 byte)" width="1000">
+</a>
+</td>
+<td>&nbsp;　　　&nbsp</td>
+</tr>
+</table>
+
+<br>
+<br>
+
+<table align="right">
+<tr>
+<td >&nbsp;　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#CC0000" size="2">
+tmp3shift.3:31=acc.0:28;
+tmp2shift.1:31=acc.0:30;
+</font>
+</pre>
+</td>
+<td >&nbsp;　&nbsp;</td>
+</tr>
+</table>
+
+<p class="i">
+次に示すように
+<font color="red">リスト145</font> 
+の
+<font color="blue">tmp3shift</font> 
+は
+<font color="blue">acc</font> 
+の8倍の値で
+<font color="blue">tmp2shift</font> 
+は
+<font color="blue">acc</font> 
+の2倍の値です。
+</p>
+
+<br clear="right">
+
+<hr color="#4F9177" size="15">
+<font color="#336633"><b>　　BCD2進数変換器の検証</b></font>
+<hr color="#4F9177">
+
+<br>
+
+<table align="right">
+<a name="LST146"></a>
+<caption><font color="red">　リスト146</font>　機能実行譜</caption>
+<tr>
+<td >&nbsp;　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+entity sim
+output RESET;
+output DATA[4];
+output DIGITNO[3];
+output Q[32];
+output EOC;
+
+bitr tc[8];
+bitn node_DIGITNO[3];
+
+   DIGITNO=node_DIGITNO;
+
+   part main(RESET,DATA,node_DIGITNO,Q,EOC)
+
+   tc=tc+1;
+   if (tc<5) RESET=1; endif
+
+   switch(node_DIGITNO)
+      case 7: DATA=1;
+      case 6: DATA=2;
+      case 5: DATA=3;
+      case 4: DATA=4;
+      case 3: DATA=5;
+      case 2: DATA=6;
+      case 1: DATA=7;
+      case 0: DATA=8;
+   endswitch
+ende
+</font>
+</pre>
+</td>
+<td >&nbsp;　&nbsp;</td>
+</tr>
+</table>
+
+
+<p class="i">
+<font face="red">リスト146</font> 
+はBCD値に
+<font color="blue">12345678</font> 
+を入力する機能実行譜です。実行の結果は
+<font color="red">図5.75</font> 
+です。設計論理の桁の指定の
+<font color="blue">node_DIGITNO</font> 
+に対応するBCD値の入力を
+<font color="blue">DATA</font> 
+に返します。
+</p>
+
+<table class="i">
+<caption><font color="red">図5.76</font>　詳細</caption>
+<tr>
+<td>&nbsp;&nbsp</td>
+<td align="center">
+<a href="../LIB/FG09H09B.png" target="_blank">
+<img src="../LIB/FG09H09B.png" border="0" alt="FG09H09B.png(313678 byte)" width="400">
+</a>
+</td>
+<td>&nbsp;　　　&nbsp</td>
+</tr>
+</table>
+
+<p class="i">
+<font color="red">図5.76</font> 
+の前の赤の縦線のところは主行程の
+<font color="blue">seqno</font> 
+が
+<font color="blue">0</font> 
+ですが、すでに
+<font color="blue">12</font> 
+が記憶されていますのでこれが次に
+<font color="blue">10</font> 
+倍されて
+<font color="blue">120</font> 
+になります。後ろの赤の縦線のところは主行程の
+<font color="blue">seqno</font>
+が
+<font color="blue">1</font> 
+ですが
+<font color="blue">DATA</font> 
+が
+<font color="blue">3</font> 
+なので次にこれが足されて
+<font color="blue">123</font> 
+になります。
+<font color="blue">ModelSIM</font> 
+による実行は
+<font color="red">図5.77</font> 
+と
+<font color="red">図5.78</font> 
+を見て下さい。
+</p>
+
+<br clear="right">

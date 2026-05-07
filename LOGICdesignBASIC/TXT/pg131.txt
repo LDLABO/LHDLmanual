@@ -1,0 +1,82 @@
+<br>
+
+<table class="i">
+<caption><font color="red">図5.61</font> 修正後のキーボードの論理の実行</caption>
+<tr>
+<td>&nbsp;&nbsp</td>
+<td align="center">
+<a href="../LIB/FG09G30A.png" target="_blank">
+<img src="../LIB/FG09G30A.png" border="0" alt="FG09G30A.png(142165 byte)" width="850">
+</a>
+</td>
+<td>&nbsp;　　　&nbsp</td>
+</tr>
+</table>
+
+<br>
+
+<p class="i">
+<font color="red">図5.61</font> 
+は修正後のキーボードの論理を実行した様子です。
+<font color="blue">set</font> 
+が
+<font color="blue">1</font> 
+から
+<font color="blue">5</font> 
+のところが主行程が動いていると
+ころです。
+<font color="blue">OFF</font> 
+は
+<font color="blue">set</font> 
+が
+<font color="blue">0</font> 
+のところで
+<font color="blue">1</font> 
+になっています。
+</p>
+
+<p class="i">
+説明は必要部分を抜粋して行っていますので全部は次のファイルを見て下さい。
+</p>
+
+<ul>
+<li class="i">
+論理譜: 
+<a href="../LIB/LDL06E04A1B.pdf" target="_blank">
+<font color="blue">LDL06E04A1B.pdf</font>
+</a>
+</li>
+
+<li class="i">
+実行結果: 
+<a href="../LIB/SIM06E04A1B.pdf" target="_blank">
+<font color="blue">SIM06E04A1B.pdf</font>
+</a>
+</li>
+</ul>
+
+<table class="i">
+<a name="LST131"></a>
+<caption><font color="red">　リスト131</font>　修正後のキーボードのデバイス</caption>
+<tr>
+<td >&nbsp;　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+cpldfit:  version I.33                              Xilinx Inc.
+                                  Fitter Report
+Design Name: main                                Date:  9-28-2008,  7:24PM
+Device Used: XC9536-5-PC44
+Fitting Status: Successful
+
+*************************  Mapped Resource Summary  **************************
+
+Macrocells     Product Terms    Function Block   Registers      Pins           
+Used/Tot       Used/Tot         Inps Used/Tot    Used/Tot       Used/Tot       
+17 /36  ( 47%) 67  /180  ( 37%) 29 /72  ( 40%)   11 /36  ( 31%) 11 /34  ( 32%)
+</font>
+</pre>
+</td>
+<td >&nbsp;　&nbsp;</td>
+</tr>
+</table>

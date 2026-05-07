@@ -1,0 +1,185 @@
+<hr color="#6666CC" size="10">
+<font size="4" color="#5454AB"><b>　　　端末の検証</b></font><br>
+<hr color="#6666CC">
+
+<p class="i">
+端末にはキーボードと表示器がつながっています、キーボードからの入力によって端末のメモリにデータが書
+き込まれます。メモリに書き込まれたデータは表示器に表示されます、また外からの操作によって読み出しも行
+われます。表示器は端末に対しての入力はないので端末の表示器に対する出力を確認するだけです。端末を動か
+すためには検証論理がキーボードの役割を担って検証を進めていきます。
+</p>
+
+<br>
+
+<table class="i">
+<caption><font color="red">図5.64</font>　検証手順</caption>
+<tr>
+<td>&nbsp;&nbsp</td>
+<td align="center">
+<a href="../LIB/FG09H01A.png" target="_blank">
+<img src="../LIB/FG09H01A.png" border="0" alt="FG09H01A.png(11567 byte)" width="400">
+</a>
+</td>
+<td>&nbsp;　　　&nbsp</td>
+</tr>
+</table>
+
+<br>
+
+<hr color="#6666CC" size="10">
+<font size="4" color="#5454AB"><b>　　　検証手順</b></font><br>
+<hr color="#6666CC">
+
+<p class="i">
+端末の論理に対応するキーボードの役割を検証論理に書いて
+<font color="red">図5.64</font> 
+のキーを押したようにします。そして次のようなことを確認します。
+</p>
+
+<ul>
+<li class="i">
+①　端末のメモリにキーボードから
+<font color="blue">1</font> 
+から
+<font color="blue">8</font> 
+を書き込みます。この後に外から番地
+<font color="blue">0</font> 
+から番地
+<font color="blue">7</font> 
+の値を読み出してキーボードから入力されたデータとメモリに書き込まれたデータが合っているかを確認します。
+</li>
+
+<li class="i">
+②　キーボードから+ を入力すると外に対してデータがあることが知らされるのでこれに応答します。応答
+するとメモリの全ての値は0 になりますのでこれを確認します。
+</li>
+
+<li class="i">
+③　1 番目のキーボードの入力で使わなかった数値を使って端末のメモリに書き込みを行います。これも前回
+と同じように読み出しを行って確認します。
+</li>
+
+<li class="i">
+④　キーボードから <span style="background-color:#FFCC00">=</span> を入力すると外に対してデータがあることが知らされますがここでは応答しません。
+</li>
+
+<li class="i">
+⑤　キーボードから <span style="background-color:#FFCC00">-</span> を入力するとメモリの全ての値を0 にして外に知らせますのでこれを確認します。
+</li>
+
+<li class="i">
+⑥　キーボードから <span style="background-color:#FFCC00">C</span> を入力すると端末は外に知らせますのでこれを確認します。
+</li>
+
+<li class="i">
+⑦　キーボードから <span style="background-color:#FFCC00">/</span> を入力すると端末は外に知らせますのでこれを確認します。
+</li>
+
+<li class="i">
+⑧　キーボードから <span style="background-color:#FFCC00">*</span> を入力すると端末は外に知らせますのでこれを確認します。
+</li>
+
+</ul>
+
+<hr color="#4F9177" size="15">
+<font color="#336633"><b>　　検証論理</b></font>
+<hr color="#4F9177">
+
+<table>
+<tr>
+<td valign="top">
+
+<hr color="#6666CC" size="10">
+<font size="4" color="#5454AB"><b>　　　データ読み取り起点</b></font><br>
+<hr color="#6666CC">
+
+<p class="i">
+<font color="red">リスト136</font> 
+の
+<font color="blue">takep</font> 
+は
+<font color="blue">node_OFF</font> 
+が
+<font color="blue">1</font> 
+になってキーが離されたときに起点を出します。
+</p>
+
+<table class="i">
+<a name="LST136"></a>
+<caption><font color="red">　リスト136</font>　データ読み取り起点</caption>
+<tr>
+<td >&nbsp;　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+if (node_RESET)
+   takep=0;
+else
+   switch(takep)
+      case 0: if (node_OFF) takep=1; endif
+      case 1: takep=2;
+      case 2:
+         if (node_OFF)
+            takep=takep;
+         else
+            takep=0;
+         endif
+   endswitch
+endif
+</font>
+</pre>
+</td>
+<td >&nbsp;　&nbsp;</td>
+</tr>
+</table>
+
+</td>
+
+<td valign="top" bgcolor="#66CCFF"></td>
+
+<td valign="top">
+
+<hr color="#6666CC" size="10">
+<font size="4" color="#5454AB"><b>　　　キー押し下げ回数</b></font><br>
+<hr color="#6666CC">
+
+<p class="i">
+<font color="red">リスト137</font> 
+の
+<font color="blue">tp</font> 
+はキーが離されたことを示す
+<font color="blue">takep</font>
+が
+<font color="blue">1</font> 
+になったところを計数しています。これが検証論理で行っている
+<font color="red">図5.64</font> 
+のキーの入力の押された回数を示しています。
+</p>
+
+<table class="i" width="300">
+<a name="LST137"></a>
+<caption><font color="red">　リスト137</font>　キー押し下げ回数</caption>
+<tr>
+<td >&nbsp;　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+if (tc<10)
+   tp=0;
+else
+   if (takep==1)
+      tp=tp+1;
+   else
+      tp=tp;
+  endif
+endif
+</font>
+</pre>
+</td>
+<td >&nbsp;　&nbsp;</td>
+</tr>
+</table>
+
+</td>
+</tr>
+</table>

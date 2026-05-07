@@ -1,0 +1,68 @@
+<br>
+
+<table>
+<caption><font color="red">図5.48</font> せり上がり書き込み</caption>
+<tr>
+<td>&nbsp;&nbsp</td>
+<td align="center">
+<a href="../LIB/FG09G21A.png" target="_blank">
+<img src="../LIB/FG09G21A.png" border="0" alt="FG09G21A.png(218406 byte)" width="900">
+</a>
+</td>
+<td>&nbsp;　　　&nbsp</td>
+</tr>
+</table>
+
+
+<ul>
+<li class="i">
+<font color="blue">tc</font>
+が12 の位置で値10 を書き込んでいます。
+</li>
+
+<li class="i">
+<font color="blue">tc</font>
+が15 の位置で値11 を書き込んでいます。
+</li>
+
+<li class="i">
+<font color="blue">tc</font>
+が18 の位置で値12 を書き込んでいます。
+</li>
+
+<li class="i">
+<font color="blue">tc</font>
+が21 の位置で値14 を書き込んでいます。
+</li>
+
+<li class="i">
+<font color="blue">tc</font>
+が24 の位置で値15 を書き込んでいます。
+</li>
+
+<li class="i">
+<font color="blue">tc</font>
+が27 の位置で値9 を書き込んでいます。
+</li>
+
+<li class="i">
+<font color="blue">tc</font>
+が30 の位置で値8 を書き込んでいます。
+</li>
+
+<li class="i">
+<font color="blue">tc</font>
+が33 の位置で値7 を書き込んでいます。
+</li>
+
+<li class="i">
+<font color="blue">tc</font> 
+が
+<font color="blue">34～41</font> 
+の位置で読み出しデータの
+<font color="blue">DATAAOUT</font> 
+と
+<font color="blue">DATABOUT</font> 
+から同時に読み出しています。
+</li>
+</ul>

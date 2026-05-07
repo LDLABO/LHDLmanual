@@ -1,0 +1,206 @@
+<hr color="#6666CC" size="10">
+<font size="4" color="#5454AB"><b>　　　機能実行譜</b></font><br>
+<hr color="#6666CC">
+
+<br>
+
+<table align="right">
+<a name="LST106"></a>
+<caption><font color="red">　リスト109</font>　表示器検証</caption>
+<tr>
+<td >&nbsp;　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+1 : entity sim
+2 : output RESET;
+3 : output SCLK;
+4 : output DATA[4];
+5 : output SEGOUT[7];
+6 : output KETAOUT[8];
+7 : output KETA[3];
+8 : 
+9 : bitn node_RESET;
+10: bitn node_KETA[3];
+11: bitn node_SCLK;
+12: bitr tc[16];
+13: bitr count[4];
+14: bitr sclkp[2];
+15: 
+16: output TB0P[4]; TB0P=count;
+17: output TB1P[2]; TB1P=sclkp;
+18: 
+19:    part main(node_RESET,node_SCLK,DATA
+20:             ,SEGOUT,KETAOUT,node_KETA)
+21:    
+22:    RESET=node_RESET;
+23:    KETA=node_KETA;
+24:    SCLK=node_SCLK;
+25:    node_SCLK=tc.4;
+26:    tc=tc+1;
+27:    if (tc<5) node_RESET=1; endif
+28: 
+29:    if (node_RESET)
+30:       sclkp=0;
+31:    else
+32:       switch(sclkp)
+33:          case 0:
+34:             if (node_KETA==0) sclkp=1; endif
+35:          case 1: sclkp=2;
+36:          case 2: if (node_KETA==0)
+37:                     sclkp=sclkp;
+38:                  else
+39:                     sclkp=0;
+40:                  endif
+41:       endswitch
+42:    endif
+43: 
+44:    if (node_RESET)
+45:       count=15;
+46:    else
+47:       if (sclkp.0)
+48:          count=count+1;
+49:       else
+50:          count=count;
+51:       endif
+52:    endif
+53: 
+54:    switch(node_KETA)
+55:       case 0: DATA=count;
+56:       case 1: DATA=count+1;
+57:       case 2: DATA=count+2;
+58:       case 3: DATA=count+3;
+59:       case 4: DATA=count+4;
+60:       case 5: DATA=count+5;
+61:       case 6: DATA=count+6;
+62:       case 7: DATA=count+7;
+63:    endswitch
+64: ende
+</font>
+</pre>
+</td>
+<td >&nbsp;　&nbsp;</td>
+</tr>
+</table>
+
+<p class="i">
+<font color="red">リスト109</font> 
+が表示器の機能実行譜の全文です。
+</p>
+
+<ul>
+<li class="i">
+<font color="blue">行1</font> 
+の
+<font color="blue">entity sim</font> 
+が機能実行譜のはじまりを示します。
+</li>
+
+<li class="i">
+<font color="blue">行2～7</font> 
+が検査端子を示します。
+</li>
+
+<li class="i">
+<font color="blue">行9～14</font> 
+が内部信号を示します。
+</li>
+
+<li class="i">
+<font color="blue">行16～17</font> 
+が検査論理の信号の引き出し端子です。
+</li>
+
+<li class="i">
+<font color="blue">行19～20</font> 
+が実効譜を導入しています。
+</li>
+
+<li class="i">
+<font color="blue">行22～63</font> 
+が検査論理です。
+</li>
+</ul>
+
+<p class="i">
+<font color="blue">行22</font> 
+で
+<font color="#990000">RESET=node_RESET</font> 
+と書いてある理由は
+<font color="blue">RESET</font> 
+は出力端子なので論理で参照することができませんから論理では変わりに
+<font color="blue">node_RESET</font> 
+の信号で利用して
+<font color="blue">node_RESET</font> 
+を
+<font color="blue">RESET</font> 
+に代入しています。
+</p>
+
+<p class="i">
+<font color="blue">行25</font> 
+で
+<font color="blue">node_SCLK</font> 
+に周期的な信号を供給するために
+<font color="blue">tc.4</font> 
+を代入しています。
+<font color="blue">tc</font> 
+は無制御の計数器なので機能実行の始まりと同時に連続して計数しています。
+</p>
+
+<p class="i">
+<font color="blue">行29～42</font> 
+は
+<font color="blue">node_KETA</font> 
+が
+<font color="blue">0</font> 
+になったときに
+<font color="blue">sclkp.0</font> 
+に1CLKの起点を出します。
+</p>
+
+<p class="i">
+<font color="blue">行44～52</font> 
+は
+<font color="blue">sclkp.0</font> 
+が
+<font color="blue">1</font> 
+になったのを受けて
+<font color="blue">count</font> 
+を計数します。
+</p>
+
+<p class="i">
+<font color="red">図5.38</font> 
+が実行結果の一部ですが実際の閲覧プログラムの画面は
+<font color="red">図5.39</font> 
+です。
+この画面を前後左右に移動しながら実行の様子を確認していきます。
+</p>
+
+<p class="i">
+<font color="blue">count</font> 
+は
+<font color="blue">0</font> 
+から始まって
+<font color="blue">15</font> 
+になり、また
+<font color="blue">0</font> 
+に戻るのが
+<font color="blue">tc</font> 
+が
+<font color="blue">10</font> 
+進数で
+<font color="blue">4057</font> 
+まで計数したときです。
+</p>
+
+<p class="i">
+信号値の変化を基(もと)にした相対的な実行位置は
+<font color="blue">count</font>
+によって得ますが実行が始まってからの絶対的な実行位置は
+<font color="blue">tc</font> 
+から得ます。
+</p>
+
+<br clear="right">

@@ -1,0 +1,60 @@
+<br>
+
+<table>
+<caption><font color="red">図5.51</font> せり上がり書き込み(ModelSim)</caption>
+<tr>
+<td>&nbsp;&nbsp</td>
+<td align="center">
+<a href="../LIB/FIG145.jpg" target="_blank">
+<img src="../LIB/FIG145.jpg" width="1000">
+</a>
+</td>
+<td>&nbsp;　　　&nbsp</td>
+</tr>
+</table>
+
+<br>
+
+<table>
+<caption><font color="red">図5.52</font> 番地指定書き込み(ModelSim)</caption>
+<tr>
+<td>&nbsp;&nbsp</td>
+<td align="center">
+<a href="../LIB/FIG146.jpg" target="_blank">
+<img src="../LIB/FIG146.jpg" width="1000">
+</a>
+</td>
+<td>&nbsp;　　　&nbsp</td>
+</tr>
+</table>
+
+<br>
+
+<p class="i">
+説明は必要部分を抜粋して行っていますので全部は次のファイルを見て下さい。
+</p>
+
+<ul>
+<li class="i">
+論理譜: 
+<a href="../LIB/LDL06F02A.pdf" target="_blank">
+<font color="blue">LDL06F02A.pdf</font>
+</a>
+</li>
+
+<li class="i">
+ModelSim 結果: 
+<a href="../LIB/MS06F02A.lzh" target="_blank">
+<font color="blue">MS06F02A.lzh</font>
+</a>
+</li>
+
+<li class="i">
+実行結果: 
+<a href="../LIB/SIM06F02A.pdf" target="_blank">
+<font color="blue">SIM06F02A.pdf</font>
+</a>
+</li>
+
+</ul>
+

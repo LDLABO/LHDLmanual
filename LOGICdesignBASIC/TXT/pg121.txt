@@ -1,0 +1,197 @@
+<hr color="#6666CC" size="10">
+<font size="4" color="#5454AB"><b>　　　番地指定書き込み</b></font><br>
+<hr color="#6666CC">
+
+<br>
+
+<table align="right">
+<a name="LST122"></a>
+<caption><font color="red">　リスト122</font>　番地指定書き込み</caption>
+<tr>
+<td >&nbsp;　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+1  : switch(tc)
+2  :    case 50: DATACIN=1; ADDC=0; WCP=1;
+3  :    case 51: DATACIN=1; ADDC=0; WCP=0;
+4  :    case 52: DATACIN=1; ADDC=0; WCP=0;
+5  : 
+6  :    case 53: DATACIN=6; ADDC=5; WCP=1;
+7  :    case 54: DATACIN=6; ADDC=5; WCP=0;
+8  :    case 55: DATACIN=6; ADDC=5; WCP=0;
+9  : 
+10 :    case 56: DATACIN=3; ADDC=2; WCP=1;
+11 :    case 57: DATACIN=3; ADDC=2; WCP=0;
+12 :    case 58: DATACIN=3; ADDC=2; WCP=0;
+13 : 
+14 :    case 59: DATACIN=4; ADDC=3; WCP=1;
+15 :    case 60: DATACIN=4; ADDC=3; WCP=0;
+16 :    case 61: DATACIN=4; ADDC=3; WCP=0;
+17 : 
+18 :    case 62: DATACIN=5; ADDC=4; WCP=1;
+19 :    case 63: DATACIN=5; ADDC=4; WCP=0;
+20 :    case 64: DATACIN=5; ADDC=4; WCP=0;
+21 : 
+22 :    case 65: DATACIN=2; ADDC=1; WCP=1;
+23 :    case 66: DATACIN=2; ADDC=1; WCP=0;
+24 :    case 67: DATACIN=2; ADDC=1; WCP=0;
+25 : 
+26 :    case 68: DATACIN=7; ADDC=6; WCP=1;
+27 :    case 69: DATACIN=7; ADDC=6; WCP=0;
+28 :    case 70: DATACIN=7; ADDC=6; WCP=0;
+29 : 
+30 :    case 71: DATACIN=8; ADDC=7; WCP=1;
+31 :    case 72: DATACIN=8; ADDC=7; WCP=0;
+32 :    case 73: DATACIN=8; ADDC=7; WCP=0;
+33 : 
+34 :    case 75: ADDB=1; ADDA=7;
+35 :    case 76: ADDB=2; ADDA=6;
+36 :    case 77: ADDB=3; ADDA=5;
+37 :    case 78: ADDB=4; ADDA=4;
+38 :    case 79: ADDB=5; ADDA=3;
+39 :    case 80: ADDB=6; ADDA=2;
+40 :    case 81: ADDB=7; ADDA=1;
+41 : endswitch
+</font>
+</pre>
+</td>
+<td >&nbsp;　&nbsp;</td>
+</tr>
+</table>
+
+<p class="i">
+<font color="red">リスト122</font> 
+は「番地指定書き込み」の検証論理です。
+番地の指定は
+<font color="blue">ADDC</font> 
+で値の指定は
+<font color="blue">DATACIN</font> 
+で書き込みの指定は
+<font color="blue">WCP</font> 
+で行います。
+</p>
+
+<ul>
+<li class="i">
+<font color="blue">行2～4</font>
+は番地0 に1 の値を書き込んでいます。
+</li>
+
+<li class="i">
+<font color="blue">行6～8</font>
+は番地5 に6 の値を書き込んでいます。
+</li>
+
+<li class="i">
+<font color="blue">行10～12</font>
+は番地2 に3 の値を書き込んでいます。
+</li>
+
+<li class="i">
+<font color="blue">行14～16</font>
+は番地3 に4 の値を書き込んでいます。
+</li>
+
+<li class="i">
+<font color="blue">行18～20</font>
+は番地4 に5 の値を書き込んでいます。
+</li>
+
+<li class="i">
+<font color="blue">行22～24</font>
+は番地1 に2 の値を書き込んでいます。
+</li>
+
+<li class="i">
+<font color="blue">行26～28</font>
+は番地6 に7 の値を書き込んでいます。
+</li>
+
+<li class="i">
+<font color="blue">行30～32</font>
+は番地7 に8 の値を書き込んでいます。
+</li>
+
+</ul>
+
+<p class="i">
+<font color="red">行34～40</font> 
+は書き込みの後にメモリ読み出しデータの
+<font color="blue">A</font> 
+と
+<font color="blue">B</font>
+から同時に違う番地でデータ読み出しているところです。実行の様子は
+<font color="red">図5.50</font> 
+を見て下さい。
+</p>
+
+<br clear="right">
+
+<hr color="#6666CC" size="10">
+<font size="4" color="#5454AB"><b>　　　検証論理</b></font><br>
+<hr color="#6666CC">
+
+<p class="i">
+メモリの検証論理は検証計数の
+<font color="blue">tc</font> 
+の示す位置に番地と書き
+込み値と書き込み指標だけを配置する簡単なものになりまし
+た。検証論理の最も基本的で単純な形だろうと思います。新し
+く論理を作ったときにとりあえず作る検証論理がこのようにな
+ると思いますが単純な操作の繰り返しなのでメモリが増えても
+少し論理を追加すれば効率的な検証を行うための対応は可能で
+す。その論理は通常の論理設計と同じように行います。
+</p>
+
+<p class="i">
+ModelSim による結果は「せり上がり書き込み」が
+<font color="red">図5.51</font>
+です。「番地指定書き込み」が
+<font color="red">図5.52</font> 
+です。
+</p>
+
+<br clear="right">
+
+<hr color="#4F9177" size="15">
+<font color="#336633"><b>　　メモリのデバイス</b></font>
+<hr color="#4F9177">
+
+<p class="i">
+本論理は
+<font color="red">リスト123</font> 
+のように
+<font color="blue">XC9572</font> 
+に入りました。
+<font color="blue">8</font> 
+番地分の4 ビットのメモリが入っているのでマクロセルの使用量の内の
+<font color="blue">32</font> 
+個はメモリ本体の記憶用に使われていると思われます。
+</p>
+
+<table>
+<a name="LST123"></a>
+<caption><font color="red">　リスト123</font>　XC9572</caption>
+<tr>
+<td >&nbsp;　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+cpldfit:  version I.33                              Xilinx Inc.
+                                  Fitter Report
+Design Name: main                                Date:  9-23-2008,  9:04PM
+Device Used: XC9572-7-PC44
+Fitting Status: Successful
+
+*************************  Mapped Resource Summary  **************************
+
+Macrocells     Product Terms    Function Block   Registers      Pins           
+Used/Tot       Used/Tot         Inps Used/Tot    Used/Tot       Used/Tot       
+47 /72  ( 65%) 243 /360  ( 67%) 123/144 ( 85%)   39 /72  ( 54%) 9  /34  ( 26%)
+</font>
+</pre>
+</td>
+<td >&nbsp;　&nbsp;</td>
+</tr>
+</table>

@@ -1,0 +1,287 @@
+<hr color="#6666CC" size="10">
+<font size="4" color="#5454AB"><b>　　　キー入力</b></font><br>
+<hr color="#6666CC">
+
+<p class="i">
+<font color="red">リスト138</font> 
+の
+<font color="blue">YIN</font> 
+は端末に入力するキーボードの行の値を示します。これに端末が出力する
+<font color="blue">node_XSEL</font> 
+に対応した行の値を返せば目的のキーを押すことができます。キーを押した回数の
+<font color="blue">tp</font> 
+によって目的のキーと一致する
+<font color="blue">node_XSEL</font> 
+の値を待って行の値を
+<font color="blue">YIN</font> 
+に返せば順番に目的のキーを押していくことができます。
+</p>
+
+<table class="i">
+<tr>
+<td valign="top">
+
+<table>
+<a name="LST138"></a>
+<caption><font color="red">　リスト138</font>　キー入力</caption>
+<tr>
+<td >&nbsp;　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+if (mode)
+if (tc>10)
+if (node_OFF)
+switch(tp)
+   case 0:
+      switch(node_XSEL)
+         case 1: YIN.1=1; { 1 }
+      endswitch
+   case 1:
+      switch(node_XSEL)
+         case 2: YIN.1=1; { 2 }
+      endswitch
+   case 2:
+      switch(node_XSEL)
+         case 4: YIN.1=1; { 3 }
+      endswitch
+   case 3:
+      switch(node_XSEL)
+         case 1: YIN.2=1; { 4 }
+      endswitch
+   case 4:
+      switch(node_XSEL)
+         case 2: YIN.2=1; { 5 }
+      endswitch
+</font>
+</pre>
+</td>
+<td >&nbsp;　&nbsp;</td>
+</tr>
+</table>
+
+</td>
+
+<td valign="top">
+
+<table>
+<tr>
+<td >&nbsp;　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+   case 5:
+      switch(node_XSEL)
+         case 4: YIN.2=1; { 6 }
+      endswitch
+   case 6:
+      switch(node_XSEL)
+         case 1: YIN.3=1; { 7 }
+      endswitch
+   case 7:
+      switch(node_XSEL)
+         case 2: YIN.3=1; { 8 }
+      endswitch
+   case 8:
+      switch(node_XSEL)
+         case 8: YIN.1=1; { + }
+      endswitch
+   case 9:
+      switch(node_XSEL)
+         case 4: YIN.3=1; { 9 }
+      endswitch
+   case 10:
+      switch(node_XSEL)
+         case 1: YIN.0=1; { 0 }
+      endswitch
+</font>
+</pre>
+</td>
+<td >&nbsp;　&nbsp;</td>
+</tr>
+</table>
+
+</td>
+
+<td valign="top">
+
+<table>
+<tr>
+<td >&nbsp;　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+   case 11:
+      switch(node_XSEL)
+         case 2: YIN.0=1; { = }
+                 YIN.1=1;
+      endswitch
+   case 12:
+      switch(node_XSEL)
+         case 8: YIN.0=1; { C }
+      endswitch
+   case 13:
+      switch(node_XSEL)
+         case 4: YIN.0=1; { - }
+      endswitch
+   case 14:
+      switch(node_XSEL)
+         case 8: YIN.2=1; { / }
+      endswitch
+   case 15:
+      switch(node_XSEL)
+         case 8: YIN.3=1; { * }
+      endswitch
+endswitch
+endif
+endif
+endif
+</font>
+</pre>
+</td>
+<td >&nbsp;　&nbsp;</td>
+</tr>
+</table>
+
+</td>
+
+</tr>
+</table>
+
+<hr color="#6666CC" size="10">
+<font size="4" color="#5454AB"><b>　　　メモリ読み出し</b></font><br>
+<hr color="#6666CC">
+
+<table align="right">
+<a name="LST139"></a>
+<caption><font color="red">　リスト139</font>　メモリ読み出し</caption>
+<tr>
+<td >&nbsp;　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+switch(tc)
+   case 510: ADD=0;
+   case 511: ADD=1;
+   case 512: ADD=2;
+   case 513: ADD=3;
+   case 514: ADD=4;
+   case 515: ADD=5;
+   case 516: ADD=6;
+   case 517: ADD=7;
+endswitch
+</font>
+</pre>
+</td>
+<td >&nbsp;　&nbsp;</td>
+</tr>
+</table>
+
+<p class="i">
+<font color="red">リスト139</font> 
+の
+<font color="blue">ADD</font> 
+は外から端末のメモリを読み出す番地を示します。検査手順の
+<font color="blue">① ② ③</font> 
+で行っているメモリの値の確認は検査位置の
+<font color="blue">tc</font> 
+の値は違いますがこれと同じように行っています。
+</p>
+
+<br clear="right">
+
+<hr color="#6666CC" size="10">
+<font size="4" color="#5454AB"><b>　　　メモリ書き込み</b></font><br>
+<hr color="#6666CC">
+
+<p class="i">
+<font color="red">リスト140</font> 
+は端末のメモリに書き込むための外からの操作を示しています。
+番地
+<font color="blue">0</font> 
+から番地
+<font color="blue">7</font> 
+までに値の
+<font color="blue">1</font> 
+から
+<font color="blue">8</font> 
+を書き込んでいます。書き込まれているかどうかは
+<font color="red">リスト139</font> 
+のメモリ読み出しで確認します。
+</p>
+
+<br>
+
+<table>
+<tr>
+
+<td valign="top">
+
+<table>
+<a name="LST140"></a>
+<caption><font color="red">　リスト140</font>　メモリ書き込み</caption>
+<tr>
+<td >&nbsp;　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+switch(tc)
+   case 930: EXTADD=0; EXTDATA=1; EXTWP=1;
+   case 931: EXTADD=0; EXTDATA=1;
+   case 932: EXTADD=0; EXTDATA=1;
+
+   case 933: EXTADD=1; EXTDATA=2; EXTWP=1;
+   case 934: EXTADD=1; EXTDATA=2;
+   case 935: EXTADD=1; EXTDATA=2;
+
+   case 936: EXTADD=2; EXTDATA=3; EXTWP=1;
+   case 937: EXTADD=2; EXTDATA=3;
+   case 938: EXTADD=2; EXTDATA=3;
+
+   case 939: EXTADD=3; EXTDATA=4; EXTWP=1;
+   case 940: EXTADD=3; EXTDATA=4;
+   case 941: EXTADD=3; EXTDATA=4;
+</font>
+</pre>
+</td>
+<td >&nbsp;　&nbsp;</td>
+</tr>
+</table>
+
+</td>
+
+<td valign="top">
+
+<table>
+<tr>
+<td >&nbsp;　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+   case 942: EXTADD=4; EXTDATA=5; EXTWP=1;
+   case 943: EXTADD=4; EXTDATA=5;
+   case 944: EXTADD=4; EXTDATA=5;
+
+   case 945: EXTADD=5; EXTDATA=6; EXTWP=1;
+   case 946: EXTADD=5; EXTDATA=6;
+   case 947: EXTADD=5; EXTDATA=6;
+
+   case 948: EXTADD=6; EXTDATA=7; EXTWP=1;
+   case 949: EXTADD=6; EXTDATA=7;
+   case 950: EXTADD=6; EXTDATA=7;
+
+   case 951: EXTADD=7; EXTDATA=8; EXTWP=1;
+   case 952: EXTADD=7; EXTDATA=8;
+   case 953: EXTADD=7; EXTDATA=8;
+endswitch
+</font>
+</pre>
+</td>
+<td >&nbsp;　&nbsp;</td>
+</tr>
+</table>
+
+</td>
+
+</tr>
+</table>

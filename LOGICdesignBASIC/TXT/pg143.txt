@@ -1,0 +1,175 @@
+<hr color="#4F9177" size="15">
+<font color="#336633"><b>　　2進数からBCDへの変換</b></font>
+<hr color="#4F9177">
+
+<p class="i">
+32 ビットの2 進数から8 桁のBCD に変換する論理を作ります。32 ビットの2 進数を10 で割って、その余
+りをBCD のひと桁として取り出します。そして、その商を新たな被除数としてこれを8 回繰り返すと下の桁か
+ら8 桁のBCD 値を得ることができます。
+</p>
+
+<br>
+
+<hr color="#6666CC" size="10">
+<font size="4" color="#5454AB"><b>　　　チップ概観</b></font><br>
+<hr color="#6666CC">
+
+<br>
+
+<table align="right">
+<caption><font color="red">図5.79</font>　チップ概観</caption>
+<tr>
+<td>&nbsp;&nbsp</td>
+<td align="center">
+<a href="../LIB/FG09H11A.png" target="_blank">
+<img src="../LIB/FG09H11A.png" border="0" alt="FG09H11A.png(14647 byte)" width="420">
+</a>
+</td>
+<td>&nbsp;　　　&nbsp</td>
+</tr>
+</table>
+
+<p class="i">
+チップの概観は
+<font color="red">図5.79</font> 
+のようになります。
+</p>
+
+<ul>
+<li class="i">
+<font color="blue">RESET</font>
+ : チップを初期化します。
+</li>
+
+<li class="i">
+<font color="blue">ADD[3]</font>
+ : 
+<font color="blue">DATAOUT[4]</font>
+に出力するBCD 値の桁を指定します。
+</li>
+
+<li class="i">
+<font color="blue">DATAIN[32]</font>
+ : 2 進数のデータを入力します。
+</li>
+
+<li class="i">
+<font color="blue">WP</font>
+ : 2 進数のデータの書き込み指標です。
+</li>
+
+<li class="i">
+<font color="blue">DATAOUT[4]</font>
+ : 
+<font color="blue">ADD[3]</font>
+で指定された桁のBCD 値です。
+</li>
+
+<li class="i">
+<font color="blue">SET</font>
+ : 32ビットの2進数のデータを8桁のBCD値に変換できたことを示します。
+</li>
+
+</ul>
+
+<br clear="right">
+
+<hr color="#4F9177" size="15">
+<font color="#336633"><b>　　32 ビット除算器</b></font>
+<hr color="#4F9177">
+
+<p class="i">
+2進数BCD変換器で使う32ビットの除算器を作ります。
+</p>
+
+<hr color="#6666CC" size="10">
+<font size="4" color="#5454AB"><b>　　　チップ概観</b></font><br>
+<hr color="#6666CC">
+
+<br>
+
+<br>
+
+<table align="right">
+<caption><font color="red">図5.80</font>　チップ概観</caption>
+<tr>
+<td>&nbsp;&nbsp</td>
+<td align="center">
+<a href="../LIB/FG09H11B.png" target="_blank">
+<img src="../LIB/FG09H11B.png" border="0" alt="FG09H11B.png(12462 byte)" width="350">
+</a>
+</td>
+<td>&nbsp;　　　&nbsp</td>
+</tr>
+</table>
+
+<p class="i">
+チップの概観は
+<font color="red">図5.80</font> 
+のようになります。
+</p>
+
+<ul>
+<li class="i">
+<font color="blue">RESET</font>
+ : チップを初期化します。
+</li>
+
+<li class="i">
+<font color="blue">A[32]</font>
+ : 被除数を示します。
+</li>
+
+<li class="i">
+<font color="blue">B[32]</font>
+ : 除数を示します。
+</li>
+
+<li class="i">
+<font color="blue">SEL</font>
+ : Y[32] に出力する商と余りを選択します。
+</li>
+
+<li class="i">
+<font color="blue">Y[32]</font>
+ : SEL が0 のときは商を1 のときは余りを出力します。
+</li>
+
+<li class="i">
+<font color="blue">READY</font>
+ : 除算の終了を示します。
+</li>
+
+</ul>
+
+<hr color="#4F9177" size="15">
+<font color="#336633"><b>　　32ビット除算器の論理</b></font>
+<hr color="#4F9177">
+
+<p class="i">
+<font color="red">「本稿3.5 除算器」</font>
+の8 ビットの除算器と同じものですが
+<font color="red">リスト148</font>
+のように32 ビットに拡張して商と余りの選択ができるようにしてあります。ビット数が8 ビットから32 ビットになったので除算の終了は
+<font color="blue">9CLK</font> 
+から
+<font color="blue">33CLK</font> 
+になります。実行の様子は
+<font color="red">図5.81</font> 
+のようになります。
+</p>
+
+<br clear="right">
+
+<table>
+<caption><font color="red">図5.81</font>　実行(1/2)</caption>
+<tr>
+<td>&nbsp;&nbsp</td>
+<td align="center">
+<a href="../LIB/FG09H11C.png" target="_blank">
+<img src="../LIB/FG09H11C.png" border="0" alt="FG09H11C.png(58965 byte)" width="1000">
+</a>
+</td>
+<td>&nbsp;　　　&nbsp</td>
+</tr>
+</table>

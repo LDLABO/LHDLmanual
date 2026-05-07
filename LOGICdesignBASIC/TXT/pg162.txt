@@ -1,0 +1,101 @@
+<br>
+
+<table class="i">
+<caption><font color="red">図5.113</font>　2進数BCD変換器の動き(2/2)</caption>
+<tr>
+<td>&nbsp;&nbsp</td>
+<td align="center">
+<a href="../LIB/FG09H30A.png" target="_blank">
+<img src="../LIB/FG09H30A.png" border="0" alt="FG09H30A.png(81227 byte)" width="900">
+</a>
+</td>
+<td>&nbsp;　　　&nbsp</td>
+</tr>
+</table>
+
+<br>
+
+<hr color="#6666CC" size="10">
+<font size="4" color="#5454AB"><b>　　　BCD2進数変換器</b></font><br>
+<hr color="#6666CC">
+
+<br>
+
+<table align="right">
+<a name="LST174"></a>
+<caption><font color="red">　リスト174</font>　BCD2進数変換器初期化</caption>
+<tr>
+<td >&nbsp;　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+switch(setseq)
+   case 1: changereset=0;
+   case 2: changereset=0;
+   default: changereset=1;
+endswitch
+</font>
+</pre>
+</td>
+<td >&nbsp;　&nbsp;</td>
+</tr>
+</table>
+
+<p class="i">
+<font color="red">図5.109</font> 
+の端末要求行程の
+<font color="blue">setseq</font> 
+がBCD 値を2進数に変換しているのが
+<font color="blue">1</font> 
+と
+<font color="blue">2</font> 
+の行程なので、それ以外の行程で
+<font color="red">リスト174</font>
+のように
+<font color="blue">changereset</font> 
+を
+<font color="blue">1</font> 
+にしてBCD2 進数変換器を初期化します。
+<font color="red">図5.114</font> 
+は初期化の後のBCD2 進数変換器の動きです。
+<font color="blue">add</font> 
+で指定された桁のBCD 値が
+<font color="blue">data</font> 
+に出てきますので、これを
+BCD2進数変換器に入力しています。8桁分のBCD値を入力した後に
+<font color="blue">bin</font> 
+に2進数に変換した値が確定して
+<font color="blue">changecomplete</font> 
+が
+<font color="blue">1</font> 
+になります。
+</p>
+
+<br clear="right">
+<br>
+
+<table class="i">
+<caption><font color="red">図5.114</font>　BCD2進数変換器の動き</caption>
+<tr>
+<td>&nbsp;&nbsp</td>
+<td align="center">
+<a href="../LIB/FG09H30B.png" target="_blank">
+<img src="../LIB/FG09H30B.png" border="0" alt="FG09H30B.png(83621 byte)" width="1000">
+</a>
+</td>
+<td>&nbsp;　　　&nbsp</td>
+</tr>
+</table>
+
+<br>
+
+<p class="i">
+主行程の
+<font color="blue">calcseq</font> 
+は
+<font color="red">図5.99</font> 
+のように単純に一巡するだけのものですが
+<font color="blue">setseq</font> 
+などの他の行程とも連携して電卓の論理を動かしています。論理設計ではプログラミングと違って時系列に連続した動きだけでなく並列に
+連鎖する動きについても作っていきます。
+</p>

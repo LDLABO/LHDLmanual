@@ -1,0 +1,131 @@
+<hr color="#4F9177" size="15">
+<font color="#336633"><b>　　端末</b></font>
+<hr color="#4F9177">
+
+<p class="i">
+端末は表示器とキーボードと8 個の4 ビットのメモリを持っています。キーボードから入力されたデータは表
+示器に表示されると共に端末のメモリに蓄積されます。キーが押されると端末の外に対してデータがあることを
+知らせます。外部から端末のメモリに書き込むことで表示を変更することができます。
+</p>
+
+<hr color="#6666CC" size="10">
+<font size="4" color="#5454AB"><b>　　　チップ概観</b></font><br>
+<hr color="#6666CC">
+
+<p class="i">
+チップの概観は
+<font color="red">図5.53</font> 
+のようになります。
+</p>
+
+<table class="i">
+<tr>
+
+<td valign="top">
+
+<ul>
+<li class="i">
+<font color="blue">RESET :</font>
+チップを初期化します。
+</li>
+
+<li class="i">
+<font color="blue">SCLK :</font>
+表示器とキーボードを駆動するCLK です。
+</li>
+
+<li class="i">
+<font color="blue">ADD[3] :</font>
+端末の持っているデータを読み出す番地です。
+</li>
+
+<li class="i">
+<font color="blue">SET :</font>
+キーが押されたことを知らせます。
+</li>
+
+<li class="i">
+<font color="blue">OFF :</font>
+キーがひとつも押されていないことを知らせます。
+</li>
+
+<li class="i">
+<font color="blue">TAKE :</font>
+<font color="blue">SET</font> 
+を解除します。
+</li>
+
+<li class="i">
+<font color="blue">SEGOUT[7] :</font>
+表示器のセグメント値です。
+</li>
+
+<li class="i">
+<font color="blue">KETAOUT[8] :</font>
+表示器の桁値です。
+</li>
+
+</ul>
+
+</td>
+
+<td valign="top">
+
+<ul>
+<li class="i">
+<font color="blue">XSEL[4] :</font>
+キーボードの列の駆動値です。
+</li>
+
+<li class="i">
+<font color="blue">YIN[4] :</font>
+キーボードの行入力です。
+</li>
+
+<li class="i">
+<font color="blue">EXTADD[3] :</font>
+端末に書き込むための番地です。
+</li>
+
+<li class="i">
+<font color="blue">EXTDATA[4] :</font>
+端末に書き込むデータです。
+</li>
+
+<li class="i">
+<font color="blue">EXTWP :</font>
+端末に書き込む指標です。
+</li>
+
+<li class="i">
+<font color="blue">DATA[4] :</font>
+<font color="blue">ADD[3]</font> 
+で読み出したデータです。
+</li>
+
+<li class="i">
+<font color="blue">FUNC[3] :</font>
+機能キーの値を示します。
+</li>
+</ul>
+
+</td>
+
+</tr>
+</table>
+
+<br>
+
+<table>
+<caption><font color="red">図5.53</font> チップ概観</caption>
+<tr>
+<td>&nbsp;&nbsp</td>
+<td align="center">
+<a href="../LIB/FG09G24A.png" target="_blank">
+<img src="../LIB/FG09G24A.png" border="0" alt="FG09G24A.png(216646 byte)" width="800">
+</a>
+</td>
+<td>&nbsp;　　　&nbsp</td>
+</tr>
+</table>
+

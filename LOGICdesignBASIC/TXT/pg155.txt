@@ -1,0 +1,198 @@
+<hr color="#6666CC" size="10">
+<font size="4" color="#5454AB"><b>　　　主行程</b></font><br>
+<hr color="#6666CC">
+
+<br>
+
+<table align="right">
+<a name="LST167"></a>
+<caption><font color="red">　リスト167</font>　主行程</caption>
+<tr>
+<td >&nbsp;　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+if (RESET)
+   calcseq=0;
+else
+   switch(calcseq)
+      case 0: if (set)
+                 calcseq=1;
+              else
+                calcseq=calcseq;
+              endif
+      case 1: if (setseq.1)
+                 calcseq=2;
+              else
+                 calcseq=calcseq;
+              endif
+      case 2: if (set)
+                 calcseq=calcseq;
+              else
+                 calcseq=3;
+              endif
+      case 3: if (opend)
+                 calcseq=4;
+              else
+                 calcseq=calcseq;
+              endif
+      case 4: calcseq=5;
+      case 5: calcseq=6;
+      case 6: if (chgbintobcdeoc)
+                 calcseq=7;
+              else
+                 calcseq=calcseq;
+              endif
+      case 7: switch(tmpcount)
+                 case 7:
+                    if (ep)
+                        calcseq=8;
+                    else
+                        calcseq=calcseq;
+                    endif
+                 default: calcseq=calcseq;
+              endswitch
+      case 8: calcseq=0;
+   endswitch
+endif
+</font>
+</pre>
+</td>
+<td >&nbsp;　&nbsp;</td>
+</tr>
+</table>
+
+<p class="i">
+<font color="red">リスト167</font> 
+の
+<font color="blue">calcseq</font> 
+は主行程を示します。行程図は
+<font color="red">図5.99</font> 
+です。次に
+<font color="blue">12345678+90=</font> 
+のキー操作による行程の推移を説明します。
+</p>
+
+<ul>
+<li class="i">
+<font color="blue"><b>行程0</b></font>　
+数値の入力を待っていて
+<font color="#990000">「+」</font>
+などの機能キーが押されると数値入力が完了します。機能キーが押されたことは端末の
+<font color="blue">set</font> 
+が
+<font color="blue">1</font> 
+になることで分かります。このとき
+には端末のメモリにBCD 値で
+<font color="blue">12345678</font> 
+が記憶されています。
+</li>
+
+<li class="i">
+<font color="blue"><b>行程1</b></font>　
+メモリからBCD 値の
+<font color="blue">12345678</font> 
+を読み出して2 進数
+に変換します。本電卓は
+<font color="blue">A</font> 
+と
+<font color="blue">B</font> 
+の2 本のレジスタで計
+算を行いますが、変換した数値を
+<font color="blue">B</font> 
+に記憶します。変換の終了は端末要求行程の
+<font color="blue">setseq</font> 
+が
+<font color="blue">2</font> 
+になることで分かります。
+</li>
+
+<li class="i">
+<font color="blue"><b>行程2</b></font>　
+端末の
+<font color="blue">set</font> 
+が
+<font color="blue">0</font> 
+になって次の数値を入力できる状態
+になるまで待ちます。このときに乗算や除算は論理の初
+期化などの計算の準備を行います。
+</li>
+
+<li class="i">
+<font color="blue"><b>行程3</b></font>　
+<font color="blue">A</font> 
+と
+<font color="blue">B</font> 
+に数値が入力されていれば計算を実行します。
+この位置ではまだ2 番目の数値の
+<font color="blue">90</font> 
+が入力されていないので計算をすることはできませんから
+<font color="blue">B</font> 
+の数値を
+<font color="blue">A</font>
+に移動して
+<font color="blue">B</font> 
+を
+<font color="blue">0</font> 
+にします。
+<font color="blue">2</font> 
+番目以降の数値の入力がないときは実効計算の
+<font color="blue">execop</font> 
+が
+<font color="blue">0</font> 
+なので計算は行われません。計算が行われた場合の計算の終了は計算終了指
+標の
+<font color="blue">opend</font> 
+が
+<font color="blue">1</font> 
+になることで分かります。計算が行われなかった場合は計算終了指標の
+<font color="blue">opend</font> 
+は最初から
+<font color="blue">1</font>
+です。
+</li>
+
+<li class="i">
+<font color="blue"><b>行程4</b></font>　
+計算の終了を示します。
+</li>
+
+<li class="i">
+<font color="blue"><b>行程5</b></font>　
+計算結果を端末に表示するために2 進数から8 桁の
+BCD 値に変換を開始します。
+</li>
+
+<li class="i">
+<font color="blue"><b>行程6</b></font>　
+2 進数からBCD 値に変換中。
+</li>
+
+<li class="i">
+<font color="blue"><b>行程7</b></font>　
+BCD 値を端末のメモリに書き込み中。
+</li>
+
+<li class="i">
+<font color="blue"><b>行程8</b></font>　
+行程を終了して元に戻ります。
+</li>
+
+</ul>
+
+<br clear="right">
+
+<br>
+
+<table class="i">
+<caption><font color="red">図5.99</font>　主行程</caption>
+<tr>
+<td>&nbsp;&nbsp</td>
+<td align="center">
+<a href="../LIB/FG09H23A.png" target="_blank">
+<img src="../LIB/FG09H23A.png" border="0" alt="FG09H23A.png(48055 byte)" width="850">
+</a>
+</td>
+<td>&nbsp;　　　&nbsp</td>
+</tr>
+</table>

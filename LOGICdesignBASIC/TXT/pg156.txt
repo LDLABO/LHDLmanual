@@ -1,0 +1,67 @@
+<br>
+
+<p class="i">
+主行程は
+<font color="blue">「12345678+90=」</font>
+のうちの
+<font color="blue">「12345678+」</font>
+までを処理して終わりました。
+<font color="blue">「90=」</font>
+は初めに戻って処理を行い主行程の終わったところで計算結果が端末に表示されます。主行程は「数値」と「機能」をひとつにし
+て処理の単位としています。これで
+<font color="blue">「1+2+3+4+5+6+7+8=」</font>
+のようないつ終わるのか分からない計算に対応しています。
+</p>
+
+<br>
+
+<table class="i">
+<caption><font color="red">図5.100</font>　行程1</caption>
+<tr>
+<td>&nbsp;&nbsp</td>
+<td align="center">
+<a href="../LIB/FG09H24A.png" target="_blank">
+<img src="../LIB/FG09H24A.png" border="0" alt="FG09H24A.png(113225 byte)" width="900">
+</a>
+</td>
+<td>&nbsp;　　　&nbsp</td>
+</tr>
+</table>
+
+<br>
+
+<p class="i">
+<font color="red">図5.100</font> 
+は主行程の
+<font color="blue">calseq</font> 
+が
+<font color="blue">1</font> 
+のところの実行の様子です。これは
+<font color="blue">12345678/90=</font> 
+の
+<font color="blue">12345678/</font> 
+を入力した直後の位置です。端末のメモリに記憶されたBCD 値を読み出して
+<font color="red">図5.101</font> 
+のように2 進数に変換しています。
+<font color="blue">12345678</font> 
+は1番目に入力された数値なので計算は行わずに値は
+<font color="blue">regB</font> 
+から
+<font color="blue">regA</font> 
+に送られています。
+</p>
+
+<br>
+
+<table class="i">
+<caption><font color="red">図5.101</font>　BCD 値から2 進数に変換</caption>
+<tr>
+<td>&nbsp;&nbsp</td>
+<td align="center">
+<a href="../LIB/FG09H24B.png" target="_blank">
+<img src="../LIB/FG09H24B.png" border="0" alt="FG09H24B.png(84382 byte)" width="900">
+</a>
+</td>
+<td>&nbsp;　　　&nbsp</td>
+</tr>
+</table>

@@ -1,0 +1,193 @@
+<hr color="#4F9177" size="15">
+<font color="#336633"><b>　　2進数BCD変換器の論理</b></font>
+<hr color="#4F9177">
+
+<br>
+
+<table align="right">
+<a name="LST151"></a>
+<caption><font color="red">　リスト151</font>　主行程</caption>
+<tr>
+<td >&nbsp;　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+if (RESET)
+   convseq=0;
+else
+   switch(convseq)
+      case 0:
+         if (WP) convseq=1; endif
+      case 1:
+         convseq=2;
+      case 2:
+         if (divready)
+            convseq=3;
+         else
+            convseq=convseq;
+         endif
+      case 3:
+         convseq=4;
+      case 4:
+         convseq=5;
+      case 5:
+         switch(ketacount)
+            case 7: convseq=6;
+            default: convseq=1;
+         endswitch
+      case 6:
+         convseq=convseq;
+   endswitch
+endif
+</font>
+</pre>
+</td>
+<td >&nbsp;　&nbsp;</td>
+</tr>
+</table>
+
+
+<p class="i">
+<font color="red">リスト151</font> 
+の
+<font color="blue">convseq</font> 
+は2進数BCD 変換器の主行程を示します。主行程の行程図は
+<font color="red">図5.86</font> 
+のようになります。
+</p>
+
+<table class="i">
+<caption><font color="red">図5.85</font>　主行程の出だし部分</caption>
+<tr>
+<td>&nbsp;&nbsp</td>
+<td align="center">
+<a href="../LIB/FG09H14A.png" target="_blank">
+<img src="../LIB/FG09H14A.png" border="0" alt="FG09H14A.png(70337 byte)" width="400">
+</a>
+</td>
+<td>&nbsp;　　　&nbsp</td>
+</tr>
+</table>
+
+<p class="i">
+主行程の出だし部分の
+<font color="red">図5.85</font> 
+では2進数の8ビット値を
+<font color="blue">DATAIN</font> 
+に用意して
+<font color="blue">WP</font> 
+を
+<font color="blue">1</font> 
+にすると
+<font color="blue">convseq</font> 
+が
+<font color="blue">0</font> 
+から
+<font color="blue">1</font> 
+になって行程が進みはじめます。
+<font color="blue">convseq</font> 
+が
+<font color="blue">1</font> 
+のところで
+<font color="red">リスト154</font> 
+の
+<font color="blue">divreset</font> 
+が
+<font color="blue">1</font> 
+になるので除算器が初期化されて
+<font color="blue">12345678 ÷ 10</font> 
+の計算が開始されます。
+<font color="blue">convseq</font> 
+が
+<font color="blue">2</font>
+のところは計算を実行中です。
+</p>
+
+<br clear="right">
+
+<table class="i">
+<caption><font color="red">図5.86</font>　主行程</caption>
+<tr>
+<td>&nbsp;&nbsp</td>
+<td align="center">
+<a href="../LIB/FG09H14B.png" target="_blank">
+<img src="../LIB/FG09H14B.png" border="0" alt="FG09H14B.png(28822 byte)" width="600">
+</a>
+</td>
+<td>&nbsp;　　　&nbsp</td>
+</tr>
+</table>
+
+<br><br>
+
+<table align="right">
+<caption><font color="red">図5.87</font>　BCD 値のひと桁の取り出し</caption>
+<tr>
+<td>&nbsp;&nbsp</td>
+<td align="center">
+<a href="../LIB/FG09H14C.png" target="_blank">
+<img src="../LIB/FG09H14C.png" border="0" alt="FG09H14C.png(98878 byte)" width="400">
+</a>
+</td>
+<td>&nbsp;　　　&nbsp</td>
+</tr>
+</table>
+
+<p class="i">
+除算終了の
+<font color="blue">divready</font> 
+が
+<font color="blue">1</font> 
+になって除算が終了すると主行程の
+<font color="blue">convseq</font> 
+は
+<font color="blue">2</font> 
+から
+<font color="blue">3</font> 
+になります。主行程が
+<font color="blue">3</font> 
+のところ
+では次の計算に備えて現在の商の
+<font color="blue">divans</font> 
+が新しい被除数として
+<font color="red">リスト153</font> 
+の
+<font color="blue">a</font> 
+に記憶されます。主行程が
+<font color="blue">4</font> 
+のところで商と余りの切り替えの
+<font color="red">リスト155</font> 
+の
+<font color="blue">sel</font> 
+が
+<font color="blue">1</font> 
+になって
+<font color="blue">divans</font>
+に余りが表れるので桁計数の
+<font color="red">リスト156</font> 
+の
+<font color="blue">ketacount</font> 
+の指定する
+<font color="red">リスト157</font> 
+の
+<font color="blue">digit0p</font> 
+に
+<font color="red">図5.87</font> 
+のように記憶します。主行程が
+<font color="blue">5</font> 
+のところで桁計数の
+<font color="blue">ketacount</font> 
+を更新しています。また、このとき桁計数の
+<font color="blue">ketacount</font> 
+が
+<font color="blue">7</font> 
+であれば主行程は
+<font color="blue">6</font> 
+に進みます。
+<font color="blue">7</font> 
+以外であれば
+<font color="blue">1</font> 
+に戻ります。
+</p>
+
+<br clear="right">

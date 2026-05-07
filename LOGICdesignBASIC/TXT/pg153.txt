@@ -1,0 +1,98 @@
+<hr color="#4F9177" size="15">
+<font color="#336633"><b>　　電卓の構成</b></font>
+<hr color="#4F9177">
+
+<p class="i">
+電卓の構成は
+<font color="red">図5.97</font> 
+のようになっています。チップの外に出ているのは端末の手続きの信号だけなのでチップの概観は
+<font color="red">図5.98</font> 
+のようになります。
+</p>
+
+<br>
+
+<table class="i">
+<caption><font color="red">図5.97</font>　電卓の構成</caption>
+<tr>
+<td>&nbsp;&nbsp</td>
+<td align="center">
+<a href="../LIB/FG09H21A.png" target="_blank">
+<img src="../LIB/FG09H21A.png" border="0" alt="FG09H21A.png(121024 byte)" width="900">
+</a>
+</td>
+<td>&nbsp;　　　&nbsp</td>
+</tr>
+</table>
+
+<br>
+
+<hr color="#6666CC" size="10">
+<font size="4" color="#5454AB"><b>　　　チップ概観</b></font><br>
+<hr color="#6666CC">
+
+<br>
+
+<table align="right">
+<tr>
+<td>
+
+<ul>
+<li class="i">
+<font color="blue">RESET</font> : チップを初期化します。
+</li>
+
+<li class="i">
+<font color="blue">SCLK</font> : 表示器とキーボードを駆動するCLK です。
+</li>
+
+<li class="i">
+<font color="blue">SEGOUT[7]</font> : 表示器のセグメント値です。
+</li>
+
+<li class="i">
+<font color="blue">KETAOUT[8]</font> : 表示器の桁値です。
+</li>
+
+<li class="i">
+<font color="blue">XSEL[4]</font> : キーボードの列の駆動値です。
+</li>
+
+<li class="i">
+<font color="blue">YIN[4]</font> : キーボードの行入力です。
+</li>
+</ul>
+
+</td>
+</tr>
+</table>
+
+<p class="i">
+電卓のチップの信号は端末の信号から電卓の論理に接続した信号を外したものになります。
+オブジェクト指向のオブジェクトには
+<font color="#003399">
+「オブジェクトの内部データを外部から直接アクセスできないよう制限を加
+えることができる。これはデータ隠蔽と呼ばれる。」
+</font>
+<a href="#*4"><font color="red">*4</font></a>
+というのがあります。論理設計の手続きも上位の論理から内
+部の信号を直接操作することはできませんからオブジェク
+トと似たところがあるのかも知れません。これは当たり前
+のことであって論理設計でも回路設計でも、あるいは機械
+設計でも部品の内部に簡単に影響を及ぼすことは普通には行えません。プログラムでは分離していてほしいもの
+でも全く個別に扱えないので独立しているかのように扱える考え方が必要だったということでしょうか。分けた
+り組み合わせたりができないと機能にあった柔軟な構造を作ることができませんが電卓の論理では論理設計で簡
+単にできたのではないかと思います。
+</p>
+
+<br clear="right">
+
+<table class="i" bgcolor="#FFFF99">
+<tr>
+<td>
+<font size="2">
+<a name="*4"><font color="red">*4</font></a>
+C++ 道具箱山野修/大山恭弘著日経BP 社1993 年8 月
+</td>
+</tr>
+</table>

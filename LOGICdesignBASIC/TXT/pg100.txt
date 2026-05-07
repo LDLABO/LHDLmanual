@@ -1,0 +1,133 @@
+<hr color="#6666CC" size="10">
+<font size="4" color="#5454AB"><b>　　　キーデータ</b></font><br>
+<hr color="#6666CC">
+
+<p class="i">
+<font color="blue">keypush</font> 
+が1 のときに
+<font color="red">リスト97</font> 
+で行データが
+<font color="red">リスト98</font> 
+で列データが
+<font color="blue">data</font> 
+に記憶されます。
+<font color="blue">data</font> 
+は
+<font color="blue">Q</font> 
+に代入されます。
+</p>
+
+<table align="right">
+<a name="LST97"></a>
+<caption><font color="red">　リスト97</font>　行データ</caption>
+<tr>
+<td >&nbsp;　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+if (RESET)
+   data.0:1=0;
+else
+   if (keypush)
+      if (YIN.0)
+         data.0:1=0;
+      else
+         if (YIN.1)
+            data.0:1=1;
+         else
+            if (YIN.2)
+               data.0:1=2;
+            else
+               if (YIN.3)
+                  data.0:1=3;
+               endif
+            endif
+         endif
+      endif
+   else
+      data.0:1=data.0:1;
+   endif
+endif
+</font>
+</pre>
+</td>
+<td >&nbsp;　&nbsp;</td>
+</tr>
+</table>
+
+<p class="i">
+同一の列にある行のスイッチが複数押されたときは1 個
+以上の端子が高電位になります。このとき
+<font color="red">リスト97</font> 
+の行データは
+<font color="blue">YIN.0</font> 
+を高位の優先度、
+<font color="blue">YIN.3</font> 
+を低位の優先度にして、より高位のスイッチが1 個だけ押されたよ
+うに記憶します。
+</p>
+
+<table align="right">
+<a name="LST98"></a>
+<caption><font color="red">　リスト98</font>　列データ</caption>
+<tr>
+<td >&nbsp;　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+if (RESET)
+   data.2:3=0;
+else
+   if (keypush)
+      data.2:3=count;
+   else
+      data.2:3=data.2:3;
+   endif
+endif
+</font>
+</pre>
+</td>
+<td >&nbsp;　&nbsp;</td>
+</tr>
+</table>
+
+<br clear="right">
+
+<hr color="#4F9177" size="15">
+<font color="#336633">　　キーボードの検証</font>
+<hr color="#4F9177">
+
+<p class="i">
+キーボードとその論理の概観は
+<font color="red">図5.15</font> 
+のようになっています。これにキーが押されたり離されたりする検証
+のための論理を追加して設計した論理を検証します。
+</p>
+
+<table class="i">
+<caption><font color="red">図5.14</font> キーボードの検証対象</caption>
+<tr>
+<td>&nbsp;&nbsp</td>
+<td align="center">
+<a href="../LIB/FG09F29A.png" target="_blank">
+<img src="../LIB/FG09F29A.png" border="0" alt="FG09F29A.png(168572 byte)" width="600">
+</a>
+</td>
+<td>&nbsp;　　　&nbsp</td>
+</tr>
+</table>
+
+<p class="i">
+検証のための論理は
+<font color="red">図5.11</font> 
+のように
+<font color="blue">Q</font> 
+が
+<font color="blue">0</font> 
+から始まって
+<font color="blue">1～15</font> 
+になるようにスイッチを押していくように作ります。最初のほうの様子は
+<font color="red">図5.16</font> 
+のようになります。
+</p>
+

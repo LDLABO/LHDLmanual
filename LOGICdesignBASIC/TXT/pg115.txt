@@ -1,0 +1,123 @@
+<hr color="#6666CC" size="10">
+<font size="4" color="#5454AB"><b>　　　ModelSim</b></font><br>
+<hr color="#6666CC">
+
+<p class="i">
+ModelSim を使った
+<font color="red">図5.39</font> 
+と同じ実行位置の画面が
+<font color="red">図5.40</font> 
+です。全部は
+<font color="blue">MS06E09A .lzh</font> 
+を展開して見て下さい。
+</p>
+
+<br>
+
+<table>
+<caption><font color="red">図5.40</font> ModelSim の画面</caption>
+<tr>
+<td>&nbsp;&nbsp</td>
+<td align="center">
+<a href="../LIB/FIG133.jpg" target="_blank">
+<img src="../LIB/FIG133.jpg" width="1154">
+</a>
+</td>
+<td>&nbsp;　　　&nbsp</td>
+</tr>
+</table>
+
+<br>
+
+<p class="i">
+ModelSim 
+では初期化されない記憶信号は
+<font color="red">図5.41</font> 
+のように値が不定になっています。
+<font color="red">リスト109</font> 
+では
+<font color="blue">tc</font> 
+が
+<font color="blue">5</font> 
+より小さいときに
+<font color="blue">node_RESET</font> 
+を
+<font color="blue">1</font> 
+にしているので
+<font color="blue">tc</font> 
+が不定だと検証論理と設計論理の初期化ができません。
+</p>
+
+<br>
+
+<table>
+<caption><font color="red">図5.41</font> ModelSim の初期値</caption>
+<tr>
+<td>&nbsp;&nbsp</td>
+<td align="center">
+<a href="../LIB/FIG134.jpg" target="_blank">
+<img src="../LIB/FIG134.jpg" width="908">
+</a>
+</td>
+<td>&nbsp;　　　&nbsp</td>
+</tr>
+</table>
+
+<br>
+
+<p class="i">
+<font color="blue">ModelSim</font> 
+で検証結果を見られるようにするためには
+<font color="red">リスト109</font> 
+の
+<font color="blue">行8</font> 
+に
+<font color="#990000">input simres</font> 
+を追加して
+<font color="blue">行26</font>
+の
+<font color="#990000">tc=tc+1</font> 
+を
+<font color="#990000">if (!simres) tc=tc+1; endif</font> 
+に変更します。
+</p>
+
+<hr color="#4F9177" size="15">
+<font color="#336633">　　表示器のデバイス</font>
+<hr color="#4F9177">
+
+<p class="i">
+本論理は
+<font color="red">リスト110</font> 
+のように
+<font color="blue">XC9536</font> 
+に入りました。
+</p>
+
+<br>
+
+<table class="i">
+<a name="LST110"></a>
+<caption><font color="red">　リスト110</font>　XC9536</caption>
+<tr>
+<td >&nbsp;　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+cpldfit:  version I.33                              Xilinx Inc.
+                                  Fitter Report
+Design Name: main                                Date:  9-17-2008,  9:50PM
+Device Used: XC9536-5-PC44
+Fitting Status: Successful
+
+*************************  Mapped Resource Summary  **************************
+
+Macrocells     Product Terms    Function Block   Registers      Pins           
+Used/Tot       Used/Tot         Inps Used/Tot    Used/Tot       Used/Tot       
+25 /36  ( 69%) 56  /180  ( 31%) 25 /72  ( 35%)   10 /36  ( 28%) 19 /34  ( 56%)
+</font>
+</pre>
+</td>
+<td >&nbsp;　&nbsp;</td>
+</tr>
+</table>

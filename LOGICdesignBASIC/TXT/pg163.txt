@@ -1,0 +1,284 @@
+<hr color="#6666CC" size="10">
+<font size="4" color="#5454AB"><b>　　　計算の種類</b></font><br>
+<hr color="#6666CC">
+
+<p class="i">
+<font color="red">リスト175</font> 
+の計算の種類の
+<font color="blue">calcop</font> 
+は端末で
+<font color="blue">12345678/</font> 
+が入力されたときは端末の
+<font color="blue">func</font> 
+が
+<font color="blue">3</font> 
+になり
+<font color="red">図5.115</font> 
+のように
+<font color="blue">calcop</font> 
+に
+<font color="blue">3</font> 
+が記憶されます。
+</p>
+
+<table align="right">
+<a name="LST175"></a>
+<caption><font color="red">　リスト175</font>　計算の種類</caption>
+<tr>
+<td >&nbsp;　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+if (RESET)
+   calcop=0;
+else
+   if (set)
+      switch(func)
+         case 1: calcop=1;  { = }
+         case 2: calcop=2;  { * }
+         case 3: calcop=3;  { / }
+         case 4: calcop=4;  { + }
+         case 5: calcop=5;  { - }
+      endswitch
+   else
+      calcop=calcop;
+   endif
+endif
+</font>
+</pre>
+</td>
+<td >&nbsp;　&nbsp;</td>
+</tr>
+</table>
+
+<br>
+
+<table class="i">
+<caption><font color="red">図5.115</font>　計算の種類の記憶</caption>
+<tr>
+<td>&nbsp;&nbsp</td>
+<td align="center">
+<a href="../LIB/FG09H31A.png" target="_blank">
+<img src="../LIB/FG09H31A.png" border="0" alt="FG09H31A.png(47809 byte)" width="300">
+</a>
+</td>
+<td>&nbsp;　　　&nbsp</td>
+</tr>
+</table>
+
+<br clear="right">
+
+<hr color="#6666CC" size="10">
+<font size="4" color="#5454AB"><b>　　　実効計算</b></font><br>
+<hr color="#6666CC">
+
+<br>
+
+<table align="right">
+<a name="LST176"></a>
+<caption><font color="red">　リスト176</font>　実効計算</caption>
+<tr>
+<td >&nbsp;　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+if (RESET)
+   execop=0;
+else
+   switch(calcseq)
+      case 1:
+         switch(execop)
+            case 1:  execop=calcop;
+            default: execop=execop;
+         endswitch
+      case 4:  execop=calcop;
+      default: execop=execop;
+   endswitch
+endif
+</font>
+</pre>
+</td>
+<td >&nbsp;　&nbsp;</td>
+</tr>
+</table>
+
+<p class="i">
+<font color="red">リスト176</font> 
+の実効計算の
+<font color="blue">execop</font> 
+は主行程の
+<font color="blue">calcseq</font> 
+の
+「計算の実行」
+の行程の
+<font color="blue">3</font> 
+のときの計算の種類を示しています。
+<font color="blue">12345678/</font> 
+が入力されたところが
+<font color="red">図5.116</font> 
+です
+<font color="blue">calcop</font> 
+には
+<font color="blue">3</font> 
+が記憶されていますが
+<font color="blue">execop</font>
+は
+<font color="blue">0</font> 
+なので計算は行わずに行程はから送りになります。次の数値の入力
+が行われないと計算ができないので
+<font color="blue">calcseq</font> 
+の「計算の終了」の行程の
+<font color="blue">4</font> 
+のときに
+<font color="blue">calcop</font> 
+の値を
+<font color="blue">execop</font> 
+に記憶しています。次の数値の入力を
+待つために
+<font color="blue">calcseq</font> 
+は一旦
+<font color="blue">0</font> 
+に戻ります。
+<font color="blue">12345678/90=</font> 
+まで入力されたところが
+<font color="red">図5.117</font> 
+です。
+<font color="blue">calcop</font> 
+の値は
+<font color="blue">3</font> 
+から
+<font color="blue">1</font> 
+になりますが
+<font color="blue">execop</font>
+が
+<font color="blue">3</font> 
+なので、これに続く
+<font color="blue">calcseq</font> 
+の「計算の実行」の行程の
+<font color="blue">3</font> 
+では割り算が実行されます。
+</p>
+
+<br>
+
+<table>
+<tr>
+<td valign="top">
+
+<table class="i">
+<caption><font color="red">図5.116</font>　実効計算の記憶(1/2)</caption>
+<tr>
+<td>&nbsp;&nbsp</td>
+<td align="center">
+<a href="../LIB/FG09H31B.png" target="_blank">
+<img src="../LIB/FG09H31B.png" border="0" alt="FG09H31B.png(60060 byte)" width="350">
+</a>
+</td>
+<td>&nbsp;　　　&nbsp</td>
+</tr>
+</table>
+
+</td>
+
+<td valign="top">
+
+<table class="i">
+<caption><font color="red">図5.117</font>　実効計算の記憶(2/2)</caption>
+<tr>
+<td>&nbsp;&nbsp</td>
+<td align="center">
+<a href="../LIB/FG09H31C.png" target="_blank">
+<img src="../LIB/FG09H31C.png" border="0" alt="FG09H31C.png(59464 byte)" width="350">
+</a>
+</td>
+<td>&nbsp;　　　&nbsp</td>
+</tr>
+</table>
+
+</td>
+</tr>
+</table>
+
+<br>
+
+<hr color="#6666CC" size="10">
+<font size="4" color="#5454AB"><b>　　　乗算器と除算器の初期化</b></font><br>
+<hr color="#6666CC">
+
+<br>
+
+<table align="right">
+<tr>
+<td valign="top">
+
+<table align="right">
+<a name="LST177"></a>
+<caption><font color="red">　リスト177</font>　乗算器初期化</caption>
+<tr>
+<td >&nbsp;　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+if (RESET)
+   mulreset=1;
+else
+   switch(execop)
+      case 2:
+         switch(calcseq)
+            case 2: mulreset=1;
+         endswitch
+   endswitch
+endif
+</font>
+</pre>
+</td>
+<td >&nbsp;　&nbsp;</td>
+</tr>
+</table>
+
+</td>
+
+<td valign="top">
+
+<table align="right">
+<a name="LST178"></a>
+<caption><font color="red">　リスト178</font>　除算器初期化</caption>
+<tr>
+<td >&nbsp;　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+if (RESET)
+   divreset=1;
+else
+   switch(execop)
+      case 3:
+         switch(calcseq)
+            case 2: divreset=1;
+         endswitch
+   endswitch
+endif
+</font>
+</pre>
+</td>
+<td >&nbsp;　&nbsp;</td>
+</tr>
+</table>
+
+</td>
+</tr>
+</table>
+
+<p class="i">
+乗算器と除算器の論理は記憶形式なので主行程の
+<font color="blue">calcseq</font> 
+が「端末の応答を待つ」の
+<font color="blue">2</font> 
+のときに
+<font color="red">リスト177</font> 
+や
+<font color="red">リスト178</font>
+のように初期化します。
+</p>
+
+<br clear="right">

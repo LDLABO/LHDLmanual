@@ -1,0 +1,159 @@
+<hr color="#4F9177" size="15">
+<font color="#336633">　　表示器の論理</font>
+<hr color="#4F9177">
+
+<p class="i">
+7 セグメントLED を時分割で表示する8 桁の表示器を駆動する論理を作ります。一部を抜粋して説明します
+ので全部は
+<a href="../LIB/LDL06E09A.pdf" target="_blank">
+<font color="blue">
+LDL06E09A.pdf 
+</font>
+</a>
+を見て下さい。
+</p>
+
+<hr color="#6666CC" size="10">
+<font size="4" color="#5454AB"><b>　　　チップ概観</b></font><br>
+<hr color="#6666CC">
+
+<br>
+
+<table align="right">
+<caption><font color="red">図5.28</font> チップ概観</caption>
+<tr>
+<td>&nbsp;&nbsp</td>
+<td align="center">
+<a href="../LIB/FG09G08A.png" target="_blank">
+<img src="../LIB/FG09G08A.png" border="0" alt="FG09G08A.png(18686 byte)" width="400">
+</a>
+</td>
+<td>&nbsp;　　　&nbsp</td>
+</tr>
+</table>
+
+<p class="i">
+チップの概観は
+<font color="red">図5.28</font> 
+のようになります。
+</p>
+
+<ul>
+<li class="i">
+<font color="blue">RESET</font> : 
+チップを初期化します。
+</li>
+
+<li class="i">
+<font color="blue">SCLK</font> : 
+8 桁表示の桁を進行するCLK で1CLK で一桁ず
+つ点灯します。
+</li>
+
+<li class="i">
+<font color="blue">SEGOUT[7]</font> : 
+7 セグメントのLED のセグメントを駆動します。
+</li>
+
+<li class="i">
+<font color="blue">KETAOUT[8]</font> : 
+7 セグメントのLED の共通端子を駆動します。
+</li>
+
+<li class="i">
+<font color="blue">KETA[3]</font> : 
+本チップは表示するデータを記憶しないので外部から逐次入力しています。本端子は入力する
+BCD 値の桁を示しています。
+</li>
+
+<li class="i">
+<font color="blue">DATA[4]</font> : 
+<font color="blue">KETA[3]</font> 
+で指定する桁のBCD 値を入力します。
+</li>
+</ul>
+
+<br clear="right">
+
+<hr color="#6666CC" size="10">
+<font size="4" color="#5454AB"><b>　　　表示方法</b></font><br>
+<hr color="#6666CC">
+
+<br>
+
+<table align="right">
+<caption><font color="red">図5.29</font> 表示方法</caption>
+<tr>
+<td>&nbsp;&nbsp</td>
+<td align="center">
+<a href="../LIB/FG09G08B.png" target="_blank">
+<img src="../LIB/FG09G08B.png" border="0" alt="FG09G08B.png(21477 byte)" width="300">
+</a>
+</td>
+<td>&nbsp;　　　&nbsp</td>
+</tr>
+</table>
+
+<p class="i">
+<font color="red">図5.25</font> 
+のように8 個の7 セグメントのLED をセグメントと桁に分けて
+<font color="red">図5.29</font> 
+のように駆動します。
+<font color="red">図5.22</font> 
+の
+<font color="blue">a～g</font> 
+がセグメント端子で
+<font color="blue">COM</font> 
+が桁端子です。
+</p>
+
+<ul>
+<li class="i">
+8 個の7 セグメントLED の桁端子を時分割で駆動すること
+で8 個の7 セグメントLED を点灯します。
+</li>
+
+<li class="i">
+8 個の7 セグメントLED の桁端子をひとつも駆動しないこ
+とで8 個の7 セグメントLED を消灯します。
+</li>
+</ul>
+
+<p class="i">
+すべての7 セグメントLED のセグメント端子は共通になってい
+るので8 個の7 セグメントLED が全部消灯する時間を作って、そこでセグメント端子の駆動値を変えることで
+表示がちらつかないようにします。
+</p>
+
+<p class="i">
+7 セグメントLED の時分割の表示方法とは、ひとつの桁だけを
+<font color="red">図5.29</font> 
+のように全桁の非表示期間をはさ挟みな
+がら連続して桁と表示値を変えながら順番に駆動することです。
+</p>
+
+<br clear="right">
+
+<hr color="#6666CC" size="10">
+<font size="4" color="#5454AB"><b>　　　SCLK行程</b></font><br>
+<hr color="#6666CC">
+
+<p class="i">
+<font color="blue">SCLK</font> 
+は
+<font color="red">図5.29</font> 
+のように表示器の桁を駆動しています。内容はキーボードの列駆動の場合と同じなのでリストと行程図はそちらを見てください。
+駆動の起点は
+<font color="blue">SCLK</font> 
+が0 から1 になったところです。
+<font color="blue">SCLK</font> 
+の変化を2ビットの値にして捉(とら)えようとしたのが
+<font color="red">リスト92</font> 
+の
+<font color="blue">SCLK</font> 
+行程の
+<font color="blue">sclkp</font> 
+です、意味は
+<font color="red">図5.12</font> 
+のようになります。
+</p>

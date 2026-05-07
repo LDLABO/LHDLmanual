@@ -1,0 +1,212 @@
+<hr color="#6666CC" size="10">
+<font size="4" color="#5454AB"><b>　　　端末応答</b></font><br>
+<hr color="#6666CC">
+
+<br>
+
+<table align="right">
+<a name="LST172"></a>
+<caption><font color="red">　リスト172</font>　端末応答</caption>
+<tr>
+<td >&nbsp;　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+if (RESET)
+   take=0;
+else
+   switch(take)
+      case 0:
+         if (changecomplete) take=1; endif
+      case 1:
+         if (changecomplete)
+            take=take;
+         else
+            if (set)
+               take=take;
+            else
+               take=0;
+            endif
+         endif
+   endswitch
+endif
+</font>
+</pre>
+</td>
+<td >&nbsp;　&nbsp;</td>
+</tr>
+</table>
+
+<p class="i">
+<font color="red">リスト172</font> 
+の端末応答の
+<font color="blue">take</font> 
+は端末の
+<font color="blue">set</font> 
+に対する応答を
+<font color="blue">take</font> 
+で返すものです。端末に
+<font color="blue">123456789/</font> 
+が入力されると
+<font color="blue">set</font>
+が
+<font color="blue">1</font> 
+になり端末のメモリからBCD 値が読み出されて2進数に
+変換されますが変換が終了すると
+<font color="blue">changecomplete</font> 
+が
+<font color="blue">1</font> 
+になります。
+</p>
+
+<br>
+
+<table class="i">
+<caption><font color="red">図5.111</font>　端末応答</caption>
+<tr>
+<td>&nbsp;&nbsp</td>
+<td align="center">
+<a href="../LIB/FG09H29A.png" target="_blank">
+<img src="../LIB/FG09H29A.png" border="0" alt="FG09H29A.png(10511 byte)" width="200">
+</a>
+</td>
+<td>&nbsp;　　　&nbsp</td>
+</tr>
+</table>
+
+<br clear="right">
+
+<p class="i">
+<font color="blue">changecomplete</font> 
+が
+<font color="blue">1</font> 
+になったところで端末に数値を受け取ったことを示す
+<font color="blue">take</font> 
+を
+<font color="blue">1</font> 
+にします。端末がこれを受けて
+<font color="blue">set</font> 
+を
+<font color="blue">0</font> 
+に戻せば
+<font color="red">図5.110</font> 
+のように
+<font color="blue">take</font> 
+も
+<font color="blue">0</font> 
+に戻します。
+</p>
+
+<hr color="#6666CC" size="10">
+<font size="4" color="#5454AB"><b>　　　2進数BCD変換初期化</b></font><br>
+<hr color="#6666CC">
+
+<br>
+
+<table align="right">
+<a name="LST173"></a>
+<caption><font color="red">　リスト173</font>　2進数BCD変換初期化</caption>
+<tr>
+<td >&nbsp;　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+if (RESET)
+   chgbintobcdres=1;
+else
+   switch(calcseq)
+      case 4: chgbintobcdres=1;
+      case 8: chgbintobcdres=1;
+   endswitch
+endif
+</font>
+</pre>
+</td>
+<td >&nbsp;　&nbsp;</td>
+</tr>
+</table>
+
+<p class="i">
+<font color="red">リスト173</font> 
+の2進数BCD 変換初期化の
+<font color="blue">chgbintobcdres</font> 
+は
+<font color="red">図5.112</font>
+のように
+<font color="blue">1</font> 
+のときに2進数BCD 変換器を初期化することを示します。こ
+の位置は
+<font color="red">図5.99</font> 
+の主行程の
+<font color="blue">calcseq</font> 
+が
+<font color="blue">4</font> 
+か
+<font color="blue">8</font> 
+のときです。
+</p>
+
+<br clear="right">
+
+<hr color="#6666CC" size="10">
+<font size="4" color="#5454AB"><b>　　　2進数BCD変換器にデータを書き込む</b></font><br>
+<hr color="#6666CC">
+
+<br>
+
+<table align="right">
+<caption><font color="red">図5.112</font>　2進数BCD変換器の動き(1/2)</caption>
+<tr>
+<td>&nbsp;&nbsp</td>
+<td align="center">
+<a href="../LIB/FG09H29B.png" target="_blank">
+<img src="../LIB/FG09H29B.png" border="0" alt="FG09H29B.png(89401 byte)" width="300">
+</a>
+</td>
+<td>&nbsp;　　　&nbsp</td>
+</tr>
+</table>
+
+<p class="i">
+次の「2 進数BCD 変換器データを書き込み」の
+<font color="blue">wp</font> 
+は
+<font color="blue">1</font> 
+のときに
+<font color="blue">regA</font> 
+の値を2進数BCD変換器に記憶して変換を開始します。
+</p>
+
+<table class="i">
+<tr>
+<td >&nbsp;　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#990000" size="2">
+switch(calcseq)
+   case 5: wp=1;
+endswitch
+</font>
+</pre>
+</td>
+<td >&nbsp;　&nbsp;</td>
+</tr>
+</table>
+
+<p class="i">
+<font color="red">図5.112</font> 
+は
+<font color="blue">12345678/90=</font> 
+の計算結果の
+<font color="blue">regA</font> 
+の値を2進数BCD 変換器に記憶して変換を開始しているところです。
+<font color="red">図5.113</font> 
+は
+<font color="blue">chgbintobcdeoc</font> 
+が
+<font color="blue">1</font> 
+になって変換を完了し変換結果が2進数BCD変換器からBCD値のひと桁ずつを下
+位の桁から読み出されているところです。
+</p>
+
+<br clear="right">

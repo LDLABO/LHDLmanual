@@ -1,0 +1,99 @@
+<hr color="#4F9177" size="15">
+<font color="#336633">　　表示器の検証</font>
+<hr color="#4F9177">
+
+<p class="i">
+表示器とその論理の概観は
+<font color="red">図5.35</font> 
+のようになっています。設計論理の出力する
+<font color="blue">KETA</font> 
+に対応した設計論理への入力の
+<font color="blue">DATA</font> 
+を検証論理で作ります。表示できる文字の種類の
+<font color="blue">0～9</font> 
+と
+<font color="blue">a～f</font> 
+を8桁の中で類型を変えながら出力させます。
+</p>
+
+<table>
+<caption><font color="red">図5.35</font> 表示器の検証対象</caption>
+<tr>
+<td>&nbsp;&nbsp</td>
+<td align="center">
+<a href="../LIB/FG09G11A.png" target="_blank">
+<img src="../LIB/FG09G11A.png" border="0" alt="FG09G11A.png(199865 byte)" width="800">
+</a>
+</td>
+<td>&nbsp;　　　&nbsp</td>
+</tr>
+</table>
+
+<br>
+
+<hr color="#6666CC" size="10">
+<font size="4" color="#5454AB"><b>　　　検証論理</b></font><br>
+<hr color="#6666CC">
+
+<p class="i">
+<font color="red">図5.36</font> 
+のように
+<font color="blue">DATA</font> 
+を作るために
+<font color="blue">KETA</font> 
+が
+<font color="blue">0</font> 
+の位置を
+<font color="red">図5.37</font> 
+のように
+<font color="blue">count</font> 
+に計数して検証位置にします。
+<font color="red">リスト109</font> 
+の
+<font color="blue">行54～63</font> 
+で
+<font color="blue">count</font> 
+に桁位置を加算したものを
+<font color="blue">DATA</font> 
+にしていますので類型値の
+<font color="blue">count</font> 
+の計数の進行で各桁に移動しながら違う文字が出力されていきます。
+</p>
+
+<table class="i">
+<tr>
+<td valign="top">
+
+<table>
+<caption><font color="red">図5.36</font> 検証データ</caption>
+<tr>
+<td>&nbsp;&nbsp</td>
+<td align="center">
+<a href="../LIB/FG09G11B.png" target="_blank">
+<img src="../LIB/FG09G11B.png" border="0" alt="FG09G11B.png(60158 byte)" width="500">
+</a>
+</td>
+<td>&nbsp;　　　&nbsp</td>
+</tr>
+</table>
+
+</td>
+
+<td valign="top">
+
+<table>
+<caption><font color="red">図5.37</font> 検証位置</caption>
+<tr>
+<td>&nbsp;&nbsp</td>
+<td align="center">
+<a href="../LIB/FG09G11C.png" target="_blank">
+<img src="../LIB/FG09G11C.png" border="0" alt="FG09G11C.png(89881 byte)" width="370">
+</a>
+</td>
+<td>&nbsp;　　　&nbsp</td>
+</tr>
+</table>
+
+</td>
+</tr>
+</table>

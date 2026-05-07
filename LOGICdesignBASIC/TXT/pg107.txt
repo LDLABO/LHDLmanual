@@ -1,0 +1,176 @@
+<br>
+
+<p class="i">
+<font color="blue">Q2</font> 
+のコレクタ電流の最大値は7 セグメントですから
+<font color="blue">40mA×7=280mA</font> 
+です。ひとつの桁が点灯している時間は
+<font color="blue">1/8</font> 
+ですから全セグメントが点灯していても平均して
+<font color="blue">280mA/8=35mA</font> 
+程度です。
+<font color="blue">Q2</font> 
+の
+<font color="blue">hfe</font> 
+が
+<font color="blue">100</font> 
+とすれば
+<font color="blue">280mA/100=2.8mA</font> 
+で
+<font color="blue">Q2</font> 
+の
+<font color="blue">Vce</font> 
+がほぼ
+<font color="blue">0V</font> 
+近くになるまで完全に導通させるために余裕を見てこの2倍の
+<font color="blue">5.6mA</font> 
+とします。
+</p>
+
+<p class="i">
+<font color="blue">Q2</font> 
+の
+<font color="blue">Vbe</font> 
+が
+<font color="blue">1V</font> 
+でIC の
+<font color="blue">Voh</font> 
+が
+<font color="blue">2.4V</font> 
+と過程して
+<font color="blue">R5</font> 
+のベース抵抗は次のようになります。
+<br><br>
+<font color="#990000">(Voh-Vbe)/5.6mA=(2.4-1)/5.6mA=250Ω</font>
+<br><br>
+<font color="blue">Q2</font> 
+のコレクタ損失は
+<font color="blue">Vce</font> 
+が
+<font color="blue">0.1V</font> 
+だったなら
+<br><br>
+<font color="#990000">Vce×Ic=0.1×35mA=3.5mW</font> 
+<br><br>
+になります。
+</p>
+
+<p class="i">
+LED を駆動する回路の電流は抵抗で決まります。トランジスタはスイッチと同じ役目を
+にな
+担っていて導通した
+ときは0Ω に遮断したときは無限大の抵抗になるべく近づくように動作させます。
+</p>
+
+<br>
+
+<hr color="#6666CC" size="10">
+<font size="4" color="#5454AB"><b>　　　IC の出力端子</b></font><br>
+<hr color="#6666CC">
+
+<br>
+
+<table align="right">
+<caption><font color="red">図5.23</font> IC の出力端子</caption>
+<tr>
+<td>&nbsp;&nbsp</td>
+<td align="center">
+<a href="../LIB/FG09G06A.png" target="_blank">
+<img src="../LIB/FG09G06A.png" border="0" alt="FG09G06A.png(79091 byte)" width="350">
+</a>
+</td>
+<td>&nbsp;　　　&nbsp</td>
+</tr>
+</table>
+
+<p class="i">
+ディジタルIC の出力端子は簡略にして表すと
+<font color="red">図5.24</font> 
+のように考えられると思います。左はTTL IC
+の場合で右はCMOS IC の場合です。
+</p>
+
+<ul>
+<li class="i">
+出力端子の電位が高位にされているときは
+<font color="blue">Q1</font> 
+が導通して
+<font color="blue">Q2</font> 
+が遮断しています。
+</li>
+
+<li class="i">
+出力端子の電位が低位にされているときは
+<font color="blue">Q1</font> 
+が遮断して
+<font color="blue">Q2</font> 
+が導通しています。
+</li>
+
+<li class="i">
+<font color="blue">Q1</font> 
+が導通しているときでも
+<font color="blue">Q1</font> 
+の駆動能力を超える電流を流し出せば電圧は低下していきます。
+</li>
+
+<li class="i">
+<font color="blue">Q2</font> 
+が導通しているときでも
+<font color="blue">Q2</font> 
+の駆動能力を超える電流を流し込めば電圧は上昇していきます。
+</li>
+</ul>
+
+<p class="i">
+<font color="blue">Q1</font> 
+の駆動能力を表しているのが
+<font color="blue">Voh</font> 
+や
+<font color="blue">Ioh</font> 
+です。
+<font color="blue">Q2</font> 
+の駆動能力を表しているのが
+<font color="blue">Vol</font> 
+や
+<font color="blue">Iol</font> 
+です。これらの値は電流値を示してそのときの電圧値から出力
+端子の駆動能力の目安を示しています。
+</p>
+
+<ul>
+<li class="i">
+<font color="blue">Ioh</font> 
+が大きな値のときでも
+<font color="blue">Voh</font> 
+が高い電位なのは
+<font color="blue">Q1</font> 
+の駆動能力の高さを示します。
+</li>
+
+<li class="i">
+<font color="blue">Iol</font> 
+が大きな値のときでも
+<font color="blue">Vol</font> 
+が低い電位なのは
+<font color="blue">Q2</font> 
+の駆動能力の高さを示します。
+</li>
+</ul>
+
+<p class="i">
+出力端子の電位は重負荷と軽負荷の時では違ってきます。CMOS IC どうしをつなぐ場合は入力電流が数uA と
+微少なのでほとんど問題はありません。
+</p>
+
+<p class="i">
+私が回路のことでよく間違うのは電圧のことばかり考えて電流のことを考えるのがおろそかになっている場合
+が多いように思います。電圧の値がおかしいと思うときは電流を流し出しておかしいのか電流を流し込んでおか
+しいのかそこに考えが向かなくて解決が遠のいたようなことがありました。電圧はすぐに
+はか
+測ってみようと思うの
+ですが電流をすぐに測ってみるというのはあまりありません。回路の動きをよく理解したいときには電流の動き
+から考えるとより分かりやすくなるような気がします。
+</p>
+
+<br clear="right">

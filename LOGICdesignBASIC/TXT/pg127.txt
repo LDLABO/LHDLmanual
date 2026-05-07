@@ -1,0 +1,207 @@
+<hr color="#6666CC" size="10">
+<font size="4" color="#5454AB"><b>　　　メモリと表示器への論理の追加</b></font><br>
+<hr color="#6666CC">
+
+<br>
+
+<table align="right">
+<caption><font color="red">図5.56</font> 表示</caption>
+<tr>
+<td>&nbsp;&nbsp</td>
+<td align="center">
+<a href="../LIB/FG09G26A.png" target="_blank">
+<img src="../LIB/FG09G26A.png" border="0" alt="FG09G26A.png(303422 byte)" width="300">
+</a>
+</td>
+<td>&nbsp;　　　&nbsp</td>
+</tr>
+</table>
+
+<p class="i">
+電卓の初期の表示は
+<font color="red">図5.56</font> 
+の
+<font color="blue">A</font> 
+のようにメモリのすべての番地の値が0 のときは最下位の桁だけが0 を表示するよう
+にしたいと思います。キーが押されれば
+<font color="red">図5.56</font> 
+の
+<font color="blue">②</font> 
+から
+<font color="blue">⑨</font>
+ように表示がせり上がってくるようにします。このときも上位
+の桁の値が0 のときは点灯させないようにしたいと思います。
+</p>
+
+<p class="i">
+最下位の桁はいつも点灯させるので不点灯を行う対象は
+<font color="blue">2</font> 
+番目の桁から
+<font color="blue">8</font> 
+番目の桁になります。不点灯させるためには各番
+地のメモリ値が0 かどうかを知る指標を作ります。
+</p>
+
+<table class="i">
+<tr>
+<td >&nbsp;　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#990000" size="2">
+switch(memory1)
+   case 0: memoryzeq.1=1;
+endswitch
+</font>
+</pre>
+</td>
+<td >&nbsp;　&nbsp;</td>
+</tr>
+</table>
+
+<p class="i">
+メモリの番地1 の値を
+<font color="blue">memory1</font> 
+とするとその値が0 なら
+<font color="blue">memoryzeq.1</font> 
+が1 になります。このような信号をすべての番
+地について
+<font color="blue">memoryzeq.0～7</font> 
+に作ります。
+</p>
+
+<p class="i">
+<font color="red">図5.56</font> 
+の
+<font color="blue">①</font> 
+から
+<font color="blue">⑨</font> 
+の不点灯位置の情報を3 ビットの
+<font color="blue">blank</font> 
+信号に
+<font color="red">リスト124</font> 
+のように符号化します。
+</p>
+
+<table class="i" cellpadding="5">
+<tr>
+<td>①</td>
+<td>blank=1;</td>
+<td>④</td>
+<td>blank=3;</td>
+<td>⑦</td>
+<td>blank=6;</td>
+</tr>
+
+<tr>
+<td>②</td>
+<td>blank=1;</td>
+<td>⑤</td>
+<td>blank=4;</td>
+<td>⑧</td>
+<td>blank=7;</td>
+</tr>
+
+<tr>
+<td>③</td>
+<td>blank=2;</td>
+<td>⑥</td>
+<td>blank=5;</td>
+<td>⑨</td>
+<td>blank=0;</td>
+</tr>
+</table>
+
+<p class="i">
+<font color="blue">blank</font> 
+信号はメモリの論理に追加します。
+</p>
+
+<br clear="right">
+
+<br>
+
+<table align="right">
+<a name="LST124"></a>
+<caption><font color="red">　リスト124</font>　メモリのblank</caption>
+<tr>
+<td >&nbsp;　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+switch (memoryzeq.1:7)
+   case 0b1111111: blank=1;
+   default:
+      switch (memoryzeq.2:7)
+         case 0b111111: blank=2;
+         default:
+            switch(memoryzeq.3:7)
+               case 0b11111: blank=3;
+               default:
+                  switch(memoryzeq.4:7)
+                     case 0b1111: blank=4;
+                     default:
+                        switch(memoryzeq.5:7)
+                           case 0b111: blank=5;
+                           default:
+                              switch(memoryzeq.6:7)
+                                 case 0b11: blank=6;
+                                 default:
+                                    switch(memoryzeq.7)
+                                       case 1: blank=7;
+                                    endswitch
+                              endswitch
+                        endswitch
+                  endswitch
+            endswitch
+      endswitch
+endswitch
+</font>
+</pre>
+</td>
+<td >&nbsp;　&nbsp;</td>
+</tr>
+</table>
+
+<p class="i">
+表示器の論理ではメモリの
+<font color="blue">blank</font> 
+信号を受けて
+<font color="red">リスト125</font> 
+の8 ビットの
+<font color="blue">blankketa</font> 
+信号を作ります。
+</p>
+
+<table class="i">
+<a name="LST125"></a>
+<caption><font color="red">　リスト125</font>　表示器のblankketa</caption>
+<tr>
+<td >&nbsp;　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+switch(blank)
+   case 0: blankketa=0b00000000;
+   case 1: blankketa=0b11111110;
+   case 2: blankketa=0b11111100;
+   case 3: blankketa=0b11111000;
+   case 4: blankketa=0b11110000;
+   case 5: blankketa=0b11100000;
+   case 6: blankketa=0b11000000;
+   case 7: blankketa=0b10000000;
+endswitch
+</font>
+</pre>
+</td>
+<td >&nbsp;　&nbsp;</td>
+</tr>
+</table>
+
+<p class="i">
+<font color="blue">blankketa</font> 
+信号は下位のビットが下位の桁、上
+位のビットが上位の桁の不点灯を示します。該当す
+るビットが1 ならその桁は不点灯、0 なら点灯です。
+</p>
+
+<br clear="right">

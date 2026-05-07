@@ -1,0 +1,112 @@
+<br>
+
+<table class="i">
+<caption><font color="red">図5.15</font> キーボードの検証A</caption>
+<tr>
+<td>
+
+<table>
+<tr>
+<td>&nbsp;&nbsp</td>
+<td align="center">
+<a href="../LIB/FG09F30A.png" target="_blank">
+<img src="../LIB/FG09F30A.png" border="0" alt="FG09F30A.png(163475 byte)" width="450">
+</a>
+</td>
+<td>&nbsp;　　　&nbsp</td>
+</tr>
+</table>
+
+</td>
+
+<td>
+
+<table>
+<tr>
+<td>&nbsp;&nbsp</td>
+<td align="center">
+<a href="../LIB/FG09F30B.png" target="_blank">
+<img src="../LIB/FG09F30B.png" border="0" alt="FG09F30B.png(163134 byte)" width="450">
+</a>
+</td>
+<td>&nbsp;　　　&nbsp</td>
+</tr>
+</table>
+
+</td>
+</tr>
+</table>
+
+<br>
+
+<hr color="#6666CC" size="10">
+<font size="4" color="#5454AB"><b>　　　キーを押した回数</b></font><br>
+<hr color="#6666CC">
+
+<br>
+
+<table width="400" align="left">
+<tr>
+<td>
+<p class="i">
+<font color="red">リスト99</font> 
+の
+<font color="blue">tp</font> 
+はキーを押した回数を示しています。
+<font color="blue">takep</font> 
+を計数していますが
+<font color="blue">takep</font> 
+は
+<font color="blue">node_TAKE</font> 
+が1になったときに1CLK だけ1 になります。
+<font color="blue">tp</font> 
+の値によってどのキーを押すべきかが決まります。
+</p>
+</td>
+</tr>
+</table>
+
+<table align="left">
+<a name="LST99"></a>
+<caption><font color="red">　リスト99</font>　キーを押した回数</caption>
+<tr>
+<td >&nbsp;　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+if (node_RESET)
+   takep=0;
+else
+   switch(takep)
+      case 0:
+         if (node_TAKE)
+            takep=1;
+         endif
+      case 1: takep=2;
+      case 2:
+         if (node_TAKE)
+            takep=takep;
+         else
+            takep=0;
+         endif
+   endswitch
+endif
+
+if (node_RESET)
+   tp=0;
+else
+   if (takep==1)
+      tp=tp+1;
+   else
+      tp=tp;
+   endif
+endif
+</font>
+</pre>
+</td>
+<td >&nbsp;　&nbsp;</td>
+</tr>
+</table>
+
+
+<br clear="left">

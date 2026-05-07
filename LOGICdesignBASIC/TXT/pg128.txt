@@ -1,0 +1,106 @@
+<br>
+
+<p class="i">
+メモリの論理に
+<font color="blue">BLANK</font> 
+の出力を追加して実行した様子が
+<font color="red">図5.57</font> 
+です。追加した後のメモリの論理は
+<a href="../LIB/LDL06F02B.pdf" target="_blank">
+<font color="blue">LDL06F02B.pdf</font> 
+</a>
+を見て下さい。
+</p>
+
+<table class="i">
+<caption><font color="red">図5.57</font> メモリのBLANK</caption>
+<tr>
+<td>&nbsp;&nbsp</td>
+<td align="center">
+<a href="../LIB/FG09G27A.png" target="_blank">
+<img src="../LIB/FG09G27A.png" border="0" alt="FG09G27A.png(97846 byte)" width="800">
+</a>
+</td>
+<td>&nbsp;　　　&nbsp</td>
+</tr>
+</table>
+
+<br>
+
+<p class="i">
+論理を追加した後のメモリのデバイスは使用率が少しだけ増えて同じデバイスに
+<font color="red">リスト126</font> 
+のように入りました。
+</p>
+
+<br>
+
+<table class="i">
+<a name="LST126"></a>
+<caption><font color="red">　リスト126</font>　論理追加のメモリのデバイス</caption>
+<tr>
+<td >&nbsp;　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+cpldfit:  version I.33                              Xilinx Inc.
+                                  Fitter Report
+Design Name: main                                Date:  9-27-2008,  0:10AM
+Device Used: XC9572-7-PC44
+Fitting Status: Successful
+
+*************************  Mapped Resource Summary  **************************
+
+Macrocells     Product Terms    Function Block   Registers      Pins           
+Used/Tot       Used/Tot         Inps Used/Tot    Used/Tot       Used/Tot       
+50 /72  ( 69%) 274 /360  ( 76%) 138/144 ( 96%)   39 /72  ( 54%) 12 /34  ( 35%)
+</font>
+</pre>
+</td>
+<td >&nbsp;　&nbsp;</td>
+</tr>
+</table>
+
+<br>
+
+<table align="right">
+<caption><font color="red">図5.58</font> 表示器のBLANK</caption>
+<tr>
+<td>&nbsp;&nbsp</td>
+<td align="center">
+<a href="../LIB/FG09G27B.png" target="_blank">
+<img src="../LIB/FG09G27B.png" border="0" alt="FG09G27B.png(106790 byte)" width="450">
+</a>
+</td>
+<td>&nbsp;　　　&nbsp</td>
+</tr>
+</table>
+
+<p class="i">
+表示器の論理に
+<font color="blue">BLANK</font> 
+の入力と
+<font color="red">リスト125</font> 
+の論理を追加して実行した様子が
+<font color="red">図5.58</font> 
+です。
+<font color="blue">blankketa□</font>
+が1 になっているところの桁は駆動されないので点灯されません。
+</p>
+
+<p class="i">
+追加した後の表示器の論理は
+<a href="../LIB/LDL06E09B.pdf" target="_blank">
+<font color="blue">LDL06E09B.pdf</font>
+</a>
+を見て下さい。
+</p>
+
+<p class="i">
+論理を追加した後の表示器のデバイスは使用率が
+わずかに増えて同じデバイスに
+<font color="red">リスト127</font> 
+のように入りました。
+</p>
+
+<br clear="right">

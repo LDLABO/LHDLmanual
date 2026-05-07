@@ -1,0 +1,85 @@
+<br>
+
+<table>
+<caption><font color="red">図5.82</font>　実行(2/2)</caption>
+<tr>
+<td>&nbsp;&nbsp</td>
+<td align="center">
+<a href="../LIB/FG09H13A.png" target="_blank">
+<img src="../LIB/FG09H13A.png" border="0" alt="FG09H13A.png(55603 byte)" width="1000">
+</a>
+</td>
+<td>&nbsp;　　　&nbsp</td>
+</tr>
+</table>
+
+<br>
+
+<table>
+<caption><font color="red">図5.83</font>　ModelSim(1/2)</caption>
+<tr>
+<td>&nbsp;&nbsp</td>
+<td align="center">
+<a href="../LIB/FG09H13B.png" target="_blank">
+<img src="../LIB/FG09H13B.png" border="0" alt="FG09H13B.png(90332 byte)" width="1000">
+</a>
+</td>
+<td>&nbsp;　　　&nbsp</td>
+</tr>
+</table>
+
+<br>
+
+<table>
+<caption><font color="red">図5.84</font>　ModelSim(2/2)</caption>
+<tr>
+<td>&nbsp;&nbsp</td>
+<td align="center">
+<a href="../LIB/FG09H13C.png" target="_blank">
+<img src="../LIB/FG09H13C.png" border="0" alt="FG09H13C.png(89919 byte)" width="1000">
+</a>
+</td>
+<td>&nbsp;　　　&nbsp</td>
+</tr>
+</table>
+
+<br>
+
+<hr color="#4F9177" size="15">
+<font color="#336633"><b>　　32ビット除算器のデバイス</b></font>
+<hr color="#4F9177">
+
+<p class="i">
+32ビットの除算器の論理は
+<font color="red">リスト150</font> 
+のように
+<font color="blue">XC2C256</font> 
+に入りました。
+</p>
+
+<br>
+<table class="i">
+<a name="LST150"></a>
+<caption><font color="red">　リスト150</font>　XC2C256</caption>
+<tr>
+<td >&nbsp;　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+cpldfit:  version I.33                              Xilinx Inc.
+                                  Fitter Report
+Design Name: main                                Date: 10-13-2008, 11:54PM
+Device Used: XC2C256-7-TQ144
+Fitting Status: Successful
+
+*************************  Mapped Resource Summary  **************************
+
+Macrocells     Product Terms    Function Block   Registers      Pins           
+Used/Tot       Used/Tot         Inps Used/Tot    Used/Tot       Used/Tot       
+165/256 ( 64%) 452 /896  ( 50%) 335 /640  ( 52%) 102/256 ( 40%) 100/118 ( 85%)
+</font>
+</pre>
+</td>
+<td >&nbsp;　&nbsp;</td>
+</tr>
+</table>

@@ -1,0 +1,68 @@
+<br>
+
+<table>
+<caption><font color="red">図5.50</font> 番地指定書き込み</caption>
+<tr>
+<td>&nbsp;&nbsp</td>
+<td align="center">
+<a href="../LIB/FG09G22A.png" target="_blank">
+<img src="../LIB/FG09G22A.png" border="0" alt="FG09G22A.png(196895 byte)" width="900">
+</a>
+</td>
+<td>&nbsp;　　　&nbsp</td>
+</tr>
+</table>
+
+<br>
+
+<ul>
+<li class="i">
+<font color="blue">tc</font>
+が50の位置で値1 を番地0 で書き込んでいます。
+</li>
+
+<li class="i">
+<font color="blue">tc</font>
+が53 の位置で値6 を番地5 で書き込んでいます。
+</li>
+
+<li class="i">
+<font color="blue">tc</font>
+が56 の位置で値3 を番地2 で書き込んでいます。
+</li>
+
+<li class="i">
+<font color="blue">tc</font>
+が59 の位置で値4 を番地3 で書き込んでいます。
+</li>
+
+<li class="i">
+<font color="blue">tc</font>
+が62 の位置で値5 を番地4 で書き込んでいます。
+</li>
+
+<li class="i">
+<font color="blue">tc</font>
+が65 の位置で値2 を番地1 で書き込んでいます。
+</li>
+
+<li class="i">
+<font color="blue">tc</font>
+が68 の位置で値7 を番地6 で書き込んでいます。
+</li>
+
+<li class="i">
+<font color="blue">tc</font>
+が71 の位置で値8 を番地7 で書き込んでいます。
+</li>
+
+<li class="i">
+<font color="blue">tc</font> 
+が75～82 の位置で読み出しデータの
+<font color="blue">DATAAOUT</font> 
+と
+<font color="blue">DATABOUT</font> 
+から同時に読み出しています。
+</li>
+
+</ul>

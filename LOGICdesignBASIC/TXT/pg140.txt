@@ -1,0 +1,221 @@
+<hr color="#4F9177" size="15">
+<font color="#336633"><b>　　BCD から2 進数変換</b></font>
+<hr color="#4F9177">
+
+<p class="i">
+8桁のBCD値から32 ビットの2進数に変換する論理を作ります。BCD値を1 桁ずつ入力していって8桁
+目を入力した後に2 進数に変換された結果が出るようにします。BCD から2 進数への変換はチップの初期化後
+に1 回だけ行います。
+</p>
+
+<br>
+
+<hr color="#6666CC" size="10">
+<font size="4" color="#5454AB"><b>　　　チップ概観</b></font><br>
+<hr color="#6666CC">
+
+<table align="right">
+<caption><font color="red">図5.73</font>　チップ概観</caption>
+<tr>
+<td>&nbsp;&nbsp</td>
+<td align="center">
+<a href="../LIB/FG09H08A.png" target="_blank">
+<img src="../LIB/FG09H08A.png" border="0" alt="FG09H08A.png(11873 byte)" width="430">
+</a>
+</td>
+<td>&nbsp;　　　&nbsp</td>
+</tr>
+</table>
+
+<p class="i">
+チップの概観は
+<font color="red">図5.73</font> 
+のようになります。
+</p>
+
+<ul>
+<li class="i">
+<font color="blue">RESET</font>
+ : チップを初期化します。
+</li>
+
+<li class="i">
+<font color="blue">BCD</font>
+ : BCD 値を一桁ずつ入力していく入り口です。
+</li>
+
+<li class="i">
+<font color="blue">DIGITNO[3]</font>
+ : BCD に入力するBCD 値の桁を示します。
+</li>
+
+<li class="i">
+<font color="blue">Q[32]</font>
+ : 8 桁のBCD 値を32 ビットの2 進数に変換した値です。
+</li>
+
+<li class="i">
+<font color="blue">EOC</font>
+ : 変換の終了を示します。
+</li>
+</ul>
+
+<br clear="right">
+
+<hr color="#4F9177" size="15">
+<font color="#336633"><b>　　BCD2 進数変換器の論理</b></font>
+<hr color="#4F9177">
+
+<p class="i">
+BCD2進数変換器の基本は
+<font color="red">リスト145</font> 
+の累算器です。これを
+<font color="red">リスト143</font> 
+の主行程で
+<font color="red">図5.74</font> 
+のように制御しています。実行の様子は
+<font color="red">図5.75</font> 
+のようになります。
+</p>
+
+<table class="i">
+<tr>
+<td valign="top">
+
+<table>
+<a name="LST143"></a>
+<caption><font color="red">　リスト143</font>　主行程</caption>
+<tr>
+<td >&nbsp;　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+if (RESET)
+   seqno=0;
+else
+   switch(seqno)
+      case 0: seqno=1;
+      case 1: seqno=0;
+   endswitch
+endif
+</font>
+</pre>
+</td>
+<td >&nbsp;　&nbsp;</td>
+</tr>
+</table>
+
+</td>
+
+<td valign="top">
+
+<table>
+<a name="LST144"></a>
+<caption><font color="red">　リスト144</font>　BCD 値桁指定</caption>
+<tr>
+<td >&nbsp;　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+if (RESET)
+   digitno=7;
+else
+   if (digitno7p)
+      digitno=digitno;
+   else
+      if (seqno==1)
+         digitno=digitno-1;
+      else
+         digitno=digitno;
+      endif
+   endif
+endif
+</font>
+</pre>
+</td>
+<td >&nbsp;　&nbsp;</td>
+</tr>
+</table>
+
+</td>
+
+<td valign="top">
+
+<table>
+<a name="LST145"></a>
+<caption><font color="red">　リスト145</font>　累算器</caption>
+<tr>
+<td >&nbsp;　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+if (RESET)
+   acc=0;
+else
+   if (digitno7p)
+      acc=acc;
+   else
+      switch(seqno)
+         case 0: acc=tmp3shift+tmp2shift;
+         case 1: acc=acc+tmp;
+      endswitch
+   endif
+endif
+</font>
+</pre>
+</td>
+<td >&nbsp;　&nbsp;</td>
+</tr>
+</table>
+
+</td>
+
+</tr>
+</table>
+
+<br>
+
+<table align="right">
+<caption><font color="red">図5.74</font>　主行程</caption>
+<tr>
+<td>&nbsp;&nbsp</td>
+<td align="center">
+<a href="../LIB/FG09H08B.png" target="_blank">
+<img src="../LIB/FG09H08B.png" border="0" alt="FG09H08B.png(25571 byte)" width="400">
+</a>
+</td>
+<td>&nbsp;　　　&nbsp</td>
+</tr>
+</table>
+
+<p class="i">
+<font color="red">図5.74</font> 
+のBCD 値は一桁分で上の桁から下の桁
+へと入力していきます。ひとつの桁のBCD 値を加
+算すると10 倍して次の桁のBCD 値を加算すると
+いうことを繰り返して8 桁分のBCD 値を2 進数
+に変換していきます。どの桁のBCD 値を入力する
+のかは
+<font color="red">リスト144</font> 
+の
+<font color="blue">digitno</font> 
+に示しますがチップの初期化の後には7 ではじまり、ひとつずつ減算
+していって0 の次で止まります。
+<font color="blue">digitno</font> 
+の減算は
+<font color="blue">seqno</font> 
+が
+<font color="red">1</font> 
+のところで行っています。累算器の
+<font color="blue">acc</font> 
+を10 倍するために非記憶の方法を使っています。
+<font color="blue">acc = acc × 8 + acc × 2</font> 
+は
+<font color="blue">acc</font> 
+を8 倍した値と2 倍し
+た値の足し算ですが8 倍は3 ビット上位にずらした値で2 倍は1 ビット上位にずらした値なので非記憶値の足
+し算で実現できます。
+</p>
+
+<br clear="right">
+

@@ -1,0 +1,188 @@
+<hr color="#6666CC" size="10">
+<font size="4" color="#5454AB"><b>　　　端末書き込み行程</b></font><br>
+<hr color="#6666CC">
+
+<br>
+
+<table align="right">
+<a name="LST170"></a>
+<caption><font color="red">　リスト170</font>　端末書き込み行程</caption>
+<tr>
+<td >&nbsp;　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+if (RESET)
+   dep=0;
+else
+   switch(termwritestart)
+      case 2:
+         switch(dep)
+            case 2: dep=0;
+            default: dep=dep+1;
+         endswitch
+   endswitch
+endif
+</font>
+</pre>
+</td>
+<td >&nbsp;　&nbsp;</td>
+</tr>
+</table>
+
+<p class="i">
+<font color="red">リスト170</font> 
+の端末書き込み行程の
+<font color="blue">dep</font> 
+は端末のメモリへの1番地分の書き込みの行程です。
+<font color="red">図5.108</font> 
+のように
+<font color="blue">3CLK</font> 
+の長さになっています。
+</p>
+
+<br>
+
+<table class="i">
+<caption><font color="red">図5.108</font>　端末書き込み行程</caption>
+<tr>
+<td>&nbsp;&nbsp</td>
+<td align="center">
+<a href="../LIB/FG09H28A.png" target="_blank">
+<img src="../LIB/FG09H28A.png" border="0" alt="FG09H28A.png(8188 byte)" width="250">
+</a>
+</td>
+<td>&nbsp;　　　&nbsp</td>
+</tr>
+</table>
+
+<br clear="right">
+
+<p class="i">
+端末書き込み開始終了行程の
+<font color="blue">termwritestart</font> 
+が
+<font color="blue">2</font> 
+のときに、この行程が動きます。
+<font color="red">図5.107</font> 
+の端末書き込み指標の
+<font color="blue">dspbcdwp</font> 
+は本行程が
+<font color="blue">0</font> 
+で
+<font color="blue">termwritestart</font> 
+が
+<font color="blue">2</font> 
+のときに
+<font color="blue">1</font> 
+になります。
+</p>
+
+<hr color="#6666CC" size="10">
+<font size="4" color="#5454AB"><b>　　　端末要求行程</b></font><br>
+<hr color="#6666CC">
+
+<br>
+
+<table align="right">
+<a name="LST171"></a>
+<caption><font color="red">　リスト171</font>　端末要求行程</caption>
+<tr>
+<td >&nbsp;　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+if (RESET)
+   setseq=0;
+else
+   switch(setseq)
+      case 0:
+         if (set) setseq=1; endif
+      case 1:
+         if (take)
+            setseq=2;
+         else
+            setseq=setseq;
+         endif
+      case 2: setseq=4;
+      case 4:
+         if (set)
+            setseq=setseq;
+         else
+            setseq=0;
+         endif
+   endswitch
+endif
+</font>
+</pre>
+</td>
+<td >&nbsp;　&nbsp;</td>
+</tr>
+</table>
+
+<p class="i">
+<font color="red">リスト171</font> 
+の端末要求行程の
+<font color="blue">setseq</font> 
+は端末が入力のあったことを示したときに対応する行程です。
+<font color="blue">12345678/</font> 
+の入力があると
+<font color="red">図5.109</font> 
+のように端末の
+<font color="blue">set</font> 
+が
+<font color="blue">1</font> 
+になって数値入力があったことが知らされます。
+</p>
+
+<br>
+
+<table class="i">
+<caption><font color="red">図5.109</font>　端末要求行程</caption>
+<tr>
+<td>&nbsp;&nbsp</td>
+<td align="center">
+<a href="../LIB/FG09H28B.png" target="_blank">
+<img src="../LIB/FG09H28B.png" border="0" alt="FG09H28B.png(15028 byte)" width="350">
+</a>
+</td>
+<td>&nbsp;　　　&nbsp</td>
+</tr>
+</table>
+
+<p class="i">
+電卓の論理は端末のメモリからBCD 値を読み出して2進数に変換してから
+<font color="blue">take</font> 
+を
+<font color="blue">1</font> 
+にします。端末の論理はこれを受けて
+<font color="blue">set</font> 
+を
+<font color="blue">1</font> 
+から
+<font color="blue">0</font> 
+に戻します。端末要求行程の
+<font color="blue">setseq</font> 
+はこれを受けて
+<font color="red">図5.110</font> 
+のように行程を
+<font color="blue">4</font> 
+から
+<font color="blue">0</font> 
+に戻します。
+</p>
+
+<br clear="right">
+
+<table class="i">
+<caption><font color="red">図5.110</font>　</caption>
+<tr>
+<td>&nbsp;&nbsp</td>
+<td align="center">
+<a href="../LIB/FG09H28C.png" target="_blank">
+<img src="../LIB/FG09H28C.png" border="0" alt="FG09H28C.png(86370 byte)" width="800">
+</a>
+</td>
+<td>&nbsp;　　　&nbsp</td>
+</tr>
+</table>

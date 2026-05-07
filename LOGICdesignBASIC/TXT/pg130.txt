@@ -1,0 +1,138 @@
+<hr color="#6666CC" size="10">
+<font size="4" color="#5454AB"><b>　　　キーボードの論理の修正</b></font><br>
+<hr color="#6666CC">
+
+<p class="i">
+端末の論理のメモリの初期化の
+<font color="blue">memclr</font> 
+で使った
+<font color="blue">OFF</font> 
+はキーボードでキーがひとつも押されていないことを示す信号です。
+<font color="blue">memclr</font> 
+では
+<span style="background-color:#FFCC00">C</span> 
+キーが離されたことを知るために使っています。
+<span style="background-color:#FFCC00">C</span> 
+キーが押されることで行
+程を開始して
+<span style="background-color:#FFCC00">C</span> 
+キーが離されるのを待って開始位置に戻ります。
+</p>
+
+<p class="i">
+このようにキーが押されたことは分かるが離されたことが分からないのでは問題があるのでキーボードの論理
+を修正して
+<font color="blue">OFF</font> 
+を追加します。修正前のキーボードの論理ではキーを押したままなら列駆動が巡回してくるた
+びに
+<font color="blue">SET</font> 
+が
+<font color="blue">1</font> 
+になっていてキーボードの論理でもキーが離されたことの認識ができていなかったので主行程の
+<font color="blue">set</font> 
+を修正してキーが離されないと元の行程に戻らないようにします。
+</p>
+
+<br>
+
+<table class="i">
+<caption><font color="red">図5.60</font> 修正後のキーボードの主行程</caption>
+<tr>
+<td>&nbsp;&nbsp</td>
+<td align="center">
+<a href="../LIB/FG09G29A.png" target="_blank">
+<img src="../LIB/FG09G29A.png" border="0" alt="FG09G29A.png(35192 byte)" width="550">
+</a>
+</td>
+<td>&nbsp;　　　&nbsp</td>
+</tr>
+</table>
+
+<br>
+
+<p class="i">
+<font color="red">リスト130</font> 
+が修正後のキーボードの論理です。
+<font color="red">図5.60</font> 
+が修正後のキーボードの行程です。キーが押されていないことの判定は各列で各行にキーが押されていないことを全列で確認できたときにキーが離されたと認識しま
+す。
+<font color="red">図5.60</font> 
+の行程の
+<font color="blue">2～5</font> 
+でキーが離されたことの確認をしています。行程が
+<font color="blue">0</font> 
+のときに
+<font color="blue">OFF</font> 
+を
+<font color="blue">1</font> 
+にします。
+</p>
+
+<table class="i">
+<a name="LST130"></a>
+<caption><font color="red">　リスト130</font>　修正後のキーボードの主行程</caption>
+<tr>
+<td >&nbsp;　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+if (RESET)
+   set=0;
+else
+   switch(set)
+      case 0:
+         if (sclkp.0)
+            if (keypush)
+               set=1;
+            endif
+         endif
+      case 1:
+         if (TAKE)
+            set=2;
+         else
+            set=set;
+         endif
+      case 2:
+         switch(count)
+            case 0:
+               switch(YIN)
+                  case 0: set=3;
+                  default: set=set;
+               endswitch
+            default: set=set;
+         endswitch
+      case 3:
+         switch(count)
+            case 1:
+               switch(YIN)
+                  case 0: set=4;
+                  default: set=2;
+               endswitch
+            default: set=set;
+         endswitch
+      case 4:
+         switch(count)
+            case 2:
+               switch(YIN)
+                  case 0: set=5;
+                  default: set=2;
+               endswitch
+            default: set=set;
+         endswitch
+      case 5:
+         switch(count)
+            case 3:
+               switch(YIN)
+                  case 0: set=0;
+                  default: set=2;
+               endswitch
+            default: set=set;
+         endswitch
+   endswitch
+endif
+</font>
+</pre>
+</td>
+<td >&nbsp;　&nbsp;</td>
+</tr>
+</table>

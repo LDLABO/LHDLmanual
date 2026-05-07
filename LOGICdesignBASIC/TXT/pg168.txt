@@ -1,0 +1,70 @@
+<br>
+
+<table>
+<tr>
+<td valign="top">
+
+<table>
+<caption><font color="red">図5.123</font>　電卓の実行(1/2)</caption>
+<tr>
+<td>&nbsp;&nbsp</td>
+<td align="center">
+<a href="../LIB/FG09J04A.png" target="_blank">
+<img src="../LIB/FG09J04A.png" border="0" alt="FG09J04A.png(95137 byte)" width="500">
+</a>
+</td>
+<td>&nbsp;　　　&nbsp</td>
+</tr>
+</table>
+
+</td>
+
+<td valign="top">
+
+<table>
+<caption><font color="red">図5.124</font>　電卓の実行(2/2)</caption>
+<tr>
+<td>&nbsp;&nbsp</td>
+<td align="center">
+<a href="../LIB/FG09J04B.png" target="_blank">
+<img src="../LIB/FG09J04B.png" border="0" alt="FG09J04B.png(211031 byte)" width="500">
+</a>
+</td>
+<td>&nbsp;　　　&nbsp</td>
+</tr>
+</table>
+
+</td>
+</tr>
+</table>
+
+<br>
+
+<hr color="#4F9177" size="15">
+<font color="#336633"><b>　　電卓のファイル</b></font>
+<hr color="#4F9177">
+
+<p class="i">
+説明は抜粋したもので行っているので全部は次のファイ
+ルを見て下さい。
+</p>
+
+<ul>
+<li class="i">
+<a href="../LIB/LDL06F08A.pdf" target="_blank">
+<font color="blue">LDL06F08A.pdf</font>
+</a>: 論理譜
+</li>
+
+<li class="i">
+<a href="../LIB/SIM06F08A.pdf" target="_blank">
+<font color="blue">SIM06F08A.pdf</font>
+</a>: 実行
+</li>
+
+<li class="i">
+<a href="../LIB/MS06F08A.lzh" target="_blank">
+<font color="blue">MS06F08A.lzh</font>
+</a>: ModelSim による実行
+</li>
+</ul>

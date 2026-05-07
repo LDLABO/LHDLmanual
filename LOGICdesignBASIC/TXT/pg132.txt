@@ -1,0 +1,195 @@
+<hr color="#6666CC" size="10">
+<font size="4" color="#5454AB"><b>　　　機能キー有効</b></font><br>
+<hr color="#6666CC">
+
+<br>
+
+<table align="right">
+<a name="LST132"></a>
+<caption><font color="red">　リスト132</font>　</caption>
+<tr>
+<td >&nbsp;　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+if (RESET)
+   set=0;
+else
+   if (setkey)
+      switch(keydata)
+         case 4:  set=1;   { = }
+         case 15: set=1;   { * }
+         case 14: set=1;   { / }
+         case 13: set=1;   { + }
+         case 8:  set=1;   { - }
+         default: set=set;
+      endswitch
+   else
+      if (TAKE)
+         set=0;
+      else
+         set=set;
+      endif
+   endif
+endif
+</font>
+</pre>
+</td>
+<td >&nbsp;　&nbsp;</td>
+</tr>
+</table>
+
+<p class="i">
+<font color="red">リスト132</font> 
+の
+<font color="blue">set</font> 
+は数値キー以外の機能キーが押されたことを示
+します。機能キーは
+<font color="red">図5.62</font> 
+のような順番で押されます。
+</p>
+
+<table class="i">
+<caption><font color="red">図5.62</font>　機能キー</caption>
+<tr>
+<td>&nbsp;&nbsp</td>
+<td align="center">
+<a href="../LIB/FG09G31A.png" target="_blank">
+<img src="../LIB/FG09G31A.png" border="0" alt="FG09G31A.png(9178 byte)" width="250">
+</a>
+</td>
+<td>&nbsp;　　　&nbsp</td>
+</tr>
+</table>
+
+<br>
+
+<p class="i">
+機能キーが押されたときはメモリには書き込みませんが次の数値
+キーの入力に備えて外にメモリの内容を読み取らせてから初期化し
+ておく必要があります。
+</p>
+
+<br clear="right">
+
+<table>
+<tr>
+<td valign="top">
+
+<hr color="#6666CC" size="10">
+<font size="4" color="#5454AB"><b>　　　機能種別</b></font><br>
+<hr color="#6666CC">
+
+<p class="i">
+<font color="red">リスト133</font> 
+の
+<font color="blue">opcode</font> 
+は出力の
+<font color="blue">FUNC</font> 
+に代入されて機能キーの種別を示します。
+</p>
+
+<table class="i">
+<a name="LST133"></a>
+<caption><font color="red">　リスト133</font>　機能種別</caption>
+<tr>
+<td >&nbsp;　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+if (RESET)
+   opcode=0;
+else
+   if (setkey)
+      switch(keydata)
+         case 4:  opcode=1;   { = }
+         case 15: opcode=2;   { * }
+         case 14: opcode=3;   { / }
+         case 13: opcode=4;   { + }
+         case 8:  opcode=5;   { - }
+         case 12: opcode=0;   { C }
+         default: opcode=opcode;
+      endswitch
+   else
+      if (TAKE)
+         opcode=0;
+      else
+         opcode=opcode;
+      endif
+   endif
+endif
+</font>
+</pre>
+</td>
+<td >&nbsp;　&nbsp;</td>
+</tr>
+</table>
+
+</td>
+
+<td valign="top" bgcolor="#66CCCC">
+
+</td>
+
+<td valign="top">
+
+<hr color="#6666CC" size="10">
+<font size="4" color="#5454AB"><b>　　　キー入力起点</b></font><br>
+<hr color="#6666CC">
+
+<p class="i">
+<font color="red">リスト134</font> 
+の
+<font color="blue">setkeyp</font> 
+はキーの入力された起点を示します。
+<font color="red">図5.63</font> 
+が行程です。
+</p>
+
+<table class="i">
+<a name="LST134"></a>
+<caption><font color="red">　リスト134</font>　キー入力起点</caption>
+<tr>
+<td >&nbsp;　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+if (RESET)
+   setkeyp=0;
+else
+   switch(setkeyp)
+      case 0: 
+         if (setkey) setkeyp=1; endif
+      case 1:
+         setkeyp=2;
+      case 2:
+         if (setkey)
+            setkeyp=setkeyp;
+         else
+            setkeyp=0;
+         endif
+   endswitch
+endif
+</font>
+</pre>
+</td>
+<td >&nbsp;　&nbsp;</td>
+</tr>
+</table>
+
+<table class="i">
+<caption><font color="red">図5.63</font>　キー入力起点の行程</caption>
+<tr>
+<td>&nbsp;&nbsp</td>
+<td align="center">
+<a href="../LIB/FG09G31B.png" target="_blank">
+<img src="../LIB/FG09G31B.png" border="0" alt="FG09G31B.png(11594 byte)" width="250">
+</a>
+</td>
+<td>&nbsp;　　　&nbsp</td>
+</tr>
+</table>
+
+</td>
+</tr>
+</table>

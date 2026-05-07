@@ -1,0 +1,178 @@
+<br>
+
+<table class="i">
+<a name="LST127"></a>
+<caption><font color="red">　リスト127</font>　論理追加の表示器のデバイス</caption>
+<tr>
+<td >&nbsp;　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+cpldfit:  version I.33                              Xilinx Inc.
+                                  Fitter Report
+Design Name: main                                Date:  9-27-2008,  4:09PM
+Device Used: XC9536-5-PC44
+Fitting Status: Successful
+
+*************************  Mapped Resource Summary  **************************
+
+Macrocells     Product Terms    Function Block   Registers      Pins           
+Used/Tot       Used/Tot         Inps Used/Tot    Used/Tot       Used/Tot       
+25 /36  ( 69%) 65  /180  ( 36%) 26 /72  ( 36%)   10 /36  ( 28%) 19 /34  ( 56%)
+</font>
+</pre>
+</td>
+<td >&nbsp;　&nbsp;</td>
+</tr>
+</table>
+
+<hr color="#6666CC" size="10">
+<font size="4" color="#5454AB"><b>　　　キー符号の数値への変換</b></font><br>
+<hr color="#6666CC">
+
+<br>
+
+<table align="right">
+<a name="LST128"></a>
+<caption><font color="red">　リスト128</font>　キー符号の数値への変換</caption>
+<tr>
+<td >&nbsp;　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+switch(keydata)
+   case 0:  data=0;
+   case 1:  data=1;
+   case 5:  data=2;
+   case 9:  data=3;
+   case 2:  data=4;
+   case 6:  data=5;
+   case 10: data=6;
+   case 3:  data=7;
+   case 7:  data=8;
+   case 11: data=9;
+   from:
+      if (setkeyp.0) memset=1; endif
+endswitch
+</font>
+</pre>
+</td>
+<td >&nbsp;　&nbsp;</td>
+</tr>
+</table>
+
+<p class="i">
+<font color="red">リスト128</font> 
+の
+<font color="blue">data</font> 
+はキー符号の
+<font color="blue">keydata</font> 
+を数値に変換したメモリへの「せり上がり書き込み」の書き込み値です。
+<font color="blue">memset</font> 
+はメモリへの「せり上がり書き込み」の書き込み指標
+です。
+</p>
+
+<br clear="right">
+
+<hr color="#6666CC" size="10">
+<font size="4" color="#5454AB"><b>　　　メモリ初期化</b></font><br>
+<hr color="#6666CC">
+
+<br>
+
+<table align="right">
+<a name="LST129"></a>
+<caption><font color="red">　リスト129</font>　メモリ初期化</caption>
+<tr>
+<td >&nbsp;　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+if (RESET)
+   memclr=1;
+else
+   switch(memclr)
+      case 0:
+         if (TAKE)
+            memclr=1;
+         else
+            switch(setkey,keydata)
+               case 1,12: memclr=1;
+            endswitch
+         endif
+      case 1:
+         memclr=2;
+      case 2:
+         if (OFF)
+            memclr=0;
+         else
+            if (TAKE)
+               memclr=memclr;
+            else
+               memclr=0;
+            endif
+         endif
+   endswitch
+endif
+</font>
+</pre>
+</td>
+<td >&nbsp;　&nbsp;</td>
+</tr>
+</table>
+
+<p class="i">
+<font color="red">リスト129</font> 
+の
+<font color="blue">memclr</font> 
+はメモリ初期化の行程を
+<font color="red">図5.59</font> 
+のように示しています。
+<font color="blue">memclr</font> 
+が
+<font color="blue">行程1</font> 
+のときにメモリを初期化します。
+</p>
+
+<table class="i">
+<caption><font color="red">図5.59</font> メモリ初期化の行程</caption>
+<tr>
+<td>&nbsp;&nbsp</td>
+<td align="center">
+<a href="../LIB/FG09G28A.png" target="_blank">
+<img src="../LIB/FG09G28A.png" border="0" alt="FG09G28A.png(14726 byte)" width="300">
+</a>
+</td>
+<td>&nbsp;　　　&nbsp</td>
+</tr>
+</table>
+
+<p class="i">
+<font color="blue">setkey</font> 
+が
+<font color="blue">1</font> 
+で
+<font color="blue">keydata</font> 
+が
+<font color="blue">12</font> 
+のときに
+<span style="background-color:#FF9933">C</span> 
+キーが押されたと認識します。
+<font color="blue">OFF</font> 
+が
+<font color="blue">1</font><span style="background-color:#FFCC66"></span> 
+のとき
+<span style="background-color:#FF9933">C</span> 
+キーは離されたと認識します。
+</p>
+
+<p class="i">
+<font color="blue">TAKE</font> 
+が
+<font color="blue">1</font> 
+になったときはメモリの内容が読み取られて初期
+化が可能になったと認識します。
+</p>
+
+<br clear="right">

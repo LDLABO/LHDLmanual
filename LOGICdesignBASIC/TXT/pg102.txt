@@ -1,0 +1,130 @@
+<hr color="#6666CC" size="10">
+<font size="4" color="#5454AB"><b>　　　キー押し下げ</b></font><br>
+<hr color="#6666CC">
+
+<br>
+
+<table align="right">
+<a name="LST100"></a>
+<caption><font color="red">　リスト100</font>　キー押し下げ</caption>
+<tr>
+<td >&nbsp;　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+switch(tp)
+   case 0:
+      switch(node_XSEL)
+         case 1: YIN.0=1;   { 0 }
+      endswitch
+   case 1:
+      switch(node_XSEL)
+         case 1: YIN.1=1;   { 1 }
+      endswitch
+   case 2:
+      switch(node_XSEL)
+         case 1: YIN.2=1;   { 4 }
+      endswitch
+   case 3:
+      switch(node_XSEL)
+         case 1: YIN.3=1;   { 7 }
+      endswitch
+   case 4:
+      switch(node_XSEL)
+         case 2: YIN.0=1;   { = }
+                 YIN.1=1;
+      endswitch
+   case 5:
+      switch(node_XSEL)
+         case 2: YIN.1=1;   { 2 }
+      endswitch
+   case 6:
+      switch(node_XSEL)
+         case 2: YIN.2=1;   { 5 }
+      endswitch
+   case 7:
+      switch(node_XSEL)
+         case 2: YIN.3=1;   { 8 }
+      endswitch
+   case 8:
+      switch(node_XSEL)
+         case 4: YIN.0=1;   { - }
+      endswitch
+   case 9:
+      switch(node_XSEL)
+         case 4: YIN.1=1;   { 3 }
+      endswitch
+   case 10:
+      switch(node_XSEL)
+         case 4: YIN.2=1;   { 6 }
+      endswitch
+   case 11:
+      switch(node_XSEL)
+         case 4: YIN.3=1;   { 9 }
+      endswitch
+   case 12:
+      switch(node_XSEL)
+         case 8: YIN.0=1;   { C }
+      endswitch
+   case 13:
+      switch(node_XSEL)
+         case 8: YIN.1=1;   { + }
+      endswitch
+   case 14:
+      switch(node_XSEL)
+         case 8: YIN.2=1;   { / }
+      endswitch
+   case 15:
+      switch(node_XSEL)
+         case 8: YIN.3=1;   { * }
+      endswitch
+endswitch
+</font>
+</pre>
+</td>
+<td >&nbsp;　&nbsp;</td>
+</tr>
+</table>
+
+<p class="i">
+<font color="red">リスト100</font> 
+はキーをキーデータが
+<font color="blue">0</font> 
+から順番に
+<font color="blue">15</font>
+になるように押し下げる論理です。押し下げた回数で
+押すキーが決まりますが押し下げた回数は
+<font color="blue">tp</font> 
+に示されています。列が
+<font color="blue">node_XSEL</font> 
+で示されるので該当するキーの列が駆動される値で
+<font color="blue">YIN</font> 
+に該当値を出力します。
+</p>
+
+<table class="i">
+<caption><font color="red">図5.17</font> キーボードの検証B</caption>
+<tr>
+<td>&nbsp;&nbsp</td>
+<td align="center">
+<a href="../LIB/FG09G01A.png" target="_blank">
+<img src="../LIB/FG09G01A.png" border="0" alt="FG09G01A.png(163212 byte)" width="450">
+</a>
+</td>
+<td>&nbsp;　　　&nbsp</td>
+</tr>
+</table>
+
+<p class="i">
+<font color="blue">case 4</font> 
+のところは
+<font color="blue">YIN</font> 
+のふたつの端子が1 になる
+ようにしてあります。これは優先順位がつけられているので
+<font color="blue">YIN.0</font> 
+だけが押されたかのように処理されている様子が
+<font color="red">図5.17</font> 
+です。
+</p>
+
+<br clear="right">

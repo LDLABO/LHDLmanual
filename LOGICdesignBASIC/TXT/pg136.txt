@@ -1,0 +1,55 @@
+<br>
+
+<table>
+<tr>
+<td valign="top">
+
+<table>
+<caption><font color="red">図5.67</font>　メモリの読み出し検査手順①の後</caption>
+<tr>
+<td>&nbsp;&nbsp</td>
+<td align="center">
+<a href="../LIB/FG09H04A.png" target="_blank">
+<img src="../LIB/FG09H04A.png" border="0" alt="FG09H04A.png(153427 byte)" width="400">
+</a>
+</td>
+<td>&nbsp;　　　&nbsp</td>
+</tr>
+</table>
+
+</td>
+
+<td valign="top">
+
+<table>
+<caption><font color="red">図5.68</font>　メモリの読み出し検査手順③の後</caption>
+<tr>
+<td>&nbsp;&nbsp</td>
+<td align="center">
+<a href="../LIB/FG09H04B.png" target="_blank">
+<img src="../LIB/FG09H04B.png" border="0" alt="FG09H04B.png(161955 byte)" width="400">
+</a>
+</td>
+<td>&nbsp;　　　&nbsp</td>
+</tr>
+</table>
+
+</td>
+
+</tr>
+</table>
+
+<br>
+
+<table>
+<caption><font color="red">図5.69</font>　メモリの読み出し検査手順④の後</caption>
+<tr>
+<td>&nbsp;&nbsp</td>
+<td align="center">
+<a href="../LIB/FG09H04C.png" target="_blank">
+<img src="../LIB/FG09H04C.png" border="0" alt="FG09H04C.png(140654 byte)" width="800">
+</a>
+</td>
+<td>&nbsp;　　　&nbsp</td>
+</tr>
+</table>

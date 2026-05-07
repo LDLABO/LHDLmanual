@@ -1,0 +1,220 @@
+<hr color="#6666CC" size="10">
+<font size="4" color="#5454AB"><b>　　　レジスタ</b></font><br>
+<hr color="#6666CC">
+
+<p class="i">
+電卓の論理は
+<font color="blue">A</font> 
+と
+<font color="blue">B</font> 
+の2 本のレジスタを持っていて計算はこれらのレジスタに記憶された数値に対して行わ
+れて計算の結果は
+<font color="blue">A</font> 
+に記憶されます。端末のキー操作に対するレジスタへの置数と計算の結果によるレジスタ
+<font color="blue">A</font>
+の更新は
+<font color="red">図5.119</font> 
+と
+<font color="red">図5.120</font> 
+のようになります。
+</p>
+
+<table class="i">
+<tr>
+<td valign="top">
+
+<table>
+<caption><font color="red">図5.119</font>　レジスタの置数(1/2)</caption>
+<tr>
+<td>&nbsp;&nbsp</td>
+<td align="center">
+<a href="../LIB/FG09J02A.png" target="_blank">
+<img src="../LIB/FG09J02A.png" border="0" alt="FG09J02A.png(21644 byte)" width="250">
+</a>
+</td>
+<td>&nbsp;　　　&nbsp</td>
+</tr>
+</table>
+
+</td>
+
+<td valign="top">
+
+<table>
+<caption><font color="red">図5.120</font>　レジスタの置数(2/2)</caption>
+<tr>
+<td>&nbsp;&nbsp</td>
+<td align="center">
+<a href="../LIB/FG09J02B.png" target="_blank">
+<img src="../LIB/FG09J02B.png" border="0" alt="FG09J02B.png(26717 byte)" width="340">
+</a>
+</td>
+<td>&nbsp;　　　&nbsp</td>
+</tr>
+</table>
+
+</td>
+
+</tr>
+</table>
+
+<p class="i">
+<font color="red">リスト181</font> 
+はレジスタ
+<font color="blue">A</font> 
+の論理を示します。
+<font color="red">リスト182</font> 
+はレジスタ
+<font color="blue">B</font> 
+の論理を示します。レジスタ
+<font color="blue">A</font> 
+は主行程の
+<font color="blue">calcseq</font> 
+が
+<font color="blue">4</font> 
+の「計算の終了」のときに実効計算の
+<font color="blue">execop</font> 
+が
+<font color="blue">0</font> 
+なら
+<font color="blue">regB</font> 
+の値を
+<font color="blue">0</font> 
+以外なら計算の結果の
+<font color="blue">answer</font> 
+の値を
+<font color="red">図5.118</font> 
+のように
+<font color="blue">regA</font> 
+に記憶します。
+</p>
+
+<table align="right">
+<caption><font color="red">図5.121</font>　レジスタBの記憶</caption>
+<tr>
+<td>&nbsp;&nbsp</td>
+<td align="center">
+<a href="../LIB/FG09J02C.png" target="_blank">
+<img src="../LIB/FG09J02C.png" border="0" alt="FG09J02C.png(52675 byte)" width="370">
+</a>
+</td>
+<td>&nbsp;　　　&nbsp</td>
+</tr>
+</table>
+
+<p class="i">
+レジスタ
+<font color="blue">B</font> 
+は端末に入力された2番目以降の数値が
+BCD 値から2 進数に変換される
+<font color="blue">setseq</font> 
+が
+<font color="blue">2</font> 
+になるのを待ってBCD2進数変換器の変換結果の
+<font color="blue">bin</font> 
+の値を
+<font color="red">図5.121</font> 
+のように
+<font color="blue">regB</font> 
+に記憶します。
+</p>
+
+<br clear="right"><br>
+
+<hr color="#4F9177" size="15">
+<font color="#336633"><b>　　電卓の検証</b></font>
+<hr color="#4F9177">
+
+<p class="i">
+電卓の入力は端末のキーボードから出力は端末の表示器に行われます。検証論理は次に示すようなキーを押す
+論理を作ることになります。
+</p>
+
+<table align="right">
+<tr>
+<td>&nbsp;&nbsp</td>
+<td align="left">
+
+<ul>
+<li><font color="blue">12345678/90=</font></li>
+<li><font color="blue">1234+5678+9012=</font></li>
+<li><font color="blue">12345678</font></li>
+</ul>
+
+</td>
+<td>&nbsp;　　　&nbsp</td>
+</tr>
+</table>
+
+<p class="i">
+キーの押し下げは端末の論理がキーを読み取るまで押し下げている必要があ
+ります。次のキーを押し下げるときは端末の論理がキーが離されていることを
+認識した後に行う必要があります。このために端末の論理の
+<font color="blue">OFF</font> 
+を使います。
+端末の論理がキーが離されていることを認識しているときに
+<font color="blue">OFF</font> 
+を
+<font color="blue">1</font> 
+にして
+示します。ここまでなら端末の検証で使った検証論理をそのまま使うこともできますが電卓の論理ではBCD 値
+を2 進数に変換したり、2 進数をBCD 値に変換したり、乗算や除算などの計算を行っていますので、これらの
+行程を待ってキーを押す必要もあります。
+</p>
+
+<br clear="right">
+
+<table align="right">
+<a name="LST183"></a>
+<caption><font color="red">　リスト183</font>　キー入力の抑制</caption>
+<tr>
+<td >&nbsp;　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+switch(calcseq)
+   case 0:
+      switch(termwritestart)
+         case 1: WAIT=1;
+         case 2: WAIT=1;
+      endswitch
+   default: WAIT=1;
+endswitch
+</font>
+</pre>
+</td>
+<td >&nbsp;　&nbsp;</td>
+</tr>
+</table>
+
+<p class="i">
+このために
+<font color="red">リスト183</font> 
+のキー入力の抑制の
+<font color="blue">WAIT</font> 
+を使います。
+<font color="blue">WAIT</font> 
+は電卓の論理が端末のメモリに書き込んでいる
+<font color="blue">termwritestart</font> 
+が
+<font color="blue">1</font> 
+と
+<font color="blue">2</font>
+のときと何らかの行程が進んでいる
+<font color="blue">calcseq</font> 
+が
+<font color="blue">0</font> 
+以外のときは
+<font color="blue">1</font> 
+になるので検証の論理はこれを避けてキーを押すようにします。
+<font color="blue">WAIT</font> 
+を使わなかった場合には電卓の論理が端末のメモリに書き込む値とキーボードから
+入力された値とが入り乱れて端末の表示器に表示されることになり電卓の
+動きを表示器から検証することができなくなります。
+<font color="blue">OFF</font> 
+も
+<font color="blue">WAIT</font> 
+も検証の論理のために電卓の論理の外に引き出した信号です。
+</p>
+
+<br clear="right">

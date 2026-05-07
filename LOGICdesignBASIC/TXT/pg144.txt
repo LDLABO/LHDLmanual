@@ -1,0 +1,182 @@
+<hr color="#4F9177" size="15">
+<font color="#336633"><b>　　32ビット除算器の検証</b></font>
+<hr color="#4F9177">
+
+<br>
+
+<table align="right">
+<a name="LST148"></a>
+<caption><font color="red">　リスト148</font>　32 ビット除算器</caption>
+<tr>
+<td >&nbsp;　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+entity main
+input  RESET;
+input  A[32];
+input  B[32];
+input  SEL;
+output Y[32];
+output READY;
+
+bitr   p[64];
+bitr   q[32];
+bitn   c[33];
+bitn   np[33];
+bitn   nb[33];
+bitr   count[6];
+bitn   stop;
+
+   np.0:31=p.32:63;
+   nb.0:31=B;
+
+   if (RESET)
+      p.0:31=A;
+   else
+      if (stop)
+         p=p;
+      else
+         if (c.32)
+            p.1:63=p.0:62;
+         else
+            p.33:63=c.0:30;
+            p.1:32=p.0:31;
+         endif
+      endif
+   endif
+
+   c=np-nb;
+
+   if (RESET)
+      q=0;
+   else
+      if (stop)
+         q=q;
+      else
+         if (c.32)
+            q.1:31=q.0:30;
+         else
+            q.0=1;
+            q.1:31=q.0:30;
+         endif
+      endif
+   endif
+
+   if (RESET)
+      count=0;
+   else
+      if (stop)
+         count=count;
+      else
+         count=count+1;
+      endif
+   endif
+
+   if (count==33) stop=1; endif
+
+   if (SEL)
+      Y=np.1:32;
+   else
+      Y=q;
+   endif
+
+   READY=stop;
+ende
+</font>
+</pre>
+</td>
+<td >&nbsp;　&nbsp;</td>
+</tr>
+</table>
+
+<p class="i">
+<font color="red">リスト149</font> 
+の検証で次の計算を実行しています。
+</p>
+
+<ul>
+<li class="i">12345678 ÷ 90 = 137174 余り 18</li>
+<li class="i">98765432 ÷ 11 = 8978675 余り 7</li>
+</ul>
+
+<p class="i">
+1番目の実行は
+<font color="red">図5.81</font> 
+を見て下さい2番目の実行は
+<font color="red">図5.82</font> 
+を見て下さい。
+</p>
+
+<table class="i">
+<a name="LST149"></a>
+<caption><font color="red">　リスト149</font>　機能実行譜</caption>
+<tr>
+<td >&nbsp;　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+entity sim
+output RESET;
+output A[32];
+output B[32];
+output SEL;
+output Y[32];
+output READY;
+
+bitr   tc[8];
+
+   part main(RESET,A,B,SEL,Y,READY)
+
+   tc=tc+1;
+
+   if (tc<5) RESET=1; endif
+   if (tc==105) RESET=1; endif
+
+   if (tc<100)        { 1番目の除算 }
+      A=12345678;
+      B=90;
+   else               { 2番目の除算 }
+      A=98765432;
+      B=11;
+   endif
+
+   if ((tc>42)&(tc<142)) SEL=1; endif
+ende
+</font>
+</pre>
+</td>
+<td >&nbsp;　&nbsp;</td>
+</tr>
+</table>
+
+<p class="i">
+<font color="blue">A</font> 
+と
+<font color="blue">B</font> 
+に値を代入して
+<font color="blue">RESET</font> 
+を
+<font color="blue">1→0</font> 
+にすると計算が開始されて
+<font color="blue">READY</font> 
+が
+<font color="blue">1</font> 
+になると計算は終わります。
+<font color="blue">Y</font> 
+には
+<font color="blue">SEL</font> 
+が
+<font color="blue">0</font> 
+のときには商が
+<font color="blue">0</font> 
+のときには余りが出力されています。
+<font color="blue">ModelSim</font> 
+による実行は
+<font color="red">図5.83</font> 
+と
+<font color="red">図5.84</font> 
+を見て下さい。
+</p>
+
+<br clear="right">
