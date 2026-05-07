@@ -1,0 +1,199 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+   <title></title>
+<LINK Type="TEXT/css" Rel="stylesheet" Href="main.css">
+<style type="text/css">
+<!--
+body, th, td { line-height: 150%; }
+.i { MARGIN-left: 1em; MARGIN-right: 1em; }
+-->
+</style>
+</head>
+<body  background="../LIB/TOPIMG.JPG">
+<table border="1" cellspacing="0" width=" 900 " height=" 450 ">
+   <tr bgcolor="navy">
+<td>
+<table>
+<tr>
+<td><a href="pg103.html"><font color="white">＜</font></a></td>
+<td><font color="white"><a href="pg0.html">□</a></font></td>
+<td><a href="pg105.html"><font color="white">＞</font></a></td>
+</tr>
+</table>
+</td>
+      <td width=" 500 " height=" 20 " colspan="1" align="left">
+<td align="center"><font color="white">
+No.104
+</font></td>
+   </td>
+   </tr>
+   <tr>
+      <td width=" 20 " bgcolor="lightgray">　
+</td>
+      <td height=" 500 " bgcolor="white">
+<!--  -->
+<table border="0" cellspacing="0">
+   <tr>
+      <td height=" 20 " colspan="3">
+</td>
+   </tr>
+   <tr>
+      <td width=" 50 ">
+</td>
+      <td>
+<!--  -->
+<br>
+
+<table align="right">
+<caption><font color="red">図5.19</font> 検証の構造</caption>
+<tr>
+<td>&nbsp;&nbsp</td>
+<td align="center">
+<a href="../LIB/FG09G03A.png" target="_blank">
+<img src="../LIB/FG09G03A.png" border="0" alt="FG09G03A.png(36034 byte)" width="350">
+</a>
+</td>
+<td>&nbsp;　　　&nbsp</td>
+</tr>
+</table>
+
+<p class="i">
+キーボードは機械的な部分がありますから加算器などの演算器
+の検証とはだいぶ様子が違います。キーを押すことを検証論理で
+行うには設計論理が列を駆動するのに対応する論理を書くこと
+になります。設計論理の出力に対応する検証論理を作って設計論
+理が装置の中に組み込まれて思ったように動くかどうかを見ま
+す。
+<font color="red">図5.19</font> 
+の機能実行譜の
+<font color="blue">entity sim</font> 
+の中に設計論理である
+<font color="blue">entity</font> 
+の実効譜または
+<font color="blue">procedure</font> 
+の手続き譜を展開して、それ
+に検証論理を接続して実行します。
+<font color="blue">entity sim</font> 
+の中で作る論理は通常の論理設計と同じです。違うのは設計論理に検証論理がつ
+ながっていて設計論理の出力を受けながら設計論理の入力を作り
+出して設計論理を駆動して見せているところです。ですから検証
+論理をチップにすることも、他のシミュレータで実行することも
+できます。実体としては普通に論理設計されたものと同じもので
+す。機能実行譜は
+<font color="red">図5.20</font> 
+のように論理譜の持つ3 種類の枠組みのひとつです。
+</p>
+
+<br clear="right">
+
+<br>
+
+<table align="right">
+<caption><font color="red">図5.20</font> 論理譜の構造</caption>
+<tr>
+<td>&nbsp;&nbsp</td>
+<td align="center">
+<a href="../LIB/FG09G03B.png" target="_blank">
+<img src="../LIB/FG09G03B.png" border="0" alt="FG09G03B.png(31298 byte)" width="350">
+</a>
+</td>
+<td>&nbsp;　　　&nbsp</td>
+</tr>
+</table>
+
+<ul>
+<li class="i">
+手続き譜は実効譜の中に引用
+<a href="#*2"><font color="red">*2</font></a>
+されて実効譜の一部になっ
+たり、機能実行譜に引用されて検証されたり、または検証
+論理で利用したりします。機能実行譜はライブラリの中の
+手続きを引用して検証したり、検証論理に利用したりでき
+ます。
+</li>
+
+<li class="i">
+実効譜は実際にチップにする論理を書いてありますが他の
+実効譜を導入
+<a href="#*3"><font color="red">*3</font></a>
+することもできます。機能実行譜は名前が
+<font color="blue">sim</font> 
+と決められた特別の実効譜として他の実効譜を導入し
+たり手続きを引用したりして機能実行譜の中の検証論理と
+接続して検証するためにあります。
+</li>
+
+<li class="i">
+機能実行譜は他の枠組みから引用されたり導入されたり
+することはありません。機能実行譜だけが論理式の他にテストベンチを出力します。テストベンチは
+<font color="blue">ModelSim</font> 
+などの他の開発環境のシミュレータを使って実行結果を見るために利用します、
+<font color="red">図5.21</font> 
+は
+<font color="blue">ModelSim</font> 
+で実行した様子の一部です。全部は
+<a href="../LIB/MS06E04A1.lzh" target="_blank">
+<font color="blue">MS06E04A1.lzh</font> 
+</a>
+を展開して見て下さい。
+</li>
+</ul>
+
+<br clear="right">
+
+<br>
+
+<p class="i">
+論理譜の持つ3 種類の枠組みは論理譜の中にいくつ書いてあってもかまいませんが引用されたり導入されたり
+する枠は引用しているところや導入しているところより先に書いていないと引用や導入の対象を見つけられま
+せん。
+</p>
+
+<p class="i">
+論理設計は
+全く新しい論理を作ったり、前に書いた論理を流用して追加してみたり、ライブラリから引用し
+て追加してみたり、するわけですが、その
+度にこまめに検証しながら設計を進めていきます。検証による実行の
+様子を見ることで作った論理が思ったように動くだけでなく、より効率のよいものに修正されていく機会が増え
+ると思います。
+</p>
+
+<hr>
+
+<table class="i" bgcolor="#FFFF99">
+<tr>
+<td>
+<font size="2">
+<a name="*2"><font color="red">*2</font></a>
+y=f(x) のf のように
+<br>
+<a name="*3"><font color="red">*3</font></a>
+part f(x) のf のように
+</font>
+</td>
+</tr>
+</table>
+<!--  -->
+      </td>
+      <td width=" 50 ">
+</td>
+   </tr>
+   <tr>
+      <td height=" 20 "  colspan="3">
+</td>
+   </tr>
+</table>
+<!--  -->
+      </td>
+      <td width=" 50 " bgcolor="lightgray">
+</td>
+   </tr>
+   <tr bgcolor="gray">
+      <td height=" 20 "  colspan="3">
+</td>
+   </tr>
+</table>
+</body>
+</html>

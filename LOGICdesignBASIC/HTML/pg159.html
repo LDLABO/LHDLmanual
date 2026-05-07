@@ -1,0 +1,217 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+   <title></title>
+<LINK Type="TEXT/css" Rel="stylesheet" Href="main.css">
+<style type="text/css">
+<!--
+body, th, td { line-height: 150%; }
+.i { MARGIN-left: 1em; MARGIN-right: 1em; }
+-->
+</style>
+</head>
+<body  background="../LIB/TOPIMG.JPG">
+<table border="1" cellspacing="0" width=" 900 " height=" 450 ">
+   <tr bgcolor="navy">
+<td>
+<table>
+<tr>
+<td><a href="pg158.html"><font color="white">＜</font></a></td>
+<td><font color="white"><a href="pg0.html">□</a></font></td>
+<td><a href="pg160.html"><font color="white">＞</font></a></td>
+</tr>
+</table>
+</td>
+      <td width=" 500 " height=" 20 " colspan="1" align="left">
+<td align="center"><font color="white">
+No.159
+</font></td>
+   </td>
+   </tr>
+   <tr>
+      <td width=" 20 " bgcolor="lightgray">　
+</td>
+      <td height=" 500 " bgcolor="white">
+<!--  -->
+<table border="0" cellspacing="0">
+   <tr>
+      <td height=" 20 " colspan="3">
+</td>
+   </tr>
+   <tr>
+      <td width=" 50 ">
+</td>
+      <td>
+<!--  -->
+<br>
+
+<table>
+<caption><font color="red">図5.106</font>　計算結果の消去の実行</caption>
+<tr>
+<td>&nbsp;&nbsp</td>
+<td align="center">
+<a href="../LIB/FG09H27A.png" target="_blank">
+<img src="../LIB/FG09H27A.png" border="0" alt="FG09H27A.png(70337 byte)" width="850">
+</a>
+</td>
+<td>&nbsp;　　　&nbsp</td>
+</tr>
+</table>
+
+<br>
+
+<p class="i">
+<font color="red">図5.106</font> 
+は
+<font color="blue">1234+5678+9012=</font> 
+の入力で
+<span style="background-color:#CC9900">「9」</span> 
+が離された後の計算結果の消去の実行です。書き込み番地は
+<font color="blue">1</font>
+から始まって書き込み値は全部
+<font color="blue">0</font> 
+です。
+<font color="blue">termwritestart</font> 
+の行程が
+<font color="blue">1</font> 
+から始まっています。
+</p>
+
+<br>
+
+<table>
+<caption><font color="red">図5.107</font>　計算結果の表示の実行</caption>
+<tr>
+<td>&nbsp;&nbsp</td>
+<td align="center">
+<a href="../LIB/FG09H27B.png" target="_blank">
+<img src="../LIB/FG09H27B.png" border="0" alt="FG09H27B.png(72013 byte)" width="850">
+</a>
+</td>
+<td>&nbsp;　　　&nbsp</td>
+</tr>
+</table>
+
+<br>
+
+<p class="i">
+<font color="red">図5.107</font> 
+は
+<font color="blue">1234+5678+9012=</font> 
+の入力で
+<font color="blue">1234+5678+</font> 
+の後の計算結果の書き込みの実行です。
+<font color="blue">termwritestart</font> 
+の行程が
+<font color="blue">2</font> 
+から始まっています。
+</p>
+
+<br>
+
+<hr color="#6666CC" size="10">
+<font size="4" color="#5454AB"><b>　　　端末書き込み計数</b></font><br>
+<hr color="#6666CC">
+
+<br>
+
+<table align="right">
+<a name="LST169"></a>
+<caption><font color="red">　リスト169</font>　端末書き込み計数</caption>
+<tr>
+<td >&nbsp;　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+if (RESET)
+   tmpcount=0;
+else
+   switch(tmpcount)
+      case 7:
+         switch(termwritestart)
+            case 3:  tmpcount=0;
+            default: tmpcount=tmpcount;
+         endswitch
+      default:
+         if (ep)
+            tmpcount=tmpcount+1;
+         else
+            switch(termwritestart)
+               case 1: tmpcount=1;
+               default: tmpcount=tmpcount;
+            endswitch
+         endif
+   endswitch
+endif
+</font>
+</pre>
+</td>
+<td >&nbsp;　&nbsp;</td>
+</tr>
+</table>
+
+<p class="i">
+<font color="red">リスト169</font> 
+の端末書き込み計数の
+<font color="blue">tmpcount</font> 
+は端末のメモリに書き込むための計数で
+<font color="blue">addb</font> 
+に代入して
+<font color="red">図5.107</font> 
+のように番地に使っています。端末書き込み起点の
+<font color="blue">ep</font> 
+によって計数が進められます。端末書き込み開始終了行程の
+<font color="blue">termwritestart</font>
+が
+<font color="blue">1</font> 
+のときは計数の初期値を
+<font color="blue">1</font> 
+にします。計数は
+<font color="blue">7</font> 
+で停止して
+<font color="blue">termwritestart</font> 
+が
+<font color="blue">3</font> 
+になったら
+<font color="blue">0</font> 
+に初期化します。
+</p>
+
+<p class="i">
+端末書き込み起点の
+<font color="blue">ep</font> 
+は
+<font color="red">リスト170</font> 
+の端末書き込み行程の
+<font color="blue">dep</font> 
+が
+<font color="blue">2</font> 
+のときに
+<font color="blue">1</font> 
+になります。
+</p>
+
+<br clear="right">
+<!--  -->
+      </td>
+      <td width=" 50 ">
+</td>
+   </tr>
+   <tr>
+      <td height=" 20 "  colspan="3">
+</td>
+   </tr>
+</table>
+<!--  -->
+      </td>
+      <td width=" 50 " bgcolor="lightgray">
+</td>
+   </tr>
+   <tr bgcolor="gray">
+      <td height=" 20 "  colspan="3">
+</td>
+   </tr>
+</table>
+</body>
+</html>

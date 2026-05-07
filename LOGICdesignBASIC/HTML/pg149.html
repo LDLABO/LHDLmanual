@@ -1,0 +1,150 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+   <title></title>
+<LINK Type="TEXT/css" Rel="stylesheet" Href="main.css">
+<style type="text/css">
+<!--
+body, th, td { line-height: 150%; }
+.i { MARGIN-left: 1em; MARGIN-right: 1em; }
+-->
+</style>
+</head>
+<body  background="../LIB/TOPIMG.JPG">
+<table border="1" cellspacing="0" width=" 900 " height=" 450 ">
+   <tr bgcolor="navy">
+<td>
+<table>
+<tr>
+<td><a href="pg148.html"><font color="white">＜</font></a></td>
+<td><font color="white"><a href="pg0.html">□</a></font></td>
+<td><a href="pg150.html"><font color="white">＞</font></a></td>
+</tr>
+</table>
+</td>
+      <td width=" 500 " height=" 20 " colspan="1" align="left">
+<td align="center"><font color="white">
+No.149
+</font></td>
+   </td>
+   </tr>
+   <tr>
+      <td width=" 20 " bgcolor="lightgray">　
+</td>
+      <td height=" 500 " bgcolor="white">
+<!--  -->
+<table border="0" cellspacing="0">
+   <tr>
+      <td height=" 20 " colspan="3">
+</td>
+   </tr>
+   <tr>
+      <td width=" 50 ">
+</td>
+      <td>
+<!--  -->
+<hr color="#4F9177" size="15">
+<font color="#336633"><b>　　2 進数BCD 変換器のデバイス</b></font>
+<hr color="#4F9177">
+
+<p class="i">
+2 進数BCD 変換器の論理は
+<font color="blue">XC2C256</font> 
+に入りました。
+</p>
+
+
+<table class="i">
+<a name="LST160"></a>
+<caption><font color="red">　リスト160</font>　XC2C256</caption>
+<tr>
+<td >&nbsp;　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+cpldfit:  version I.33                              Xilinx Inc.
+                                  Fitter Report
+Design Name: main                                Date: 10-14-2008,  9:53PM
+Device Used: XC2C256-7-TQ144
+Fitting Status: Successful
+
+*************************  Mapped Resource Summary  **************************
+
+Macrocells     Product Terms    Function Block   Registers      Pins           
+Used/Tot       Used/Tot         Inps Used/Tot    Used/Tot       Used/Tot       
+195/256 ( 76%) 573 /896  ( 64%) 431 /640  ( 67%) 173/256 ( 68%) 43 /118 ( 36%)
+</font>
+</pre>
+</td>
+<td >&nbsp;　&nbsp;</td>
+</tr>
+</table>
+
+<p class="i">
+32ビットの除算器は
+<font color="red">リスト150</font> 
+のように単独で
+<font color="blue">XC2C256</font> 
+のマクロセルの
+<font color="blue">64％</font>
+を占めたので今回の大部分は
+<font color="red">図5.91</font> 
+の中の32ビットの除算器に使われたと思われます。
+</p>
+
+<br>
+
+<table class="i">
+<caption><font color="red">図5.91</font>　2 進数BCD 変換器の構成</caption>
+<tr>
+<td>&nbsp;&nbsp</td>
+<td align="center">
+<a href="../LIB/FG09H17A.png" target="_blank">
+<img src="../LIB/FG09H17A.png" border="0" alt="FG09H17A.png(97100 byte)" width="750">
+</a>
+</td>
+<td>&nbsp;　　　&nbsp</td>
+</tr>
+</table>
+
+<br>
+
+<p class="i">
+<font color="red">図5.91</font> 
+を見ると緑の部分は手続きとしてすっきりと分割できそうです。8 番地分の4 ビットのメモリとして
+見るなら
+<font color="blue">ketacount</font> 
+は書き込み番地に
+<font color="blue">convseq</font> 
+はメモリ選択に
+<font color="blue">divans</font> 
+は書き込みデータにすれば単独の手続きとしても使えそうです。
+</p>
+
+<p class="i">
+他の論理でも使えるほどの汎用性が感じられない場合でも手続きにすることで論理が見やすくなってさらに効
+率化する機会も増えるように思われます。
+</p>
+<!--  -->
+      </td>
+      <td width=" 50 ">
+</td>
+   </tr>
+   <tr>
+      <td height=" 20 "  colspan="3">
+</td>
+   </tr>
+</table>
+<!--  -->
+      </td>
+      <td width=" 50 " bgcolor="lightgray">
+</td>
+   </tr>
+   <tr bgcolor="gray">
+      <td height=" 20 "  colspan="3">
+</td>
+   </tr>
+</table>
+</body>
+</html>

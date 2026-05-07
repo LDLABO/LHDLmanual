@@ -1,0 +1,333 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+   <title></title>
+<LINK Type="TEXT/css" Rel="stylesheet" Href="main.css">
+<style type="text/css">
+<!--
+body, th, td { line-height: 150%; }
+.i { MARGIN-left: 1em; MARGIN-right: 1em; }
+-->
+</style>
+</head>
+<body  background="../LIB/TOPIMG.JPG">
+<table border="1" cellspacing="0" width=" 900 " height=" 450 ">
+   <tr bgcolor="navy">
+<td>
+<table>
+<tr>
+<td><a href="pg146.html"><font color="white">＜</font></a></td>
+<td><font color="white"><a href="pg0.html">□</a></font></td>
+<td><a href="pg148.html"><font color="white">＞</font></a></td>
+</tr>
+</table>
+</td>
+      <td width=" 500 " height=" 20 " colspan="1" align="left">
+<td align="center"><font color="white">
+No.147
+</font></td>
+   </td>
+   </tr>
+   <tr>
+      <td width=" 20 " bgcolor="lightgray">　
+</td>
+      <td height=" 500 " bgcolor="white">
+<!--  -->
+<table border="0" cellspacing="0">
+   <tr>
+      <td height=" 20 " colspan="3">
+</td>
+   </tr>
+   <tr>
+      <td width=" 50 ">
+</td>
+      <td>
+<!--  -->
+<br>
+
+<table>
+<tr>
+<td valign="top">
+
+<table>
+<a name="LST152"></a>
+<caption><font color="red">　リスト152</font>　変換終了</caption>
+<tr>
+<td >&nbsp;　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+if (RESET)
+   set=0;
+else
+   switch(convseq)
+      case 6: set=1;
+      default: set=set;
+   endswitch
+endif
+</font>
+</pre>
+</td>
+<td >&nbsp;　&nbsp;</td>
+</tr>
+</table>
+
+</td>
+
+<td valign="top">
+
+<table>
+<a name="LST153"></a>
+<caption><font color="red">　リスト153</font>　被除数</caption>
+<tr>
+<td >&nbsp;　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+if (RESET)
+   a=0;
+else
+   switch(convseq)
+      case 0: a=DATAIN;
+      case 3: a=divans;
+      default: a=a;
+   endswitch
+endif
+</font>
+</pre>
+</td>
+<td >&nbsp;　&nbsp;</td>
+</tr>
+</table>
+
+</td>
+
+<td valign="top">
+
+<table>
+<a name="LST154"></a>
+<caption><font color="red">　リスト154</font>　除算器初期化</caption>
+<tr>
+<td >&nbsp;　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+if (RESET)
+   divreset=1;
+else
+   switch(convseq)
+      case 1: divreset=1;
+   endswitch
+endif
+</font>
+</pre>
+</td>
+<td >&nbsp;　&nbsp;</td>
+</tr>
+</table>
+
+</td>
+</tr>
+
+<tr>
+
+<td valign="top">
+
+<table>
+<a name="LST155"></a>
+<caption><font color="red">　リスト155</font>　商と余りの切り替え</caption>
+<tr>
+<td >&nbsp;　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+switch(convseq)
+   case 4: sel=1;
+endswitch
+</font>
+</pre>
+</td>
+<td >&nbsp;　&nbsp;</td>
+</tr>
+</table>
+
+</td>
+
+<td valign="top">
+
+<table>
+<a name="LST156"></a>
+<caption><font color="red">　リスト156</font>　桁計数</caption>
+<tr>
+<td >&nbsp;　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+if (RESET)
+   ketacount=0;
+else
+   switch(convseq)
+      case 5: ketacount=ketacount+1;
+      default: ketacount=ketacount;
+   endswitch
+endif
+</font>
+</pre>
+</td>
+<td >&nbsp;　&nbsp;</td>
+</tr>
+</table>
+
+</td>
+
+<td valign="top">
+
+<table>
+<a name="LST157"></a>
+<caption><font color="red">　リスト157</font>　桁0のBCD値</caption>
+<tr>
+<td >&nbsp;　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+if (RESET)
+   degit0p=0;
+else
+   switch(ketacount)
+      case 0:
+         switch(convseq)
+            case 4: degit0p=divans.0:3;
+            default: degit0p=degit0p;
+         endswitch
+      default: degit0p=degit0p;
+   endswitch
+endif
+</font>
+</pre>
+</td>
+<td >&nbsp;　&nbsp;</td>
+</tr>
+</table>
+
+</td>
+
+</tr>
+
+</table>
+
+<br>
+
+<p class="i">
+主行程の
+<font color="blue">1</font> 
+から
+<font color="blue">5</font> 
+までを桁計数の
+<font color="blue">ketacount</font> 
+を増やしながら
+<font color="blue">ketacount</font> 
+が
+<font color="blue">7</font> 
+になるまで繰り返していま
+す。桁
+<font color="blue">1</font> 
+から桁
+<font color="blue">7</font> 
+のBCD 値は
+<font color="blue">digit1p</font> 
+から
+<font color="blue">digit7p</font> 
+に記憶されます。これらの論理はほぼ同じで桁計数の
+<font color="blue">ketacount</font> 
+の指定値が
+<font color="blue">1</font> 
+から
+<font color="blue">7</font> 
+になっているのが違うだけです。
+</p>
+
+<table align="right">
+<caption><font color="red">図5.88</font>　BCD値の最後の桁の取り出し</caption>
+<tr>
+<td>&nbsp;&nbsp</td>
+<td align="center">
+<a href="../LIB/FG09H15A.png" target="_blank">
+<img src="../LIB/FG09H15A.png" border="0" alt="FG09H15A.png(241496 byte)" width="550">
+</a>
+</td>
+<td>&nbsp;　　　&nbsp</td>
+</tr>
+</table>
+
+<p class="i">
+<font color="red">図5.88</font> 
+は最後の桁のBCD 値を
+<font color="blue">digit7p</font> 
+に記憶して主行程の
+<font color="blue">convseq</font>
+が
+<font color="blue">6</font> 
+になって変換を終了したところです。
+</p>
+
+<p class="i">
+番地のADD に値を与えると
+<font color="red">リスト158</font>
+の
+<font color="blue">dataout</font> 
+への代入によって
+<font color="blue">digit0p</font>
+から
+<font color="blue">digit7p</font> 
+までの値を読み出すことができます。
+</p>
+
+<table>
+<a name="LST158"></a>
+<caption><font color="red">　リスト158</font>　BCD 値の出力</caption>
+<tr>
+<td >&nbsp;　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+switch(ADD)
+   case 0: dataout=degit0p;
+   case 1: dataout=degit1p;
+   case 2: dataout=degit2p;
+   case 3: dataout=degit3p;
+   case 4: dataout=degit4p;
+   case 5: dataout=degit5p;
+   case 6: dataout=degit6p;
+   case 7: dataout=degit7p;
+endswitch
+</font>
+</pre>
+</td>
+<td >&nbsp;　&nbsp;</td>
+</tr>
+</table>
+
+<br clear="right">
+<!--  -->
+      </td>
+      <td width=" 50 ">
+</td>
+   </tr>
+   <tr>
+      <td height=" 20 "  colspan="3">
+</td>
+   </tr>
+</table>
+<!--  -->
+      </td>
+      <td width=" 50 " bgcolor="lightgray">
+</td>
+   </tr>
+   <tr bgcolor="gray">
+      <td height=" 20 "  colspan="3">
+</td>
+   </tr>
+</table>
+</body>
+</html>

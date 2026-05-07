@@ -1,0 +1,251 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+   <title></title>
+<LINK Type="TEXT/css" Rel="stylesheet" Href="main.css">
+<style type="text/css">
+<!--
+body, th, td { line-height: 150%; }
+.i { MARGIN-left: 1em; MARGIN-right: 1em; }
+-->
+</style>
+</head>
+<body  background="../LIB/TOPIMG.JPG">
+<table border="1" cellspacing="0" width=" 900 " height=" 450 ">
+   <tr bgcolor="navy">
+<td>
+<table>
+<tr>
+<td><a href="pg119.html"><font color="white">＜</font></a></td>
+<td><font color="white"><a href="pg0.html">□</a></font></td>
+<td><a href="pg121.html"><font color="white">＞</font></a></td>
+</tr>
+</table>
+</td>
+      <td width=" 500 " height=" 20 " colspan="1" align="left">
+<td align="center"><font color="white">
+No.120
+</font></td>
+   </td>
+   </tr>
+   <tr>
+      <td width=" 20 " bgcolor="lightgray">　
+</td>
+      <td height=" 500 " bgcolor="white">
+<!--  -->
+<table border="0" cellspacing="0">
+   <tr>
+      <td height=" 20 " colspan="3">
+</td>
+   </tr>
+   <tr>
+      <td width=" 50 ">
+</td>
+      <td>
+<!--  -->
+<hr color="#4F9177" size="15">
+<font color="#336633"><b>　　メモリの検証</b></font>
+<hr color="#4F9177">
+
+<br>
+
+<table align="right">
+<a name="LST120"></a>
+<caption><font color="red">　リスト121</font>　せり上がり書き込み</caption>
+<tr>
+<td >&nbsp;　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+1  : switch(tc)
+2  :    case 10: DATAIN=10; WP=1;
+3  :    case 11: DATAIN=10; WP=0;
+4  :    case 12: DATAIN=10; WP=0;
+5  : 
+6  :    case 13: DATAIN=11; WP=1;
+7  :    case 14: DATAIN=11; WP=0;
+8  :    case 15: DATAIN=11; WP=0;
+9  : 
+10 :    case 16: DATAIN=12; WP=1;
+11 :    case 17: DATAIN=12; WP=0;
+12 :    case 18: DATAIN=12; WP=0;
+13 : 
+14 :    case 19: DATAIN=14; WP=1;
+15 :    case 20: DATAIN=14; WP=0;
+16 :    case 21: DATAIN=14; WP=0;
+17 : 
+18 :    case 22: DATAIN=15; WP=1;
+19 :    case 23: DATAIN=15; WP=0;
+20 :    case 24: DATAIN=15; WP=0;
+21 : 
+22 :    case 25: DATAIN=9; WP=1;
+23 :    case 26: DATAIN=9; WP=0;
+24 :    case 27: DATAIN=9; WP=0;
+25 : 
+26 :    case 28: DATAIN=8; WP=1;
+27 :    case 29: DATAIN=8; WP=0;
+28 :    case 30: DATAIN=8; WP=0;
+29 : 
+30 :    case 31: DATAIN=7; WP=1;
+31 :    case 32: DATAIN=7; WP=0;
+32 :    case 33: DATAIN=7; WP=0;
+33 : 
+34 :    case 35: ADDB=1; ADDA=7;
+35 :    case 36: ADDB=2; ADDA=6;
+36 :    case 37: ADDB=3; ADDA=5;
+37 :    case 38: ADDB=4; ADDA=4;
+38 :    case 39: ADDB=5; ADDA=3;
+39 :    case 40: ADDB=6; ADDA=2;
+40 :    case 41: ADDB=7; ADDA=1;
+41 : endswitch
+</font>
+</pre>
+</td>
+<td >&nbsp;　&nbsp;</td>
+</tr>
+</table>
+
+<p class="i">
+メモリの検証は「せり上がり書き込み」と「番地指定書き込み」
+の2種類の方法で全メモリに書き込みと読み出しを行い確認しま
+す。
+<font color="red">リスト120</font> 
+は検証論理を除いた機能実行譜の全文です。
+</p>
+
+<table class="i">
+<a name="LST120"></a>
+<caption><font color="red">　リスト120</font>　機能実行譜</caption>
+<tr>
+<td >&nbsp;　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+1  : entity sim
+2  : output RESET;
+3  : output ADDA[3];
+4  : output ADDB[3];
+5  : output ADDC[3];
+6  : output DATAIN[4];
+7  : output DATACIN[4];
+8  : output WP;
+9  : output WCP;
+10 : output DATAAOUT[4];
+11 : output DATABOUT[4];
+12 : 
+13 : bitr tc[8];
+14 : 
+15 :    part main(RESET,ADDA,ADDB,ADDC
+16 :             ,DATAIN,DATACIN,WP,WCP
+17 :             ,DATAAOUT,DATABOUT)
+18 : 
+19 :    tc=tc+1;
+20 : 
+21 :    if (tc<5) RESET=1; endif
+22 : 
+〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜
+　　　　　　検証論理
+〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜〜
+23 : ende
+</font>
+</pre>
+</td>
+<td >&nbsp;　&nbsp;</td>
+</tr>
+</table>
+
+<ul>
+<li class="i">
+<font color="blue">行15〜17</font>
+が実効譜を導入しているところです。
+</li>
+
+<li class="i">
+<font color="blue">行19</font>
+が実行位置を知るための計数の
+<font color="blue">tc</font> 
+です。
+</li>
+
+<li class="i">
+<font color="blue">行21</font>
+が
+<font color="blue">tc</font> 
+が
+<font color="blue">5</font> 
+になるまでの間に
+<font color="blue">RESET</font> 
+を
+<font color="blue">1</font> 
+にして設計論理を初期化しています。
+</li>
+</ul>
+
+<br clear="right">
+
+<hr color="#6666CC" size="10">
+<font size="4" color="#5454AB"><b>　　　せり上がり書き込み</b></font><br>
+<hr color="#6666CC">
+
+<p class="i">
+<font color="red">リスト121</font> 
+は「せり上がり書き込み」の検証論理です。
+<font color="blue">行2〜4</font> 
+では
+<font color="blue">10</font> 
+の値を
+<font color="blue">3CLK</font> 
+で書き込んでいます。
+「せり上がり書き込み」なので番地はいりません。値の指定は
+<font color="blue">DATAIN</font> 
+で書き込みの指定は
+<font color="blue">WP</font> 
+で行います。実行の様子は
+<font color="red">図5.49</font> 
+の
+<font color="blue">tc</font> 
+が
+<font color="blue">10〜12</font> 
+の位置の
+<font color="blue">memory0</font> 
+が
+<font color="blue">10</font> 
+になっているところを見て下さい。
+<font color="blue">memory0</font> 
+に
+<font color="blue">DATAIN</font> 
+の値が記憶されて後は
+<font color="blue">memory1</font>
+から
+<font color="blue">memory7</font> 
+にデータがせり上がって記憶されます。
+<font color="blue">行34〜40</font> 
+は書き込みの後にメモリ読み出しデータの
+<font color="blue">A</font> 
+と
+<font color="blue">B</font> 
+から同時に違う番地でデータ読み出しているところです。
+</p>
+<!--  -->
+      </td>
+      <td width=" 50 ">
+</td>
+   </tr>
+   <tr>
+      <td height=" 20 "  colspan="3">
+</td>
+   </tr>
+</table>
+<!--  -->
+      </td>
+      <td width=" 50 " bgcolor="lightgray">
+</td>
+   </tr>
+   <tr bgcolor="gray">
+      <td height=" 20 "  colspan="3">
+</td>
+   </tr>
+</table>
+</body>
+</html>

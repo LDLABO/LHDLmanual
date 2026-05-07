@@ -1,0 +1,170 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+   <title></title>
+<LINK Type="TEXT/css" Rel="stylesheet" Href="main.css">
+<style type="text/css">
+<!--
+body, th, td { line-height: 150%; }
+.i { MARGIN-left: 1em; MARGIN-right: 1em; }
+-->
+</style>
+</head>
+<body  background="../LIB/TOPIMG.JPG">
+<table border="1" cellspacing="0" width=" 900 " height=" 450 ">
+   <tr bgcolor="navy">
+<td>
+<table>
+<tr>
+<td><a href="pg151.html"><font color="white">＜</font></a></td>
+<td><font color="white"><a href="pg0.html">□</a></font></td>
+<td><a href="pg153.html"><font color="white">＞</font></a></td>
+</tr>
+</table>
+</td>
+      <td width=" 500 " height=" 20 " colspan="1" align="left">
+<td align="center"><font color="white">
+No.152
+</font></td>
+   </td>
+   </tr>
+   <tr>
+      <td width=" 20 " bgcolor="lightgray">　
+</td>
+      <td height=" 500 " bgcolor="white">
+<!--  -->
+<table border="0" cellspacing="0">
+   <tr>
+      <td height=" 20 " colspan="3">
+</td>
+   </tr>
+   <tr>
+      <td width=" 50 ">
+</td>
+      <td>
+<!--  -->
+<br>
+
+<table class="i">
+<caption><font color="red">図5.96</font>　ModelSim(2/2)</caption>
+<tr>
+<td>&nbsp;&nbsp</td>
+<td align="center">
+<a href="../LIB/FG09H20A.jpg" target="_blank">
+<img src="../LIB/FG09H20A.jpg" width="857">
+</a>
+</td>
+<td>&nbsp;　　　&nbsp</td>
+</tr>
+</table>
+
+<br>
+
+<hr color="#4F9177" size="15">
+<font color="#336633"><b>　　32ビット乗算器のデバイス</b></font>
+<hr color="#4F9177">
+
+<p class="i">
+32 ビット乗算器は
+<font color="red">リスト163</font> 
+のように
+<font color="blue">XC95144</font> 
+に入りました。
+</p>
+
+<table class="i">
+<a name="LST162"></a>
+<caption><font color="red">　リスト163</font>　XC95144</caption>
+<tr>
+<td >&nbsp;　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+cpldfit:  version I.33                              Xilinx Inc.
+                                  Fitter Report
+Design Name: main                                Date: 10-16-2008,  4:42PM
+Device Used: XC95144XL-10-TQ144
+Fitting Status: Successful
+
+*************************  Mapped Resource Summary  **************************
+
+Macrocells     Product Terms    Function Block   Registers      Pins           
+Used/Tot       Used/Tot         Inps Used/Tot    Used/Tot       Used/Tot       
+126/144 ( 87%) 350 /720  ( 49%) 266/432 ( 62%)   96 /144 ( 67%) 34 /117 ( 29%)
+</font>
+</pre>
+</td>
+<td >&nbsp;　&nbsp;</td>
+</tr>
+</table>
+
+<br>
+
+<hr color="#4F9177" size="15">
+<font color="#336633"><b>　　電卓に使用する手続き</b></font>
+<hr color="#4F9177">
+
+<br>
+
+<br>
+
+<table align="right">
+<caption><font color="red">図5.97</font>　</caption>
+<tr>
+<td>&nbsp;&nbsp</td>
+<td align="center">
+<a href="../LIB/FG09H20B.jpg" target="_blank">
+<img src="../LIB/FG09H20B.jpg" width="300">
+</a>
+</td>
+<td>&nbsp;　　　&nbsp</td>
+</tr>
+</table>
+
+<p class="i">
+電卓に使う手続きの設計はすべて終わって
+<font color="red">表5.1</font>
+のものが出来上がっています。この中でキーボード
+と表示器とメモリは端末に含まれている手続きで
+すので電卓の論理からは直接には引用されていませ
+ん。電卓の論理が引用しているのは、これらを除い
+た5 種類の手続きです。電卓の論理で使うために
+作ったこれらの手続きもひとつのIC として部品に
+することができて電卓の論理以外にも使えるなど全
+く独立して扱えるのがプログラミングと違う論理設
+計の面白いところだと思います。デバイスは容量の
+目安で実際にはひとつのデバイスに電卓の論理を作
+ります。GAL などの次にCPLD が出始めた頃の容量はマクロセルが192 個のもので一番大きかったと記憶し
+ています。そのデバイスに書き込むための開発ツールに
+<font color="blue">Windows3.1</font> 
+が必要で書き込み器がIBM 互換機のパラレルポートにしか接続できないということで
+<font color="blue">Windows3.1</font> 
+とIBM 互換機を買い揃えました。当時はマクロセルを100 個も使う論理設計などは思い浮かばなかったものですが今では容量の大きなメモリを除けばほとんどの
+機能をワンチップに入れてしまいますから1000 個程度はすぐに使ってしまいます。
+</p>
+
+<br clear="right">
+
+<!--  -->
+      </td>
+      <td width=" 50 ">
+</td>
+   </tr>
+   <tr>
+      <td height=" 20 "  colspan="3">
+</td>
+   </tr>
+</table>
+<!--  -->
+      </td>
+      <td width=" 50 " bgcolor="lightgray">
+</td>
+   </tr>
+   <tr bgcolor="gray">
+      <td height=" 20 "  colspan="3">
+</td>
+   </tr>
+</table>
+</body>
+</html>

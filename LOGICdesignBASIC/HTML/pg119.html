@@ -1,0 +1,340 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+   <title></title>
+<LINK Type="TEXT/css" Rel="stylesheet" Href="main.css">
+<style type="text/css">
+<!--
+body, th, td { line-height: 150%; }
+.i { MARGIN-left: 1em; MARGIN-right: 1em; }
+-->
+</style>
+</head>
+<body  background="../LIB/TOPIMG.JPG">
+<table border="1" cellspacing="0" width=" 900 " height=" 450 ">
+   <tr bgcolor="navy">
+<td>
+<table>
+<tr>
+<td><a href="pg118.html"><font color="white">＜</font></a></td>
+<td><font color="white"><a href="pg0.html">□</a></font></td>
+<td><a href="pg120.html"><font color="white">＞</font></a></td>
+</tr>
+</table>
+</td>
+      <td width=" 500 " height=" 20 " colspan="1" align="left">
+<td align="center"><font color="white">
+No.119
+</font></td>
+   </td>
+   </tr>
+   <tr>
+      <td width=" 20 " bgcolor="lightgray">　
+</td>
+      <td height=" 500 " bgcolor="white">
+<!--  -->
+<table border="0" cellspacing="0">
+   <tr>
+      <td height=" 20 " colspan="3">
+</td>
+   </tr>
+   <tr>
+      <td width=" 50 ">
+</td>
+      <td>
+<!--  -->
+<hr color="#6666CC" size="10">
+<font size="4" color="#5454AB"><b>　　　メモリ選択</b></font><br>
+<hr color="#6666CC">
+
+<br>
+
+<table align="right">
+<a name="LST116"></a>
+<caption><font color="red">　リスト116</font>　メモリ選択</caption>
+<tr>
+<td >&nbsp;　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+switch(mode)
+   case 1:
+      mcs=0xff;
+   case 2:
+      switch(regADDC)
+         case 0: mcs.0=1;
+         case 1: mcs.1=1;
+         case 2: mcs.2=1;
+         case 3: mcs.3=1;
+         case 4: mcs.4=1;
+         case 5: mcs.5=1;
+         case 6: mcs.6=1;
+         case 7: mcs.7=1;
+      endswitch
+endswitch
+</font>
+</pre>
+</td>
+<td >&nbsp;　&nbsp;</td>
+</tr>
+</table>
+
+<p class="i">
+<font color="red">リスト116</font> 
+のメモリ選択の
+<font color="blue">mcs.0〜mcs.7</font> 
+は書き込まれるメモリを示します。
+</p>
+
+<ul>
+<li class="i">
+書き込み種別の
+<font color="blue">mode</font> 
+が
+<font color="blue">1</font> 
+のときは「せり上がり書き込み」で
+<font color="red">図5.48</font> 
+のようにすべてのメモリに書き込むので
+<font color="blue">mcs.0〜mcs.7</font> 
+を
+<font color="blue">1</font> 
+にしています。
+</li>
+
+<li class="i">
+書き込み種別の
+<font color="blue">mode</font> 
+が
+<font color="blue">2</font> 
+のときは「番地指定書き込み」で
+<font color="blue">regADDC</font> 
+で示す番地のメモリの
+<font color="blue">mcs</font> 
+だけを
+<font color="blue">1</font> 
+にします。
+</li>
+</ul>
+
+<br clear="right">
+
+<table class="i">
+<tr>
+
+<td valign="top">
+
+<table>
+<a name="LST117"></a>
+<caption><font color="red">　リスト117</font>　メモリ書き込みデータ</caption>
+<tr>
+<td >&nbsp;　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+switch(mode)
+   case 1:
+      writedata0p=DATAIN;
+      writedata1p=memory0;
+      writedata2p=memory1;
+      writedata3p=memory2;
+      writedata4p=memory3;
+      writedata5p=memory4;
+      writedata6p=memory5;
+      writedata7p=memory6;
+   case 2:
+      writedata0p=DATACIN;
+      writedata1p=DATACIN;
+      writedata2p=DATACIN;
+      writedata3p=DATACIN;
+      writedata4p=DATACIN;
+      writedata5p=DATACIN;
+      writedata6p=DATACIN;
+      writedata7p=DATACIN;
+endswitch
+</font>
+</pre>
+</td>
+<td >&nbsp;　&nbsp;</td>
+</tr>
+</table>
+
+</td>
+
+<td valign="top">
+
+<table>
+<caption><font color="red">図5.48</font> せり上がり記憶</caption>
+<tr>
+<td>&nbsp;&nbsp</td>
+<td align="center">
+<a href="../LIB/FG09G18A.png" target="_blank">
+<img src="../LIB/FG09G18A.png" border="0" alt="FG09G18A.png(17796 byte)" width="250">
+</a>
+</td>
+<td>&nbsp;　　　&nbsp</td>
+</tr>
+</table>
+
+</td>
+
+<td valign="top">
+
+<table>
+<a name="LST118"></a>
+<caption><font color="red">　リスト118</font>　メモリの書き込み番地</caption>
+<tr>
+<td >&nbsp;　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+if (RESET)
+   regADDC=0;
+else
+   switch(wp)
+      case 0: regADDC=ADDC;
+      default: regADDC=regADDC;
+   endswitch
+endif
+</font>
+</pre>
+</td>
+<td >&nbsp;　&nbsp;</td>
+</tr>
+</table>
+
+</td>
+
+</tr>
+</table>
+
+<br>
+
+<table align="right">
+<a name="LST119"></a>
+<caption><font color="red">　リスト119</font>　メモリ読み出しデータ</caption>
+<tr>
+<td >&nbsp;　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+switch(ADDA)
+   case 0: DATAAOUT=memory0;
+   case 1: DATAAOUT=memory1;
+   case 2: DATAAOUT=memory2;
+   case 3: DATAAOUT=memory3;
+   case 4: DATAAOUT=memory4;
+   case 5: DATAAOUT=memory5;
+   case 6: DATAAOUT=memory6;
+   case 7: DATAAOUT=memory7;
+endswitch
+
+switch(ADDB)
+   case 0: DATABOUT=memory0;
+   case 1: DATABOUT=memory1;
+   case 2: DATABOUT=memory2;
+   case 3: DATABOUT=memory3;
+   case 4: DATABOUT=memory4;
+   case 5: DATABOUT=memory5;
+   case 6: DATABOUT=memory6;
+   case 7: DATABOUT=memory7;
+endswitch
+</font>
+</pre>
+</td>
+<td >&nbsp;　&nbsp;</td>
+</tr>
+</table>
+
+<hr color="#6666CC" size="10">
+<font size="4" color="#5454AB"><b>　　　メモリ書き込みデータ</b></font><br>
+<hr color="#6666CC">
+
+<p class="i">
+<font color="red">リスト117</font> 
+はメモリ書き込みデータの
+<font color="blue">writedata0p〜writedata7p</font>
+です。
+</p>
+
+<ul>
+<li class="i">
+書き込み種別の
+<font color="blue">mode</font> 
+が
+<font color="blue">1</font> 
+のときは「せり上がり書き込み」なので
+<font color="red">図5.48</font> 
+になるような代入をしています。
+</li>
+
+<li class="i">
+書き込み種別の
+<font color="blue">mode</font> 
+が
+<font color="blue">2</font> 
+のときは「番地指定書き込み」なのですべてのメモリ書き込みデータに
+<font color="blue">DATACIN</font> 
+を代入しています。
+</li>
+
+</ul>
+
+<hr color="#6666CC" size="10">
+<font size="4" color="#5454AB"><b>　　　メモリの書き込み番地</b></font><br>
+<hr color="#6666CC">
+
+<p class="i">
+<font color="red">リスト118</font> 
+のメモリの書き込み番地の
+<font color="blue">regADDC</font> 
+は「番地指定書き込み」のときのメモリの番地を示します。
+書き込み行程の
+<font color="blue">wp</font> 
+が
+<font color="blue">0</font> 
+から変化するときに
+<font color="blue">ADDC</font> 
+の値を記憶しています。
+</p>
+
+<hr color="#6666CC" size="10">
+<font size="4" color="#5454AB"><b>　　　メモリ読み出しデータ</b></font><br>
+<hr color="#6666CC">
+
+<p class="i">
+<font color="red">リスト119</font> 
+のメモリ読み出しデータの
+<font color="blue">DATAAOUT</font> 
+と
+<font color="blue">DATABOUT</font> 
+はそれぞれが独立した番地指定の
+<font color="blue">ADDA</font> 
+と
+<font color="blue">ADDB</font> 
+を持つメモリの読み出し値を示します。
+</p>
+
+<br clear="right">
+<!--  -->
+      </td>
+      <td width=" 50 ">
+</td>
+   </tr>
+   <tr>
+      <td height=" 20 "  colspan="3">
+</td>
+   </tr>
+</table>
+<!--  -->
+      </td>
+      <td width=" 50 " bgcolor="lightgray">
+</td>
+   </tr>
+   <tr bgcolor="gray">
+      <td height=" 20 "  colspan="3">
+</td>
+   </tr>
+</table>
+</body>
+</html>

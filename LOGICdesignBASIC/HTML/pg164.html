@@ -1,0 +1,280 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+   <title></title>
+<LINK Type="TEXT/css" Rel="stylesheet" Href="main.css">
+<style type="text/css">
+<!--
+body, th, td { line-height: 150%; }
+.i { MARGIN-left: 1em; MARGIN-right: 1em; }
+-->
+</style>
+</head>
+<body  background="../LIB/TOPIMG.JPG">
+<table border="1" cellspacing="0" width=" 900 " height=" 450 ">
+   <tr bgcolor="navy">
+<td>
+<table>
+<tr>
+<td><a href="pg163.html"><font color="white">＜</font></a></td>
+<td><font color="white"><a href="pg0.html">□</a></font></td>
+<td><a href="pg165.html"><font color="white">＞</font></a></td>
+</tr>
+</table>
+</td>
+      <td width=" 500 " height=" 20 " colspan="1" align="left">
+<td align="center"><font color="white">
+No.164
+</font></td>
+   </td>
+   </tr>
+   <tr>
+      <td width=" 20 " bgcolor="lightgray">　
+</td>
+      <td height=" 500 " bgcolor="white">
+<!--  -->
+<table border="0" cellspacing="0">
+   <tr>
+      <td height=" 20 " colspan="3">
+</td>
+   </tr>
+   <tr>
+      <td width=" 50 ">
+</td>
+      <td>
+<!--  -->
+<hr color="#6666CC" size="10">
+<font size="4" color="#5454AB"><b>　　　計算の終了</b></font><br>
+<hr color="#6666CC">
+
+<br>
+
+<table align="right">
+<tr>
+<td valign="top">
+
+<table>
+<a name="LST179"></a>
+<caption><font color="red">　リスト179</font>　計算終了指標</caption>
+<tr>
+<td >&nbsp;　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+switch(execop)
+   case 0: opend=1;
+   case 2: opend=mulready;
+   case 3: opend=divready;
+   case 4: opend=answer.32;
+   case 5: opend=answer.32;
+endswitch
+</font>
+</pre>
+</td>
+<td >&nbsp;　&nbsp;</td>
+</tr>
+</table>
+
+</td>
+
+<td valign="top">
+
+<table>
+<a name="LST180"></a>
+<caption><font color="red">　リスト180</font>　計算結果</caption>
+<tr>
+<td >&nbsp;　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+switch(execop)
+   case 2: answer=mulans;
+   case 3: answer=divans;
+   case 4: answer=regA+regB;
+   case 5: answer=regA-regB;
+endswitch
+</font>
+</pre>
+</td>
+<td >&nbsp;　&nbsp;</td>
+</tr>
+</table>
+
+</td>
+</tr>
+</table>
+
+<p class="i">
+<font color="red">リスト179</font> 
+の計算終了指標の
+<font color="blue">opend</font>
+は計算が終了したことを示します。
+<font color="blue">execop</font> 
+が
+<font color="blue">0</font> 
+のときのように計算が行われない場合は
+<font color="blue">1</font> 
+を代入しています。
+<font color="blue">execop</font> 
+が
+<font color="blue">0</font> 
+以外のときは対応する計算の終了指標を代入しています。乗算の終了指標は
+<font color="blue">mulready</font> 
+です。除算の終了指標は
+<font color="blue">divready</font> 
+です。加算と減算は演算子を利用しているので確定ビットを代入しています。
+<font color="red">リスト180</font> 
+の計算結果の
+<font color="blue">answer</font> 
+は
+<font color="blue">execop</font> 
+で示される計算の結果を示します。乗算結果は
+<font color="blue">mulans</font> 
+です。除算結果は
+<font color="blue">divans</font>
+です。
+</p>
+
+<br clear="right">
+
+<table class="i">
+<caption><font color="red">図5.118</font>　計算の終了</caption>
+<tr>
+<td>&nbsp;&nbsp</td>
+<td align="center">
+<a href="../LIB/FG09J01A.png" target="_blank">
+<img src="../LIB/FG09J01A.png" border="0" alt="FG09J01A.png(99011 byte)" width="1000">
+</a>
+</td>
+<td>&nbsp;　　　&nbsp</td>
+</tr>
+</table>
+
+<br>
+
+<table align="right">
+<tr>
+<td valign="top">
+
+<table>
+<a name="LST181"></a>
+<caption><font color="red">　リスト181</font>　レジスタA</caption>
+<tr>
+<td >&nbsp;　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+if (RESET)
+   regA=0;
+else
+   switch(calcseq)
+      case 4:
+         switch(execop)
+            case 0: regA=regB;
+            case 2: regA=answer;
+            case 3: regA=answer;
+            case 4: regA=answer;
+            case 5: regA=answer;
+         endswitch
+      default: regA=regA;
+   endswitch
+endif
+</font>
+</pre>
+</td>
+<td >&nbsp;　&nbsp;</td>
+</tr>
+</table>
+
+</td>
+
+<td valign="top">
+
+<table>
+<a name="LST182"></a>
+<caption><font color="red">　リスト182</font>　レジスタB</caption>
+<tr>
+<td >&nbsp;　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+if (RESET)
+   regB=0;
+else
+   if (setseq.1)
+      regB=bin;
+   else
+      switch(calcseq)
+         case 4:  regB=0;
+         default: regB=regB;
+      endswitch
+   endif
+endif
+</font>
+</pre>
+</td>
+<td >&nbsp;　&nbsp;</td>
+</tr>
+</table>
+
+</td>
+</tr>
+</table>
+
+<p class="i">
+<font color="red">図5.118</font> 
+は
+<font color="blue">12345678/90=</font> 
+を実行しているところです。
+<font color="blue">regA</font> 
+に
+<font color="blue">12345678</font>
+が記憶されています。
+<font color="blue">regB</font> 
+に
+<font color="blue">90</font> 
+が記憶されています。主行程の
+<font color="blue">calcseq</font> 
+が
+<font color="blue">3</font> 
+のときは計算を実行中ですが
+<font color="blue">execop</font>
+が
+<font color="blue">3</font> 
+なので、その計算は除算になります。
+<font color="blue">divready</font> 
+が
+<font color="blue">0</font> 
+から
+<font color="blue">1</font> 
+になったときに除算を終了しています。このとき除算結果の
+<font color="blue">divans</font> 
+から計算結果の
+<font color="blue">answer</font>
+に値を記憶しています。
+</p>
+
+<br clear="right">
+<!--  -->
+      </td>
+      <td width=" 50 ">
+</td>
+   </tr>
+   <tr>
+      <td height=" 20 "  colspan="3">
+</td>
+   </tr>
+</table>
+<!--  -->
+      </td>
+      <td width=" 50 " bgcolor="lightgray">
+</td>
+   </tr>
+   <tr bgcolor="gray">
+      <td height=" 20 "  colspan="3">
+</td>
+   </tr>
+</table>
+</body>
+</html>

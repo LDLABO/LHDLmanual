@@ -1,0 +1,346 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+   <title></title>
+<LINK Type="TEXT/css" Rel="stylesheet" Href="main.css">
+<style type="text/css">
+<!--
+body, th, td { line-height: 150%; }
+.i { MARGIN-left: 1em; MARGIN-right: 1em; }
+-->
+</style>
+</head>
+<body  background="../LIB/TOPIMG.JPG">
+<table border="1" cellspacing="0" width=" 900 " height=" 450 ">
+   <tr bgcolor="navy">
+<td>
+<table>
+<tr>
+<td><a href="pg110.html"><font color="white">＜</font></a></td>
+<td><font color="white"><a href="pg0.html">□</a></font></td>
+<td><a href="pg112.html"><font color="white">＞</font></a></td>
+</tr>
+</table>
+</td>
+      <td width=" 500 " height=" 20 " colspan="1" align="left">
+<td align="center"><font color="white">
+No.111
+</font></td>
+   </td>
+   </tr>
+   <tr>
+      <td width=" 20 " bgcolor="lightgray">　
+</td>
+      <td height=" 500 " bgcolor="white">
+<!--  -->
+<table border="0" cellspacing="0">
+   <tr>
+      <td height=" 20 " colspan="3">
+</td>
+   </tr>
+   <tr>
+      <td width=" 50 ">
+</td>
+      <td>
+<!--  -->
+<hr color="#6666CC" size="10">
+<font size="4" color="#5454AB"><b>　　　消灯計数</b></font><br>
+<hr color="#6666CC">
+
+<br>
+
+<table align="right">
+<a name="LST105"></a>
+<caption><font color="red">　リスト105</font>　消灯計数</caption>
+<tr>
+<td >&nbsp;　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+if (RESET)
+   blankcount=0;
+else
+   if (state==1)
+      if (sclkp.0)
+         blankcount=0;
+      else
+         blankcount=blankcount;
+      endif
+   else
+      blankcount=blankcount+1;
+   endif
+endif
+</font>
+</pre>
+</td>
+<td >&nbsp;　&nbsp;</td>
+</tr>
+</table>
+
+<p class="i">
+<font color="red">リスト105</font> 
+の消灯計数の
+<font color="blue">blankcount</font> 
+は主行程の
+<font color="blue">state</font> 
+が
+<font color="blue">0</font> 
+の消灯のときに消灯する時間をチップCLK で計数します。
+<font color="blue">SCLK</font> 
+が
+<font color="blue">0</font> 
+から
+<font color="blue">1</font> 
+になるときに
+<font color="blue">blankcount</font> 
+を
+<font color="blue">0</font> 
+にします。消灯計数の実行の様子は
+<font color="red">図5.32</font> 
+を見て下さい。
+</p>
+
+<table>
+<caption><font color="red">図5.33</font> 消灯計数</caption>
+<tr>
+<td>&nbsp;&nbsp</td>
+<td align="center">
+<a href="../LIB/FG09G10A.png" target="_blank">
+<img src="../LIB/FG09G10A.png" border="0" alt="FG09G10A.png(16006 byte)" width="500">
+</a>
+</td>
+<td>&nbsp;　　　&nbsp</td>
+</tr>
+</table>
+
+<br clear="right">
+
+<hr color="#6666CC" size="10">
+<font size="4" color="#5454AB"><b>　　　桁計数</b></font><br>
+<hr color="#6666CC">
+
+<br>
+
+<table align="right">
+<a name="LST106"></a>
+<caption><font color="red">　リスト106</font>　桁計数</caption>
+<tr>
+<td >&nbsp;　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+if (RESET)
+   ketacount=0;
+else
+   if (blankcount==3)
+      ketacount=ketacount+1;
+   else
+      ketacount=ketacount;
+   endif
+endif
+</font>
+</pre>
+</td>
+<td >&nbsp;　&nbsp;</td>
+</tr>
+</table>
+
+<p class="i">
+<font color="red">リスト106</font> 
+の桁計数の
+<font color="blue">ketacount</font> 
+は桁の表示位置を決める計数です。主行程の
+<font color="blue">state</font> 
+は消灯計数の
+<font color="blue">blankcount</font> 
+が
+<font color="blue">6</font> 
+になった次の
+<font color="blue">CLK</font> 
+で
+<font color="blue">1</font> 
+になりますから
+<font color="blue">blankcount</font> 
+は
+<font color="blue">7</font> 
+まで計数されます。
+<font color="red">図5.33</font> 
+のように真ん中の
+<font color="blue">3</font> 
+で
+<font color="blue">ketacount</font> 
+を更新します。
+</p>
+
+<br clear="right">
+
+<hr color="#6666CC" size="10">
+<font size="4" color="#5454AB"><b>　　　桁出力</b></font><br>
+<hr color="#6666CC">
+
+<br>
+
+<table align="right">
+<a name="LST107"></a>
+<caption><font color="red">　リスト107</font>　桁出力</caption>
+<tr>
+<td >&nbsp;　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+if (state==1)
+   switch(ketacount)
+      case 0: KETAOUT.0=1;
+      case 1: KETAOUT.1=1;
+      case 2: KETAOUT.2=1;
+      case 3: KETAOUT.3=1;
+      case 4: KETAOUT.4=1;
+      case 5: KETAOUT.5=1;
+      case 6: KETAOUT.6=1;
+      case 7: KETAOUT.7=1;
+   endswitch
+endif
+</font>
+</pre>
+</td>
+<td >&nbsp;　&nbsp;</td>
+</tr>
+</table>
+
+<p class="i">
+<font color="red">リスト107</font> 
+の桁出力の
+<font color="blue">KETAOUT</font> 
+は
+7 セグメントLED の1個分の点灯と消灯を決める値が代入されます。
+<font color="blue">0</font> 
+で消灯、
+<font color="blue">1</font> 
+で点灯です。主行程の
+<font color="blue">state</font> 
+が
+<font color="blue">0</font> 
+のときに消灯して
+<font color="blue">1</font> 
+のときは桁計数の
+<font color="blue">ketacount</font> 
+によって示される桁の位置の
+<font color="blue">KETAOUT</font>
+だけを
+<font color="blue">1</font> 
+にして、その桁だけを点灯します。
+</p>
+
+<br clear="right">
+
+<hr color="#6666CC" size="10">
+<font size="4" color="#5454AB"><b>　　　セグメント出力</b></font><br>
+<hr color="#6666CC">
+
+<br>
+
+<table align="right">
+<tr>
+<td valign="top">
+
+<table>
+<caption><font color="red">図5.34</font> セグメントとの接続</caption>
+<tr>
+<td>&nbsp;&nbsp</td>
+<td align="center">
+<a href="../LIB/FG09G10B.png" target="_blank">
+<img src="../LIB/FG09G10B.png" border="0" alt="FG09G10B.png(16526 byte)" width="230">
+</a>
+</td>
+<td>&nbsp;　　　&nbsp</td>
+</tr>
+</table>
+
+</td>
+
+<td valign="top">
+
+<table>
+<a name="LST108"></a>
+<caption><font color="red">　リスト108</font>　セグメント出力</caption>
+<tr>
+<td >&nbsp;　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+switch(DATA)
+   case 0: SEGOUT=0x3f;
+   case 1: SEGOUT=0x06;
+   case 2: SEGOUT=0x5b;
+   case 3: SEGOUT=0x4f;
+   case 4: SEGOUT=0x66;
+   case 5: SEGOUT=0x6d;
+   case 6: SEGOUT=0x7d;
+   case 7: SEGOUT=0x07;
+   case 8: SEGOUT=0x7f;
+   case 9: SEGOUT=0x67;
+   case 0xa: SEGOUT=0x77;
+   case 0xb: SEGOUT=0x7c;
+   case 0xc: SEGOUT=0x39;
+   case 0xd: SEGOUT=0x5e;
+   case 0xe: SEGOUT=0x79;
+   case 0xf: SEGOUT=0x71;
+endswitch
+</font>
+</pre>
+</td>
+<td >&nbsp;　&nbsp;</td>
+</tr>
+</table>
+
+</td>
+</tr>
+</table>
+
+<p class="i">
+<font color="red">リスト108</font> 
+の
+<font color="blue">SEGOUT</font> 
+は7 セグメントLED の点灯するセグメントを決める
+値が代入されます。
+<font color="blue">0</font> 
+で消灯、
+<font color="blue">1</font> 
+で点灯
+です。セグメントとの接続は
+<font color="red">図5.34</font> 
+のようになっています。点灯するセグメントは
+<font color="blue">DATA</font> 
+で決められますがBCD 値だけでなく
+<font color="blue">9</font> 
+を超えた
+<font color="blue">10〜15</font> 
+には16 進数の
+<font color="blue">a〜f</font> 
+に対応する表示もできるようになっています。
+</p>
+
+<br clear="right">
+<!--  -->
+      </td>
+      <td width=" 50 ">
+</td>
+   </tr>
+   <tr>
+      <td height=" 20 "  colspan="3">
+</td>
+   </tr>
+</table>
+<!--  -->
+      </td>
+      <td width=" 50 " bgcolor="lightgray">
+</td>
+   </tr>
+   <tr bgcolor="gray">
+      <td height=" 20 "  colspan="3">
+</td>
+   </tr>
+</table>
+</body>
+</html>

@@ -1,0 +1,177 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+   <title></title>
+<LINK Type="TEXT/css" Rel="stylesheet" Href="main.css">
+<style type="text/css">
+<!--
+body, th, td { line-height: 150%; }
+.i { MARGIN-left: 1em; MARGIN-right: 1em; }
+-->
+</style>
+</head>
+<body  background="../LIB/TOPIMG.JPG">
+<table border="1" cellspacing="0" width=" 900 " height=" 450 ">
+   <tr bgcolor="navy">
+<td>
+<table>
+<tr>
+<td><a href="pg156.html"><font color="white">＜</font></a></td>
+<td><font color="white"><a href="pg0.html">□</a></font></td>
+<td><a href="pg158.html"><font color="white">＞</font></a></td>
+</tr>
+</table>
+</td>
+      <td width=" 500 " height=" 20 " colspan="1" align="left">
+<td align="center"><font color="white">
+No.157
+</font></td>
+   </td>
+   </tr>
+   <tr>
+      <td width=" 20 " bgcolor="lightgray">　
+</td>
+      <td height=" 500 " bgcolor="white">
+<!--  -->
+<table border="0" cellspacing="0">
+   <tr>
+      <td height=" 20 " colspan="3">
+</td>
+   </tr>
+   <tr>
+      <td width=" 50 ">
+</td>
+      <td>
+<!--  -->
+<br>
+
+<table class="i">
+<caption><font color="red">図5.102</font>　端末のメモリにBCD 値を書き込み</caption>
+<tr>
+<td>&nbsp;&nbsp</td>
+<td align="center">
+<a href="../LIB/FG09H25A.png" target="_blank">
+<img src="../LIB/FG09H25A.png" border="0" alt="FG09H25A.png(67128 byte)" width="900">
+</a>
+</td>
+<td>&nbsp;　　　&nbsp</td>
+</tr>
+</table>
+
+<br>
+
+<p class="i">
+主行程の
+<font color="blue">calcseq</font> 
+が
+<font color="blue">6</font> 
+のときは
+<font color="blue">regA</font> 
+の値を8桁のBCD 値に変換しています。変換が終わると
+<font color="blue">chgbintobcdeoc</font> 
+が
+<font color="blue">1</font> 
+になりますので主行程は
+<font color="blue">7</font> 
+に移り
+<font color="red">図5.102</font> 
+のように端末のメモリに計算結果のBCD 値を書き込みます。
+</p>
+
+<br>
+
+<table class="i">
+<caption><font color="red">図5.103</font>　2番目の数値入力</caption>
+<tr>
+<td>&nbsp;&nbsp</td>
+<td align="center">
+<a href="../LIB/FG09H25B.png" target="_blank">
+<img src="../LIB/FG09H25B.png" border="0" alt="FG09H25B.png(85320 byte)" width="900">
+</a>
+</td>
+<td>&nbsp;　　　&nbsp</td>
+</tr>
+</table>
+
+<br>
+
+<p class="i">
+<font color="red">図5.103</font> 
+は
+<font color="blue">12345678/90=</font> 
+を入力した直後の位置です。
+<font color="blue">regA</font> 
+に1番目の数値が
+<font color="blue">regB</font> 
+に2番目の数値が入っています。主行程の
+<font color="blue">calcseq</font> 
+が
+<font color="blue">3</font> 
+のところでは
+<font color="blue">execop</font> 
+が
+<font color="blue">3</font> 
+なので
+<font color="blue">regA=regA÷regB</font> 
+を実行します。
+</p>
+
+<br>
+
+<table align="right">
+<caption><font color="red">図5.104</font>　計算実行</caption>
+<tr>
+<td>&nbsp;&nbsp</td>
+<td align="center">
+<a href="../LIB/FG09H25C.png" target="_blank">
+<img src="../LIB/FG09H25C.png" border="0" alt="FG09H25C.png(60661 byte)" width="400">
+</a>
+</td>
+<td>&nbsp;　　　&nbsp</td>
+</tr>
+</table>
+
+<p class="i">
+<font color="red">図5.104</font> 
+は
+<font color="blue">opend</font> 
+が
+<font color="blue">1</font> 
+になって計算の実行を終了したところです。
+<font color="blue">regA</font> 
+の値は
+<font color="blue">137174</font> 
+になっています。この値は8桁のBCD 値に変換されて
+<font color="red">図5.102</font>
+と同じように端末のメモリに書き込まれます。このように
+<font color="blue">12345678/90=</font> 
+は主行程を
+<font color="blue">2</font> 
+回行って計算を完了しています。
+</p>
+
+<br clear="right">
+
+<!--  -->
+      </td>
+      <td width=" 50 ">
+</td>
+   </tr>
+   <tr>
+      <td height=" 20 "  colspan="3">
+</td>
+   </tr>
+</table>
+<!--  -->
+      </td>
+      <td width=" 50 " bgcolor="lightgray">
+</td>
+   </tr>
+   <tr bgcolor="gray">
+      <td height=" 20 "  colspan="3">
+</td>
+   </tr>
+</table>
+</body>
+</html>

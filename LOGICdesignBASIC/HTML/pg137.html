@@ -1,0 +1,185 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+   <title></title>
+<LINK Type="TEXT/css" Rel="stylesheet" Href="main.css">
+<style type="text/css">
+<!--
+body, th, td { line-height: 150%; }
+.i { MARGIN-left: 1em; MARGIN-right: 1em; }
+-->
+</style>
+</head>
+<body  background="../LIB/TOPIMG.JPG">
+<table border="1" cellspacing="0" width=" 900 " height=" 450 ">
+   <tr bgcolor="navy">
+<td>
+<table>
+<tr>
+<td><a href="pg136.html"><font color="white">＜</font></a></td>
+<td><font color="white"><a href="pg0.html">□</a></font></td>
+<td><a href="pg138.html"><font color="white">＞</font></a></td>
+</tr>
+</table>
+</td>
+      <td width=" 500 " height=" 20 " colspan="1" align="left">
+<td align="center"><font color="white">
+No.137
+</font></td>
+   </td>
+   </tr>
+   <tr>
+      <td width=" 20 " bgcolor="lightgray">　
+</td>
+      <td height=" 500 " bgcolor="white">
+<!--  -->
+<table border="0" cellspacing="0">
+   <tr>
+      <td height=" 20 " colspan="3">
+</td>
+   </tr>
+   <tr>
+      <td width=" 50 ">
+</td>
+      <td>
+<!--  -->
+<br>
+
+<p class="i">
+<font color="red">図5.69</font> 
+で
+<font color="blue">XSEL</font> 
+の
+<font color="blue">2</font> 
+に対しての応答に
+<font color="blue">YIN</font> 
+に
+<font color="blue">3</font> 
+を返すとキーの
+<span style="background-color:#FFCC00">+</span> 
+を押したことになります。
+<span style="background-color:#FFCC00">+</span> 
+は機能キーですが機能キーを押すと
+<font color="blue">SET</font> 
+が
+<font color="blue">1</font> 
+になり外に知らされます。このときに
+<font color="blue">FUNC</font> 
+を
+<font color="blue">1</font> 
+にして
+<span style="background-color:#FFCC00">+</span> 
+が押されたことを示します。これに対応して
+<font color="blue">TAKE</font> 
+を
+<font color="blue">1</font> 
+にして応答すると端末の論理はメモリの全ての番地の値を
+<font color="blue">0</font> 
+にします。検証論理では
+<font color="#990000">if (node SET) node_TAKE=1; endif</font> 
+で
+<font color="blue">node_SET</font> 
+が
+<font color="blue">1</font> 
+になると
+<font color="blue">node_TAKE</font> 
+が
+<font color="blue">1</font> 
+になるようにしています。
+<font color="red">図5.69</font> 
+の
+<font color="blue">tc</font> 
+が
+16進数の表記で
+<font color="blue">2da</font> 
+のところからメモリを読み出しています。メモリを初期化した後ですから値は全て
+<font color="blue">0</font> 
+です。
+</p>
+
+<hr color="#6666CC" size="10">
+<font size="4" color="#5454AB"><b>　　　メモリの書き込み</b></font><br>
+<hr color="#6666CC">
+
+<p class="i">
+<font color="red">図5.70</font> 
+の前の部分は
+<font color="red">リスト140</font> 
+のメモリの書き込みを実行しています。
+<font color="blue">EXTADD</font> 
+が番地で
+<font color="blue">EXTDATA</font> 
+が値で
+<font color="blue">EXTWP</font> 
+が書き込みの起点です。
+<font color="red">図5.70</font> 
+の後の部分はメモリを読み出して外からの書き込みが正しく行われたかを確認しています。
+</p>
+
+<br>
+
+<table class="i">
+<caption><font color="red">図5.70</font>　メモリの書き込みと確認</caption>
+<tr>
+<td>&nbsp;&nbsp</td>
+<td align="center">
+<a href="../LIB/FG09H05A.png" target="_blank">
+<img src="../LIB/FG09H05A.png" border="0" alt="FG09H05A.png(110705 byte)" width="1100">
+</a>
+</td>
+<td>&nbsp;　　　&nbsp</td>
+</tr>
+</table>
+
+<br>
+
+<hr color="#6666CC" size="10">
+<font size="4" color="#5454AB"><b>　　　表示器</b></font><br>
+<hr color="#6666CC">
+
+<p class="i">
+<font color="red">図5.71</font> 
+は表示器の下から1 番目の桁の実行の様子を示しています。
+<font color="blue">SEGOUT</font> 
+はセグメントの表示値を
+<font color="blue">KETAOUT</font>
+は桁位置を表しています。
+</p>
+
+<br>
+
+<table class="i">
+<caption><font color="red">図5.71</font>　表示器の実行</caption>
+<tr>
+<td>&nbsp;&nbsp</td>
+<td align="center">
+<a href="../LIB/FG09H05B.png" target="_blank">
+<img src="../LIB/FG09H05B.png" border="0" alt="FG09H05B.png(47865 byte)" width="1000">
+</a>
+</td>
+<td>&nbsp;　　　&nbsp</td>
+</tr>
+</table>
+<!--  -->
+      </td>
+      <td width=" 50 ">
+</td>
+   </tr>
+   <tr>
+      <td height=" 20 "  colspan="3">
+</td>
+   </tr>
+</table>
+<!--  -->
+      </td>
+      <td width=" 50 " bgcolor="lightgray">
+</td>
+   </tr>
+   <tr bgcolor="gray">
+      <td height=" 20 "  colspan="3">
+</td>
+   </tr>
+</table>
+</body>
+</html>

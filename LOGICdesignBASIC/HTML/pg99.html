@@ -1,0 +1,231 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+   <title></title>
+<LINK Type="TEXT/css" Rel="stylesheet" Href="main.css">
+<style type="text/css">
+<!--
+body, th, td { line-height: 150%; }
+.i { MARGIN-left: 1em; MARGIN-right: 1em; }
+-->
+</style>
+</head>
+<body  background="../LIB/TOPIMG.JPG">
+<table border="1" cellspacing="0" width=" 900 " height=" 450 ">
+   <tr bgcolor="navy">
+<td>
+<table>
+<tr>
+<td><a href="pg98.html"><font color="white">＜</font></a></td>
+<td><font color="white"><a href="pg0.html">□</a></font></td>
+<td><a href="pg100.html"><font color="white">＞</font></a></td>
+</tr>
+</table>
+</td>
+      <td width=" 500 " height=" 20 " colspan="1" align="left">
+<td align="center"><font color="white">
+No.99
+</font></td>
+   </td>
+   </tr>
+   <tr>
+      <td width=" 20 " bgcolor="lightgray">　
+</td>
+      <td height=" 500 " bgcolor="white">
+<!--  -->
+<table border="0" cellspacing="0">
+   <tr>
+      <td height=" 20 " colspan="3">
+</td>
+   </tr>
+   <tr>
+      <td width=" 50 ">
+</td>
+      <td>
+<!--  -->
+<hr color="#6666CC" size="10">
+<font size="4" color="#5454AB"><b>　　　列駆動</b></font><br>
+<hr color="#6666CC">
+
+<br>
+
+<table align="right">
+<a name="LST94"></a>
+<caption><font color="red">　リスト94</font>　列駆動</caption>
+<tr>
+<td >&nbsp;　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+switch(count)
+   case 0: XSEL=0b0001;
+   case 1: XSEL=0b0010;
+   case 2: XSEL=0b0100;
+   case 3: XSEL=0b1000;
+endswitch
+</font>
+</pre>
+</td>
+<td >&nbsp;　&nbsp;</td>
+</tr>
+</table>
+
+<p class="i">
+<font color="red">リスト94</font> 
+の
+<font color="blue">XSEL</font> 
+は
+<font color="red">図5.10</font> 
+の列を駆動する信号です。
+</p>
+
+<br clear="right">
+
+<hr color="#6666CC" size="10">
+<font size="4" color="#5454AB"><b>　　　主行程</b></font><br>
+<hr color="#6666CC">
+
+<table align="right">
+<a name="LST95"></a>
+<caption><font color="red">　リスト95</font>　主行程</caption>
+<tr>
+<td >&nbsp;　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+if (RESET)
+   set=0;
+else
+   switch(set)
+      case 0:
+         if (sclkp.0)
+            if (keypush)
+               set=1;
+            endif
+         endif
+      case 1: set=2;
+      case 2:
+         if (TAKE)
+            set=6;
+         else
+            set=set;
+         endif
+      case 6:
+         if (keypush)
+            set=set;
+         else
+            set=0;
+         endif
+   endswitch
+endif
+</font>
+</pre>
+</td>
+<td >&nbsp;　&nbsp;</td>
+</tr>
+</table>
+
+<p class="i">
+<font color="red">リスト95</font> 
+の主行程の
+<font color="blue">set</font> 
+はキーが押されてからキーのデータが読み取られ
+てキーが離されるまでの行程を示します。意味は
+<font color="red">図5.13</font> 
+のようになっています。
+</p>
+
+<table class="i">
+<caption><font color="red">図5.13</font> 主行程</caption>
+<tr>
+<td>&nbsp;&nbsp</td>
+<td align="center">
+<a href="../LIB/FG09F28A.png" target="_blank">
+<img src="../LIB/FG09F28A.png" border="0" alt="FG09F28A.png(19390 byte)" width="400">
+</a>
+</td>
+<td>&nbsp;　　　&nbsp</td>
+</tr>
+</table>
+
+<br clear="right">
+
+<hr color="#6666CC" size="10">
+<font size="4" color="#5454AB"><b>　　　キー押し下げ検出</b></font><br>
+<hr color="#6666CC">
+
+<table align="right">
+<caption><font color="red">図5.14</font> キー読み取り</caption>
+<tr>
+<td>&nbsp;&nbsp</td>
+<td align="center">
+<a href="../LIB/FG09F28B.png" target="_blank">
+<img src="../LIB/FG09F28B.png" border="0" alt="FG09F28B.png(13593 byte)" width="250">
+</a>
+</td>
+<td>&nbsp;　　　&nbsp</td>
+</tr>
+</table>
+
+<p class="i">
+<font color="red">リスト96</font> 
+の
+<font color="blue">keypush</font> 
+は
+<font color="red">図5.14</font> 
+のようにキーを読み取る位置を示します。
+<font color="blue">keypush</font> 
+が1 のときに
+<font color="blue">Q</font> 
+は更新されます。駆動している列につながっている行のスイッチがひとつも押されていない場合や前回に押されたキーのデータがあるのに
+<font color="blue">TAKE</font> 
+が1 にされていないときは
+キーデータが読み取られていないと判断して
+<font color="blue">keypush</font>
+は1 になりません。
+</p>
+
+<table class="i">
+<a name="LST96"></a>
+<caption><font color="red">　リスト96</font>　キー押し下げ検出</caption>
+<tr>
+<td >&nbsp;　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+if ((YIN!=0)&sclkp.0)
+   switch(set)
+      case 0: keypush=1;
+   endswitch
+endif
+</font>
+</pre>
+</td>
+<td >&nbsp;　&nbsp;</td>
+</tr>
+</table>
+
+<br clear="right">
+<!--  -->
+      </td>
+      <td width=" 50 ">
+</td>
+   </tr>
+   <tr>
+      <td height=" 20 "  colspan="3">
+</td>
+   </tr>
+</table>
+<!--  -->
+      </td>
+      <td width=" 50 " bgcolor="lightgray">
+</td>
+   </tr>
+   <tr bgcolor="gray">
+      <td height=" 20 "  colspan="3">
+</td>
+   </tr>
+</table>
+</body>
+</html>

@@ -1,0 +1,205 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+   <title></title>
+<LINK Type="TEXT/css" Rel="stylesheet" Href="main.css">
+<style type="text/css">
+<!--
+body, th, td { line-height: 150%; }
+.i { MARGIN-left: 1em; MARGIN-right: 1em; }
+-->
+</style>
+</head>
+<body  background="../LIB/TOPIMG.JPG">
+<table border="1" cellspacing="0" width=" 900 " height=" 450 ">
+   <tr bgcolor="navy">
+<td>
+<table>
+<tr>
+<td><a href="pg149.html"><font color="white">＜</font></a></td>
+<td><font color="white"><a href="pg0.html">□</a></font></td>
+<td><a href="pg151.html"><font color="white">＞</font></a></td>
+</tr>
+</table>
+</td>
+      <td width=" 500 " height=" 20 " colspan="1" align="left">
+<td align="center"><font color="white">
+No.150
+</font></td>
+   </td>
+   </tr>
+   <tr>
+      <td width=" 20 " bgcolor="lightgray">　
+</td>
+      <td height=" 500 " bgcolor="white">
+<!--  -->
+<table border="0" cellspacing="0">
+   <tr>
+      <td height=" 20 " colspan="3">
+</td>
+   </tr>
+   <tr>
+      <td width=" 50 ">
+</td>
+      <td>
+<!--  -->
+<br>
+
+<table align="right">
+<a name="LST161"></a>
+<caption><font color="red">　リスト161</font>　32ビット乗算器</caption>
+<tr>
+<td >&nbsp;　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+logicname LDL06E19A
+
+entity main
+input  RESET;
+input  A[32];
+input  B[32];
+output Y[32];
+output READY;
+
+bitr   ra[64],rb[64];
+bitr   acc[64];
+
+   if (RESET)
+      ra.0:31=A;    { 下32ビットに設置 }
+      rb.32:63=B;   { 上32ビットに設置 }
+   else
+      ra.1:63=ra.0:62;   { 上桁移動 }
+      rb.0:62=rb.1:63;   { 下桁移動 }
+   endif
+
+   if (RESET)
+      acc=0;
+   else
+      if (rb.32)
+         acc=acc+ra;     { 累算 }
+      else
+         acc=acc;
+      endif
+   endif
+
+   Y=acc.0:31;
+
+   if (rb.32:63==0) READY=1; endif
+
+ende
+</font>
+</pre>
+</td>
+<td >&nbsp;　&nbsp;</td>
+</tr>
+</table>
+
+<hr color="#4F9177" size="15">
+<font color="#336633"><b>　　32 ビット乗算器</b></font>
+<hr color="#4F9177">
+
+<p class="i">
+本稿の
+<font color="blue">「3.4 乗算器」</font>
+を基に32 ビットの乗算器を作ります。
+</p>
+
+<hr color="#6666CC" size="10">
+<font size="4" color="#5454AB"><b>　　　チップ概観</b></font><br>
+<hr color="#6666CC">
+
+<p class="i">
+チップの概観は
+<font color="red">図5.92</font> 
+のようになります。
+</p>
+
+<table class="i">
+<caption><font color="red">図5.92</font>　チップ概観</caption>
+<tr>
+<td>&nbsp;&nbsp</td>
+<td align="center">
+<a href="../LIB/FG09H18A.png" target="_blank">
+<img src="../LIB/FG09H18A.png" border="0" alt="FG09H18A.png(725802 byte)" width="370">
+</a>
+</td>
+<td>&nbsp;　　　&nbsp</td>
+</tr>
+</table>
+
+<ul>
+<li class="i">
+<font color="blue">RESET</font> : チップを初期化します。
+</li>
+
+<li class="i">
+<font color="blue">A[32]</font> : 被乗数を示します。
+</li>
+
+<li class="i">
+<font color="blue">B[32]</font> : 乗数を示します。
+</li>
+
+<li class="i">
+<font color="blue">Y[32]</font> : 積を示します。
+</li>
+
+<li class="i">
+<font color="blue">READY</font> : 乗算の終了を示します。
+</li>
+
+</ul>
+
+<br clear="right">
+
+<hr color="#4F9177" size="15">
+<font color="#336633"><b>　　32 ビット乗算器の論理</b></font>
+<hr color="#4F9177">
+
+<p class="i">
+8 ビットの乗算器を32 ビットに拡張しただけで機能の追加
+はしていません、実行の様子は
+<font color="red">図5.93</font> 
+のようになります。実
+行時間は乗算する値によって決まりますが最大で32 CLK かか
+ります。
+</p>
+
+<br>
+
+<table class="i">
+<caption><font color="red">図5.93</font>　実行(1/2)</caption>
+<tr>
+<td>&nbsp;&nbsp</td>
+<td align="center">
+<a href="../LIB/FG09H18B.png" target="_blank">
+<img src="../LIB/FG09H18B.png" border="0" alt="FG09H18B.png(83140 byte)" width="600">
+</a>
+</td>
+<td>&nbsp;　　　&nbsp</td>
+</tr>
+</table>
+<!--  -->
+      </td>
+      <td width=" 50 ">
+</td>
+   </tr>
+   <tr>
+      <td height=" 20 "  colspan="3">
+</td>
+   </tr>
+</table>
+<!--  -->
+      </td>
+      <td width=" 50 " bgcolor="lightgray">
+</td>
+   </tr>
+   <tr bgcolor="gray">
+      <td height=" 20 "  colspan="3">
+</td>
+   </tr>
+</table>
+</body>
+</html>

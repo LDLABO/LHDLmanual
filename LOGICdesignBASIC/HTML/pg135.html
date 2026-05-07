@@ -1,0 +1,225 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+   <title></title>
+<LINK Type="TEXT/css" Rel="stylesheet" Href="main.css">
+<style type="text/css">
+<!--
+body, th, td { line-height: 150%; }
+.i { MARGIN-left: 1em; MARGIN-right: 1em; }
+-->
+</style>
+</head>
+<body  background="../LIB/TOPIMG.JPG">
+<table border="1" cellspacing="0" width=" 900 " height=" 450 ">
+   <tr bgcolor="navy">
+<td>
+<table>
+<tr>
+<td><a href="pg134.html"><font color="white">＜</font></a></td>
+<td><font color="white"><a href="pg0.html">□</a></font></td>
+<td><a href="pg136.html"><font color="white">＞</font></a></td>
+</tr>
+</table>
+</td>
+      <td width=" 500 " height=" 20 " colspan="1" align="left">
+<td align="center"><font color="white">
+No.135
+</font></td>
+   </td>
+   </tr>
+   <tr>
+      <td width=" 20 " bgcolor="lightgray">　
+</td>
+      <td height=" 500 " bgcolor="white">
+<!--  -->
+<table border="0" cellspacing="0">
+   <tr>
+      <td height=" 20 " colspan="3">
+</td>
+   </tr>
+   <tr>
+      <td width=" 50 ">
+</td>
+      <td>
+<!--  -->
+<hr color="#4F9177" size="15">
+<font color="#336633"><b>　　端末の実行</b></font>
+<hr color="#4F9177">
+
+<hr color="#6666CC" size="10">
+<font size="4" color="#5454AB"><b>　　　キー入力</b></font><br>
+<hr color="#6666CC">
+
+<p class="i">
+端末の検証はキーボードを擬似的に押すことで進めていきます。端末の論理が引用しているキーボードの論理
+では同時にふたつのキーが押されることはなくキーが離されてから次のキーが押されるような操作を前提にして
+います。
+</p>
+
+<br>
+
+<table>
+<tr>
+<td valign="top">
+
+<table>
+<caption><font color="red">図5.65</font>　キーの1 を押したところ</caption>
+<tr>
+<td>&nbsp;&nbsp</td>
+<td align="center">
+<a href="../LIB/FG09H03A.png" target="_blank">
+<img src="../LIB/FG09H03A.png" border="0" alt="FG09H03A.png(176756 byte)" width="500">
+</a>
+</td>
+<td>&nbsp;　　　&nbsp</td>
+</tr>
+</table>
+
+</td>
+
+<td valign="top">
+
+<table>
+<caption><font color="red">図5.66</font>　キーの1 を離したことを確認したところ</caption>
+<tr>
+<td>&nbsp;&nbsp</td>
+<td align="center">
+<a href="../LIB/FG09H03B.png" target="_blank">
+<img src="../LIB/FG09H03B.png" border="0" alt="FG09H03B.png(176184 byte)" width="500">
+</a>
+</td>
+<td>&nbsp;　　　&nbsp</td>
+</tr>
+</table>
+
+</td>
+</tr>
+</table>
+
+<br>
+
+<p class="i">
+<font color="red">図5.65</font> 
+の
+<font color="blue">XSEL</font> 
+が
+<font color="blue">1</font> 
+で
+<font color="blue">YIN</font> 
+が
+<font color="blue">2</font> 
+になっているところはキーの
+<span style="background-color:#FFCC00">1</span> 
+を押したところで
+<font color="blue">OFF</font> 
+が
+<font color="blue">1</font> 
+から
+<font color="blue">0</font> 
+になっています。キーボードはこの後に全列を駆動して全列の
+<font color="blue">YIN</font> 
+が
+<font color="blue">0</font> 
+になっていることを確認してキーが離されたと
+<font color="red">図5.66</font> 
+のように認識して
+<font color="blue">OFF</font> 
+が
+<font color="blue">0</font> 
+から
+<font color="blue">1</font> 
+になっています。キーの
+<span style="background-color:#FFCC00">1</span> 
+が離されたときにキーを押した回数の
+<font color="blue">tp</font> 
+をひとつ増やします。
+</p>
+
+<hr color="#6666CC" size="10">
+<font size="4" color="#5454AB"><b>　　　メモリの読み出し</b></font><br>
+<hr color="#6666CC">
+
+<p class="i">
+端末の実行では次の3 箇所でメモリを外から読み出しています。
+</p>
+
+<ul>
+<li class="i">
+検証手順の
+<font color="red">図5.64</font> 
+の
+①
+が終わった後にメモリの値を
+<font color="red">図5.67</font> 
+のように読み出します。
+<font color="red">リスト138</font> 
+の
+<font color="blue">tp</font> 
+が
+<font color="blue">7</font> 
+のところでキーの
+<span style="background-color:#FFCC00">8</span> 
+が押された後がその位置です。
+</li>
+
+<li class="i">
+検証手順の
+<font color="red">図5.64</font> 
+の
+③
+が終わった後にメモリの値を
+<font color="red">図5.68</font> 
+のように読み出します。
+<font color="red">リスト138</font> 
+の
+<font color="blue">tp</font> 
+が
+<font color="blue">10</font> 
+のところでキーの
+<span style="background-color:#FFCC00">0</span> 
+が押された後がその位置です。
+</li>
+
+<li class="i">
+検証手順の
+<font color="red">図5.64</font> 
+の
+④ 
+が終わった後にメモリの値を
+<font color="red">図5.69</font> 
+のように読み出します。
+<font color="red">リスト138</font> 
+の
+<font color="blue">tp</font> 
+が
+<font color="blue">11</font> 
+のところでキーの
+<span style="background-color:#FFCC00">=</span> 
+が押された後がその位置です。
+</li>
+
+</ul>
+<!--  -->
+      </td>
+      <td width=" 50 ">
+</td>
+   </tr>
+   <tr>
+      <td height=" 20 "  colspan="3">
+</td>
+   </tr>
+</table>
+<!--  -->
+      </td>
+      <td width=" 50 " bgcolor="lightgray">
+</td>
+   </tr>
+   <tr bgcolor="gray">
+      <td height=" 20 "  colspan="3">
+</td>
+   </tr>
+</table>
+</body>
+</html>

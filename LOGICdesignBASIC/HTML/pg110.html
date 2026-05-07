@@ -1,0 +1,192 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+   <title></title>
+<LINK Type="TEXT/css" Rel="stylesheet" Href="main.css">
+<style type="text/css">
+<!--
+body, th, td { line-height: 150%; }
+.i { MARGIN-left: 1em; MARGIN-right: 1em; }
+-->
+</style>
+</head>
+<body  background="../LIB/TOPIMG.JPG">
+<table border="1" cellspacing="0" width=" 900 " height=" 450 ">
+   <tr bgcolor="navy">
+<td>
+<table>
+<tr>
+<td><a href="pg109.html"><font color="white">＜</font></a></td>
+<td><font color="white"><a href="pg0.html">□</a></font></td>
+<td><a href="pg111.html"><font color="white">＞</font></a></td>
+</tr>
+</table>
+</td>
+      <td width=" 500 " height=" 20 " colspan="1" align="left">
+<td align="center"><font color="white">
+No.110
+</font></td>
+   </td>
+   </tr>
+   <tr>
+      <td width=" 20 " bgcolor="lightgray">　
+</td>
+      <td height=" 500 " bgcolor="white">
+<!--  -->
+<table border="0" cellspacing="0">
+   <tr>
+      <td height=" 20 " colspan="3">
+</td>
+   </tr>
+   <tr>
+      <td width=" 50 ">
+</td>
+      <td>
+<!--  -->
+<br>
+
+<table>
+<caption><font color="red">図5.30</font> 全体の表示行程</caption>
+<tr>
+<td>&nbsp;&nbsp</td>
+<td align="center">
+<a href="../LIB/FG09G09A.png" target="_blank">
+<img src="../LIB/FG09G09A.png" border="0" alt="FG09G09A.png(194190 byte)" width="700">
+</a>
+</td>
+<td>&nbsp;　　　&nbsp</td>
+</tr>
+</table>
+
+<br>
+
+<hr color="#6666CC" size="10">
+<font size="4" color="#5454AB"><b>　　　主行程</b></font><br>
+<hr color="#6666CC">
+
+<br>
+
+<table>
+<tr>
+<td valign="top">
+
+<p class="i">
+<font color="red">リスト104</font> 
+の主行程の
+<font color="blue">state</font> 
+は
+<font color="red">図5.31</font> 
+のように一桁分の消灯から点灯への行程です。
+<font color="red">図5.30</font> 
+の全体の行程は主行程の繰り返しです。
+</p>
+
+<table>
+<caption><font color="red">図5.32</font> 主行程</caption>
+<tr>
+<td>&nbsp;&nbsp</td>
+<td align="center">
+<a href="../LIB/FG09G09B.png" target="_blank">
+<img src="../LIB/FG09G09B.png" border="0" alt="FG09G09B.png(92733 byte)" width="480">
+</a>
+</td>
+<td>&nbsp;　　　&nbsp</td>
+</tr>
+</table>
+
+</td>
+
+<td valign="top">
+
+<p class="i">
+<font color="blue">SCLK</font> 
+が0 から1 に変わったときに
+<font color="blue">state</font> 
+を1 から0 にして消灯の行程に入ります。
+<font color="blue">blankcount</font>
+が6 になったときに
+<font color="blue">state</font> 
+を0 から1 にして点灯の行程に入ります。これらの様子は
+<font color="red">図5.32</font> 
+を見て下さい。
+</p>
+
+<table>
+<tr>
+<td valign="top">
+
+<table>
+<a name="LST104"></a>
+<caption><font color="red">　リスト104</font>　主行程</caption>
+<tr>
+<td >&nbsp;　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+if (RESET)
+   state=0;
+else
+   if (blankcount==6)
+      state=1;
+   else
+      if (sclkp.0)
+         state=0;
+      else
+         state=state;
+      endif
+   endif
+endif
+</font>
+</pre>
+</td>
+<td >&nbsp;　&nbsp;</td>
+</tr>
+</table>
+
+</td>
+
+<td valign="top">
+
+<table>
+<caption><font color="red">図5.31</font> 主行程</caption>
+<tr>
+<td>&nbsp;&nbsp</td>
+<td align="center">
+<a href="../LIB/FG09G09C.png" target="_blank">
+<img src="../LIB/FG09G09C.png" border="0" alt="FG09G09C.png(10451 byte)" width="230">
+</a>
+</td>
+<td>&nbsp;　　　&nbsp</td>
+</tr>
+</table>
+
+</td>
+</tr>
+</table>
+
+</td>
+</tr>
+</table>
+<!--  -->
+      </td>
+      <td width=" 50 ">
+</td>
+   </tr>
+   <tr>
+      <td height=" 20 "  colspan="3">
+</td>
+   </tr>
+</table>
+<!--  -->
+      </td>
+      <td width=" 50 " bgcolor="lightgray">
+</td>
+   </tr>
+   <tr bgcolor="gray">
+      <td height=" 20 "  colspan="3">
+</td>
+   </tr>
+</table>
+</body>
+</html>

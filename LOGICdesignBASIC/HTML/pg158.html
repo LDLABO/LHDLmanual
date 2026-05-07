@@ -1,0 +1,238 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+   <title></title>
+<LINK Type="TEXT/css" Rel="stylesheet" Href="main.css">
+<style type="text/css">
+<!--
+body, th, td { line-height: 150%; }
+.i { MARGIN-left: 1em; MARGIN-right: 1em; }
+-->
+</style>
+</head>
+<body  background="../LIB/TOPIMG.JPG">
+<table border="1" cellspacing="0" width=" 900 " height=" 450 ">
+   <tr bgcolor="navy">
+<td>
+<table>
+<tr>
+<td><a href="pg157.html"><font color="white">＜</font></a></td>
+<td><font color="white"><a href="pg0.html">□</a></font></td>
+<td><a href="pg159.html"><font color="white">＞</font></a></td>
+</tr>
+</table>
+</td>
+      <td width=" 500 " height=" 20 " colspan="1" align="left">
+<td align="center"><font color="white">
+No.158
+</font></td>
+   </td>
+   </tr>
+   <tr>
+      <td width=" 20 " bgcolor="lightgray">　
+</td>
+      <td height=" 500 " bgcolor="white">
+<!--  -->
+<table border="0" cellspacing="0">
+   <tr>
+      <td height=" 20 " colspan="3">
+</td>
+   </tr>
+   <tr>
+      <td width=" 50 ">
+</td>
+      <td>
+<!--  -->
+<hr color="#6666CC" size="10">
+<font size="4" color="#5454AB"><b>　　　端末書き込み開始終了行程</b></font><br>
+<hr color="#6666CC">
+
+<br>
+
+<table align="right">
+<a name="LST168"></a>
+<caption><font color="red">　リスト168</font>　端末書き込み開始終了行程</caption>
+<tr>
+<td >&nbsp;　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+if (RESET)
+   termwritestart=0;
+else
+   switch(termwritestart)
+      case 0:
+         switch(calcseq)
+            case 0: if (off&!delayoff) termwritestart=1; endif
+            default:
+               if (chgbintobcdeoc) termwritestart=2; endif
+         endswitch
+      case 1: termwritestart=2;
+      case 2: switch(tmpcount)
+                 case 7:
+                    if (ep)
+                       termwritestart=3;
+                    else
+                       termwritestart=termwritestart;
+                    endif
+                 default: termwritestart=termwritestart;
+              endswitch
+      case 3:
+         switch(calcseq)
+            case 4: termwritestart=0;
+            case 8: termwritestart=0;
+            default: termwritestart=termwritestart;
+         endswitch
+   endswitch
+endif
+</font>
+</pre>
+</td>
+<td >&nbsp;　&nbsp;</td>
+</tr>
+</table>
+
+<p class="i">
+端末のメモリに対する書き込みの目的は2種類あります。
+<font color="blue">1</font>
+番目は計算結果を表示するため
+です。
+<font color="blue">2</font> 
+番目は計算結果を消去
+するためです。
+<font color="blue">1234+5678+9012=</font>
+が入力されたときは
+<font color="blue">1234+</font> 
+の後
+には計算はしていませんが
+<font color="blue">1234</font>
+が端末のメモリに書き込まれま
+す。
+<font color="blue">1234+5678+</font> 
+の後には計算結
+果の
+<font color="blue">6912</font> 
+が書き込まれます。
+<font color="blue">1234+5678+9012=</font> 
+の
+<font color="blue">9012=</font> 
+が入力されたときに
+<font color="blue">6912</font> 
+が消去されていないと
+<font color="blue">69129012=</font> 
+が入力されたことになってしまいます。
+<font color="blue">6912</font> 
+の計算結果が端末のメモリに書き込まれた後には主行程の
+<font color="blue">calcseq</font> 
+は
+<font color="blue">0</font> 
+になっています。
+<font color="blue">9012=</font> 
+の
+<span style="background-color:#FF9900">「9」</span>
+が押されたときには端末のメモリの
+<font color="blue">0</font>
+番地に
+<font color="blue">9</font> 
+が書き込まれて、それまでにメモリに記憶されていた値は上位の番地に移動して記憶されます。キーが離されたことは
+<font color="blue">off & !delayoff</font> 
+が
+<font color="blue">1</font> 
+になることで分かります。この後に端末のメモリの番地
+<font color="blue">1</font> 
+から番地
+<font color="blue">8</font> 
+に
+<font color="blue">0</font> 
+を書き込めば、この時点では
+<font color="blue">9</font> 
+が残って以降のキー入力で
+<font color="blue">012=</font> 
+とすれば
+<font color="blue">9012=</font> 
+が入力できるようになります。
+</p>
+
+<br clear="right">
+
+<table align="right">
+<caption><font color="red">図5.105</font>　端末書き込み開始終了行程</caption>
+<tr>
+<td>&nbsp;&nbsp</td>
+<td align="center">
+<a href="../LIB/FG09H26A.png" target="_blank">
+<img src="../LIB/FG09H26A.png" border="0" alt="FG09H26A.png(23608 byte)" width="300">
+</a>
+</td>
+<td>&nbsp;　　　&nbsp</td>
+</tr>
+</table>
+
+<p class="i">
+目的の違う2種類の端末のメモリに対する書き込みは開始位
+置と書き込み値が違います。これを分けて処理するために
+<font color="red">リスト168</font> 
+の端末書き込み開始終了行程の
+<font color="blue">termwritestart</font> 
+があります。行程図は
+<font color="red">図5.105</font> 
+のようになります。
+<font color="blue">termwritestart</font> 
+の
+<font color="blue">行程0</font> 
+からキーが離されたのを受けて行程が
+<font color="blue">1</font> 
+になっています。
+これは端末のメモリの書き込みの番地を
+<font color="blue">1</font> 
+から始めるためにあります。
+</p>
+
+<p class="i">
+計算結果を表示するための書き込みは主行程の
+<font color="blue">calcseq</font> 
+が
+<font color="blue">0</font> 
+以外のときに実行されています。計算結果を消
+去するための書き込みは
+<font color="blue">calcseq</font> 
+が
+<font color="blue">0</font> 
+のときに実行されています。計算結果を表示するための書き込みの行程
+を元に戻すのは計算結果を消去する書き込みのある前の
+<font color="blue">calcseq</font> 
+が
+<font color="blue">8</font> 
+で行います。計算結果を消去するための
+書き込みの行程を元に戻すのは計算結果を表示する書き込みのある前の
+<font color="blue">calcseq</font> 
+が
+<font color="blue">4</font> 
+で行います。
+</p>
+
+<br clear="right">
+
+<!--  -->
+      </td>
+      <td width=" 50 ">
+</td>
+   </tr>
+   <tr>
+      <td height=" 20 "  colspan="3">
+</td>
+   </tr>
+</table>
+<!--  -->
+      </td>
+      <td width=" 50 " bgcolor="lightgray">
+</td>
+   </tr>
+   <tr bgcolor="gray">
+      <td height=" 20 "  colspan="3">
+</td>
+   </tr>
+</table>
+</body>
+</html>

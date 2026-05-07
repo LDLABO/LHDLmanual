@@ -1,0 +1,296 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+   <title></title>
+<LINK Type="TEXT/css" Rel="stylesheet" Href="main.css">
+<style type="text/css">
+<!--
+body, th, td { line-height: 150%; }
+.i { MARGIN-left: 1em; MARGIN-right: 1em; }
+-->
+</style>
+</head>
+<body  background="../LIB/TOPIMG.JPG">
+<table border="1" cellspacing="0" width=" 900 " height=" 450 ">
+   <tr bgcolor="navy">
+<td>
+<table>
+<tr>
+<td><a href="pg105.html"><font color="white">＜</font></a></td>
+<td><font color="white"><a href="pg0.html">□</a></font></td>
+<td><a href="pg107.html"><font color="white">＞</font></a></td>
+</tr>
+</table>
+</td>
+      <td width=" 500 " height=" 20 " colspan="1" align="left">
+<td align="center"><font color="white">
+No.106
+</font></td>
+   </td>
+   </tr>
+   <tr>
+      <td width=" 20 " bgcolor="lightgray">　
+</td>
+      <td height=" 500 " bgcolor="white">
+<!--  -->
+<table border="0" cellspacing="0">
+   <tr>
+      <td height=" 20 " colspan="3">
+</td>
+   </tr>
+   <tr>
+      <td width=" 50 ">
+</td>
+      <td>
+<!--  -->
+<hr color="#4F9177" size="15">
+<font color="#336633">　　表示器</font>
+<hr color="#4F9177">
+
+<br>
+
+<table align="right">
+<caption><font color="red">図5.22</font> 7 セグメントLED</caption>
+<tr>
+<td>&nbsp;&nbsp</td>
+<td align="center">
+<a href="../LIB/FG09G05A.png" target="_blank">
+<img src="../LIB/FG09G05A.png" border="0" alt="FG09G05A.png(29873 byte)" width="230">
+</a>
+</td>
+<td>&nbsp;　　　&nbsp</td>
+</tr>
+</table>
+
+<p class="i">
+表示器は10 進数の8 桁で数値を表示します。10 進数の1 桁を表示する
+のに7 個の発光ダイオードが封入された
+<font color="red">図5.22</font> 
+の7 セグメントLED を使います。7 セグメントLED のひとつのLED の接続は
+<font color="red">図5.23</font> 
+のようになっています。
+<font color="blue">Q1</font> 
+はひとつのLED を駆動します。
+<font color="blue">Q2</font> 
+は最大で7 個のLED を駆動します。一度に表示するのはひとつの桁だけで時間を
+<font color="blue">1/8</font> 
+に分けて順番に全桁の表示を行います。
+</p>
+
+<br clear="right">
+
+<br>
+
+<hr color="#6666CC" size="10">
+<font size="4" color="#5454AB"><b>　　　LED の駆動</b></font><br>
+<hr color="#6666CC">
+
+<p class="i">
+実際に使う部品の特性に依存しますが点灯時間が連続点灯の
+<font color="blue">1/8</font> 
+で電流が
+<font color="blue">40mA</font> 
+で概算してみると
+<font color="blue">Q1</font> 
+と
+<font color="blue">Q2</font> 
+の
+<font color="blue">Vce</font> 
+がほぼ
+<font color="blue">0V</font> 
+近くになるまで駆動してLED の順方向電圧が
+<font color="blue">1V</font> 
+とするなら
+<font color="blue">(Vp-1)/40mA</font> 
+なので
+<font color="blue">Vp</font> 
+を
+<font color="blue">5V</font> 
+とすれば
+<font color="blue">R1</font> 
+は
+<font color="blue">100Ω</font> 
+になります。
+</p>
+
+<table align="right">
+<caption><font color="red">図5.23</font> LED駆動回路(1 個分)</caption>
+<tr>
+<td>&nbsp;&nbsp</td>
+<td align="center">
+<a href="../LIB/FG09G05B.png" target="_blank">
+<img src="../LIB/FG09G05B.png" border="0" alt="FG09G05B.png(62175 byte)" width="400">
+</a>
+</td>
+<td>&nbsp;　　　&nbsp</td>
+</tr>
+</table>
+
+<p class="i">
+<font color="blue">Q1</font> 
+はコレクタ電流を
+<font color="blue">40mA</font> 
+流さなければならないので
+<font color="blue">hfe</font> 
+が
+<font color="blue">100</font> 
+とすれば
+<font color="blue">40mA/100</font> 
+で
+<font color="blue">Q1</font> 
+のベース電流は
+<font color="blue">0.4mA</font> 
+になります。
+<font color="blue">Q1</font> 
+の
+<font color="blue">Vce</font> 
+がほぼ
+<font color="blue">0V</font>
+近くになるまで完全に導通させるために余裕を見てこの2倍の
+<font color="blue">0.8mA</font> 
+とします。
+</p>
+
+<p class="i">
+<font color="blue">Q1</font> 
+の
+<font color="blue">Vbe</font> 
+が
+<font color="blue">1V</font> 
+で
+<font color="blue">Q3</font> 
+の
+<font color="blue">Vce</font> 
+が
+<font color="blue">0V</font> 
+と過程して
+<font color="blue">R2</font> 
+のベース抵抗は次のようになります。
+<br><br>
+<font color="#660000">(Vp-Vbe-Vce)/0.8mA=(5-1-0)/0.8mA=5kΩ</font>
+<br><br>
+<font color="blue">5kΩ</font> 
+以上では
+<font color="blue">Q1</font> 
+のコレクタ電流に
+<font color="blue">40mA</font> 
+を流すのが難しくなります。
+</p>
+
+<p class="i">
+<font color="blue">Q1</font> 
+のコレクタ電流を遮断するには
+<font color="blue">Q1</font> 
+にベース電流が流れないようにします。
+<font color="blue">Q1</font> 
+が導通しはじめるのは
+<font color="blue">Q1</font> 
+にベース電流が流れはじめるときです。
+<font color="blue">Q1</font> 
+にベース電流が流れはじめるのは
+<font color="blue">Vbe</font> 
+が大体
+<font color="blue">0.6V</font> 
+を超え始めたところからです。
+<font color="blue">Q1</font> 
+の
+<font color="blue">Vbe</font> 
+の
+<font color="blue">R5</font> 
+に
+<font color="blue">10kΩ</font> 
+をつないであれば
+<font color="blue">0.6/10kΩ=60uA</font> 
+なので遮断したはずの
+<font color="blue">Q3</font> 
+から微少な
+<font color="blue">Ic</font> 
+が流れたとしても
+<font color="blue">60uA</font> 
+までなら
+<font color="blue">Q1</font> 
+の遮断を維持できます。
+</p>
+
+<p class="i">
+<font color="blue">Q3</font> 
+はコレクタ電流を
+<font color="blue">0.8mA</font> 
+を流さなければならないので
+<font color="blue">hfe</font> 
+が
+<font color="blue">100</font> 
+とすれば
+<font color="blue">0.8mA/100</font> 
+で
+<font color="blue">Q3</font> 
+のベース電流は
+<font color="blue">0.008mA</font> 
+になります。
+<font color="blue">Q3</font> 
+の
+<font color="blue">Vce</font> 
+がほぼ
+<font color="blue">0V</font> 
+近くになるまで完全に導通させるために余裕を見てこの2倍の
+<font color="blue">0.016mA</font> 
+とします。
+</p>
+
+<p class="i">
+<font color="blue">Q3</font> 
+の
+<font color="blue">Vbe</font> 
+が
+<font color="blue">1V</font> 
+でIC の
+<font color="blue">Voh</font> 
+が
+<font color="blue">2.4V</font> 
+と過程して
+<font color="blue">R3</font> 
+のベース抵抗は次のようになります。
+<br><br>
+<font color="#990000">(Voh-Vbe)/0.016mA=(2.4-1)/0.016mA=87.5kΩ</font>
+<br><br>
+<font color="blue">87.5kΩ</font> 
+以上では
+<font color="blue">Q1</font> 
+のコレクタ電流に
+<font color="blue">40mA</font> 
+を流すのが難しくなります。
+<font color="blue">Q1</font> 
+のベース電流の上限は
+<font color="blue">R2</font> 
+で決まるので
+<font color="blue">R3</font> 
+は小さくして
+<font color="blue">10kΩ</font> 
+でも問題はありません。
+</p>
+
+<br clear="right">
+
+<!--  -->
+      </td>
+      <td width=" 50 ">
+</td>
+   </tr>
+   <tr>
+      <td height=" 20 "  colspan="3">
+</td>
+   </tr>
+</table>
+<!--  -->
+      </td>
+      <td width=" 50 " bgcolor="lightgray">
+</td>
+   </tr>
+   <tr bgcolor="gray">
+      <td height=" 20 "  colspan="3">
+</td>
+   </tr>
+</table>
+</body>
+</html>
