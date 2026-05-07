@@ -1,0 +1,157 @@
+<br>
+
+<p class="i">
+<font color="red">図3.24</font> 
+では
+<font color="blue">P</font> 
+の値によって行程の行き先が違っていますがこのように流れ図のような動きを書くことができ
+ます。
+<font color="blue">Q</font> 
+は現在の行程の位置を示しているだけで何もしていませんが
+<font color="blue">Q</font> 
+で条件付けされた論理を書いておけば行程の順番のとおりにプログラムのような動きをします。
+</p>
+
+<table align="left">
+<a name="LST20"></a>
+<caption><font color="red">　リスト20</font>　順序</caption>
+<tr>
+<td >&nbsp;　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+entity main
+input  RESET;
+input  P;
+output Q[3];
+
+bitr q[3];
+
+   Q=q;
+
+   if (RESET)
+      q=0;
+   else
+      switch(q)
+         case 0: q=7;
+         case 1: q=6;
+         case 2: q=5;
+         case 3: q=4;
+         case 4:
+            if (P) q=5; else q=0; endif
+         case 5: q=3;
+         case 6: q=2;
+         case 7: q=1;
+      endswitch
+   endif
+
+ende
+</font>
+</pre>
+</td>
+<td >&nbsp;　&nbsp;</td>
+</tr>
+</table>
+
+<table align="left">
+<tr>
+<td>
+<table>
+<caption><font color="red">図3.24</font> 行程図</caption>
+<tr>
+<td>&nbsp;　　　&nbsp</td>
+<td align="center">
+<a href="../LIB/FG09D14A.png" target="_blank">
+<img src="../LIB/FG09D14A.png" border="0" alt="FG09D14A.png(15940 byte)" width="400">
+</a>
+</td>
+<td>&nbsp;&nbsp</td>
+</tr>
+</table>
+</td>
+</tr>
+
+<tr>
+<td>
+&nbsp;　&nbsp;
+</td>
+</tr>
+
+<tr>
+<td>
+<table>
+<caption><font color="red">図3.25</font> 行程図の真理値表</caption>
+<tr>
+<td>&nbsp;　　　&nbsp</td>
+<td align="center">
+<a href="../LIB/FG09D14B.png" target="_blank">
+<img src="../LIB/FG09D14B.png" border="0" alt="FG09D14B.png(22487 byte)" width="130">
+</a>
+</td>
+<td>&nbsp;&nbsp</td>
+</tr>
+</table>
+</td>
+</tr>
+</table>
+
+<br clear="left"><br>
+
+<p class="i">
+プログラムのような動きをする
+<font color="red">図3.24</font> 
+の行程図も
+<font color="red">図3.25</font> 
+のような真理値表と考えられます、この真理値表は
+入力と出力に
+<font color="blue">Q</font> 
+が使われています、この
+<font color="blue">Q</font> 
+は同じものではありません。
+<font color="red">図3.26</font> 
+に示すように真理値表の入力に書かれた
+<font color="blue">Q</font> 
+は現在値の
+<font color="blue">Q</font> 
+で真理値表の出力に書かれた
+<font color="blue">Q</font> 
+は
+<font color="blue">1CLK</font> 
+後の
+<font color="blue">Q</font> 
+です。
+</p>
+
+<table align="left">
+<caption><font color="red">図3.26</font> 行程と真理値表の構成</caption>
+<tr>
+<td>&nbsp;　　　&nbsp</td>
+<td align="center">
+<a href="../LIB/FG09D14C.png" target="_blank">
+<img src="../LIB/FG09D14C.png" border="0" alt="FG09D14C.png(9843 byte)" width="350">
+</a>
+</td>
+<td>&nbsp;&nbsp</td>
+</tr>
+</table>
+
+<p class="i">
+このように真理値表に同じ信号を入力と出力に使
+えるのは違う時刻の値がCLK によってはっきりと
+分離されているからです。またCLK は他の論理の
+記憶素子と共有しているので他のところで書かれた
+行程の論理とも連携して動きます。論理設計ではプ
+ログラムと違っていくつもの論理を連携して動かす
+と速度が遅くなるということはありません、連携は
+並列的に行われているからです。また連携はCLK
+単位で行われているので大規模な動きを緻密に設計
+することができます。
+</p>
+
+<br clear="left">
+
+<p class="i">
+言語の表記は明瞭なものですが順序の論理が長文になるようなとても複雑な動きをする論理を作るときは行程
+図を描いたほうが全体像がはっきりして後の作業が分かりやすいと思います。
+</p>
+

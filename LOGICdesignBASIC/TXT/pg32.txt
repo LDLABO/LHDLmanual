@@ -1,0 +1,169 @@
+<hr color="#4F9177" size="15">
+<font color="#336633"><b>　　除算器</b></font>
+<hr color="#4F9177">
+
+<br>
+
+<table align="right">
+<caption><font color="red">図3.31</font> 筆算の除算</caption>
+<tr>
+<td>&nbsp;　　　&nbsp</td>
+<td align="center">
+<a href="../LIB/FG09D17A.png" target="_blank">
+<img src="../LIB/FG09D17A.png" border="0" alt="FG09D17A.png(7945 byte)" width="150">
+</a>
+</td>
+<td>&nbsp;&nbsp</td>
+</tr>
+</table>
+
+<p class="i">
+除数を
+<font color="blue">12</font>
+、被除数を
+<font color="blue">3456</font> 
+として
+<font color="red">図3.31</font> 
+に筆算の計算をしてみます。計算は1
+桁づつ押し出されてゆく被除数と除数を比較して押し出された被除数が除数よりも
+大きいか同じときは押し出された被除数から除数の整数倍を負にならない範囲で減
+算します、いくつ整数倍したかが商になります。被除数は4 桁なのでこの行程は4
+回必要です。
+</p>
+
+<p class="i">
+<font color="red"><b>A</b></font>
+　押し出された被除数は
+<font color="blue">3</font> 
+なので商は
+<font color="blue">0</font> 
+です。
+<br>
+<font color="red"><b>B</b></font>
+　押し出された被除数は
+<font color="blue">34</font> 
+なので商は
+<font color="blue">02</font> 
+です。押し出された被除数から
+<font color="blue">24</font>
+を減算して
+<font color="blue">10</font> 
+にします。
+<br>
+<font color="red"><b>C</b></font>
+　押し出された被除数は
+<font color="blue">105</font> 
+なので商は
+<font color="blue">028</font> 
+です。押し出された被除数から
+<font color="blue">96</font> 
+を減算して
+<font color="blue">9</font> 
+にします。
+<br>
+<font color="red"><b>D</b></font>
+　押し出された被除数は
+<font color="blue">96</font> 
+なので商は
+<font color="blue">0288</font> 
+です。押し出された被除数から
+<font color="blue">96</font> 
+を減算して
+<font color="blue">0</font> 
+にします。
+<br>
+
+<p class="i">
+最後の計算で押し出された被除数の残りは余りになります。
+</p>
+
+<br clear="right">
+
+<hr color="#6666CC" size="10">
+<font size="4" color="#5454AB"><b>　　　記憶方式</b></font><br>
+<hr color="#6666CC">
+
+<p class="i">
+除算器では比較器と減算器が必要です、記憶方式では
+<font color="red">図3.31</font> 
+の計算を時分割で行うためにシフトレジスタも
+使います。
+<font color="red">図3.32</font> 
+は
+<font color="red">リスト23</font> 
+の
+<font color="blue">C=A÷B</font> 
+の8 ビットの除算器の構成です。
+</p>
+
+<table align="right">
+<caption><font color="red">図3.32</font> 除算器の構成</caption>
+<tr>
+<td>&nbsp;　　　&nbsp</td>
+<td align="center">
+<a href="../LIB/FG09D17B.png" target="_blank">
+<img src="../LIB/FG09D17B.png" border="0" alt="FG09D17B.png(30022 byte)" width="430">
+</a>
+</td>
+<td>&nbsp;&nbsp</td>
+</tr>
+</table>
+
+<ul class="i">
+<li class="i">
+<font color="blue">p</font> 
+は16 ビットのシフトレジスタで上位
+8 ビットが押し出された被除数になり
+ます。
+</li>
+
+<li class="i">
+<font color="blue">p</font> 
+を
+<font color="blue">np</font> 
+に代入して
+<font color="blue">B</font> 
+の代入された
+<font color="blue">nb</font>
+から減算します。
+</li>
+
+<li class="i">
+<font color="blue">q</font> 
+は8 ビットのシフトレジスタで商に
+なります。
+<font color="blue">np>nb</font> 
+のとき
+<font color="blue">q</font> 
+に1 を立て
+て、押し出された被除数から除数を引
+いた値である
+<font color="blue">r</font> 
+を
+<font color="blue">p</font> 
+に記憶します。
+</li>
+
+<li class="i">
+<font color="blue">r</font> 
+は9 ビットの
+<font color="blue">np-nb</font> 
+の減算器と比較
+器で最上位ビットが計算結果の符合を
+示しています、1 なら
+<font color="blue">np＜nb</font> 
+であり0
+なら
+<font color="blue">np＞nb</font> 
+です。
+</li>
+
+</ul>
+
+<br clear="right"><br>
+
+<p class="i">
+2 進数では押し出された被除数は除数の2 倍以上になることはありませんので商には1 か0 が立ちます。例え
+ば2 進数で除数が1000 の場合は押し出された被除数の最大値は4 ビットですが1111 までなので除数以上の
+ビット数でなければ2 倍以上にはなりません。
+</p>

@@ -1,0 +1,129 @@
+<hr color="#CC9966" size="10">
+<font size="4" color="#666633"><b>　　　桁上がりを考慮した1 ビットの加算器</b></font><br>
+<hr color="#CC9966">
+
+<p class="i">
+前回作った1 ビットの加算器に下の桁からの桁上がりも加算した加算器を作ります、この加算器ができると必
+要な個数をつなげて8 ビットや16 ビットなどの加算器を作ることができます。
+</p>
+
+
+<table>
+<tr>
+<td>
+<table class="i">
+<caption><font color="red">下位の桁上がりがない場合</font></caption>
+<tr><td>
+<pre>
+<font face="Lucida Console" color="#330099">
+a   b    c   ci
+0 + 0 -> 0 + 0 = 0
+0 + 1 -> 1 + 0 = 1
+1 + 0 -> 1 + 0 = 1
+1 + 1 -> 0 + 0 = 0 で桁上がり
+</font>
+</pre>
+</td></tr></table>
+</td>
+
+<td>
+<table class="i">
+<caption><font color="red">下位の桁上がりがある場合</font></caption>
+<tr><td>
+<pre>
+<font face="Lucida Console" color="#330099">
+a   b    c   ci
+0 + 0 -> 0 + 1 = 1
+0 + 1 -> 1 + 1 = 0 で桁上がり
+1 + 0 -> 1 + 1 = 0 で桁上がり
+1 + 1 -> 0 + 1 = 1 で桁上がり
+</font>
+</pre>
+</td></tr></table>
+</td>
+</tr>
+
+<tr>
+<td>
+
+<table class="i">
+<caption>↓</caption>
+<tr><td>
+<pre>
+<font face="Lucida Console" color="#330099">
+a   b   ci  c
+0 + 0 + 0 = 0
+0 + 1 + 0 = 1
+1 + 0 + 0 = 1
+1 + 1 + 0 = 0 で桁上がり
+</font>
+</pre>
+</td></tr></table>
+
+</td>
+
+<td>
+
+<table class="i">
+<caption>↓</caption>
+<tr><td>
+<pre>
+<font face="Lucida Console" color="#330099">
+a   b   ci  c
+0 + 0 + 1 = 1
+0 + 1 + 1 = 0 で桁上がり
+1 + 0 + 1 = 0 で桁上がり
+1 + 1 + 1 = 1 で桁上がり
+</font>
+</pre>
+</td></tr></table>
+
+</td>
+</tr>
+</table>
+
+<p class="i">
+前回作った加算器の出力の
+<font color="blue">c</font> 
+にさらに下位の桁上がりの
+<font color="blue">ci</font> 
+を足します。
+<font color="blue">ci</font> 
+が0 のときの結果を左上に示し
+ます、これを新たな
+<font color="blue">c</font> 
+の出力にしたものを左下に示します。
+<font color="blue">ci</font> 
+が1 のときの結果を右上に示します、これを新
+たな
+<font color="blue">c</font> 
+の出力にしたものを右下に示します。
+<font color="red">リスト7</font>
+が言語で書いた真理値表で
+<font color="red">リスト8</font> 
+がコンパイルで得られたVHDL の論理式です。
+</p>
+
+<hr color="#CC9966" size="10">
+<font size="4" color="#666633"><b>　　　8 ビットの加算器を作る</b></font><br>
+<hr color="#CC9966">
+
+<p class="i">
+この加算器を
+<font color="red">図3.5</font> 
+のように8 個連結すると8 ビットの加算器になります。1 ビットの論理を作ってから求め
+るビット数まで拡張する方法です。1 ビット分を作ってしまえば後は単純な作業なので手作業で設計するのに便
+利な方法ですが欠点は1 ビット分の論理が確定する時間のビットの数の総計が動作時間になることです。8 ビッ
+トの真理値表で考えることもできます、その場合は
+<font color="blue">a</font> 
+が0～255 の256 個で
+<font color="blue">b</font> 
+が0～255 の256 個なので両方の組
+み合わせで65536 行の真理値表になります。この大きな真理値表から作った論理が1ビットの論理をつなぎ
+合わせた論理よりも速くなるかどうかは大きな論理がいくつのマクロセルをつなぎ合わせるのかどうかが影響す
+るのでチップの構造により変わってくると思います。論理は単純にすればするほど速く動作する可能性が大きく
+なりますが単純にしたことの代償に大きくなってしまう場合もあります。このことがチップ化したときにマクロ
+セルをいくつもつなぎ合わせることになり速度を上げられない原因になりそうです。開発ツールやチップの種
+類によって性能が大きく違ってくると思いますが論理設計の段階では見極めがつかないこのような問題もあり
+ます。
+</p>

@@ -1,0 +1,211 @@
+<hr color="#6666CC" size="10">
+<font size="4" color="#5454AB"><b>　　　プロセッサの組み込み</b></font><br>
+<hr color="#6666CC">
+
+<p class="i">
+<font color="red">図4.1</font> 
+の動きをする
+<font color="red">リスト40</font> 
+のプログラムを実行するためのプロセッサを組み込みます。
+<font color="blue">PPUSAMPLE0.L</font> 
+を抜粋して説明しますので全部は
+<a href="../LIB/PPUSAMPLE0_L.pdf" target="_self">
+<font color="blue">PPUSAMPLE0_L.pdf</font> 
+</a>
+を見て下さい。プロセッサの基本部分にはレジスタは一本
+もありませんフラグも基本命令の論理演算の結果を記憶するフラグがありますが条件分岐で利用できるだけで直
+接参照することはできません。組み込みに当たってはレジスタを一本とフラグを一本と必要な命令を2 個作り
+ます。
+</p>
+
+<hr color="#CC9966" size="10">
+<font size="4" color="#666633"><b>　　　追加命令</b></font><br>
+<hr color="#CC9966">
+
+<p class="i">
+<font color="red">表4.2</font> 
+の比較とビット移動の命令を追加しています。追加命令の命令指標を
+<font color="red">リスト49</font> 
+に作ります。
+</p>
+
+<table class="i" align="left">
+<a name="LST49"></a>
+<caption><font color="red">　リスト49</font>　追加命令</caption>
+<tr>
+<td >&nbsp;　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+switch(DATAIN.24:31)
+   case 19: code19p=1;   { CP }
+   case 27: code27p=1;   { SLA }
+   case 29: code29p=1;   { SRL }
+endswitch
+</font>
+</pre>
+</td>
+<td >&nbsp;　&nbsp;</td>
+</tr>
+</table>
+
+<table align="left">
+<caption><font color="red">表4.2</font> 追加命令</caption>
+<tr>
+<td>&nbsp;　　　&nbsp</td>
+<td align="center">
+<a href="../LIB/FG09E12A.png" target="_blank">
+<img src="../LIB/FG09E12A.png" border="0" alt="FG09E12A.png(44535 byte)" width="400">
+</a>
+</td>
+<td>&nbsp;&nbsp</td>
+</tr>
+</table>
+
+<br clear="left"><br>
+
+<hr color="#CC9966" size="10">
+<font size="4" color="#666633"><b>　　　プロセッサの基本部分の導入</b></font><br>
+<hr color="#CC9966">
+
+<p class="i">
+<font color="red">リスト51</font> 
+はプロセッサの基本部分の手続きの前の入出力を定義した部分です。
+<font color="red">リスト50</font> 
+はこれに対応してプロセッサの基本部分を導入しています。
+</p>
+
+<table class="i" align="left">
+<a name="LST50"></a>
+<caption><font color="red">　リスト50</font>　プロセッサの基本部分の導入</caption>
+<tr>
+<td >&nbsp;　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+int_ppu=ppu(RESET,DATAIN,PORT0IN,PORT1IN,INT);
+
+int_ppu.49=1;
+
+ADDRESS=int_ppu.0:7;
+PORT0ADD=int_ppu.16:23;
+PORT1ADD=int_ppu.24:31;
+PORT0OUT=int_ppu.40:47;
+RW=int_ppu.48;
+</font>
+</pre>
+</td>
+<td >&nbsp;　&nbsp;</td>
+</tr>
+</table>
+
+<table class="i" align="left">
+<a name="LST51"></a>
+<caption><font color="red">　リスト51</font>　プロセッサの基本部分の前部</caption>
+<tr>
+<td >&nbsp;　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+input  RESET;
+input  DATAIN[32];
+input  PORT0IN[8];
+input  PORT1IN[8];
+input  INT;
+output Q[49];
+</font>
+</pre>
+</td>
+<td >&nbsp;　&nbsp;</td>
+</tr>
+</table>
+
+<br clear="left">
+
+<p class="i">
+プログラムの導入は次の記述で行います。
+<pre class="i">
+<font face="Lucida Console" color="#330099" size="2">
+preparation codegendw(ADDRESS,DATAIN,test)
+</font>
+</pre>
+</p>
+
+
+
+
+<table class="i" align="left">
+<caption><font color="red">　図4.10</font>　アセンブルリスト</caption>
+<tr>
+<td >&nbsp;　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+0000                 org 4
+0004                
+0004 04 00 01 00           LD   r0,1
+0008                
+0008                roop:
+0008 1B 00 01 00           SLA  r0,1
+000C 13 00 80 00           CP   r0,80h
+0010 07 11 01 00           AND  fz,1
+0014 02 00 02 00           JZ   roop
+0018                
+0018                roop1:
+0018 1D 00 01 00           SRL  r0,1
+001C 13 00 01 00           CP   r0,1
+0020 07 11 01 00           AND  fz,1
+0024 02 00 06 00           JZ   roop1
+0028                
+0028 01 00 02 00           JP   roop
+002C                
+002C                end
+</font>
+</pre>
+</td>
+<td >&nbsp;　&nbsp;</td>
+</tr>
+</table>
+
+<p class="i">
+<font color="red">リスト40</font> 
+をアセンブルしたものが
+<font color="red">図4.10</font> 
+のアセンブルリストです。このアセンブルによって
+<font color="red">図4.11</font> 
+のインテルへクスデータができます。
+</p>
+
+<table>
+<caption><font color="red">　図4.11</font>　インテルへクスデータ</caption>
+<tr>
+<td >&nbsp;　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+:10000400040001001B00010013008000071101001F
+:10001400020002001D00010013000100071101008D
+:080024000200060001000200C9
+:00000001FF
+</font>
+</pre>
+</td>
+<td >&nbsp;　&nbsp;</td>
+</tr>
+</table>
+
+<p class="i">
+先の
+<font color="blue">codegendw</font> 
+文の
+<font color="blue">test</font> 
+は
+<font color="blue">test.hex</font> 
+のことで
+<font color="red">図4.11</font> 
+のインテルへクスデータのファイルを指定しています。
+</p>
+
+
+
+<br clear="left">

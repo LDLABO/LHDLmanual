@@ -1,0 +1,253 @@
+<hr color="#CC9966" size="10">
+<font size="4" color="#666633"><b>　　　フラグZ</b></font><br>
+<hr color="#CC9966">
+
+<table align="right">
+<a name="LST52"></a>
+<caption><font color="red">　リスト52</font>　フラグZ</caption>
+<tr>
+<td >&nbsp;　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+if (RESET)
+   flgZ=0;
+else
+   if (code19p)   { CP r0,n }
+      flgZ=reg0R==PORT1ADD;
+   else
+      flgZ=flgZ;
+   endif
+endif
+</font>
+</pre>
+</td>
+<td >&nbsp;　&nbsp;</td>
+</tr>
+</table>
+
+<p class="i">
+<font color="red">リスト52</font> 
+はフラグ
+<font color="blue">Z</font> 
+の
+<font color="blue">flgZ</font> 
+を示します。
+<font color="red">表4.1</font> 
+の
+<font color="blue">CP</font> 
+命令
+によってフラグ
+<font color="blue">Z</font> 
+を変更します。レジスタ
+<font color="blue">0</font> 
+の
+<font color="blue">reg0R</font> 
+と即値の
+<font color="blue">PORT1ADD</font> 
+を比較しています。
+<font color="blue">CP r0,n</font> 
+ではレジスタ枠1 に即値の
+<font color="blue">n</font> 
+が入りますから
+<font color="blue">PORT1ADD</font> 
+の値は即値の
+<font color="blue">n</font> 
+です。
+</p>
+
+<br clear="right">
+
+<hr color="#CC9966" size="10">
+<font size="4" color="#666633"><b>　　　レジスタ0</b></font><br>
+<hr color="#CC9966">
+
+<table align="right">
+<a name="LST53"></a>
+<caption><font color="red">　リスト53</font>　レジスタ0</caption>
+<tr>
+<td >&nbsp;　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+if (RESET)
+   reg0R=0;
+else
+   if (code27p|code29p)
+      if (code27p) reg0R=reg0R＞＞PORT1ADD.0:3; endif
+      if (code29p) reg0R=reg0R＜＜PORT1ADD.0:3; endif
+   else
+      if (RW)
+         switch(PORT0ADD)
+            case 0:  reg0R=PORT0OUT;
+            default: reg0R=reg0R;
+         endswitch
+      else
+         reg0R=reg0R;
+      endif
+   endif
+endif
+</font>
+</pre>
+</td>
+<td >&nbsp;　&nbsp;</td>
+</tr>
+</table>
+
+<p class="i">
+<font color="red">リスト53</font> 
+はレジスタ
+<font color="blue">0</font> 
+の
+<font color="blue">reg0R</font> 
+を示し
+ます。レジスタ
+<font color="blue">0</font> 
+を変更する命令指標は次
+のものがあります。
+</p>
+
+<ul class="i">
+<li class="i">
+<font color="blue">code27p</font> : SLA r0,n
+</li>
+
+<li class="i">
+<font color="blue">code29p</font> : SRA r0,n
+</li>
+</li>
+</ul>
+
+<p class="i">
+レジスタ枠
+<font color="blue">0</font> 
+で示されるレジスタに対す
+る書き込み指標は
+<font color="blue">RW</font> 
+です、この値が1 で
+<font color="blue">PORT0ADD</font> 
+の値が0 のときはレジスタ
+<font color="blue">0</font> 
+に
+対する書き込みなのでレジスタ枠
+<font color="blue">0</font> 
+で示さ
+れるレジスタへの書き込み値の
+<font color="blue">PORT0OUT</font>
+の値をレジスタ0 を示す
+<font color="blue">reg0R</font> 
+に記憶します。
+</p>
+
+<br clear="right">
+
+<hr color="#CC9966" size="10">
+<font size="4" color="#666633"><b>　　　レジスタ枠0 の値</b></font><br>
+<hr color="#CC9966">
+
+<br>
+
+<table align="right">
+<a name="LST54"></a>
+<caption><font color="red">　リスト54</font>　レジスタ枠0 の値</caption>
+<tr>
+<td >&nbsp;　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+switch(PORT0ADD)
+case 0: PORT0IN=reg0R;
+case 17: PORT0IN.0=flgZ;
+endswitch
+</font>
+</pre>
+</td>
+<td >&nbsp;　&nbsp;</td>
+</tr>
+</table>
+
+<p class="i">
+<font color="red">リスト54</font> 
+はレジスタ枠
+<font color="blue">0</font> 
+で示されるレジスタの値を示す
+<font color="blue">PORT0IN</font> 
+を示します。レジスタ枠
+<font color="blue">0</font> 
+で示されるレジスタの番号
+を示す
+<font color="blue">PORT0ADD</font> 
+の値が0 のときはレジスタ
+<font color="blue">0</font> 
+の値を示す
+<font color="blue">reg0R</font>
+を
+<font color="blue">PORT0IN</font> 
+代入します。
+<font color="blue">PORT0ADD</font> 
+の値が17 のときはフラグZ の
+値を示す
+<font color="blue">flgZ</font> 
+を
+<font color="blue">PORT0IN</font> 
+代入します。
+</p>
+
+<br clear="right">
+
+<hr color="#CC9966" size="10">
+<font size="4" color="#666633"><b>　　　レジスタ枠1 の値</b></font><br>
+<hr color="#CC9966">
+
+<br>
+
+<table align="right">
+<a name="LST55"></a>
+<caption><font color="red">　リスト55</font>　レジスタ枠1 の値</caption>
+<tr>
+<td >&nbsp;　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+switch(PORT1ADD)
+   case 0:  PORT1IN=reg0R;
+   case 17: PORT1IN.0=flgZ;
+endswitch
+</font>
+</pre>
+</td>
+<td >&nbsp;　&nbsp;</td>
+</tr>
+</table>
+
+<p class="i">
+<font color="red">リスト55</font> 
+はレジスタ枠
+<font color="blue">1</font> 
+で示されるレジスタの値を示す
+<font color="blue">PORT1IN</font> 
+を示します。レジスタ枠
+<font color="blue">1</font> 
+で示されるレジスタの番号を示す
+<font color="blue">PORT1ADD</font> 
+の値が
+<font color="blue">0</font> 
+のときはレジスタ
+<font color="blue">0</font> 
+の値を示す
+<font color="blue">reg0R</font>
+を
+<font color="blue">PORT1IN</font> 
+代入します。
+<font color="blue">PORT0ADD</font> 
+の値が17 のときは
+<font color="blue">フラグZ</font> 
+の値を示す
+<font color="blue">flgZ</font> 
+を
+<font color="blue">PORT1IN</font> 
+代入します。
+</p>
+
+<br clear="right">
+

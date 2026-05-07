@@ -1,0 +1,128 @@
+<br>
+
+<table align="right">
+<caption><font color="red">図5.8</font> キーの短絡</caption>
+<tr>
+<td>&nbsp;&nbsp</td>
+<td align="center">
+<a href="../LIB/FG09F26A.png" target="_blank">
+<img src="../LIB/FG09F26A.png" border="0" alt="FG09F26A.png(30157 byte)" width="200">
+</a>
+</td>
+<td>&nbsp;　　　&nbsp</td>
+</tr>
+</table>
+
+<p class="i">
+<font color="red">図5.8</font> 
+はキーボードの一部を抜粋したものです、これで
+<font color="blue">0</font> 
+と
+<font color="blue">=</font> 
+のキーを同時
+に押すと
+<font color="blue">B0</font> 
+と
+<font color="blue">B1</font> 
+につながれたIC の出力は短絡してしまいます。
+<font color="blue">1</font> 
+と
+<font color="blue">2</font> 
+のキーでも同じことが起こります。
+<font color="blue">0</font> 
+と
+<font color="blue">1</font> 
+または
+<font color="blue">=</font> 
+と
+<font color="blue">2</font> 
+のキーを同時に押しても
+短絡は起こりません。短絡を防ぐためにはダイオードの代わりに抵抗を使うこ
+ともできます。これでも壊れることは防げますが複数のキーが押されたときに
+正しく読み取れなくなる場合があります。
+</p>
+
+<br clear="right">
+
+<hr color="#4F9177" size="15">
+<font color="#336633">　　キーボードの論理</font>
+<hr color="#4F9177">
+
+<p class="i">
+4 行4 列のキーボードを駆動する論理を作ります。
+チップの概観は
+<font color="red">図5.9</font> 
+のようになります。
+</p>
+
+<hr color="#6666CC" size="10">
+<font size="4" color="#5454AB"><b>　　　チップ概観</b></font><br>
+<hr color="#6666CC">
+
+<table align="right">
+<caption><font color="red">図5.9</font> チップ概観</caption>
+<tr>
+<td>&nbsp;&nbsp</td>
+<td align="center">
+<a href="../LIB/FG09F26B.png" target="_blank">
+<img src="../LIB/FG09F26B.png" border="0" alt="FG09F26B.png(18223 byte)" width="400">
+</a>
+</td>
+<td>&nbsp;　　　&nbsp</td>
+</tr>
+</table>
+
+<ul>
+<li class="i"><font color="blue"><b>RESET</b></font> : チップを初期化します。</li>
+<li class="i"><font color="blue"><b>SCLK</b></font> : キーボードを駆動するCLK で1CLK で1
+列を駆動して、それにつながる1 行のキーを
+読み取ります。
+<li class="i"><font color="blue"><b>Q[4]</b></font> : キーボードで押されたキーのデータです。上の2 ビットに列のデータがあります。下の2 ビットに行
+のデータがあります。
+<li class="i"><font color="blue"><b>SET</b></font> : キーボードでキーが押されていてQ[4] にデータがあることを示します。
+<li class="i"><font color="blue"><b>TAKE</b></font> : Q[4] のデータを読み取った後に本端子を1 にしてSET を解除させます。
+<li class="i"><font color="blue"><b>YIN[4]</b></font> : キーボードの行を読み取る端子です。
+<li class="i"><font color="blue"><b>XSEL[4]</b></font> : キーボードの列を駆動する端子です。
+</ul>
+
+<br clear="right">
+
+<hr color="#6666CC" size="10">
+<font size="4" color="#5454AB"><b>　　　キーボードの駆動と読み取り</b></font><br>
+<hr color="#6666CC">
+
+<table align="right">
+<caption><font color="red">図5.10</font> キーボードの駆動と読み取り</caption>
+<tr>
+<td>&nbsp;&nbsp</td>
+<td align="center">
+<a href="../LIB/FG09F26C.png" target="_blank">
+<img src="../LIB/FG09F26C.png" border="0" alt="FG09F26C.png(36330 byte)" width="350">
+</a>
+</td>
+<td>&nbsp;　　　&nbsp</td>
+</tr>
+</table>
+
+<p class="i">
+<font color="blue">Q[4]</font> 
+のデータは新たなキー入力があっても
+<font color="blue">TAKE</font> 
+を
+<font color="blue">1</font> 
+にして
+<font color="blue">SET</font> 
+が解除しないと更新されません。
+<font color="blue">Q[4]</font> 
+のデータの構成は
+<font color="red">図5.10</font> 
+のようになっています。行と列がそれぞれ2 ビットなので、ひとつのキーだけが押され
+たことしかデータにしていません。複数の列でキーが押
+されても駆動されている列につながっている行のスイッ
+チだけが認識されるような回路であることを前提にして
+います。同一の列の中の複数の行でスイッチが押された
+ときは優先順位をつけてひとつのキーだけをデータにす
+るように論理を作ります。
+</p>
+
+<br clear="right">

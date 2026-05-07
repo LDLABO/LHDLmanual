@@ -1,0 +1,107 @@
+<table align="left" width="400">
+<a name="LST9"></a>
+<caption><font color="red">リスト9</font>　8ビットの加算器 no.4</caption>
+<tr>
+<td >&nbsp;　　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+{ --------------------------------- }
+{                                   }
+{ --------------------------------- }
+procedure add
+input  a,b,ci;
+output q[2];
+
+bitn   c,co;
+
+   q.0=c;
+   q.1=co;
+
+   switch(a,b,ci)
+      case 0,0,0: c=0; co=0;
+      case 0,1,0: c=1; co=0;
+      case 1,0,0: c=1; co=0;
+      case 1,1,0: c=0; co=1;
+   endswitch
+
+   switch(a,b,ci)
+      case 0,0,1: c=1; co=0;
+      case 0,1,1: c=0; co=1;
+      case 1,0,1: c=0; co=1;
+      case 1,1,1: c=1; co=1;
+   endswitch
+
+endp
+
+{ --------------------------------- }
+{                                   }
+{ --------------------------------- }
+entity main
+input  a[8],b[8];
+output c[8];
+
+bitn int0add[2];
+bitn int1add[2];
+bitn int2add[2];
+bitn int3add[2];
+bitn int4add[2];
+bitn int5add[2];
+bitn int6add[2];
+bitn int7add[2];
+
+   int0add=add(a.0,b.0,0);
+   int1add=add(a.1,b.1,int0add.1);
+   int2add=add(a.2,b.2,int1add.1);
+   int3add=add(a.3,b.3,int2add.1);
+   int4add=add(a.4,b.4,int3add.1);
+   int5add=add(a.5,b.5,int4add.1);
+   int6add=add(a.6,b.6,int5add.1);
+   int7add=add(a.7,b.7,int6add.1);
+
+   int0add.2=1;
+   int1add.2=1;
+   int2add.2=1;
+   int3add.2=1;
+   int4add.2=1;
+   int5add.2=1;
+   int6add.2=1;
+   int7add.2=1;
+
+   c.0=int0add.0;
+   c.1=int1add.0;
+   c.2=int2add.0;
+   c.3=int3add.0;
+   c.4=int4add.0;
+   c.5=int5add.0;
+   c.6=int6add.0;
+   c.7=int7add.0;
+
+ende
+</font>
+</pre>
+</td>
+</tr>
+</table>
+
+<hr color="#CC9966" size="10">
+<font size="4" color="#666633"><b>　　　負数</b></font><br>
+<hr color="#CC9966">
+
+<p class="i">
+減算器は負数を加算する加算器で作ることができる
+のは先に示したとおりです。負数の.5 は8 ビットで
+いえば正数の5 の0000 0101 を否定した1111 1010
+に1 を足すと1111 1011 になりますがこれが.5 で
+す5 の0000 0101 を足すと0 になります。.1 の場
+合は1 を足すと0 になるのでビット数がどのようで
+あっても全てのビットが1 になります。
+.5 の1111 1011 は負数でなければ251 ですが負
+数を取り扱うときは最上位のビットを符号を判断する
+ビットに使って残りのビットで数値を表しますから8
+ビットなら0～127,-1～-128 までの数値が取り扱
+える範囲です。
+</p>
+
+
+<br clear="left">

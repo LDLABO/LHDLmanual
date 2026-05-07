@@ -1,0 +1,158 @@
+<br>
+
+<p class="i">
+<font color="red">図3.27</font> 
+の
+<font color="blue">J～M</font> 
+に相当する部分が
+<font color="blue">n0p～n7p</font> 
+です、8 ビットなので8 段になります、これを全部加算すると
+<font color="blue">C=A×B</font> 
+の乗算結果が得られます。
+</p>
+
+<table align="right">
+<caption><font color="red">図3.28</font> リスト21 の実行</caption>
+<tr>
+<td>&nbsp;　　　&nbsp</td>
+<td align="center">
+<a href="../LIB/FG09D16A.png" target="_blank">
+<img src="../LIB/FG09D16A.png" border="0" alt="FG09D16A.png(45815 byte)" width="400">
+</a>
+</td>
+<td>&nbsp;&nbsp</td>
+</tr>
+</table>
+
+<p class="i">
+<font color="red">図3.28</font> 
+が
+<font color="red">リスト21</font> 
+を実行したものです。
+乗算器は言語の演算子でも提供されていますが必要
+なビット数よりも大きな乗算器を使わないように自分
+で作ったものを使用すると論理の大きさを適切なもの
+にできます。筆算方式を使う場合には非記憶の場合も
+記憶の場合も論理が分かっておりビット数に応じた構
+成にすることも簡単です。
+</p>
+
+<br clear="right"><br>
+
+<hr color="#6666CC" size="10">
+<font size="4" color="#5454AB"><b>　　　記憶方式</b></font><br>
+<hr color="#6666CC">
+
+<p class="i">
+憶方式の乗算器は加算器とシフトレジスタで作ることができます、計算の方法は筆算の方法と同じです。
+<font color="red">リスト22</font> 
+で
+<font color="blue">C=A×B</font> 
+の計算をしています、論理の構成は
+<font color="red">図3.29</font> 
+のようになっています。
+</p>
+
+<br clear="right">
+
+<table align="right">
+<a name="LST22"></a>
+<caption><font color="red">　リスト22</font>　8 ビットの乗算器(記憶)</caption>
+<tr>
+<td >&nbsp;　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+entity main
+input  RESET;
+input  A[8];
+input  B[8];
+output C[16];
+output READY;
+
+bitr   a[16],b[16];
+bitr   acc[16];
+
+   C=acc;
+
+   switch(b.8:15)
+      case 0: READY=1;
+   endswitch
+
+   if (RESET)
+      a.0:7=A;  {下8ビットに設置}
+      b.8:15=B; {上8ビットに設置}
+   else
+      a.1:15=a.0:14; {上桁移動}
+      b.0:14=b.1:15; {下桁移動}
+   endif
+
+   if (RESET)
+      acc=0;
+   else
+      if (b.8)
+         acc=acc+a;    { 累算 }
+      else
+         acc=acc;
+      endif
+   endif
+
+ende
+</font>
+</pre>
+</td>
+<td >&nbsp;　&nbsp;</td>
+</tr>
+</table>
+
+<p class="i">
+記憶方式の乗算器は非記憶の乗算器の
+<font color="red">リスト21</font> 
+の
+<font color="blue">n0p～n7p</font> 
+の計算を時分割で行って
+<font color="blue">acc</font> 
+に累算していきます。8 ビットの乗算器
+なら累算は8 回で終了しますが入力値によってはそれより短くなり
+ます、それは
+<font color="blue">b</font> 
+の上位8 ビットが0 になったことで分かります。
+</p>
+
+
+<table class="i">
+<caption><font color="red">図3.29</font> 乗算器の構成</caption>
+<tr>
+<td>&nbsp;　　　&nbsp</td>
+<td align="center">
+<a href="../LIB/FG09D16B.svg" target="_blank">
+<img src="../LIB/FG09D16B.svg" border="0" alt="FG09D16B.svg(78012 byte)" width="400">
+</a>
+</td>
+<td>&nbsp;&nbsp</td>
+</tr>
+</table>
+
+<br>
+
+<p class="i">
+<font color="red">図3.30</font> 
+は
+<font color="red">リスト22</font> 
+を実行したものです。
+</p>
+
+<br clear="right">
+
+<table class="i">
+<caption><font color="red">図3.30</font> リスト22 の実行</caption>
+<tr>
+<td>&nbsp;　　　&nbsp</td>
+<td align="center">
+<a href="../LIB/FG09D16C.png" target="_blank">
+<img src="../LIB/FG09D16C.png" border="0" alt="FG09D16C.png(99451 byte)" width="550">
+</a>
+</td>
+<td>&nbsp;&nbsp</td>
+</tr>
+</table>

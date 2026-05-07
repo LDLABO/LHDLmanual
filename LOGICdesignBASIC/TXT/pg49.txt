@@ -1,0 +1,154 @@
+<hr color="blue" size="20">
+<font color="blue">　マイクロプロセッサ</font>
+<hr color="blue">
+
+<hr color="#4F9177" size="15">
+<font color="#336633">　　LED の点灯の移動</font>
+<hr color="#4F9177">
+
+<p class="i">
+LED の点滅が
+<font color="red">図4.1</font> 
+のように右に行ったり左に行ったりするものを
+<font color="red">リスト40</font> 
+のプログラムで動かすチップ
+を作りたいと思います。プログラムの意味は
+<font color="red">図4.2</font> 
+のフローチャートに示します。
+</p>
+
+<table align="right">
+<caption><font color="red">図4.1</font> LED の移動点灯</caption>
+<tr>
+<td>&nbsp;&nbsp</td>
+<td align="center">
+<a href="../LIB/FG09E04A.png" target="_blank">
+<img src="../LIB/FG09E04A.png" border="0" alt="FG09E04A.png(34686 byte)" width="400">
+</a>
+</td>
+<td>&nbsp;　　　&nbsp</td>
+</tr>
+</table>
+
+<p class="i">
+プロセッサは独自のものを作ります
+がインテルへクスファイルを出力す
+るアセンブラが使えるような方法で
+論理設計に組み込みます。また小規模
+のPLD にも入るようにプログラムで
+使う最小限の命令だけを実装します。
+このプロセッサを使った論理の動きは
+<a href="../LIB/PPUSAMPLE0_SIM.pdf" target="_self"><font color="blue">PPUSAMPLE0_SIM.pdf</font></a>
+を見て下さい。
+</p>
+
+<p class="i">
+LED1 を左の端に配置しますLED2 からその右に配置していってLED8 は右の端になります。
+</p>
+
+<br clear="right"><br>
+
+<table>
+<tr>
+
+<td valign="top">
+<ul>
+<li>
+左端のLED1 が点灯するために
+<font color="red">リスト40</font>
+の行番号2 の
+<font color="blue">LD r0,1</font> 
+で
+<font color="blue">r0</font> 
+を1 にし
+ます。
+</li>
+
+<li>
+行番号6 の
+<font color="blue">CP r0,80h</font> 
+は
+<font color="blue">r0</font> 
+から80h を減算して結果が0 なら
+<font color="blue">fz</font> 
+が1 になります。
+</li>
+
+<li>
+行番号7 の
+<font color="blue">AND fz,1</font> 
+は
+<font color="blue">fz</font> 
+が0 ならフラグ
+<font color="blue">Z</font> 
+を1 にします。
+</li>
+
+<li>
+行番号8 の
+<font color="blue">JZ roop</font> 
+はフラグ
+<font color="blue">Z</font> 
+が1 なら
+<font color="blue">roop</font> 
+に分岐します。
+</li>
+
+<li>
+行番号3～8 はLED を左から右に点灯し
+ていきます、行番号9～13 はLED を右か
+ら左に点灯していきます。
+</li>
+</ul>
+
+</td>
+
+<td valign="top">
+<table>
+<caption><font color="red">図4.2</font> フローチャート</caption>
+<tr>
+<td>&nbsp;&nbsp</td>
+<td align="center">
+<a href="../LIB/FG09E04B.png" target="_blank">
+<img src="../LIB/FG09E04B.png" border="0" alt="FG09E04B.png(14795 byte)" width="200">
+</a>
+</td>
+<td>&nbsp;　　　&nbsp</td>
+</tr>
+</table>
+</td>
+
+<td valign="top">
+<table>
+<a name="LST40"></a>
+<caption><font color="red">　リスト40</font>　プログラム</caption>
+<tr>
+<td >&nbsp;　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+1:  org 4
+2:         LD   r0,1
+3:  roop:
+5:         SLA  r0,1
+6:         CP   r0,80h
+7:         AND  fz,1
+8:         JZ   roop
+9:  roop1:
+10:        SRL  r0,1
+11:        CP   r0,1
+12:        AND  fz,1
+13:        JZ   roop1
+14:        JP   roop
+15: end
+</font>
+</pre>
+</td>
+<td >&nbsp;　&nbsp;</td>
+</tr>
+</table>
+</td>
+
+</tr>
+</table>
+

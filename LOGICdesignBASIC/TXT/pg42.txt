@@ -1,0 +1,93 @@
+<hr color="#6666CC" size="10">
+<font size="4" color="#5454AB"><b>　　　命令仕様</b></font><br>
+<hr color="#6666CC">
+
+<p class="i">
+並び替えのプログラムを作って、そのプログラムに必要な命令だけを持つプロセッサの命令仕様は
+<font color="red">表3.1</font> 
+になります。レジスタ設置、比較、分岐、メモリ書き込み、メモリ読み出し、IO 書き込み、IO 読み出しの命令を
+持っています。論理演算や算術演算などプロセッサの持つ基本的な命令は持っていません。
+</p>
+
+<table align="left">
+<caption><font color="red">表3.1</font> 命令表</caption>
+<tr>
+<td>&nbsp;　　　&nbsp</td>
+<td align="center">
+<a href="../LIB/FG09D27A.png" target="_blank">
+<img src="../LIB/FG09D27A.PNG" width="350">
+</a>
+</td>
+<td>&nbsp;&nbsp</td>
+</tr>
+</table>
+
+
+<table align="right">
+<a name="LST33"></a>
+<caption><font color="red">　リスト33</font>　命令指標</caption>
+<tr>
+<td >&nbsp;　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+switch(codec)
+   case 1:  codec1p=1;   { LD (X),A }
+   case 2:  codec2p=1;   { LD A,(X) }
+   case 3:  codec3p=1;   { LD A,d8 }
+   case 4:  codec4p=1;   { LD X,d8 }
+   case 5:  codec5p=1;   { CMP A,(X) }
+   case 6:  codec6p=1;   { JPC b8 }
+   case 7:  codec7p=1;   { JPNC b8 }
+   case 8:  codec8p=1;   { JPZ b8 }
+   case 9:  codec9p=1;   { JPNZ b8 }
+   case 10: codec10p=1;  { JP b8 }
+   case 12: codec12p=1;  { CMP A,B }
+   case 13: codec13p=1;  { CMP A,d8 }
+   case 15: codec15p=1;  { INC X }
+   case 23: codec23p=1;  { LD (X),d8 }
+   case 25: codec25p=1;  { DEC X }
+   case 26: codec26p=1;  { LD (X),B }
+   case 27: codec27p=1;  { LD B,(X) }
+   case 28: codec28p=1;  { LD (X),X }
+   case 29: codec29p=1;  { LD A,PORT }
+   case 30: codec30p=1;  { LD PORT,A }
+endswitch
+</font>
+</pre>
+</td>
+<td >&nbsp;　&nbsp;</td>
+</tr>
+</table>
+
+<br clear="left">
+
+<hr color="#6666CC" size="10">
+<font size="4" color="#5454AB"><b>　　　命令指標</b></font><br>
+<hr color="#6666CC">
+
+<p class="i">
+<font color="red">リスト33</font> 
+の
+<font color="blue">codec</font> 
+は命令の種類を示しますが、これをいくつものところで参照しているときに
+<font color="blue">codec1p～codec30p</font> 
+を命令指標として使います。
+</p>
+
+<hr color="#CC9966" size="10">
+<font size="4" color="#666633"><b>　　　命令長の問題</b></font><br>
+<hr color="#CC9966">
+
+<p class="i">
+マイクロプロセッサとはマイクロな命令を処理する構造のことです。マイクロな命令なのである程度の機能に
+はたくさんの命令の実行が必要です。マイクロプロセッサが高い性能を発揮するためには命令が次々に実行さ
+れる必要があります。命令がメモリにあるときはデータバスから読み出しますがデータバスは8 ビットとか16
+ビットとかに固定されているのでそれ以上の長さの命令を持つプロセッサは命令が揃うのを待たないといけませ
+んし、そのための制御も大変です。プロセッサとメモリが別々に作ってあるので大きさの固定されたバスに性能
+の制約を受けます。命令長を固定してメモリからの命令の読み出しを単純にするなど、これらのことを改善しよ
+うとしたのがRISC プロセッサの試みのひとつですがプロセッサとメモリを同一の論理設計の中に置いてしまえ
+ば固定されたデータバスを使わないでもすみ命令長の違う命令でも1CLK で読み取ることができるので命令が
+揃うのを待つという問題そのものが無くなります。
+</p>
+

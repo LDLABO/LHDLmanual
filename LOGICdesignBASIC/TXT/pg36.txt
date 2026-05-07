@@ -1,0 +1,140 @@
+<hr color="#4F9177" size="15">
+<font color="#336633">　　データ操作</font>
+<hr color="#4F9177">
+
+<p class="i">
+チップ内のメモリのデータを小さい順番に並び替える論理を部分的に抜粋して説明します。論理譜と検証の全
+部は次のファイルを参照して下さい。
+</p>
+
+<ul class="i">
+<li class="i">論理譜: <a href="../LIB/LDL08H01A.pdf" target="_blank">LDL08H01A.pdf</a></li>
+<li class="i">検証: <a href="../LIB/SIM08H01A.pdf" target="_blank">SIM08H01A.pdf</a></li>
+</ul>
+
+<table align="right">
+<caption><font color="red">図3.35</font> メモリの構成</caption>
+<tr>
+<td>&nbsp;　　　&nbsp</td>
+<td align="center">
+<a href="../LIB/FG09D21A.png" target="_blank">
+<img src="../LIB/FG09D21A.png" border="0" alt="FG09D21A.png(17902 byte)" width="250">
+</a>
+</td>
+<td>&nbsp;&nbsp</td>
+</tr>
+</table>
+
+<p class="i">
+<font color="red">図3.35</font> 
+のように番地の隣り合うメモリだけでデータの交換できる8 ビット
+のメモリを10 個で構成します。
+</p>
+
+<ul class="i">
+<li class="i">
+小さい番地から連続した2 個のメモリのデータを比較して小さい番地
+のメモリのデータの方が大きかったらデータを交換します。
+</li>
+
+<li class="i">
+これを番地を増やしながら番地8 と番地9 のメモリまで行います、こ
+こで番地0 の最初から一回も交換が行われていなかったら並び替えは
+完了です。
+</li>
+
+<li class="i">
+一回でも交換が行われていたらメモリのデータは番地0 から小さい順
+番に整列していなかったことになります。
+</li>
+</ul>
+
+<br clear="right"><br>
+
+<hr color="#6666CC" size="10">
+<font size="4" color="#5454AB"><b>　　　メモリ</b></font><br>
+<hr color="#6666CC">
+
+<p class="i">
+論理設計でメモリを作って使う場合にはデータバスがないのでチップの内部の複数の論理からメモリの値を制
+限なく参照することができます。アドレスバスもないので複数のメモリの値を同時に参照することもできます。
+今回のように並び替えの機能を追加するなども簡単に行えます。
+</p>
+
+<table align="right">
+<a name="LST25"></a>
+<caption><font color="red">　リスト25</font>　並び替え用のメモリ</caption>
+<tr>
+<td >&nbsp;　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+if (reset)
+   memory0d=0;
+else
+   if (cs)
+      if (address==0)
+         if (we)
+            memory0d=datain;
+         else
+            memory0d=memory0d;
+         endif
+      else
+         memory0d=memory0d;
+      endif
+   else
+      if (swap01p)
+         memory0d=memory1d;
+      else
+         memory0d=memory0d;
+      endif
+   endif
+endif
+</font>
+</pre>
+</td>
+<td >&nbsp;　&nbsp;</td>
+</tr>
+</table>
+
+<p class="i">
+<font color="red">リスト25</font> 
+は並び替え専用のメモリの番地1 個分です。
+</p>
+
+<ul class="i">
+<li class="i">
+<font color="blue">address==0</font> 
+は0 番地のメモリを示します。
+</li>
+
+<li class="i">
+<font color="blue">swap01p</font> 
+はメモリデータを交換します。
+</li>
+
+<li class="i">
+<font color="blue">reset</font> 
+でメモリに初期値を与えることができます。
+</li>
+</ul>
+
+<p class="i">
+<font color="blue">cs</font> 
+が1 で
+<font color="blue">address</font> 
+が0 で
+<font color="blue">we</font> 
+が1 のときに
+<font color="blue">datain</font> 
+の値が
+記憶されます。
+<font color="blue">cs</font> 
+が0 のときにメモリデータの交換が行われるので並び替
+え中に外からメモリに書き込むと書き込みが優先されて並び替
+えは行われませんが並び替えの結果には影響を与えません。並
+び替え中の外部からの読み出しについては並び替えには何の影
+響も与えないので問題ありません。
+</p>
+
+<br clear="right">

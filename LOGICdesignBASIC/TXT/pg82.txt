@@ -1,0 +1,139 @@
+<br><br>
+
+<table align="left">
+<a name="LST81"></a>
+<caption><font color="red">　リスト81</font>　bcdb.lst</caption>
+<tr>
+<td >&nbsp;　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+0000                 org 4
+0004                
+0004                roop:
+0004 07 00 01 00             AND  r0,1
+0008 02 00 01 00             JZ   roop
+000C                
+000C 15 01 01 00             ADD  r1,1
+0010 13 01 03 00             CP   r1,3
+0014 07 11 01 00             AND  fz,1
+0018 02 00 08 00             JZ   roop1
+001C 04 01 00 00             LD   r1,0
+0020                roop1:
+0020 04 02 00 00             LD   r2,0
+0024                
+0024 13 01 00 00             CP   r1,0
+0028 07 11 01 00             AND  fz,1
+002C 0A 00 12 00             JNZ  x1
+0030 13 01 01 00             CP   r1,1
+0034 07 11 01 00             AND  fz,1
+0038 0A 00 14 00             JNZ  x2
+003C 13 01 02 00             CP   r1,2
+0040 07 11 01 00             AND  fz,1
+0044 0A 00 16 00             JNZ  x3
+0048                
+0048 03 03 05 00    x1:      LD   r3,r5
+004C 01 00 17 00             JP   x4
+0050 03 03 06 00    x2:      LD   r3,r6
+0054 01 00 17 00             JP   x4
+0058 03 03 07 00    x3:      LD   r3,r7
+005C                
+005C                x4:
+005C 13 03 00 00             CP   r3,0
+0060 07 11 01 00             AND  fz,1
+0064 0A 00 35 00             JNZ  x5
+0068 13 03 01 00             CP   r3,1
+006C 07 11 01 00             AND  fz,1
+0070 0A 00 37 00             JNZ  x6
+0074 13 03 02 00             CP   r3,2
+0078 07 11 01 00             AND  fz,1
+007C 0A 00 39 00             JNZ  x7
+0080 13 03 03 00             CP   r3,3
+0084 07 11 01 00             AND  fz,1
+0088 0A 00 3B 00             JNZ  x8
+008C 13 03 04 00             CP   r3,4
+0090 07 11 01 00             AND  fz,1
+0094 0A 00 3D 00             JNZ  x9
+0098 13 03 05 00             CP   r3,5
+009C 07 11 01 00             AND  fz,1
+00A0 0A 00 3F 00             JNZ  x10
+00A4 13 03 06 00             CP   r3,6
+00A8 07 11 01 00             AND  fz,1
+00AC 0A 00 41 00             JNZ  x11
+00B0 13 03 07 00             CP   r3,7
+00B4 07 11 01 00             AND  fz,1
+00B8 0A 00 43 00             JNZ  x12
+00BC 13 03 08 00             CP   r3,8
+</font>
+</pre>
+</td>
+<td >&nbsp;　&nbsp;</td>
+</tr>
+</table>
+
+<table align="left">
+<tr>
+<td >&nbsp;　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+00C0 07 11 01 00             AND  fz,1
+00C4 0A 00 45 00             JNZ  x13
+00C8 13 03 09 00             CP   r3,9
+00CC 07 11 01 00             AND  fz,1
+00D0 0A 00 47 00             JNZ  x14
+00D4                
+00D4 04 04 7E 00    x5:      LD   r4,7eh
+00D8 01 00 48 00             JP   x15
+00DC 04 04 30 00    x6:      LD   r4,30h
+00E0 01 00 48 00             JP   x15
+00E4 04 04 6D 00    x7:      LD   r4,6dh
+00E8 01 00 48 00             JP   x15
+00EC 04 04 7C 00    x8:      LD   r4,7ch
+00F0 01 00 48 00             JP   x15
+00F4 04 04 33 00    x9:      LD   r4,33h
+00F8 01 00 48 00             JP   x15
+00FC 04 04 5B 00    x10:     LD   r4,5bh
+0100 01 00 48 00             JP   x15
+0104 04 04 5F 00    x11:     LD   r4,5fh
+0108 01 00 48 00             JP   x15
+010C 04 04 70 00    x12:     LD   r4,70h
+0110 01 00 48 00             JP   x15
+0114 04 04 7F 00    x13:     LD   r4,7fh
+0118 01 00 48 00             JP   x15
+011C 04 04 73 00    x14:     LD   r4,73h
+0120                
+0120                x15:
+0120 13 01 00 00             CP   r1,0
+0124 07 11 01 00             AND  fz,1
+0128 0A 00 51 00             JNZ  x16
+012C 13 01 01 00             CP   r1,1
+0130 07 11 01 00             AND  fz,1
+0134 0A 00 53 00             JNZ  x17
+0138 13 01 02 00             CP   r1,2
+013C 07 11 01 00             AND  fz,1
+0140 0A 00 55 00             JNZ  x18
+0144                
+0144 04 02 01 00    x16:     LD   r2,1
+0148 01 00 56 00             JP   x19
+014C 04 02 02 00    x17:     LD   r2,2
+0150 01 00 56 00             JP   x19
+0154 04 02 04 00    x18:     LD   r2,4
+0158                
+0158                x19:
+0158                
+0158                roop2:
+0158 07 00 01 00             AND  r0,1
+015C 0A 00 56 00             JNZ  roop2
+0160                
+0160 01 00 01 00             JP   roop
+0164                
+0164                end
+</font>
+</pre>
+</td>
+<td >&nbsp;　&nbsp;</td>
+</tr>
+</table>
+
+<br clear="left">

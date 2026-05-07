@@ -1,0 +1,182 @@
+<br>
+
+<table>
+<caption><font color="red">図3.47</font> リスト38 とリスト39 の関連実行部分</caption>
+<tr>
+<td>&nbsp;&nbsp</td>
+<td align="center">
+<a href="../LIB/FG09E03A.png" target="_blank">
+<img src="../LIB/FG09E03A.png" border="0" alt="FG09E03A.png(66679 byte)" width="700">
+</a>
+</td>
+<td>&nbsp;　　　&nbsp</td>
+</tr>
+</table>
+
+<p class="i">
+<font color="red">図3.47</font> 
+の
+<font color="red">リスト38</font> 
+と
+<font color="red">リスト39</font> 
+の関連実行部分は
+</p>
+
+<ul class="i">
+<li class="i">
+<font color="blue">codepoint</font> 
+が51 のときに
+<font color="blue">CMP A,9</font> 
+が実行されています。
+</li>
+
+<li class="i">
+<font color="blue">codepoint</font> 
+が55 のときに
+<font color="blue">CMP A,(X)</font> 
+が実行されています。
+</li>
+
+<li class="i">
+<font color="blue">codepoint</font> 
+が27 のときに
+<font color="blue">CMP A,(X)</font> 
+が実行されています。
+</li>
+
+</ul>
+
+<table>
+<tr>
+<td>
+
+<hr color="#CC9966" size="10">
+<font size="4" color="#666633"><b>　　　フラグC</b></font><br>
+<hr color="#CC9966">
+
+<p class="i">
+<font color="red">リスト38</font> 
+の
+<font color="blue">flgC</font> 
+は
+<font color="blue">フラグC</font> 
+の値を記憶して
+います。本リスト中にある比較の
+<font color="blue">＜</font> 
+はALU が
+あればそこに集中して置くことができます。
+</p>
+
+<table>
+<a name="LST38"></a>
+<caption><font color="red">　リスト38</font>　フラグC</caption>
+<tr>
+<td >&nbsp;　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+if (reset)
+   flgC=0;
+else
+   if (codec5p)           { CMP A,(X) }
+      if (regA＜datain)
+         flgC=1;
+      else
+         flgC=0;
+      endif
+   else
+      if (codec12p)       { CMP A,B }
+         if (regA＜regB)
+            flgC=1;
+         else
+            flgC=0;
+         endif
+      else
+         if (codec13p)    { CMP A,d8 }
+            if (regA＜coded)
+               flgC=1;
+            else
+               flgC=0;
+            endif
+         else
+            flgC=flgC;
+         endif
+      endif
+   endif
+endif
+</font>
+</pre>
+</td>
+<td >&nbsp;　&nbsp;</td>
+</tr>
+</table>
+
+
+</td>
+
+<td>
+
+<hr color="#CC9966" size="10">
+<font size="4" color="#666633"><b>　　　フラグZ</b></font><br>
+<hr color="#CC9966">
+
+<p class="i">
+<font color="red">リスト39</font> 
+の
+<font color="blue">flgZ</font> 
+は
+<font color="blue">フラグZ</font> 
+の値を記憶して
+います。本リスト中にある比較の
+<font color="blue">＝＝</font> 
+はALU
+があればそこに集中して置くことができます。
+</p>
+
+<table>
+<a name="LST39"></a>
+<caption><font color="red">　リスト39</font>　フラグZ</caption>
+<tr>
+<td >&nbsp;　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+if (reset)
+   flgZ=0;
+else
+   if (codec5p)              { CMP A,(X) }
+      if (regA==datain)
+         flgZ=1;
+      else
+         flgZ=0;
+      endif
+   else
+      if (codec12p)          { CMP A,B }
+         if (regA==regB)
+            flgZ=1;
+         else
+            flgZ=0;
+         endif
+      else
+         if (codec13p)      { CMP A,d8 }
+            if (regA==coded)
+               flgZ=1;
+            else
+               flgZ=0;
+            endif
+         else
+            flgZ=flgZ;
+         endif
+      endif
+   endif
+endif
+</font>
+</pre>
+</td>
+<td >&nbsp;　&nbsp;</td>
+</tr>
+</table>
+
+</td>
+</tr>
+</table>

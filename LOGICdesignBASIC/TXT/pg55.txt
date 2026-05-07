@@ -1,0 +1,150 @@
+<hr color="#CC9966" size="10">
+<font size="4" color="#666633"><b>　　　フラグZ</b></font><br>
+<hr color="#CC9966">
+
+<table class="i" align="right">
+<a name="LST44"></a>
+<caption><font color="red">　リスト44</font>　フラグZ</caption>
+<tr>
+<td >&nbsp;　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+if (RESET)
+   flgZ=0;
+else
+   if (inst5no|inst6no|inst7no|inst8no|inst13no|inst14no)
+      switch(opout)
+         case 0:  flgZ=1;
+         default: flgZ=0;
+      endswitch
+   else
+      flgZ=flgZ;
+   endif
+endif
+</font>
+</pre>
+</td>
+<td >&nbsp;　&nbsp;</td>
+</tr>
+</table>
+
+<p class="i">
+<font color="red">リスト44</font> 
+のフラグZ を変更する命令
+指標は次のものがあります。
+</p>
+
+<ul class="i">
+<li>
+<font color="blue">inst5no </font>: AND r0,r1
+</li>
+
+<li>
+<font color="blue">inst6no</font>: OR r0,r1
+</li>
+
+<li>
+<font color="blue">inst7no</font>: AND r0,n
+</li>
+
+<li>
+<font color="blue">inst8no</font>: OR r0,n
+</li>
+
+<li>
+<font color="blue">inst13no</font>: XOR r0,n
+</li>
+
+<li>
+<font color="blue">inst14no</font>: XOR r0,r1
+</li>
+
+</ul>
+
+<br clear="right">
+
+<p class="i">
+命令指標のどれかが1 のときに演算器の
+<font color="blue">opout</font> 
+の値が0 のときは
+<font color="blue">flgZ=1</font> 
+にします、それ以外では
+<font color="blue">flgZ=0</font>
+にします。命令指標がどれも0 のときにはフラグZ は変更しません。
+</p>
+
+<hr color="#CC9966" size="10">
+<font size="4" color="#666633"><b>　　　演算器</b></font><br>
+<hr color="#CC9966">
+
+<table class="i" align="right">
+<a name="LST45"></a>
+<caption><font color="red">　リスト45</font>　演算器</caption>
+<tr>
+<td >&nbsp;　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+if (inst5no) opout=PORT0IN&PORT1IN; endif
+if (inst6no) opout=PORT0IN|PORT1IN; endif
+if (inst7no) opout=PORT0IN&immcode; endif
+if (inst8no) opout=PORT0IN|immcode; endif
+if (inst13no) opout=PORT0IN^PORT1IN; endif
+if (inst14no) opout=PORT0IN^immcode; endif
+</font>
+</pre>
+</td>
+<td >&nbsp;　&nbsp;</td>
+</tr>
+</table>
+
+<p class="i">
+<font color="red">リスト45</font> 
+の演算器は論理演算だけで命令指標はフラグZ
+と同じです。
+<font color="blue">opout</font> 
+に演算結果が出力されています。
+</p>
+
+<br clear="right">
+
+<hr color="#CC9966" size="10">
+<font size="4" color="#666633"><b>　　　内部接続</b></font><br>
+<hr color="#CC9966">
+
+<p class="i">
+プロセッサの基本部分の内部の論理への接続は
+<font color="red">図4.8</font> 
+のようになっています。
+</p>
+
+<table align="right">
+<caption><font color="red">図4.8</font> プロセッサの基本部分の内部接続</caption>
+<tr>
+<td>&nbsp;&nbsp</td>
+<td align="center">
+<a href="../LIB/FG09E10A.png" target="_blank">
+<img src="../LIB/FG09E10A.png" border="0" alt="FG09E10A.png(33169 byte)" width="400">
+</a>
+</td>
+<td>&nbsp;　　　&nbsp</td>
+</tr>
+</table>
+
+<p class="i">
+<font color="blue">DATAIN</font> 
+は命令符と同じ大きさで32ビットあります。上位から命令種別、レ
+ジスタ枠0、レジスタ枠1、レジスタ枠2 の順番に配置されています。
+<font color="blue">ADDRESS</font> 
+にはプログラムカウンタの
+<font color="blue">regPC</font> 
+の値をそのまま出しています。
+<font color="blue">PORT0IN</font> 
+にはレジスタ枠0 が示すレ
+ジスタの値が入力されます、
+<font color="blue">PORT1IN</font> 
+にはレジスタ枠1 が示すレジスタの値が入力されます。
+</p>
+
+<br clear="right">

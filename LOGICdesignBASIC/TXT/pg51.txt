@@ -1,0 +1,117 @@
+<br>
+
+<table align="right">
+<caption><font color="red">図4.4</font> プロセッサ</caption>
+<tr>
+<td>&nbsp;&nbsp</td>
+<td align="center">
+<a href="../LIB/FG09E06A.png" target="_blank">
+<img src="../LIB/FG09E06A.png" border="0" alt="FG09E06A.png(13655 byte)" width="350">
+</a>
+</td>
+<td>&nbsp;　　　&nbsp</td>
+</tr>
+</table>
+
+<ul class="i">
+<li class="i">
+基本命令だけでも順序のある制御を簡単に書けると思いま
+す。命令を追加すれば普通のプロセッサと同じようなプロ
+グラムを書くこともできます。本プロセッサで大きなプロ
+グラムを書くことはないと思いますがプログラムカウンタ
+を記憶する専用のレジスタを設置すればサブルーチンの呼
+び出しや割り込みなども可能になります。
+</li>
+
+<li class="i">
+割り込み端子を1 にするとプロセッサの基本部分はそのときの
+<font color="blue">PORT0IN</font> 
+の値を
+<font color="blue">pc</font> 
+に記憶します。これが割り
+込み端子の値によって割り込みプログラムに分岐する動作になります。プロセッサの基本部分が割り込みのため
+に実装している機能はこれだけです。プロセッサの基本部分の周辺はそのときの
+<font color="blue">ADDRESS</font> 
+の値を割り込みから
+の「戻り番地」を記憶する専用のレジスタに記憶します。プログラムでは割り込みプログラムの最後で「戻り番
+地」を
+<font color="blue">pc</font> 
+に記憶して割り込み前の位置に戻ります。
+</li>
+</ul>
+
+<br clear="right">
+
+<table class="i">
+<caption><font color="red">図4.5</font> プロセッサの基本部分</caption>
+<tr>
+<td>&nbsp;&nbsp</td>
+<td align="center">
+<a href="../LIB/FG09E06B.png" target="_blank">
+<img src="../LIB/FG09E06B.png" border="0" alt="FG09E06B.png(50314 byte)" width="650">
+</a>
+</td>
+<td>&nbsp;　　　&nbsp</td>
+</tr>
+</table>
+
+<ul class="i">
+<li class="i">
+サブルーチンの呼び出しでは戻り位置を記憶する必要があります。基本命令に
+<font color="blue">LD r0,pc</font> 
+がありますのでこれ
+を使うと現在の
+<font color="blue">pc</font> 
+に2 を加算した値を
+<font color="blue">レジスタ0</font> 
+の枠で指定したレジスタに記憶します。この命令の後に分岐
+命令を置くと
+<font color="blue">CALL</font> 
+命令と同じようになります。プログラムは
+<font color="red">リスト41</font> 
+のようになります。
+</li>
+
+</ul>
+
+<table class="i" align="left">
+<a name="LST40"></a>
+<caption><font color="red">　リスト41</font>　サブルーチン</caption>
+<tr>
+<td >&nbsp;　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+1: org 0
+2:      ld   r0,pc
+3:      jp   subroutine
+
+～～～～～～～～～～
+～～～～～～～～～～
+
+4: subroutine:
+5:      ld   pc,r0
+6: end
+</font>
+</pre>
+</td>
+<td >&nbsp;　&nbsp;</td>
+</tr>
+</table>
+
+<p class="i">
+<b>行番号2,3</b> : プログラムカウンタをレジスタに記憶して目的番地に分岐
+するCALL 命令と同じ働きをします。
+</p>
+
+<p class="i">
+<b>行番号5</b> : レジスタの値をプログラムカウンタに記憶してRET 命令と
+同じ働きをします。
+</p>
+
+<p class="i">
+CALL とRET は基本命令を組み合わせた実用命令としてマクロに定義し
+てあります。
+</p>
+
+<br clear="left">

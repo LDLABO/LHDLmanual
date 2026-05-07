@@ -1,0 +1,183 @@
+<br>
+
+<table align="right">
+<a name="LST11"></a>
+<caption><font color="red">　リスト11</font>　信号値と定数の大小比較</caption>
+<tr>
+<td >&nbsp;　　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+entity main
+input  RESET;
+output QA[4];
+output QB[4];
+
+bitr qa[4];
+bitr qb[4];
+
+   QA=qa;
+   QB=qb;
+
+   if (RESET)
+      qa=0;
+   else
+      if (qa>9)
+         qa=qa;
+      else
+         qa=qa+1;
+      endif
+   endif
+
+   if (RESET)
+      qb=15;
+   else
+      if (qb<5)
+         qb=qb;
+      else
+         qb=qb-1;
+      endif
+   endif
+ende
+</font>
+</pre>
+</td>
+<td >&nbsp;　　&nbsp;</td>
+</tr>
+</table>
+
+
+<p class="i">
+1 ビットから拡張するときに上位のビットの比較の結果も受けて現ビッ
+トの比較を行うのが
+<font color="red">図3.10</font> 
+の
+<font color="blue">a > b</font> 
+の真理値表と
+<font color="red">図3.11</font> 
+の
+<font color="blue">a = b</font> 
+の真理値表です。このふたつの真理値表の結果を合わせると
+<font color="red">図3.10</font> 
+のように
+大小一致の比較器の真理値表になります。
+</p>
+
+<table class="i" align="left">
+<caption><font color="red">図3.10</font> a > b</caption>
+<tr>
+<td align="center">
+<a href="../LIB/FG09D07A.svg" target="_blank">
+<img src="../LIB/FG09D07A.svg" border="0" alt="FG09D07A.svg(31328 byte)" width="100" height="177">
+</a>
+</td>
+</tr>
+</table>
+
+<table align="left" border="0">
+<tr>
+<td>
+&nbsp;　&nbsp;
+</td>
+</tr>
+</table>
+
+<table align="left">
+<caption><font color="red">図3.11</font> a = b</caption>
+<tr>
+<td align="center">
+<a href="../LIB/FG09D07B.svg" target="_blank">
+<img src="../LIB/FG09D07B.svg" border="0" alt="FG09D07B.svg(31328 byte)" width="100" height="177">
+</a>
+</td>
+</tr>
+</table>
+
+<table align="left" border="0">
+<tr>
+<td>
+&nbsp;　　　　&nbsp;
+</td>
+</tr>
+</table>
+
+<table align="left">
+<caption><font color="red">図3.12</font> 比較器</caption>
+<tr>
+<td align="center">
+<a href="../LIB/FG09D07C.svg" target="_blank">
+<img src="../LIB/FG09D07C.svg" border="0" alt="FG09D07C.svg(14620 byte)" width="100" height="100">
+</a>
+</td>
+</tr>
+</table>
+
+<br clear="left"><br>
+
+<p class="i">
+これを
+<font color="red">図3.13</font> 
+のように8 個連結して8 ビットの比較器を作ります最終
+段の比較器に結果が出ています。比較器や加算器は1 ビットの論理を作っ
+ておいてビットの数だけ連結すれば簡単に作ることができます。言語の中
+では演算子で手軽に使える比較器もリスト12 のような論理ですから
+<font color="red">リスト11</font> 
+の
+<font color="blue">qa>9</font> 
+の表記も同じことをあちらこちらに書くと無駄に論理を大
+きくしてしまいますので
+<font color="blue">qa>9</font> 
+で1 になる信号を一箇所だけ書いておいて
+それを何箇所かで利用すれば同じことをしている比較器はひとつだけで済
+みます。また
+<font color="red">リスト11</font> 
+の
+<font color="blue">qa>9</font> 
+の
+<font color="blue">qa</font> 
+は増計数器なので比較器を使わな
+い次の書き方がコンパイルされた論理式を小さくします。
+</p>
+
+<table class="i" border="1" cellpadding="10">
+<tr><td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+switch(qa)
+   case 10: qa=qa;
+   default: qa=qa+1;
+endswitch
+</font>
+</pre>
+</td></tr>
+</table>
+
+<p class="i">
+<font color="red">リスト12</font> 
+の手続きの
+<font color="blue">cmp</font> 
+は
+<font color="red">図3.10</font> 
+と
+<font color="red">図3.11</font> 
+の1 ビットの真理値表を言語にしたものです。実効譜の
+<font color="blue">main</font>
+ではこれを
+<font color="red">図3.13</font> 
+のように8 個連結して8 ビットの比較器を作っています。
+</p>
+
+<table class="i">
+<caption><font color="red">図3.13</font> 8 ビットの比較器の構成</caption>
+<tr>
+<td>
+<a href="../LIB/FG09D07D.svg" target="_blank">
+<img src="../LIB/FG09D07D.svg" border="0" alt="FG09D07D.svg(58692 byte)" width="675" height="119">
+</a>
+</td>
+<td >&nbsp;　　&nbsp;</td>
+</tr>
+</table>
+
+
+<br clear="right">

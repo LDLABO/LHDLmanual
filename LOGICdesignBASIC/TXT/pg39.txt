@@ -1,0 +1,143 @@
+<hr color="#6666CC" size="10">
+<font size="4" color="#5454AB"><b>　　　整列の確認</b></font><br>
+<hr color="#6666CC">
+
+<p class="i">
+<font color="red">リスト31</font> 
+は並び替えによって10 個のメモリのデータが小さい順番に整列しているかどうかを調べます、
+<font color="red">図3.38</font> 
+が整列の確認の実行部分です。
+</p>
+
+<table align="right">
+<a name="LST31"></a>
+<caption><font color="red">　リスト31</font>　整列の確認</caption>
+<tr>
+<td >&nbsp;　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+if (reset)
+   hit=0;
+else
+   if (exec)
+      if ((state==1)&(point==8))
+         switch(hit)
+            case 0: hit=2;    { b }
+            case 1: hit=0;    { 1a }
+            case 2: hit=hit;
+         endswitch
+      else
+         if (chg)
+            hit=1;            { a }
+         else
+            hit=hit;
+         endif
+      endif
+   else
+      hit=0;                  { 2a }
+   endif
+endif
+</font>
+</pre>
+</td>
+<td >&nbsp;　&nbsp;</td>
+</tr>
+</table>
+
+<p class="i">
+<font color="red">図3.37</font> 
+の
+<font color="blue">hit</font> 
+の行程の意味は次のようになります。
+</p>
+
+<ul class="i">
+<li class="i">
+<font color="red">0</font> : メモリのデータの交換はまだ行われていない
+</li>
+
+<li class="i">
+<font color="red">1</font> : メモリのデータの交換を実施した
+</li>
+
+<li class="i">
+<font color="red">2</font> : 整列を完了した
+</li>
+
+<li class="i">
+<font color="blue">a</font> : メモリのデータの交換を指示した
+</li>
+
+<li class="i">
+<font color="blue">b</font> : 巡回中にメモリのデータの交換がなかった
+</li>
+
+<li class="i">
+<font color="blue">1a</font> : もう一巡する
+</li>
+
+<li class="i">
+<font color="blue">2a</font> : 比較交換の終わりを指示
+</li>
+
+<li class="i">
+<font color="blue">2b</font> : 整列が崩れた
+</li>
+</ul>
+
+<ul class="i">
+<li class="i">
+メモリの巡回中に交換があれば
+a 
+に動きます。
+</li>
+<li class="i">
+メモリを一巡した後にメモリのデータの交換が1 度でも行われていると
+<font color="blue">1a</font> 
+に交換が行われて
+いなければ
+<font color="blue">b</font> 
+に動きます。
+</li>
+<li class="i">
+整列を完了していれば行程2 にとどまります。
+</li>
+<li class="i">
+いったん整列を完了しても外部からのメモリへ
+の書き込みで整列が崩れると
+<font color="blue">2b</font> 
+に動いて並び
+替えを行います。
+</li>
+</ul>
+
+<br clear="right">
+
+<table class="i">
+<caption><font color="red">図3.37</font> リスト31 の行程</caption>
+<tr>
+<td>&nbsp;　　　&nbsp</td>
+<td align="center">
+<a href="../LIB/FG09D24A.png" target="_blank">
+<img src="../LIB/FG09D24A.png" border="0" alt="FG09D24A.png(9343 byte)" width="250">
+</a>
+</td>
+<td>&nbsp;&nbsp</td>
+</tr>
+</table>
+
+<br><br>
+
+<table class="i">
+<caption><font color="red">図3.38</font> 整列の確認の実行</caption>
+<tr>
+<td>&nbsp;　　　&nbsp</td>
+<td align="center">
+<a href="../LIB/FG09D24B.png" target="_blank">
+<img src="../LIB/FG09D24B.png" border="0" alt="FG09D24B.png(39178 byte)" width="1000">
+</a>
+</td>
+<td>&nbsp;&nbsp</td>
+</tr>
+</table>

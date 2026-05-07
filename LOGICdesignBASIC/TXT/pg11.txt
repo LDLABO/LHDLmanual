@@ -1,0 +1,143 @@
+<hr color="#6666CC" size="10">
+<font size="4" color="#5454AB"><b>　　　PLD と記憶</b></font><br>
+<hr color="#6666CC">
+
+<p class="i">
+PLD の記憶はレジスタや計数器やシフトレジスタなど色々とある訳ですが同期式では
+<font color="red">図2.7</font> 
+のようになります。チップの初期化時に記憶値を0 にしたいときはふたつの論理積が0 になるようにします1 に
+したいときは論理和が1 になるようにします。
+</p>
+
+<table align="right" class="i">
+<caption><font color="red">図2.7</font> PLD と記憶</caption>
+<tr>
+<td>
+<a href="../LIB/FG09C28A.svg" target="_blank">
+<img src="../LIB/FG09C28A.svg" border="0" alt="FG09C28A.svg(37272 byte)" width="350">
+</a>
+</td>
+</tr>
+</table>
+
+<p class="i">
+<font color="red">図2.7</font> 
+の構造は
+<a href="pg10.html#FG09C27A.svg">
+<font color="red">図2.5</font> 
+</a>
+によって作ることができま
+す。同期式の順序論理はC に作られる記憶信号の
+論理やデータの論理の違いがあるだけで基本の構
+造は
+<font color="red">図2.7</font> 
+と同じです。
+<font color="red">図2.7</font> 
+は記憶信号をSEL、
+データをDATA、出力をQ とすると論理式は
+</p>
+
+<font color="#330099">
+<pre>
+          Q = Q*!SEL + DATA * SEL
+</pre>
+</font>
+
+<p class="i">
+になります。同期式によるPLD の論理は真理値
+表と記憶素子によって駆動されることを念頭におい
+て設計します。
+</p>
+
+<br clear="right"><br>
+
+<hr color="#6666CC" size="10">
+<font size="4" color="#5454AB"><b>　　　PLD と言語</b></font><br>
+<hr color="#6666CC">
+
+<p class="i">
+真理値表から論理式、論理式から文構造を持つ書き方に移行して来ていますが同期式では記憶の方法をひとつ
+だけにしているので非常に簡潔に書き表せます。
+</p>
+
+<table class="i" bgcolor="#FFFF99">
+<tr>
+<td valign="center">
+<font color="#330099">
+<pre>
+Q = Q*!SEL + DATA * SEL
+</pre>
+</font>
+</td>
+<td>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</td>
+<td valign="center">
+は
+</td>
+<td>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</td>
+<td valign="center">
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+if (SEL)
+   Q=DATA;
+else
+   Q=Q;
+endif
+</font>
+</pre>
+</td>
+<td>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</td>
+<td valign="center">
+になります。
+</td>
+</tr>
+</table>
+
+<br>
+
+<hr color="#CC9966" size="10">
+<font size="4" color="#666633"><b>　　　設計しやすくなった</b></font><br>
+<hr color="#CC9966">
+
+<p class="i">
+加算器も　
+<font color="#330099">c=a+b;</font> 
+のように書けます加算器がどのような真理値表になるかは前に書いた通りです。文で書
+くよいところは論理構造が分かりやすくなったことがあると思います。これでかなり細かく書いていくことがで
+きますし保守性もよくなりました。
+</p>
+
+<br>
+
+<hr color="#CC9966" size="10">
+<font size="4" color="#666633"><b>　　　言語で書いても大きくならない</b></font><br>
+<hr color="#CC9966">
+
+<p class="i">
+マイコンのプログラムはC 言語で書いたものはアセンブリ言語で書いたものより動きが遅くなることがある
+ようですが論理設計を言語で書いた場合は最終的に真理値表になり、それには論理圧縮などの確立された最適化
+の方法があるので他の方法で設計した場合に比べて著しい差が出てくるとは思えません。論理設計の言語表記は
+書きやすくてチップにするときにも論理の効率を落とす心配もありません。
+</p>
+
+<br>
+
+<hr color="#CC9966" size="10">
+<font size="4" color="#666633"><b>　　　似て非なるもの</b></font><br>
+<hr color="#CC9966">
+
+<p class="i">
+マイコンのプログラミングの言語と論理設計の言語は前提にしているものが違うので同じような言語で書いて
+いてもマイコンとPLD の言語設計は同じではありませんマイコンの場合はコードの列を作っているのであり論
+理設計の場合は真理値表を作っています。最終的には
+<a href="pg10.html#FG09C27A.svg">
+<font color="red" >図2.5</font> 
+</a>
+の構造によって実現されると頭に描いていれば明瞭
+な論理設計が行えると思います。
+</p>

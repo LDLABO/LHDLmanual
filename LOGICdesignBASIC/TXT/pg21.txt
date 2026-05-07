@@ -1,0 +1,152 @@
+<hr color="#4F9177" size="15">
+<font color="#336633"><b>　　比較器</b></font>
+<hr color="#4F9177">
+
+<p class="i">
+色々の場面で無意識によく使っている論理ですこれが無いと言語の文構造が成り立たないかも知れません。
+</p>
+
+<hr color="#6666CC" size="10">
+<font size="4" color="#5454AB"><b>　　　信号値と定数の一致比較</b></font><br>
+<hr color="#6666CC">
+
+<p class="i">
+これが最も頻繁に使う比較器の使用例だと思います。
+</p>
+
+<table align="right">
+<a name="LST10"></a>
+<caption><font color="red">リスト10</font>　信号と定数の一致比較</caption>
+<tr>
+<td >&nbsp;　　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+entity main
+input  RESET;
+output Q[4];
+
+bitr q[4];
+
+   Q=q;
+
+   if (RESET)
+      q=0;
+   else
+      switch(q)
+         case 9:  q=q;
+         default: q=q+1;
+      endswitch
+   endif
+
+ende
+</font>
+</pre>
+</td>
+<td >&nbsp;　　&nbsp;</td>
+</tr>
+</table>
+
+<p class="i">
+<font color="red">リスト10</font> 
+は
+<font color="blue">Q</font> 
+を0 から計数していって9 で止める論理です、これは信号値
+と定数の一致を比較する論理になります。
+<font color="blue">q</font> 
+が9 になったときに1 になる真
+理値表です、論理式だけ示すと
+<font color="blue">q.3 & !q.2 & !q.1 & q.0</font> 
+になります。こ
+れが0 のときに計数を続行、1 のときに計数を停止しています。
+</p>
+
+<table class="i">
+<caption><font color="red">図3.6</font> 信号と定数の一致比較実行</caption>
+<tr>
+<td>
+<a href="../LIB/FG09D06A.png" target="_blank">
+<img src="../LIB/FG09D06A.png" border="0" alt="FG09D06A.png(66090 byte)" width="450">
+</a>
+</td>
+</tr>
+</table>
+
+<br clear="right">
+
+<hr color="#6666CC" size="10">
+<font size="4" color="#5454AB"><b>　　　信号値と定数の大小比較</b></font><br>
+<hr color="#6666CC">
+
+<p class="i">
+<font color="red">リスト11</font> 
+は
+<font color="red">図3.7</font> 
+のように
+<font color="blue">QA</font> 
+を0 から増計数していって10 で止めます
+<font color="blue">QB</font> 
+を15 から減計数していって
+4 で止めますこれは信号値と定数の大小を比較する論理になります。
+</p>
+
+<table class="i">
+<caption><font color="red">図3.7</font> 定数の大小比較実行</caption>
+<tr>
+<td>
+<a href="../LIB/FG09D06B.png" target="_blank">
+<img src="../LIB/FG09D06B.png" border="0" alt="FG09D06B.png(57051 byte)" width="550">
+</a>
+</td>
+</tr>
+</table>
+
+<br><br>
+
+<table align="right">
+<caption><font color="red">図3.8</font> a > b</caption>
+<tr>
+<td>
+<a href="../LIB/FG09D06C.svg" target="_blank">
+<img src="../LIB/FG09D06C.svg" border="0" alt="FG09D06C.svg(13364 byte)" width="81" height="100">
+</a>
+</td>
+<td >&nbsp;　　&nbsp;</td>
+</tr>
+</table>
+
+<table align="right">
+<caption><font color="red">図3.9</font> a = b</caption>
+<tr>
+<td >&nbsp; 　　&nbsp;</td>
+<td>
+<a href="../LIB/FG09D06D.svg" target="_blank">
+<img src="../LIB/FG09D06D.svg" border="0" alt="FG09D06D.svg(13364 byte)" width="81" height="100">
+</a>
+</td>
+<td >&nbsp;　　&nbsp;</td>
+</tr>
+</table>
+
+<p class="i">
+大小を比較する論理も1 ビットから拡張して作ることが
+できます、
+<font color="red">図3.8</font> 
+が
+<font color="blue">a > b</font> 
+の真理値表で
+<font color="red">図3.9</font> 
+が
+<font color="blue">a = b</font>
+の真理値表です、
+<font color="blue">c</font> 
+も
+<font color="blue">d</font> 
+も0 のときは
+<font color="blue">a < b</font> 
+になりま
+す、このふたつの真理値表を使って大小の比較をするこ
+とができます。
+</p>
+
+<br clear="right">

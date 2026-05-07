@@ -1,0 +1,191 @@
+<table>
+<tr>
+<td valign="top">
+<hr color="#CC9966" size="10">
+<font size="4" color="#666633"><b>　　　レジスタR3</b></font><br>
+<hr color="#CC9966">
+
+<br>
+
+<p class="i">
+<font color="red">リスト87</font>
+の
+<font color="blue">reg3Rb</font> 
+は実際に駆動する桁のBCD 値を
+記憶しています。
+</p>
+
+<table>
+<a name="LST87"></a>
+<caption><font color="red">　リスト87</font>　命令解読</caption>
+<tr>
+<td >&nbsp;　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+if (RESET)
+   reg3Rb=0;
+else
+   if (RWb)
+      switch(PORT0ADDb)
+         case 3:  reg3Rb=PORT0OUTb.0:3;
+         default: reg3Rb=reg3Rb;
+      endswitch
+   else
+      reg3Rb=reg3Rb;
+   endif
+endif
+</font>
+</pre>
+</td>
+<td >&nbsp;　&nbsp;</td>
+</tr>
+</table>
+</td>
+
+<td valign="top">
+<hr color="#CC9966" size="10">
+<font size="4" color="#666633"><b>　　　レジスタR4</b></font><br>
+<hr color="#CC9966">
+
+<br>
+
+<p class="i">
+<font color="red">リスト88</font> 
+の
+<font color="blue">reg4Rb</font> 
+は実際に駆動する桁の7 セグメント値を記憶しています。
+</p>
+
+<table>
+<a name="LST88"></a>
+<caption><font color="red">　リスト88</font>　レジスタR4</caption>
+<tr>
+<td >&nbsp;　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+if (RESET)
+   reg4Rb=0;
+else
+   if (RWb)
+      switch(PORT0ADDb)
+         case 4:  reg4Rb=PORT0OUTb.0:6;
+         default: reg4Rb=reg4Rb;
+      endswitch
+   else
+      reg4Rb=reg4Rb;
+   endif
+endif
+</font>
+</pre>
+</td>
+<td >&nbsp;　&nbsp;</td>
+</tr>
+</table>
+</td>
+</tr>
+</table>
+
+<hr color="#CC9966" size="10">
+<font size="4" color="#666633"><b>　　　レジスタ値入力</b></font><br>
+<hr color="#CC9966">
+
+<br>
+
+<table>
+<tr>
+<td valign="top">
+<p class="i">
+<font color="red">リスト89</font> 
+はプロセッサの基本部分に入力されるレジスタ枠
+<font color="blue">0</font> 
+で指定されるレジスタの値です。
+</p>
+
+<table>
+<a name="LST89"></a>
+<caption><font color="red">　リスト89</font>　レジスタ枠0 入力</caption>
+<tr>
+<td >&nbsp;　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+switch(PORT0ADDb)
+   case 0:  PORT0INb.0=reg0Rb;
+   case 1:  PORT0INb.0:1=reg1Rb;
+   case 2:  PORT0INb.0:2=reg2Rb;
+   case 3:  PORT0INb.0:3=reg3Rb;
+   case 4:  PORT0INb.0:6=reg4Rb;
+   case 5:  PORT0INb.0:3=reg5Rb;
+   case 6:  PORT0INb.0:3=reg6Rb;
+   case 7:  PORT0INb.0:3=reg7Rb;
+   case 17: PORT0INb.0=flgZb;
+endswitch
+</font>
+</pre>
+</td>
+<td >&nbsp;　&nbsp;</td>
+</tr>
+</table>
+</td>
+
+<td valign="top">
+<p class="i">
+<font color="red">リスト90</font> 
+はプロセッサの基本部分に入力されるレジスタ枠
+<font color="blue">1</font> 
+で指定されるレジスタの値です。
+</p>
+
+<table>
+<a name="LST90"></a>
+<caption><font color="red">　リスト90</font>　レジスタ枠1 入力</caption>
+<tr>
+<td >&nbsp;　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+switch(PORT1ADDb)
+   case 0:  PORT1INb.0=reg0Rb;
+   case 1:  PORT1INb.0:1=reg1Rb;
+   case 2:  PORT1INb.0:2=reg2Rb;
+   case 3:  PORT1INb.0:3=reg3Rb;
+   case 4:  PORT1INb.0:6=reg4Rb;
+   case 5:  PORT1INb.0:3=reg5Rb;
+   case 6:  PORT1INb.0:3=reg6Rb;
+   case 7:  PORT1INb.0:3=reg7Rb;
+   case 17: PORT1INb.0=flgZb;
+endswitch
+</font>
+</pre>
+</td>
+<td >&nbsp;　&nbsp;</td>
+</tr>
+</table>
+</td>
+</tr>
+</table>
+
+<br>
+
+<p class="i">
+<font color="red">図4.33</font> 
+は
+<font color="blue">SCLK</font> 
+が0 から1 になったところで駆動する桁を切り替えるところのレジスタの様子を示してい
+ます。
+</p>
+
+<p class="i">
+本プロセッサはマルチプロセッサを構成するひとつですが、もうひとつあるプロセッサとの動きを調整するよ
+うな論理もありませんし、もうひとつあるプロセッサを考慮するようなプログラムも必要ありません。プロセッ
+サ自体の設計も大変簡単に済ませています。演算部を集中させたALU らしきものも作りましたが演算の種類の
+少ない専用プロセッサではALU のようなものを作らずに演算に対応するレジスタのところに必要に応じて書い
+ておけばいいような気もします。普通の汎用プロセッサを論理設計するときに参考になるような事柄は無かった
+のですが論理設計による問題の解決とプログラミングによる問題の解決はかなり様子が違うことが分かって頂け
+たと思います。論理設計もできるのに新たに独自の専用のプロセッサを作って使うことが有利な場合は正直なこ
+とをいうとあまり思い浮かびませんが、数多くの行程を経てデータを作らなければならないときなどにプログラ
+ミングで行いたいことがあるかも知れません。
+</p>
+

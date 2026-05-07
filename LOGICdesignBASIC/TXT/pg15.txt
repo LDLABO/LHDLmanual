@@ -1,0 +1,230 @@
+<hr color="blue" size="20">
+<font color="blue"><b>　言語による論理設計</b></font>
+<hr color="blue">
+
+<p class="i">
+論理設計で使う基本的な機能は言語設計では演算子によって提供されています。注意すべきことはプログラム
+であればサブルーチンがひとつ置かれて全体で共有されますが論理設計では演算子を使うたびに演算子に必要な
+論理が展開されていることを頭に入れておいて下さい。
+</p>
+
+<hr color="#4F9177" size="15">
+<font color="#336633"><b>　　加算器</b></font>
+<hr color="#4F9177">
+
+<p class="i">
+論理設計の中でも計数器などで頻繁に使う論理だと思います。
+</p>
+
+<table class="i" align="right" width="230">
+<caption><font color="red">リスト1</font>　8 ビットの加算器no.1</caption>
+<tr>
+<td>&nbsp;　　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+entity main
+input  A[8];
+input  B[8];
+output C[8];
+
+   C=A+B;
+
+ende
+</font>
+</pre>
+</td>
+</tr>
+</table>
+
+<hr color="#6666CC" size="10">
+<font size="4" color="#5454AB"><b>　　　普通に書いた場合</b></font><br>
+<hr color="#6666CC">
+
+<p class="i">
+<font color="red">リスト1</font> 
+が8 ビットの加算器の論理をひとつ使った場合ですがVHDL
+で
+<font color="red">リスト2</font> 
+のような論理式に展開されます。
+<font color="red">リスト3</font> 
+のように書いた場合は2 倍の量の論理式に展開されます。
+</p>
+
+<br clear="right">
+
+<table class="i" align="right" width="230">
+<caption><font color="red">リスト3</font>　8 ビットの加算器no.2</caption>
+<tr>
+<td>&nbsp;　　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+entity main
+input  A[8];
+input  B[8];
+input  D[8];
+input  E[8];
+output C[8];
+output F[8];
+
+   C=A+B;
+   F=D+E;
+
+ende
+</font>
+</pre>
+</td>
+</tr>
+</table>
+
+<p class="i">
+ただし加算の実行は
+<font color="red">図3.1</font> 
+のように同時に行われています。時間に余裕が
+あるときで論理を大きくしたくないときは加算器をひとつにして入力を時分
+割にすれば小さい論理で複数の入力の加算結果を得ることができます、この
+ように時分割で論理を実行するのはコンピュータの方法です、次にその例を
+示します。
+</p>
+
+<table class="i">
+<caption><font color="red">図3.1</font> 8 ビットの加算器no.2</caption>
+<tr>
+<td>
+<a href="../LIB/FG09C31A.png" target="_blank">
+<img src="../LIB/FG09C31A.png" border="0" alt="FG09C31A.png(64932 byte)" width="400">
+</a>
+</td>
+</tr>
+</table>
+
+<br><br><br>
+
+<table border="1" align="center"><tr><td>
+<table class="i">
+<caption>
+<a name="LST2">
+<font color="red">リスト2</font>　8ビットの加算器 no.1 の論理式
+</a>
+</caption>
+<tr>
+<td >&nbsp;　　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+library IEEE;
+
+use IEEE.std_logic_1164.all;
+
+entity main is
+
+   port(C0  : out   std_logic;
+        A0  : in    std_logic;
+        B0  : in    std_logic;
+        C1  : out   std_logic;
+        A1  : in    std_logic;
+        B1  : in    std_logic;
+        C2  : out   std_logic;
+        A2  : in    std_logic;
+        B2  : in    std_logic;
+        C3  : out   std_logic;
+        A3  : in    std_logic;
+        B3  : in    std_logic;
+        C4  : out   std_logic;
+        A4  : in    std_logic;
+        B4  : in    std_logic;
+        C5  : out   std_logic;
+        A5  : in    std_logic;
+        B5  : in    std_logic;
+        C6  : out   std_logic;
+        A6  : in    std_logic;
+        B6  : in    std_logic;
+        C7  : out   std_logic;
+        A7  : in    std_logic;
+        B7  : in    std_logic);
+
+end main;
+
+architecture RTL of main is
+signal n_n26  : std_logic ;
+signal n_n27  : std_logic ;
+signal n_n28  : std_logic ;
+signal n_n29  : std_logic ;
+signal n_n30  : std_logic ;
+signal n_n31  : std_logic ;
+signal n_n32  : std_logic ;
+
+begin
+
+C0 <= (not A0 and B0)
+   or (A0 and not B0) ;
+
+n_n26 <= (A0 and B0) ;
+
+C1 <= (not A1 and not B1 and A0 and B0)
+   or (not A1 and B1 and not n_n26)
+   or (A1 and not B1 and not n_n26)
+   or (A1 and B1 and A0 and B0) ;
+
+n_n27 <= (not A1 and B1 and A0 and B0)
+   or (A1 and not B1 and A0 and B0)
+   or (A1 and B1) ;
+
+C2 <= (not A2 and not B2 and n_n27)
+   or (not A2 and B2 and not n_n27)
+   or (A2 and not B2 and not n_n27)
+   or (A2 and B2 and n_n27) ;
+
+n_n28 <= (not A2 and B2 and n_n27)
+   or (A2 and not B2 and n_n27)
+   or (A2 and B2) ;
+
+C3 <= (not A3 and not B3 and n_n28)
+   or (not A3 and B3 and not n_n28)
+   or (A3 and not B3 and not n_n28)
+   or (A3 and B3 and n_n28) ;
+
+n_n29 <= (not A3 and B3 and n_n28)
+   or (A3 and not B3 and n_n28)
+   or (A3 and B3) ;
+
+C4 <= (not A4 and not B4 and n_n29)
+   or (not A4 and B4 and not n_n29)
+   or (A4 and not B4 and not n_n29)
+   or (A4 and B4 and n_n29) ;
+
+n_n30 <= (not A4 and B4 and n_n29)
+   or (A4 and not B4 and n_n29)
+   or (A4 and B4) ;
+
+C5 <= (not A5 and not B5 and n_n30)
+   or (not A5 and B5 and not n_n30)
+   or (A5 and not B5 and not n_n30)
+   or (A5 and B5 and n_n30) ;
+
+n_n31 <= (not A5 and B5 and n_n30)
+   or (A5 and not B5 and n_n30)
+   or (A5 and B5) ;
+
+C6 <= (not A6 and not B6 and n_n31)
+   or (not A6 and B6 and not n_n31)
+   or (A6 and not B6 and not n_n31)
+   or (A6 and B6 and n_n31) ;
+
+n_n32 <= (not A6 and B6 and n_n31)
+   or (A6 and not B6 and n_n31)
+   or (A6 and B6) ;
+
+C7 <= (not A7 and not B7 and n_n32)
+   or (not A7 and B7 and not n_n32)
+   or (A7 and not B7 and not n_n32)
+   or (A7 and B7 and n_n32) ;
+
+end RTL;
+</font>
+</pre>
+</td>
+</tr>
+</table>
+</td></tr></table>

@@ -1,0 +1,152 @@
+<br>
+
+<p class="i">
+● <b>XOR r0,n</b>
+</p>
+
+<table class="i" align="left">
+<tr>
+<td >&nbsp;　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+macro     XOR R,NUMBER
+   db 0dh,#0,#1&0ffh,(#1>>8)&0ffh
+endm
+</font>
+</pre>
+</td>
+<td >&nbsp;　&nbsp;</td>
+</tr>
+</table>
+
+<p class="i">
+定義の内容は
+<font color="blue">LD r0,r1</font> 
+とほぼ同じですがレジスタ枠1 が8 ビットの即値になっています。
+</p>
+
+<br clear="left">
+
+<p class="i">
+● <b>XOR r0,r1</b>
+</p>
+
+<table class="i" align="left">
+<tr>
+<td >&nbsp;　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+macro     XOR R,R
+   db 0eh,#0,#1,0
+endm
+</font>
+</pre>
+</td>
+<td >&nbsp;　&nbsp;</td>
+</tr>
+</table>
+
+<p class="i">
+定義の内容は
+<font color="blue">LD r0,r1</font> 
+とほぼ同じです。
+</p>
+
+<br clear="left">
+
+<hr color="#6666CC" size="10">
+<font size="4" color="#5454AB"><b>　　　プロセッサ基本論理</b></font><br>
+<hr color="#6666CC">
+
+<p class="i">
+プロセッサの基本部分の論理を抜粋して説明します。全部は
+<a href="../LIB/PPU_L.pdf" target="_blank">
+<font color="blue">PPU_L.pdf</font>
+</a>
+を見て下さい。
+</p>
+
+<hr color="#CC9966" size="10">
+<font size="4" color="#666633"><b>　　　プログラムカウンタ</b></font><br>
+<hr color="#CC9966">
+
+<p class="i">
+<font color="red">リスト43</font> 
+はプログラムカウンタの論理です、プログラムカウンタは分岐命令がなければ
+<font color="blue">regPC=regPC+1</font> 
+になります。分岐命令があれば
+<font color="blue">regPC=jmpcode</font> 
+になります。割り込みがあったときは
+<font color="blue">regPC.0:7=PORT0IN</font> 
+になります。プログラムカウンタの動きは
+<font color="red">図4.7</font> 
+の
+<font color="blue">ADDRESS</font> 
+を見て下さい。
+</p>
+
+<table class="i" align="left">
+<a name="LST43"></a>
+<caption><font color="red">　リスト43</font>　プログラムカウンタ</caption>
+<tr>
+<td >&nbsp;　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+if (RESET)
+   regPC=0;
+else
+   if (INT)
+      regPC.0:7=PORT0IN;
+   else
+      if (inst1no)                    { JP n'n }
+         regPC=jmpcode;
+      else
+         if (inst2no)                 { JZ n'n }
+            if (flgZ)
+               regPC=jmpcode;
+            else
+               regPC=regPC+1;
+            endif
+         else
+            if (inst10no)             { JNZ n'n }
+               if (!flgZ)
+                  regPC=jmpcode;
+               else
+                  regPC=regPC+1;
+               endif
+            else
+               if (inst12no)          { LD pc,r0 }
+                  regPC.0:7=PORT0IN;
+               else
+                  regPC=regPC+1;
+               endif
+            endif
+         endif
+      endif
+   endif
+endif
+</font>
+</pre>
+</td>
+<td >&nbsp;　&nbsp;</td>
+</tr>
+</table>
+
+<table align="left">
+<caption><font color="red">図4.7</font> プログラムカウンタの動き</caption>
+<tr>
+<td>&nbsp;&nbsp</td>
+<td align="center">
+<a href="../LIB/FG09E09A.png" target="_blank">
+<img src="../LIB/FG09E09A.png" border="0" alt="FG09E09A.png(182623 byte)" width="400">
+</a>
+</td>
+<td>&nbsp;　　　&nbsp</td>
+</tr>
+</table>
+
+<br clear="left">
+

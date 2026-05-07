@@ -1,0 +1,126 @@
+<hr color="#6666CC" size="10">
+<font size="4" color="#5454AB"><b>　　　立ち上がりと立ち下がりで記憶</b></font><br>
+<hr color="#6666CC">
+
+<br>
+
+<table align="right"><tr><td>&nbsp;　&nbsp;</td></tr></table>
+
+<table align="right">
+<a name="LST19"></a>
+<caption><font color="red">　リスト19</font>　立ち上がりと立下り計数器</caption>
+<tr>
+<td >&nbsp;　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+entity main
+input  RESET;
+input  P;
+output Q[8];
+
+bitr q[8];
+bitr p[2];
+
+   Q=q;
+
+   p.0=P;
+   p.1=p.0;
+
+   if (RESET)
+      q=0;
+   else
+      if (p.0^p.1)
+         q=q+1;
+      else
+         q=q;
+      endif
+   endif
+
+ende
+</font>
+</pre>
+</td>
+<td >&nbsp;　&nbsp;</td>
+</tr>
+</table>
+
+
+<p class="i">
+<font color="red">図3.16</font> 
+の記憶信号の
+<font color="blue">p</font> 
+にあたる
+<font color="red">リスト19</font> 
+の
+<font color="blue">p.0^ p.1</font> 
+によって記憶位置を
+<font color="blue">P</font> 
+が1 から0 になったところと
+0 から1 になったところにします。
+</p>
+
+<table>
+<caption><font color="red">図3.22</font> リスト19 の実行</caption>
+<tr>
+<td>&nbsp;　　　&nbsp</td>
+<td align="center">
+<a href="../LIB/FG09D13A.png" target="_blank">
+<img src="../LIB/FG09D13A.png" border="0" alt="FG09D13A.png(50579 byte)" width="450">
+</a>
+</td>
+<td>&nbsp;&nbsp</td>
+</tr>
+</table>
+
+<p class="i">
+これまで作ってきたように記憶によって動いている論理は
+<font color="red">図3.16</font> 
+の記憶信号の
+<font color="blue">p</font> 
+で決める記憶位置と
+<font color="blue">d</font> 
+で決める記憶するデータによって様々な動きを作ることができます。
+</p>
+
+<br clear="right">
+
+<hr color="#6666CC" size="10">
+<font size="4" color="#5454AB"><b>　　　順序</b></font><br>
+<hr color="#6666CC">
+
+<br>
+
+<p class="i">
+記憶された値によって簡単に順序のある動きを作ることができます。
+<font color="red">図3.23</font> 
+の
+<font color="blue">Q</font> 
+の値は一見してバラバラに
+動いているようですが
+<a href="WEB09D14A.html#LST20" target="_blank">
+<font color="red">リスト20</font> 
+</a>
+に書いたとおりに動いています。
+<font color="red">図3.23</font> 
+は
+<a href="FG09D14A.png" target="_blank">
+<font color="red">
+図3.24
+</font>
+</a> 
+のような行程図を描くと動
+きが分かりやすくなります。
+</p>
+<table>
+<caption><font color="red">図3.23</font> リスト20 の実行</caption>
+<tr>
+<td>&nbsp;　　　&nbsp</td>
+<td align="center">
+<a href="../LIB/FG09D13B.png" target="_blank">
+<img src="../LIB/FG09D13B.png" border="0" alt="FG09D13B.png(66389 byte)" width="550">
+</a>
+</td>
+<td>&nbsp;&nbsp</td>
+</tr>
+</table>

@@ -1,0 +1,117 @@
+<br>
+
+<table align="right">
+<a name="LST23"></a>
+<caption><font color="red">　リスト23</font>　8ビットの除算器(記憶)</caption>
+<tr>
+<td >&nbsp;　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+entity main
+input  RESET;
+input  A[8];
+input  B[8];
+output C[8];
+output READY;
+
+bitr   p[16];
+bitr   q[8];
+bitr   count[4];
+bitn   r[9];
+bitn   np[9];
+bitn   nb[9];
+bitn   stop;
+
+   C=q;
+   READY=stop;
+
+   np.0:7=p.8:15;
+   nb.0:7=B;
+
+   if (RESET)
+      p.0:7=A;
+   else
+      if (stop)
+         p=p;
+      else
+         if (r.8)
+            p.1:15=p.0:14;
+         else
+            p.9:15=r.0:6;
+            p.1:8=p.0:7;
+         endif
+      endif
+   endif
+
+   r=np-nb;
+
+   if (RESET)
+      q=0;
+   else
+      if (stop)
+         q=q;
+      else
+         if (r.8)
+            q.1:7=q.0:6;
+         else
+            q.0=1;
+            q.1:7=q.0:6;
+         endif
+      endif
+   endif
+
+   if (RESET)
+      count=0;
+   else
+      if (stop)
+         count=count;
+      else
+         count=count+1;
+      endif
+   endif
+
+   if (count==9) stop=1; endif
+
+ende
+</font>
+</pre>
+</td>
+<td >&nbsp;　&nbsp;</td>
+</tr>
+</table>
+
+<p class="i">
+<font color="red">図3.33</font> 
+は
+<font color="red">リスト23</font> 
+を実行したものです。
+</p>
+
+<br>
+
+<table>
+<caption><font color="red">図3.33</font> リスト23の実行</caption>
+<tr>
+<td>&nbsp;　　　&nbsp</td>
+<td align="center">
+<a href="../LIB/FG09D18A.png" target="_blank">
+<img src="../LIB/FG09D18A.png" border="0" alt="FG09D18A.png(112538 byte)" width="500">
+</a>
+</td>
+<td>&nbsp;&nbsp</td>
+</tr>
+</table>
+
+<br>
+<p class="i">
+記憶式の除算器は比較器と減算器とシフトレジスタ
+からできていますが比較器と減算器はひとつの論理で
+兼用しています、減算器は加算器の入力を変えたもの
+です、加算器は簡単な真理値表に還元されます、シフ
+トレジスタも簡単な記憶の一種です、真理値表と記憶
+でどのような論理も構成できることが分かると思い
+ます。
+</p>
+
+<br clear="right">

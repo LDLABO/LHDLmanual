@@ -1,0 +1,156 @@
+<hr color="#4F9177" size="15">
+<font color="#336633">　　通常のBCD 変換器</font>
+<hr color="#4F9177">
+
+<br>
+
+<table align="right">
+<a name="LST58"></a>
+<caption><font color="red">　リスト58</font>　BCD変換器</caption>
+<tr>
+<td >&nbsp;　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+logicname bcdconv
+
+entity main
+input  RESET;      { 初期化 }
+input  REQ;        { 変換要求 }
+input  ADATA[8];   { データ }
+output BCD0P[4];   { BCD 第1桁 }
+output BCD1P[4];   { BCD 第2桁 }
+output BCD2P[4];   { BCD 第3桁 }
+output ACK;
+
+bitn   adata[8]; { データ仲介 }
+bitn   p[8];     { 100の位計算 }
+bitn   q[8];     { 10の位計算a}
+bitn   r[8];     { 1の位}
+bitn   s[8];     { pの10倍}
+bitn   t[8];     { 10の位計算b }
+
+   BCD0P=r.0:3;
+   BCD1P=t.0:3;
+   BCD2P=p.0:3;
+   ACK=q.8;
+
+   adata=ADATA;
+
+   if (!RESET&!REQ)
+      p=adata/100; { 100の位の計算 }
+   endif
+
+   if (!RESET&!REQ)
+      q=adata/10;  { 10の位の計算a }
+   endif
+
+   if (!RESET&!REQ)
+      r=adata%10;  { 1の位の計算 }
+   endif
+
+   s=p>>3+p>>1;    { pの10倍 }
+
+   t=q-s.0:7;      { 10の位の計算b }
+
+ende
+</font>
+</pre>
+</td>
+<td >&nbsp;　&nbsp;</td>
+</tr>
+</table>
+
+
+<p class="i">
+<font color="red">リスト58</font> 
+は8 ビットの値をBCD の3 桁の値にする変換器の
+変換部分です。
+</p>
+
+<ul>
+<li>
+<b>100の位</b>
+<p class="i">
+<font color="blue">adata</font> 
+は8 ビットなので100 で除算した場合は0～2 の値
+になります。
+<font color="blue">p</font> 
+は100 の位を求める計算の結果を代入して
+います。
+</p>
+</li>
+
+<li>
+<b>10の位</b>
+<p class="i">
+10 の位の計算は
+<font color="blue">adata</font> 
+を10 で除算した値から100 の位の値を10 倍して減算します。
+<font color="blue">t</font> 
+は10 の位を求める計算の結果を代入しています。
+</p>
+</li>
+
+<li>
+<b>1 の位</b>
+<p class="i">
+<font color="blue">adata</font> 
+を10 で除算した余りが1 の位の値になります。
+<font color="blue">r</font>
+は1 の位を求める計算の結果を代入しています。
+</p>
+</li>
+
+<li>
+<b>100の位の値の10倍</b>
+<p class="i">
+10 の位を計算するのに100 の位の値の10 倍の値が必要で
+すがこの計算は
+<font color="blue">p × 10 = p × 8 + p × 2</font> 
+です。
+</p>
+
+<ul>
+<li>2 進数の<font color="blue">p × 8</font> は<font color="blue">p</font> を上位に3 ビット移動した値です。</li>
+<li>2 進数の<font color="blue">p × 2</font> は<font color="blue">p</font> を上位に1 ビット移動した値です。</li>
+<li><font color="blue">p</font> の10 倍は<font color="blue">p>>3+p>>1</font> になります。</li>
+</ul>
+
+<p class="i">
+<font color="blue">s</font> 
+は100 の位の値の10 倍の値を求める計算の結果を代入
+しています。
+</p>
+</li>
+
+<li>
+<b>計算の終了</b>
+<p class="i">
+本論理では8 ビットの記憶式の除算器を使っています。こ
+の行程の終了が変換の終了を示します。変換の終了を示す
+のに
+<font color="blue">q</font> 
+の計算の終了を示す
+<font color="blue">q.8</font> 
+を
+<font color="blue">ACK</font> 
+に代入しています。
+</p>
+</li>
+</ul>
+
+<br clear="right">
+
+<table>
+<caption><font color="red">図4.14</font> BCD 変換器実行</caption>
+<tr>
+<td>&nbsp;&nbsp</td>
+<td align="center">
+<a href="../LIB/FG09E19A.png" target="_blank">
+<img src="../LIB/FG09E19A.png" border="0" alt="FG09E19A.png(68473 byte)" width="900">
+</a>
+</td>
+<td>&nbsp;　　　&nbsp</td>
+</tr>
+</table>

@@ -1,0 +1,14 @@
+<br>
+
+<table>
+<caption><font color="red">図4.41</font> 実行の様子ModelSim</caption>
+<tr>
+<td>&nbsp;&nbsp</td>
+<td align="center">
+<a href="../LIB/FG09F21A.png" target="_blank">
+<img src="../LIB/FG09F21A.png" border="0" alt="FG09F21A.png(1267100 byte)" width="1000">
+</a>
+</td>
+<td>&nbsp;　　　&nbsp</td>
+</tr>
+</table>

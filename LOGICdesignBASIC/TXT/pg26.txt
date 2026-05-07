@@ -1,0 +1,174 @@
+<hr color="#6666CC" size="10">
+<font size="4" color="#5454AB"><b>　　　シフトレジスタ</b></font><br>
+<hr color="#6666CC">
+
+<p class="i">
+通信や除算などでよく使うシフトレジスタも
+<font color="red">リスト15</font> 
+のように
+<font color="red">図3.16</font> 
+の構成と同じです。
+<font color="red">図3.16</font> 
+のデータの
+<font color="blue">d</font> 
+が
+<font color="red">リスト15</font> 
+では入力の
+<font color="blue">D</font> 
+と前段の記憶素子の出力になっています。
+<font color="red">図3.18</font> 
+が
+<font color="red">リスト15</font> 
+を実行したもの
+です。
+</p>
+
+<table align="left">
+<caption><font color="red">図3.18</font> リスト15 の実行</caption>
+<tr>
+<td>&nbsp;　　　&nbsp</td>
+<td align="center">
+<a href="../LIB/FG09D11A.png" target="_blank">
+<img src="../LIB/FG09D11A.png" border="0" alt="FG09D11A.png(108708 byte)" width="600">
+</a>
+</td>
+<td>&nbsp;&nbsp</td>
+</tr>
+</table>
+
+<table align="left">
+<a name="LST15"></a>
+<caption><font color="red">　リスト15</font>　シフトレジスタ</caption>
+<tr>
+<td >&nbsp;　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+entity main
+input  RESET;
+input  P;
+input  D;
+output Q[8];
+
+bitr q[8];
+
+   Q=q;
+
+   if (RESET)
+      q=0;
+   else
+      if (P)
+         q.0=D;
+         q.1:7=q.0:6;
+      else
+         q=q;
+      endif
+   endif
+
+ende
+</font>
+</pre>
+</td>
+<td >&nbsp;　&nbsp;</td>
+</tr>
+</table>
+
+<br clear="left"><br>
+
+<p class="i">
+データの
+<font color="blue">d</font> 
+の部分を変えることで下位のビットから上位のビットへの移動だけ
+ではなくて逆に上位のビットから下位のビットへ移動させたりとか
+<font color="blue">RESET</font> 
+の他にも別の信号を設けてシフトレジスタに値を設定したりするとか多機能なシフト
+レジスタにすることができます。
+</p>
+
+<hr color="#6666CC" size="10">
+<font size="4" color="#5454AB"><b>　　　計数器</b></font><br>
+<hr color="#6666CC">
+
+<table align="right">
+<tr>
+<td>&nbsp;　&nbsp;</td>
+</tr>
+</table>
+
+<table align="right">
+<caption><font color="red">リスト16</font>　計数器</caption>
+<tr>
+<td>&nbsp;　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+entity main
+input  RESET;
+input  P;
+output Q[8];
+
+bitr q[8];
+
+   Q=q;
+
+   if (RESET)
+      q=0;
+   else
+      if (P)
+         q=q+1;
+      else
+         q=q;
+      endif
+   endif
+
+ende
+</font>
+</pre>
+</td>
+</tr>
+</table>
+
+<p class="i">
+計数器も
+<font color="red">リスト16</font> 
+のように
+<font color="red">図3.16</font> 
+の構成と同じです。
+<font color="red">図3.16</font> 
+のデータの
+<font color="blue">d</font> 
+が
+<font color="red">リスト16</font> 
+では
+<font color="blue">q+1</font> 
+になっています。
+<font color="red">図3.19</font> 
+が
+<font color="red">リスト16</font> 
+を実行したものです。
+</p>
+
+<table>
+<caption><font color="red">図3.19</font> リスト16 の実行</caption>
+<tr>
+<td>&nbsp;　　　&nbsp</td>
+<td align="center">
+<a href="../LIB/FG09D11B.png" target="_blank">
+<img src="../LIB/FG09D11B.png" border="0" alt="FG09D11B.png(48066 byte)" width="650">
+</a>
+</td>
+<td>&nbsp;&nbsp</td>
+</tr>
+</table>
+
+<p class="i">
+データの
+<font color="blue">d</font> 
+の部分を変えることで減計数器にしたり
+<font color="blue">RESET</font> 
+の他にも別の信号を設
+けて計数器に値を設定したりするとか多機能な計数器にすることができます。
+</p>
+
+
+<br clear="right">

@@ -1,0 +1,35 @@
+<br><br>
+
+<table>
+<caption><font color="red">図3.34</font> リスト24 の実行</caption>
+<tr>
+<td>&nbsp;　　　&nbsp</td>
+<td align="center">
+<a href="../LIB/FG09D20A.png" target="_blank">
+<img src="../LIB/FG09D20A.png" border="0" alt="FG09D20A.png(71468 byte)" width="500">
+</a>
+</td>
+<td>&nbsp;&nbsp</td>
+</tr>
+</table>
+
+<p class="i">
+<font color="red">図3.34</font> 
+は
+<font color="red">リスト24</font> 
+を実行したものです。
+</p>
+
+<p class="i">
+除算器も言語の演算子で提供されて
+いますがこれまでに作った記憶方式で
+も非記憶方式でも8 ビットから拡張
+することは簡単ですから目的に応じた
+ビット数の除算器を自分で作ることは
+論理の大きさを適切にしたり動作速度
+に対応した論理にしたりと有益なこと
+が多いと思います。
+</p>
+
+<br clear="left"><br>
+

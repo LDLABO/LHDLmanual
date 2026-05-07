@@ -1,0 +1,128 @@
+<hr color="#6666CC" size="10">
+<font size="4" color="#5454AB"><b>　　　LED 表示器の実行</b></font><br>
+<hr color="#6666CC">
+
+<p class="i">
+7 セグメントLED の表示の実行の様子の一部を抜粋して
+<font color="red">図4.36</font> 
+に示します、全部は
+<a href="../LIB/SIM08H29A.pdf" target="_blank"><font color="blue">
+SIM08H29A.pdf
+</font> 
+</a>
+を見て下さい。これとプログラムとの関係は
+<font color="red">リスト81</font> 
+の
+<font color="blue">bcdb.lst</font> 
+を見て下さい。
+</p>
+
+<hr color="#4F9177" size="15">
+<font color="#336633">　　プロセッサ構成のBCD 変換器LED 表示</font>
+<hr color="#4F9177">
+
+<p class="i">
+これまでに作ってきたプロセッサによるBCD 変換器とプロセッサによる7 セグメントLED 表示器を使った
+マルチプロセッサ構成のチップです。マルチプロセッサといってもこれまではコンピュータを構成する方法とし
+てマルチプロセッサを使うことが考えられていたと思います。割り込みを使った擬似的な並列処理に限界がきた
+ので完全な並列処理に向かっているのかもしれません。当初マイクロプロセッサを普及させる段階では世の中の
+ランダムロジックで設計されているものをシーケンシャルロジックのマイクロプロセッサに置き換えるというこ
+とで進められてきたと思いますが多くの仕事を短い時間で処理する要求が強まってランダムロジックの方に回帰
+してきているのかなと思います。
+</p>
+
+<hr color="#6666CC" size="10">
+<font size="4" color="#5454AB"><b>　　　デバイス</b></font><br>
+<hr color="#6666CC">
+
+<p class="i">
+今回の構成でザイリンクスの
+<font color="blue">XC2S50</font> 
+にチップデータを作ると
+<font color="red">図4.37</font> 
+のようになります。
+<font color="red">リスト62</font> 
+の通常の論理設計で同じデバイスにチップデータを作ったのが
+<font color="red">図4.38</font> 
+です。
+</p>
+
+<table class="i">
+<caption><font color="red">図4.37</font> プロセッサを使った構成</caption>
+<tr>
+<td>&nbsp;&nbsp</td>
+<td align="center">
+<a href="../LIB/FG09F18A.png" target="_blank">
+<img src="../LIB/FG09F18A.png" border="0" alt="FG09F18A.png(597011 byte)" width="600">
+</a>
+</td>
+<td>&nbsp;　　　&nbsp</td>
+</tr>
+</table>
+
+<br>
+
+<table class="i">
+<caption><font color="red">図4.38</font> 通常論理の構成</caption>
+<tr>
+<td>&nbsp;&nbsp</td>
+<td align="center">
+<a href="../LIB/FG09F18B.png" target="_blank">
+<img src="../LIB/FG09F18B.png" border="0" alt="FG09F18B.png(515114 byte)" width="600">
+</a>
+</td>
+<td>&nbsp;　　　&nbsp</td>
+</tr>
+</table>
+
+<br>
+
+<hr color="#6666CC" size="10">
+<font size="4" color="#5454AB"><b>　　　機能実行</b></font><br>
+<hr color="#6666CC">
+
+<p class="i">
+実行の様子は
+<font color="red">図4.39</font> 
+と
+<font color="red">図4.40</font> 
+です。ふたつのプロセッサの実行の様子を示していますが表示する項目が多く
+なったので上下に2 分割してあります。
+</p>
+
+<ul>
+<li class="i">
+<font color="red">図4.39</font> 
+のプロセッサのプログラムは
+<font color="red">リスト79</font> 
+の番地を
+<font color="blue">1/4</font> 
+にして照らし合わせて見てください。
+</li>
+
+<li class="i">
+<font color="red">図4.40</font> 
+のプロセッサのプログラムは
+<font color="red">リスト81</font> 
+の番地を
+<font color="blue">1/4</font> 
+にして照らし合わせて見てください。
+</li>
+</ul>
+
+<p class="i">
+<font color="red">図4.39</font> 
+と
+<font color="red">図4.40</font> 
+は抜粋したものですから全部は
+<a href="../LIB/SIM08H30A.pdf" target="_blank">
+<font color="blue">SIM08H30A .pdf</font> 
+</a>
+を見て下さい。
+<font color="red">図4.41</font> 
+はModelSim によるものです、これも抜粋ですので全部は
+<a href="../LIB/MS08H30A.lzh" target="_blank">
+<font color="blue">MS08H30A .lzh</font> 
+</a>
+を見て下さい。
+</p>

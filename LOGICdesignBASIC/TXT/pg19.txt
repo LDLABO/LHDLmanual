@@ -1,0 +1,132 @@
+<table align="left" width="300">
+<caption><font color="red">リスト7</font>　1 ビットの加算器no.2 真理値表</caption>
+<tr>
+<td >&nbsp;　　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+entity main
+input  a,b,ci;
+output c,co;
+
+   switch(a,b,ci)
+      case 0,0,0: c=0; co=0;
+      case 0,1,0: c=1; co=0;
+      case 1,0,0: c=1; co=0;
+      case 1,1,0: c=0; co=1;
+   endswitch
+
+   switch(a,b,ci)
+      case 0,0,1: c=1; co=0;
+      case 0,1,1: c=0; co=1;
+      case 1,0,1: c=0; co=1;
+      case 1,1,1: c=1; co=1;
+   endswitch
+
+ende
+</font>
+</pre>
+</td>
+</tr>
+</table>
+
+
+<table align="left" width="300">
+<caption><font color="red">リスト8</font>　1ビットの加算器 no.2 論理式</caption>
+<tr>
+<td >&nbsp;　　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+library IEEE;
+
+use IEEE.std_logic_1164.all;
+
+entity main is
+   port(c0  : out   std_logic;
+        a0  : in    std_logic;
+        b0  : in    std_logic;
+        ci0 : in    std_logic;
+        co0 : out   std_logic);
+end main;
+
+architecture RTL of main is
+
+begin
+
+c0 <= (not a0 and b0 and not ci0)
+   or (a0 and not b0 and not ci0)
+   or (not a0 and not b0 and ci0)
+   or (a0 and b0 and ci0) ;
+
+co0 <= (a0 and b0)
+   or (b0 and ci0)
+   or (a0 and ci0) ;
+
+end RTL;
+</font>
+</pre>
+</td>
+</tr>
+</table>
+
+<br clear="left">
+
+<p class="i">
+桁上がりを考慮した加算器を手続きに書いて
+<font color="red">図3.5</font> 
+のようにつないだのが
+<a href="pg20.html#LST9" target="_self">
+<font color="red">リスト9</font> 
+</a>
+です。
+<a href="pg15.html" target="_self">
+<font color="red">リスト2</font> 
+</a>
+とほぼ同
+じような論理式に展開されて
+<a href="pg15.html" target="_self">
+<font color="red">
+図3.1
+</font> 
+</a>
+の1 個分の8 ビット加算器と同じように動きます。加算器は言語の演算子
+によって提供されているので真理値表から設計することはありませんが、言語の上で真理値表を使うときは論理
+式への変換や論理圧縮などはコンパイラが実施しますので取り扱いが容易になっています。
+</p>
+
+<table class="i">
+<caption><font color="red">図3.5</font> 8 ビットの加算器構成</caption>
+<tr>
+<td>
+<a href="../LIB/FG09D04A.svg" target="_blank">
+<img src="../LIB/FG09D04A.svg" border="0" alt="FG09D04A.svg(58772 byte)" width="638" height="177">
+</a>
+</td>
+</tr>
+</table>
+
+<p class="i">
+<a href="pg20.html#LST9" target="_self">
+<font color="red">リスト9</font> 
+</a>
+の論理も言語の演算子を使えば10 文字も使わずに書けてしまいますが演算子によっては大きな論理
+にもなるので演算子の表す機能がどの程度の論理になるものかを自分で作ってみて知っておくことは重要なこと
+だと思います。
+</p>
+
+<hr color="#CC9966" size="10">
+<font size="4" color="#666633"><b>　　　減算器</b></font><br>
+<hr color="#CC9966">
+
+<p class="i">
+減算器は加算器で作ることができますA-B は算数ではA+(-B) です-B は論理的には!B+1 ですmb=!B+1 とす
+るなら
+<font color="red">図3.5</font> 
+の
+<font color="blue">b7～b0</font> 
+を
+<font color="blue">mb7～mb0</font> 
+に変えてやれば減算器になります。
+</p>
+

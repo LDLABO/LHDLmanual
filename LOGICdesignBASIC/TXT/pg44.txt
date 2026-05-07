@@ -1,0 +1,94 @@
+<br>
+
+<table align="left">
+<a name="LST32"></a>
+<caption><font color="red">　リスト32</font>　プログラム</caption>
+<tr>
+<td >&nbsp;　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+switch(codepoint)
+   case 0:  codec=0;  coded=0;
+   case 1:  codec=23; coded=17;  { LD   (X),17 }
+   case 2:  codec=4;  coded=1;   { LD   X,1 }
+   case 3:  codec=23; coded=16;  { LD   (X),16 }
+   case 4:  codec=4;  coded=2;   { LD   X,2 }
+   case 5:  codec=23; coded=15;  { LD   (X),15 }
+   case 6:  codec=4;  coded=3;   { LD   X,3 }
+   case 7:  codec=23; coded=14;  { LD   (X),14 }
+   case 8:  codec=4;  coded=4;   { LD   X,4 }
+   case 9:  codec=23; coded=13;  { LD   (X),13 }
+   case 10: codec=4;  coded=5;   { LD   X,5 }
+   case 11: codec=23; coded=12;  { LD   (X),12 }
+   case 12: codec=4;  coded=6;   { LD   X,6 }
+   case 13: codec=23; coded=11;  { LD   (X),11 }
+   case 14: codec=4;  coded=7;   { LD   X,7 }
+   case 15: codec=23; coded=10;  { LD   (X),10 }
+   case 16: codec=4;  coded=8;   { LD   X,8 }
+   case 17: codec=23; coded=9;   { LD   (X),9  }
+   case 18: codec=4;  coded=9;   { LD   X,9 }
+   case 19: codec=23; coded=8;   { LD   (X),8  }
+   case 20: codec=29;            { LD   A,PORT }
+   case 21: codec=13; coded=0;   { CMP  A,0 }
+   case 22: codec=8;  coded=20;  { JPZ  20 }
+   case 23: codec=4;  coded=10;  { LD   X,10 }
+   case 24: codec=28;            { LD   X,(X) }
+   case 25: codec=2;             { LD   A,(X) }
+   case 26: codec=15;            { INC  X }
+   case 27: codec=5;             { CMP  A,(X) }
+   case 28: codec=6;  coded=49;  { JPC  49 }
+   case 29: codec=27;            { LD   B,(X) }
+   case 30: codec=1;             { LD   (X),A }
+   case 31: codec=25;            { DEC  X }
+   case 32: codec=26;            { LD   (X),B }
+   case 33: codec=22;            { LD   A,X }
+   case 34: codec=4;  coded=11;  { LD   X,11 }
+   case 35: codec=23; coded=255; { LD   (X),0FFh }
+   case 36: codec=21;            { LD   X,A }
+   case 37: codec=10; coded=49;  { JP   49 }
+   case 49: codec=15;            { INC  X }
+   case 50: codec=22;            { LD   A,X }
+   case 51: codec=13; coded=9;   { CMP  A,9 }
+   case 52: codec=6;  coded=60;  { JPC  60   }
+   case 53: codec=4;  coded=11;  { LD   X,11 }
+   case 54: codec=3;  coded=0;   { LD   A,0 }
+   case 55: codec=5;             { CMP  A,(X) }
+   case 56: codec=8;  coded=70;  { JPZ  70 }
+   case 57: codec=23; coded=0;   { LD   (X),0 }
+   case 58: codec=3;  coded=0;   { LD   A,0 }
+   case 60: codec=4;  coded=10;  { LD   X,10 }
+   case 61: codec=1;             { LD   (X),A }
+   case 62: codec=10; coded=23;  { JP   23 }
+   case 70: codec=3;  coded=1;   { LD   A,1 }
+   case 71: codec=30;            { LD   PORT,A }
+   case 72: codec=10; coded=72;  { JP   72 }
+endswitch
+</font>
+</pre>
+</td>
+<td >&nbsp;　&nbsp;</td>
+</tr>
+</table>
+
+<table align="left">
+<caption><font color="red">図3.42</font> フローチャート</caption>
+<tr>
+<td>&nbsp;&nbsp</td>
+<td align="center">
+<a href="../LIB/FG09D29A.png" target="_blank">
+<img src="../LIB/FG09D29A.png" border="0" alt="FG09D29A.png(38242 byte)" width="270">
+</a>
+
+<br>
+<font color="blue">p</font> はメモリの番地10 です。
+<br>
+<font color="blue">q</font> はメモリの番地11 です。
+
+
+</td>
+<td>&nbsp;　　　&nbsp</td>
+</tr>
+</table>
+
+<br clear="left">

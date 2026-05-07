@@ -1,0 +1,15 @@
+<br>
+
+<table>
+<caption><font color="red">図4.39</font> 実行の様子(1/2)</caption>
+<tr>
+<td>&nbsp;&nbsp</td>
+<td align="center">
+<a href="../LIB/FG09F19A.png" target="_blank">
+<img src="../LIB/FG09F19A.png" border="0" alt="FG09F19A.png(151265 byte)" width="1200">
+</a>
+</td>
+<td>&nbsp;　　　&nbsp</td>
+</tr>
+</table>
+

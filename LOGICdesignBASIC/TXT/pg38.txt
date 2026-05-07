@@ -1,0 +1,138 @@
+<br>
+
+<table align="right">
+<a name="LST29"></a>
+<caption><font color="red">　リスト29</font>　交換指示</caption>
+<tr>
+<td >&nbsp;　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+switch(point)
+   case 0:
+      if (state0p)
+         if (memory0d>memory1d) chg=1; endif
+      else
+         chg=chg;
+      endif
+～～～～～～～～～～～～～～～～～～～～
+   case 1: から case 7: を省略
+～～～～～～～～～～～～～～～～～～～～
+   case 8:
+      if (state0p)
+         if (memory8d>memory9d) chg=1; endif
+      else
+         chg=chg;
+      endif
+endswitch
+</font>
+</pre>
+</td>
+<td >&nbsp;　&nbsp;</td>
+</tr>
+</table>
+
+<p class="i">
+<font color="red">リスト29</font> 
+は
+<font color="blue">point</font> 
+で指定する隣り合う番地のメ
+モリを比較して小さい番地のメモリのデータが大き
+いときは
+<font color="blue">chg</font> 
+を1 にします。
+</p>
+
+<br clear="right">
+
+<p class="i">
+<font color="red">リスト30</font> 
+はメモリの交換を次のように示します。
+</p>
+
+<table align="right">
+<a name="LST30"></a>
+<caption><font color="red">　リスト30</font>　交換メモリ位置指示</caption>
+<tr>
+<td >&nbsp;　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+if (state1p)
+   switch(point)
+      case 0: if (chg) swap01p=1; endif
+      case 1: if (chg) swap12p=1; endif
+      case 2: if (chg) swap23p=1; endif
+      case 3: if (chg) swap34p=1; endif
+      case 4: if (chg) swap45p=1; endif
+      case 5: if (chg) swap56p=1; endif
+      case 6: if (chg) swap67p=1; endif
+      case 7: if (chg) swap78p=1; endif
+      case 8: if (chg) swap89p=1; endif
+   endswitch
+endif
+</font>
+</pre>
+</td>
+<td >&nbsp;　&nbsp;</td>
+</tr>
+</table>
+
+<ul class="i">
+<li class="i">
+<font color="blue">swap01p</font> が1 : 番地0 と番地1 を交換します。
+</li>
+
+<li class="i">
+<font color="blue">swap12p</font> が1 : 番地1 と番地2 を交換します。
+</li>
+
+<li class="i">
+<font color="blue">swap23p</font> が1 : 番地2 と番地3 を交換します。
+</li>
+
+<li class="i">
+<font color="blue">swap34p</font> が1 : 番地3 と番地4 を交換します。
+</li>
+
+<li class="i">
+<font color="blue">swap45p</font> が1 : 番地4 と番地5 を交換します。
+</li>
+
+<li class="i">
+<font color="blue">swap56p</font> が1 : 番地5 と番地6 を交換します。
+</li>
+
+<li class="i">
+<font color="blue">swap67p</font> が1 : 番地6 と番地7 を交換します。
+</li>
+
+<li class="i">
+<font color="blue">swap78p</font> が1 : 番地7 と番地8 を交換します。
+</li>
+
+<li class="i">
+<font color="blue">swap89p</font> が1 : 番地8 と番地9 を交換します。
+</li>
+</ul>
+
+<p class="i">
+メモリの交換は
+<font color="red">図3.36</font> 
+のように行われます。
+</p>
+
+<br clear="right">
+
+<table class="i">
+<caption><font color="red">図3.36</font> メモリ0 とメモリ1 の交換</caption>
+<tr>
+<td>&nbsp;　　　&nbsp</td>
+<td align="center">
+<a href="../LIB/FG09D23A.png" target="_blank">
+<img src="../LIB/FG09D23A.png" border="0" alt="FG09D23A.png(84225 byte)" width="600">
+</a>
+</td>
+<td>&nbsp;&nbsp</td>
+</tr>
+</table>

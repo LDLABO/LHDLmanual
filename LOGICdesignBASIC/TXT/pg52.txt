@@ -1,0 +1,213 @@
+<hr color="#CC9966" size="10">
+<font size="4" color="#666633"><b>　　　アセンブラ</b></font><br>
+<hr color="#CC9966">
+
+<p class="i">
+独自のプロセッサをアセンブリ言語でプログラミングするためにマクロアセンブラのマクロ機能を使ってアセ
+ンブラを作ります。マクロアセンブラは
+<font color="blue">http://www9.plala.or.jp/sagae_/</font> 
+の
+<a href="http://www9.plala.or.jp/sagae_/" target="_blank">
+<font color="blue">Electric House</font> 
+</a>
+で開発された
+<font color="blue">AASM</font> 
+を使わせて頂きました。
+<font color="blue">AASM</font> 
+は独自のプロセッサを作るときのプログラミング環境の問題の解決と言
+う点で論理設計者の大きな助けになります。開発元サイトでは
+<font color="red">
+「AASM は汎用マクロアセンブラで、マクロ定
+義によって様々なCPU に対応可能です。Version3.50 からＣ言語ライクなマクロも定義できるようになりまし
+た。」
+</font>
+のように紹介されています。
+</p>
+
+<p class="i">
+本プロセッサ用に作ったマクロを部分的に抜粋して説明します。全部は
+<a href="../LIB/PPU_MAC.pdf" target="_blank">
+<font color="blue">PPU_MAC.pdf</font> 
+</a>
+を参照して下さい。
+</p>
+
+<table align="right">
+<caption><font color="red">図4.6</font> LD r0,r1</caption>
+<tr>
+<td>&nbsp;&nbsp</td>
+<td align="center">
+<a href="../LIB/FG09E07A.png" target="_blank">
+<img src="../LIB/FG09E07A.png" border="0" alt="FG09E07A.png(6402 byte)" width="220">
+</a>
+</td>
+<td>&nbsp;　　　&nbsp</td>
+</tr>
+</table>
+
+<table align="right">
+<a name="LST42"></a>
+<caption><font color="red">　リスト42</font>　LD r0,r1 マクロ</caption>
+<tr>
+<td >&nbsp;　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+1: macro     LD R,R
+2:    db 03,#0,#1,0
+3: endm
+</font>
+</pre>
+</td>
+<td >&nbsp;　&nbsp;</td>
+</tr>
+</table>
+
+<p class="i">
+● <b>LD r0,r1</b>
+</p>
+
+<p class="i">
+<font color="red">リスト42</font> 
+は
+<font color="red">図4.6</font> 
+をマクロに書いたものです。
+</p>
+
+<ul class="i">
+<li class="i">
+行番号1 の1 番目の
+<font color="blue">R</font> 
+はレジスタ枠0 を示します。
+</li>
+
+<li class="i">
+行番号1 の2 番目の
+<font color="blue">R</font> 
+はレジスタ枠1 を示します。
+</li>
+
+<li class="i">
+行番号2 の
+<font color="blue">#0</font> 
+がレジスタ枠0 で選択されたレジスタの番号を示します。
+</li>
+
+<li class="i">
+行番号2 の
+<font color="blue">#1</font> 
+がレジスタ枠1 で選択されたレジスタの番号を示します。
+</li>
+</ul>
+
+<p class="i">
+マクロで使うレジスタの定義は
+<font color="blue">const R = R0,R1,R2,R3,R4,R5,R6,R7</font> 
+なので
+<font color="blue">R0～R7</font> 
+は0～7 になります。
+<font color="blue">LD R2,R3</font> 
+のアセンブラの解釈は
+<font color="blue">db 3,2,3,0</font> 
+になります。
+<font color="blue">db</font> 
+はアセンブリ言語で8 ビットのデータを定義す
+る命令です。
+</p>
+
+<br clear="right">
+
+<p class="i">
+● <b>NOP</b>
+</p>
+
+<table align="right">
+<tr>
+<td >&nbsp;　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+macro     NOP
+   db 00,00,00,00
+endm
+</font>
+</pre>
+</td>
+<td >&nbsp;　&nbsp;</td>
+</tr>
+</table>
+
+<p class="i">
+レジスタ枠はひとつも使っていません。
+</p>
+
+<br class="right">
+
+<p class="i">
+● <b>JP n'n</b>
+</p>
+
+<table align="right">
+<tr>
+<td >&nbsp;　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+macro     JP NUMBER
+   db 01,(#0>>10)&0ffh,(#0>>2)&0ffh,0
+endm
+</font>
+</pre>
+</td>
+<td >&nbsp;　&nbsp;</td>
+</tr>
+</table>
+
+<p class="i">
+<font color="blue">#0>>10</font> 
+は
+<font color="blue">NUMBER</font> 
+を下位に10 ビットずらすという意味です。アセンブラの解釈は
+<font color="blue">db 1,n',n,0</font> 
+になります
+<font color="blue">n'</font> 
+は4 バイト番地の上位8 ビットです。本プロセッサは4 バイトでひとつの番地ですから4 バイト番地はバイト単
+位の番地の1/4 になります。ですから
+<font color="blue">NUMBER</font> 
+から上位8 ビットの4 バイト番地を取り出すためには下位に8
+ビットずらして、さらに2 ビットずらした値が実際の4 バイト番地の上位8 ビットです。
+<font color="blue">n</font> 
+は4 バイト番地の下位8 ビットです、同じく下位に2 ビットずらして4 バイト番地の下位8 ビットになります。
+</p>
+
+<br clear="right">
+
+<p class="i">
+● <b>JZ n'n</b>
+</p>
+
+<table align="right">
+<tr>
+<td >&nbsp;　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+macro     JZ NUMBER
+   db 02,(#0>>10)&0ffh,(#0>>2)&0ffh,0
+endm
+</font>
+</pre>
+</td>
+<td >&nbsp;　&nbsp;</td>
+</tr>
+</table>
+
+
+<p class="i">
+定義の内容は
+<font color="blue">JP n'n</font> 
+とほぼ同じです。
+</p>
+
+<br clear="right">
+

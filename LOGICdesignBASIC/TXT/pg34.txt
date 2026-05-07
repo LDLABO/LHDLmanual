@@ -1,0 +1,180 @@
+<hr color="#6666CC" size="10">
+<font size="4" color="#5454AB"><b>　　　非記憶方式</b></font><br>
+<hr color="#6666CC">
+
+<p class="i">
+<a href="../LIB/FG09D17A.png" target="_blank">
+<font color="red">図3.31</font> 
+</a>
+のように
+<font color="blue">Q=A÷B 余りM</font> 
+の計算を
+<font color="red">リスト24</font> 
+では8 ビットの除算の行程をすべて非記憶に展開して行
+います。
+</p>
+
+<ul class="i">
+<li class="i">
+<font color="blue">data0p～data8p</font>
+は押し出された被除数の値の全てです。
+<font color="blue">data8p</font> 
+は余りになります。
+
+<li class="i">
+<font color="blue">cmp0p～cmp7p</font>
+は押し出された被除数と除数の比較結果の全てです、これが商になります。
+</li>
+
+<li class="i">
+<font color="blue">minus0p～minus7p</font>
+は押し出された被除数と除数の減算値の全てです。
+</li>
+</ul>
+
+<br>
+
+<table class="i">
+<a name="LST24"></a>
+<caption><font color="red">　リスト24</font>　8 ビットの除算器(非記憶)</caption>
+<tr>
+<td >&nbsp;　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+entity main
+input  A[8];
+input  B[8];
+
+output Q[8];
+output M[8];
+
+bitn   data0p[8];
+bitn   data1p[8];
+bitn   data2p[8];
+bitn   data3p[8];
+bitn   data4p[8];
+bitn   data5p[8];
+bitn   data6p[8];
+bitn   data7p[8];
+bitn   data8p[8];
+
+bitn   minus0p[8];
+bitn   minus1p[8];
+bitn   minus2p[8];
+bitn   minus3p[8];
+bitn   minus4p[8];
+bitn   minus5p[8];
+bitn   minus6p[8];
+bitn   minus7p[8];
+
+bitn   cmp0p;
+bitn   cmp1p;
+bitn   cmp2p;
+bitn   cmp3p;
+bitn   cmp4p;
+bitn   cmp5p;
+bitn   cmp6p;
+bitn   cmp7p;
+
+
+   Q.7=cmp0p;
+   Q.6=cmp1p;
+   Q.5=cmp2p;
+   Q.4=cmp3p;
+   Q.3=cmp4p;
+   Q.2=cmp5p;
+   Q.1=cmp6p;
+   Q.0=cmp7p;
+
+   M=data8p;
+
+   if (data0p>=B) cmp0p=1; endif
+   if (data1p>=B) cmp1p=1; endif
+   if (data2p>=B) cmp2p=1; endif
+   if (data3p>=B) cmp3p=1; endif
+   if (data4p>=B) cmp4p=1; endif
+   if (data5p>=B) cmp5p=1; endif
+   if (data6p>=B) cmp6p=1; endif
+   if (data7p>=B) cmp7p=1; endif
+
+   minus0p=(data0p-B);
+   minus1p=(data1p-B);
+   minus2p=(data2p-B);
+   minus3p=(data3p-B);
+   minus4p=(data4p-B);
+   minus5p=(data5p-B);
+   minus6p=(data6p-B);
+   minus7p=(data7p-B);
+
+   data0p.0=A.7;
+
+   if (cmp0p)
+      data1p.1:7=minus0p.0:6;
+   else
+      data1p.1:7=data0p.0:6;
+   endif
+
+   data1p.0=A.6;
+
+   if (cmp1p)
+      data2p.1:7=minus1p.0:6;
+   else
+      data2p.1:7=data1p.0:6;
+   endif
+
+   data2p.0=A.5;
+
+   if (cmp2p)
+      data3p.1:7=minus2p.0:6;
+   else
+      data3p.1:7=data2p.0:6;
+   endif
+
+   data3p.0=A.4;
+
+   if (cmp3p)
+      data4p.1:7=minus3p.0:6;
+   else
+      data4p.1:7=data3p.0:6;
+   endif
+
+   data4p.0=A.3;
+
+   if (cmp4p)
+      data5p.1:7=minus4p.0:6;
+   else
+      data5p.1:7=data4p.0:6;
+   endif
+
+   data5p.0=A.2;
+
+   if (cmp5p)
+      data6p.1:7=minus5p.0:6;
+   else
+      data6p.1:7=data5p.0:6;
+   endif
+
+   data6p.0=A.1;
+
+   if (cmp6p)
+      data7p.1:7=minus6p.0:6;
+   else
+      data7p.1:7=data6p.0:6;
+   endif
+
+   data7p.0=A.0;
+
+   if (cmp7p)
+      data8p.0:7=minus7p.0:7;
+   else
+      data8p.0:7=data7p.0:7;
+   endif
+
+ende
+</font>
+</pre>
+</td>
+<td >&nbsp;　&nbsp;</td>
+</tr>
+</table>

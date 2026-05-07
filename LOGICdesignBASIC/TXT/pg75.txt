@@ -1,0 +1,102 @@
+<br>
+
+<table class="i">
+<a name="LST79"></a>
+<caption><font color="red">　リスト79</font>　bcda.lst</caption>
+<tr>
+<td >&nbsp;　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+0000                 org 4
+0004                
+0004                start:
+0004 17 00 64 00             DIV  r0,100
+0008                roop:
+0008 07 12 01 00             AND  fe,1
+000C 02 00 02 00             JZ   roop
+0010                
+0010 03 02 01 00             LD   r2,r1
+0014                
+0014 13 01 00 00             CP   r1,0
+0018 07 11 01 00             AND  fz,1
+001C 0A 00 0E 00             JNZ  x1
+0020 13 01 01 00             CP   r1,1
+0024 07 11 01 00             AND  fz,1
+0028 0A 00 10 00             JNZ  x2
+002C 13 01 02 00             CP   r1,2
+0030 07 11 01 00             AND  fz,1
+0034 0A 00 12 00             JNZ  x3
+0038                
+0038 04 03 00 00    x1:      LD   r3,0
+003C 01 00 13 00             JP   x4
+0040 04 03 0A 00    x2:      LD   r3,10
+0044 01 00 13 00             JP   x4
+0048 04 03 14 00    x3:      LD   r3,20
+004C                
+004C                x4:
+004C 17 00 0A 00             DIV  r0,10
+0050                roop1:
+0050 07 12 01 00             AND  fe,1
+0054 02 00 14 00             JZ   roop1
+0058                
+0058 03 04 01 00             LD   r4,r1
+005C 18 04 03 00             SUB  r4,r3
+0060                
+0060 13 02 00 00             CP   r2,0
+0064 07 11 01 00             AND  fz,1
+0068 0A 00 21 00             JNZ  x5
+006C 13 02 01 00             CP   r2,1
+0070 07 11 01 00             AND  fz,1
+0074 0A 00 23 00             JNZ  x6
+0078 13 02 02 00             CP   r2,2
+007C 07 11 01 00             AND  fz,1
+0080 0A 00 25 00             JNZ  x7
+0084                
+0084 04 03 00 00    x5:      LD   r3,0
+0088 01 00 26 00             JP   x8
+008C 04 03 64 00    x6:      LD   r3,100
+0090 01 00 26 00             JP   x8
+0094 04 03 C8 00    x7:      LD   r3,200
+0098                
+0098                x8:
+0098 03 05 00 00             LD   r5,r0
+009C 18 05 03 00             SUB  r5,r3
+00A0                
+00A0 03 03 04 00             LD   r3,r4
+00A4 1B 03 03 00             SLA  r3,3
+00A8 18 05 03 00             SUB  r5,r3
+00AC 03 03 04 00             LD   r3,r4
+00B0 1B 03 01 00             SLA  r3,1
+00B4 18 05 03 00             SUB  r5,r3
+00B8                
+00B8 08 07 01 00             OR   r7,1
+00BC                
+00BC                roop2:
+00BC 07 06 01 00             AND  r6,1
+00C0 02 00 2F 00             JZ   roop2
+00C4                
+00C4 07 07 00 00             AND  r7,0
+00C8                
+00C8 01 00 01 00             JP   start
+00CC                end
+</font>
+</pre>
+</td>
+<td >&nbsp;　&nbsp;</td>
+</tr>
+</table>
+
+<p class="i">
+<font color="red">リスト79</font> 
+のBCD 変換のプログラムの
+<font color="blue">bcda.lst</font> 
+の番地はバイト単位での番地なので4 バイト単位の番地は1=4 にします。
+<font color="red">図4.27</font> 
+や
+<font color="red">図4.28</font> 
+の実行の様子と照らし合わせて見るときはこの番地を使って見て下さい。この
+プログラムの意味を示すフローチャートは
+<font color="red">図4.20</font> 
+です。
+</p>

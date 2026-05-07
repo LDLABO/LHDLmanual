@@ -1,0 +1,175 @@
+<hr color="#6666CC" size="10">
+<font size="4" color="#5454AB"><b>　　　加算器の設計</b></font><br>
+<hr color="#6666CC">
+
+<p class="i">
+こんどは自分で1 ビットの加算器から作ってみます、論理設計では入力と出力の対応がどうなっているかが分
+かっていれば論理設計は終わったも同然です、入力と出力の関係の意味するところは論理設計の問題ではありま
+せん。
+</p>
+
+<hr color="#CC9966" size="10">
+<font size="4" color="#666633"><b>　　　言語による真理値表の表記</b></font><br>
+<hr color="#CC9966">
+
+<table align="right"><tr><td>
+<table>
+<caption><font color="red">リスト6</font>　1 ビットの加算器no.1 論理式</caption>
+<tr>
+<td >&nbsp;　　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+library IEEE;
+
+use IEEE.std_logic_1164.all;
+
+entity main is
+   port(c0 : out   std_logic;
+        a0 : in    std_logic;
+        b0 : in    std_logic);
+end main;
+
+architecture RTL of main is
+
+begin
+
+c0 <= (not a0 and b0)
+   or (a0 and not b0) ;
+
+end RTL;
+</font>
+</pre>
+</td>
+</tr>
+</table>
+</td></tr></table>
+
+<table align="right"><tr><td>
+<table>
+<caption><font color="red">リスト5</font>　1 ビットの加算器no.1 真理値表</caption>
+<tr>
+<td >&nbsp;　　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+entity main
+input  a,b;
+output c;
+
+   switch(a,b)
+      case 0,0: c=0;
+      case 0,1: c=1;
+      case 1,0: c=1;
+      case 1,1: c=0;
+   endswitch
+
+ende
+</font>
+</pre>
+</td>
+</tr>
+</table>
+</td></tr></table>
+
+<p class="i">
+1 ビットの足し算は下のように
+なります。
+</p>
+
+<table class="i"><tr><td>
+<pre>
+<font face="Lucida Console" color="#330099">
+0 + 0 = 0
+0 + 1 = 1
+1 + 0 = 1
+1 + 1 = 0 で桁上がり
+</font>
+</pre>
+</td></tr></table>
+
+<p class="i">
+これはこのまま真理値表にでき
+そうです
+<font color="red">リスト5</font> 
+が言語で書いた真理値表で
+<font color="red">リスト6</font> 
+がコンパイルで得られたVHDL の論理式です。
+</p>
+
+<br clear="right">
+
+<hr color="#CC9966" size="10">
+<font size="4" color="#666633"><b>　　　真理値表の構造と論理式</b></font><br>
+<hr color="#CC9966">
+
+<p class="i">
+1 ビットの加算器の真理値表を使って真理値表の構造を説明します真理値表の列は入力と出力で構成されます
+<font color="blue">a</font> 
+と
+<font color="blue">b</font> 
+が入力で
+<font color="blue">c</font> 
+が出力です入力が2 個ですので4 行あれば完全な真理値表になります。
+</p>
+
+
+<table align="left"><tr>
+
+<td>&nbsp;　　　&nbsp</td>
+
+<td>
+<table>
+<caption><font color="red">図3.3</font> 論理積の取り出し</caption>
+<tr>
+<td>
+<a href="../LIB/FG09D02A.svg" target="_blank">
+<img src="../LIB/FG09D02A.svg" border="0" alt="FG09D02A.svg(16720 byte)" width="177" height="100">
+</a>
+</td>
+</tr>
+</table>
+</td>
+
+<td>&nbsp;　　　&nbsp</td>
+
+<td>
+<table>
+<caption><font color="red">図3.4</font> 論理和の取り出し</caption>
+<tr>
+<td>
+<a href="../LIB/FG09D02B.svg" target="_blank">
+<img src="../LIB/FG09D02B.svg" border="0" alt="FG09D02B.svg(20000 byte)" width="215" height="100">
+</a>
+</td>
+</tr>
+</table>
+</td>
+
+<td>&nbsp;　　　&nbsp</td>
+
+</tr></table>
+
+
+<p class="i">
+真理値表には出力が0 になる場合と1 になる場合の両方が示されています真理値表の行の意味は
+<font color="red">図3.3</font> 
+のよ
+うに論理積を示しています各行の論理積を論理和すると1 になります。真理値表から論理を取り出すには
+<font color="red">図3.4</font>
+のように0 になる論理を取り出したいときには出力が0 になる行の論理積を集めて論理和します、1 になる論理
+を取り出したいときには出力が1 になる行の論理積を集めて論理和します。
+論理積と論理和はシンボルによる設計においても言語による設計においても基本になるものですが真理値表を
+構成するものを部分的に切り出したもので結局はこれらを組み合わせることは真理値表を作っていることになり
+ます。
+</p>
+
+<br clear="left">
+
+<p class="i">
+論理を作るという作業は入力に対応する出力が自分が求める機能においてどうであるべきか決めていくことで
+す、それが真理値表の出力値を埋めていく作業になっています。
+今回のように完全な真理値表から論理を取り出した場合は論理的な検証は不用です論理が大きくなっていって
+自分が求める機能に対応する完全な真理値表が分からないので作り上げた真理値表が自分が求める機能に完全に
+満足するものかどうかを検証で確かめている訳です。
+</p>

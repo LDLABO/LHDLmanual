@@ -1,0 +1,127 @@
+<hr color="#CC9966" size="10">
+<font size="4" color="#666633"><b>　　　演算器</b></font><br>
+<hr color="#CC9966">
+
+<p class="i">
+本プロセッサの演算器は
+<font color="blue">CP</font> 
+命令で使う一致検出のための比較と
+<font color="blue">SUB</font> 
+命令で使う減算を実行します。
+<font color="red">リスト78</font> 
+は演算器本体と演算器の2 本の入力とフラグの論理です
+<font color="red">図4.25</font> 
+のように構成しています。
+</p>
+
+<table>
+<tr>
+<td valign="top">
+<table>
+<a name="LST78"></a>
+<caption><font color="red">　リスト78</font>　演算器とその周辺</caption>
+<tr>
+<td >&nbsp;　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+{ PPU 演算器 }
+if (code19p) opout.0=opina==opinb; endif
+if (code24p) opout=opina-opinb; endif
+
+{ PPU 演算器入力a }
+switch(PORT0ADD)
+   case 1: opina=reg1R;
+   case 2: opina=reg2R;
+   case 4: opina=reg4R;
+   case 5: opina=reg5R;
+endswitch
+
+{ PPU 演算器入力b }
+if (code24p)
+   switch(PORT1ADD)
+      case 3: opinb=reg3R;
+   endswitch
+endif
+
+if (code19p) opinb=DATAIN.8:15; endif
+
+{ PPU フラグFZ }
+if (RESET)
+   flgZ=0;
+else
+   if (code19p)
+      switch(DATAIN.16:23)
+         case 1:  flgZ=opout.0;   { CP r1,n }
+         case 2:  flgZ=opout.0;   { CP r2,n }
+         default: flgZ=flgZ;
+      endswitch
+   else
+      flgZ=flgZ;
+   endif
+endif
+</font>
+</pre>
+</td>
+<td >&nbsp;　&nbsp;</td>
+</tr>
+</table>
+</td>
+<td valign="top">
+<table>
+<caption><font color="red">図4.25</font> 演算部の構成</caption>
+<tr>
+<td>&nbsp;&nbsp</td>
+<td align="center">
+<a href="../LIB/FG09F01A.png" target="_blank">
+<img src="../LIB/FG09F01A.png" border="0" alt="FG09F01A.png(58221 byte)" width="500">
+</a>
+</td>
+<td>&nbsp;　　　&nbsp</td>
+</tr>
+</table>
+
+<ul>
+<li>code19p : CP 命令</li>
+<li>code24p : SUB 命令</li>
+<li>DATAIN.8:15 : 即値</li>
+<li>DATAIN.16:23 : レジスタ枠0 のレジスタ番号</li>
+<li>PORT0ADD : レジスタ枠0 のレジスタ番号</li>
+<li>PORT1ADD : レジスタ枠1 のレジスタ番号</li>
+</ul>
+</td>
+</tr>
+</table>
+
+<p class="i">
+ALU は
+<font color="blue">Arithmetic Logic Unit</font> 
+の略です、算術演算と論理演算を行います。本プロセッサの演算器は算術演
+算と比較だけの簡単なものですがALU を意識して作ってみました、論理演算はプロセッサの基本部分の方に
+持っています。ALU はプロセッサの中心に位置する部分なので複雑なものに思われがちですが演算の対象にな
+る2 本の入力の
+<font color="blue">opina</font> 
+と
+<font color="blue">opinb</font> 
+と演算の種類を決める信号の
+<font color="blue">code19p</font> 
+と
+<font color="blue">code24p</font> 
+を入力にして
+<font color="blue">opout</font> 
+を出力にする真理値表です。他のプロセッサの場合も演算の種類が多くなっている程度で基本的な構造は同じですか
+ら論理設計に大差はないと思います。ALU を意識したので演算の入力を
+<font color="blue">opina</font> 
+と
+<font color="blue">opinb</font> 
+に出力を
+<font color="blue">opout</font> 
+に集約しましたが、そのようにしないこともあります。PLD に作られるプロセッサのおかれる状況は様々なので一
+般的なコンピュータの設計手法にとらわれる必要はあまりないような感じはしています。
+</p>
+
+<p class="i">
+<font color="red">図4.26</font> 
+は演算器の実行の様子を示したものです。
+</p>
+

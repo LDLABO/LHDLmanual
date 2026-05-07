@@ -1,0 +1,247 @@
+<br>
+
+<p class="i">
+● <b>LD r0,n</b>
+</p>
+
+<table class="i" align="left">
+<tr>
+<td >&nbsp;　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+macro     LD R,NUMBER
+   db 04,#0,#1&0xff,0
+endm
+</font>
+</pre>
+</td>
+<td >&nbsp;　&nbsp;</td>
+</tr>
+</table>
+
+<p class="i">
+定義の内容は
+<font color="blue">LD r0,r1</font> 
+とほぼ同じですがレジスタ枠1 が8 ビットの即値になっています。
+</p>
+
+<br clear="left">
+
+<p class="i">
+● <b>AND r0,r1</b>
+</p>
+
+<table class="i" align="left">
+<tr>
+<td >&nbsp;　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+macro     AND R,R
+   db 05,#0,#1,0
+endm
+</font>
+</pre>
+</td>
+<td >&nbsp;　&nbsp;</td>
+</tr>
+</table>
+
+<p class="i">
+定義の内容は
+<font color="blue">LD r0,r1</font> 
+とほぼ同じです。
+</p>
+
+<br clear="left">
+
+<p class="i">
+● <b>OR r0,r1</b>
+</p>
+
+<table class="i" align="left">
+<tr>
+<td >&nbsp;　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+macro     OR R,R
+   db 06,#0,#1,0
+endm
+</font>
+</pre>
+</td>
+<td >&nbsp;　&nbsp;</td>
+</tr>
+</table>
+
+<p class="i">
+定義の内容は
+<font color="blue">LD r0,r1</font> 
+とほぼ同じです。
+</p>
+
+<br clear="left">
+
+<p class="i">
+● <b>AND r1,n</b>
+</p>
+
+<table class="i" align="left">
+<tr>
+<td >&nbsp;　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+macro     AND R,NUMBER
+   db 07,#0,#1&0xff,0
+endm
+</font>
+</pre>
+</td>
+<td >&nbsp;　&nbsp;</td>
+</tr>
+</table>
+
+<p class="i">
+定義の内容は
+<font color="blue">LD r0,r1</font> 
+とほぼ同じですがレジスタ枠1 が8 ビットの即値になっています。
+</p>
+
+<br clear="left">
+
+<p class="i">
+● <b>OR r1,n</b>
+</p>
+
+<table class="i" align="left">
+<tr>
+<td >&nbsp;　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+macro     OR R,NUMBER
+   db 08,#0,#1&0xff,0
+endm
+</font>
+</pre>
+</td>
+<td >&nbsp;　&nbsp;</td>
+</tr>
+</table>
+
+<p class="i">
+定義の内容は
+<font color="blue">LD r0,r1</font> 
+とほぼ同じですがレジスタ枠1 が8 ビットの即値になっています。
+</p>
+
+<br clear="left">
+
+<p class="i">
+● <b>USR r0,r1,r2</b>
+</p>
+
+<table class="i" align="left">
+<tr>
+<td >&nbsp;　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+macro     USR R,R,R
+   db 09,#0,#1,#2
+endm
+</font>
+</pre>
+</td>
+<td >&nbsp;　&nbsp;</td>
+</tr>
+</table>
+
+<p class="i">
+レジスタ枠の0 と1 と2 を使っています。
+</p>
+
+<br clear="left">
+
+<p class="i">
+● <b>JNZ n'n</b>
+</p>
+
+<table class="i" align="left">
+<tr>
+<td >&nbsp;　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+macro     JNZ NUMBER
+   db 0ah,(#0>>10)&0ffh,(#0>>2)&0ffh,0
+endm
+</font>
+</pre>
+</td>
+<td >&nbsp;　&nbsp;</td>
+</tr>
+</table>
+
+<p class="i">
+定義の内容は
+<font color="blue">JP n'n</font> 
+とほぼ同じです。
+</p>
+
+<br clear="left">
+
+<p class="i">
+● <b>LD r1,pc</b>
+</p>
+
+<table class="i" align="left">
+<tr>
+<td >&nbsp;　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+macro     LD R,PC
+   db 0bh,#0,0,0
+endm
+</font>
+</pre>
+</td>
+<td >&nbsp;　&nbsp;</td>
+</tr>
+</table>
+
+<p class="i">
+レジスタ枠の0 だけを使っています。
+</p>
+
+<br clear="left">
+
+<p class="i">
+● <b>LD pc,r1</b>
+</p>
+
+<table class="i" align="left">
+<tr>
+<td >&nbsp;　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+macro     LD PC,R
+   db 0ch,#1,0,0
+endm
+</font>
+</pre>
+</td>
+<td >&nbsp;　&nbsp;</td>
+</tr>
+</table>
+
+<p class="i">
+レジスタ枠の0 だけを使っています。
+</p>
+
+<br clear="left">

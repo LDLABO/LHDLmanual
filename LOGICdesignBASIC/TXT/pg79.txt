@@ -1,0 +1,414 @@
+<hr color="#4F9177" size="15">
+<font color="#336633">　　プロセッサによるLED 表示器</font>
+<hr color="#4F9177">
+
+<p class="i">
+3 桁のBCD 値を7 セグメントLED に表示する表示器を作ります。
+</p>
+
+<hr color="#6666CC" size="10">
+<font size="4" color="#5454AB"><b>　　　レジスタ</b></font><br>
+<hr color="#6666CC">
+
+<br>
+
+<table align="right">
+<ul>
+<li>R0 : LED を駆動するCLK</li>
+<li>R1 : 桁計数</li>
+<li>R2 : 表示する桁の選択値</li>
+<li>R3 : 表示する桁のBCD 値</li>
+<li>R4 : 7 セグメントの表示データ</li>
+<li>R5 : 変換部のR5 と共通</li>
+<li>R6 : 変換部のR4 と共通</li>
+<li>R7 : 変換部のR2 と共通</li>
+<li>FZ : ゼロフラグ</li>
+</ul>
+</table>
+
+<table align="right">
+<caption><font color="red">図4.29</font> レジスタ構成</caption>
+<tr>
+<td>&nbsp;&nbsp</td>
+<td align="center">
+<a href="../LIB/FG09F07A.png" target="_blank">
+<img src="../LIB/FG09F07A.png" border="0" alt="FG09F07A.png(14375 byte)" width="150">
+</a>
+</td>
+<td>&nbsp;　　　&nbsp</td>
+</tr>
+</table>
+
+<p class="i">
+本プロセッサはメモリを持っておらず
+<font color="red">図4.29</font> 
+の専用レジスタが
+<font color="red">リスト80</font>
+のプログラムの操作の対象です。
+</p>
+
+<ul>
+<li class="i">
+<font color="blue"><b>R0</b></font> 
+はLED を駆動するCLK の
+<font color="blue">SCLK</font>
+を読み取るためのレジスタで書き込みはできません。
+<br><br>
+</li>
+
+<li class="i">
+<font color="blue"><b>R1</b></font> 
+は桁の位置を決めるための計数のレジスタで加算命令
+<font color="blue">ADD</font> 
+の対象になっています。このレジスタの値を他のレジスタに読み出すことはできます。
+<br><br>
+</li>
+
+<li class="i">
+<font color="blue"><b>R2</b></font> 
+は表示する桁を決める値を書き込むレジスタです。このレジスタの値を他のレジスタに読み出すことはで
+きます。
+<br><br>
+</li>
+</ul>
+
+<br clear="right">
+
+<table align="right">
+<a name="LST79"></a>
+<caption><font color="red">　リスト80</font>　プログラム</caption>
+<tr>
+<td >&nbsp;　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+1:            org 4
+2:   roop:
+3:            AND  r0,1
+4:            JZ   roop
+5:
+6:            ADD  r1,1
+7:            CP   r1,3
+8:            AND  fz,1
+9:            JZ   roop1
+10:           LD   r1,0
+11:  roop1:
+12:           LD   r2,0
+13:
+14:           CP   r1,0
+15:           AND  fz,1
+16:           JNZ  x1
+17:           CP   r1,1
+18:           AND  fz,1
+19:           JNZ  x2
+20:           CP   r1,2
+21:           AND  fz,1
+22:           JNZ  x3
+23:
+24:  x1:      LD   r3,r5
+25:           JP   x4
+26:  x2:      LD   r3,r6
+27:           JP   x4
+28:  x3:      LD   r3,r7
+29:
+30:  x4:
+31:           CP   r3,0
+32:           AND  fz,1
+33:           JNZ  x5
+34:           CP   r3,1
+35:           AND  fz,1
+36:           JNZ  x6
+37:           CP   r3,2
+38:           AND  fz,1
+39:           JNZ  x7
+40:           CP   r3,3
+41:           AND  fz,1
+42:           JNZ  x8
+43:           CP   r3,4
+44:           AND  fz,1
+45:           JNZ  x9
+46:           CP   r3,5
+47:           AND  fz,1
+48:           JNZ  x10
+49:           CP   r3,6
+50:           AND  fz,1
+51:           JNZ  x11
+52:           CP   r3,7
+53:           AND  fz,1
+54:           JNZ  x12
+55:           CP   r3,8
+56:           AND  fz,1
+57:           JNZ  x13
+58:           CP   r3,9
+59:           AND  fz,1
+60:           JNZ  x14
+61:
+62:  x5:      LD   r4,7eh
+63:           JP   x15
+64:  x6:      LD   r4,30h
+65:           JP   x15
+66:  x7:      LD   r4,6dh
+67:           JP   x15
+68:  x8:      LD   r4,7ch
+69:           JP   x15
+70:  x9:      LD   r4,33h
+71:           JP   x15
+72:  x10:     LD   r4,5bh
+73:           JP   x15
+74:  x11:     LD   r4,5fh
+75:           JP   x15
+76:  x12:     LD   r4,70h
+77:           JP   x15
+78:  x13:     LD   r4,7fh
+79:           JP   x15
+80:  x14:     LD   r4,73h
+81:
+82:  x15:
+83:           CP   r1,0
+84:           AND  fz,1
+85:           JNZ  x16
+86:           CP   r1,1
+87:           AND  fz,1
+88:           JNZ  x17
+89:           CP   r1,2
+90:           AND  fz,1
+91:           JNZ  x18
+92:
+93:  x16:     LD   r2,1
+94:           JP   x19
+95:  x17:     LD   r2,2
+96:           JP   x19
+97:  x18:     LD   r2,4
+98:
+99:  x19:
+100:
+101: roop2:
+102:          AND  r0,1
+103:          JNZ  roop2
+104:
+105:          JP   roop
+106: end
+</font>
+</pre>
+</td>
+<td >&nbsp;　&nbsp;</td>
+</tr>
+</table>
+
+<ul>
+<li class="i">
+<font color="blue"><b>R3</b></font> 
+は実際に表示する桁のBCD 値を書き込むレジスタです。このレジスタの値を他のレジスタに読み出すこ
+とはできます。
+<br><br>
+</li>
+
+<li class="i">
+<font color="blue"><b>R4</b></font> 
+は実際に表示する桁のセグメント値を書き込むレジスタです。このレジスタの値を他のレジスタに読み出
+すことはできます。
+<br><br>
+</li>
+
+<li class="i">
+<font color="blue"><b>R5</b></font> 
+はBCD 変換部のプロセッサのレジスタ
+<font color="blue">R5</font> 
+の変換済みの「1 の位の値」を記憶しています。この値は変換
+の完了で記憶されます、プログラムでこのレジスタに書き込むことはできません。
+<br><br>
+</li>
+
+<li class="i">
+<font color="blue"><b>R6</b></font> 
+はBCD 変換部のプロセッサのレジスタ
+<font color="blue">R4</font> の変換済みの「10 の位の値」を記憶しています。この値は変
+換の完了で記憶されます、プログラムでこのレジスタに書き込むことはできません。
+<br><br>
+</li>
+
+<li class="i">
+<font color="blue"><b>R7</b></font> 
+はBCD 変換部のプロセッサのレジスタ
+<font color="blue">R2</font> 
+の変換済みの「100 の位の値」を記憶しています。この値は変
+換の完了で記憶されます、プログラムでこのレジスタに書き込むことはできません。
+<br><br>
+</li>
+
+<li class="i">
+<font color="blue"><b>FZ</b></font> 
+は論理演算の結果を知るためのフラグです論理演算の結果が0 のとき1 になります。
+<br><br>
+</li>
+</ul>
+
+<hr color="#6666CC" size="10">
+<font size="4" color="#5454AB"><b>　　　プログラム</b></font><br>
+<hr color="#6666CC">
+
+<p class="i">
+<font color="red">リスト80</font> 
+は3 桁の7 セグメントLED をダイナミック表示するプログラムです。プログラムの意味は
+<font color="red">図4.31</font>
+に示します。プログラムの中で使っているBCD 値から7 セグメントの値への変換は
+<font color="red">図4.18</font> 
+を見て下さい。プログラムは
+<font color="blue">SCLK</font> 
+が1 になってから
+<font color="red">リスト80</font> 
+の行番号5 以降に進みます、ほぼ40CLK 後に行番号2 に戻りま
+す。プログラムの進行は次のようになっています。
+</p>
+
+<ul>
+<li class="i">
+行番号の
+<font color="blue">2</font> 
+から
+<font color="blue">4</font> 
+は
+<font color="blue">SCLK</font> 
+が1 になるのを待っています。
+</li>
+
+<li class="i">
+行番号の
+<font color="blue">6</font> 
+から
+<font color="blue">9</font> 
+は表示する桁を次に進めます。
+</li>
+
+<li class="i">
+行番号
+<font color="blue">12</font> 
+は桁の駆動を停止して表示を全部消します。
+</li>
+
+<li class="i">
+行番号の
+<font color="blue">14</font> 
+から
+<font color="blue">22</font> 
+は表示する桁からBCD 値を決めるために分岐します。
+</li>
+
+<li class="i">
+行番号の
+<font color="blue">24</font> 
+から
+<font color="blue">28</font> 
+で表示する桁のBCD 値を記憶します。
+</li>
+
+<li class="i">
+行番号の
+<font color="blue">31</font> 
+から
+<font color="blue">60</font> 
+は表示する桁のBCD 値が0.9 のどれかを判定して分岐します。
+</li>
+
+<li class="i">
+行番号の
+<font color="blue">62</font> 
+から
+<font color="blue">80</font> 
+で7 セグメントの値を記憶します。
+</li>
+
+<li class="i">
+行番号の
+<font color="blue">83</font> 
+から
+<font color="blue">91</font> 
+は表示する桁がどれかを判定して分岐します。
+</li>
+
+<li class="i">
+行番号の
+<font color="blue">93</font> 
+から
+<font color="blue">97</font> 
+は表示する桁を駆動します。
+</li>
+
+<li class="i">
+行番号の
+<font color="blue">101</font> 
+から
+<font color="blue">103</font> 
+はSCLK が0 になるのを待っています。
+</li>
+</ul>
+
+<hr color="#6666CC" size="10">
+<font size="4" color="#5454AB"><b>　　　追加命令</b></font><br>
+<hr color="#6666CC">
+
+<p class="i">
+今回のプログラムのために追加した命令は次のものです。
+<font color="blue">CP</font> 
+命令はBCD 変換に使ったプロセッサですでに
+マクロに追加してあります。
+</p>
+
+<ul>
+<li class="i">
+<b>ADD r1,n</b><br>
+<font color="blue">r1</font> 
+と即値
+<font color="blue">n</font> 
+を加算する命令です、結果は
+<font color="blue">r1</font> 
+に記憶します。加算の結果が0 ならば
+<font color="blue">FZ</font> 
+に1 を記憶します、0 以外ならば0 を記憶します。
+</li>
+
+<li class="i">
+<b>CP rx,n</b><br>
+<font color="blue">rx</font> 
+と即値
+<font color="blue">n</font> 
+を比較する命令です
+<font color="blue">rx</font> 
+から
+<font color="blue">n</font> 
+を引いて結果が0 のとき
+<font color="blue">fz</font> 
+に1 を記憶します。
+<font color="blue">rx</font> 
+は
+<font color="blue">R1</font> 
+か
+<font color="blue">R2</font> 
+です。
+</li>
+</ul>
+
+<p class="i">
+次が
+<font color="blue">ADD</font> 
+命令のために追加したマクロの抜粋部分です。本プロセッサでは
+<font color="blue">ADD</font> 
+命令の対象とするレジスタは
+<font color="blue">R1</font> 
+だけですがマクロでは
+<font color="blue">rx</font> 
+として最大で0～255 まで指定できます。
+<font color="blue">NUMBER</font> 
+は8 ビットの即値を示します。
+</p> 
+
+<pre class="i">
+<font face="Lucida Console" color="#660000" size="2">
+{ ADD rx,n }
+macro ADD R,NUMBER
+db 21,#0,#1&0ffh,0
+endm
+</font>
+</pre>
+
+<br clear="right">

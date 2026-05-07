@@ -1,0 +1,29 @@
+<br>
+
+<table>
+<caption><font color="red">図4.12</font> LED の点灯の移動(1/2)</caption>
+<tr>
+<td>&nbsp;&nbsp</td>
+<td align="center">
+<a href="../LIB/FG09E18A.png" target="_blank">
+<img src="../LIB/FG09E18A.png" border="0" alt="FG09E18A.png(178836 byte)" width="800">
+</a>
+</td>
+<td>&nbsp;　　　&nbsp</td>
+</tr>
+</table>
+
+<br>
+
+<table>
+<caption><font color="red">図4.13</font> LED の点灯の移動(2/2)</caption>
+<tr>
+<td>&nbsp;&nbsp</td>
+<td align="center">
+<a href="../LIB/FG09E18B.png" target="_blank">
+<img src="../LIB/FG09E18B.png" border="0" alt="FG09E18B.png(177745 byte)" width="800">
+</a>
+</td>
+<td>&nbsp;　　　&nbsp</td>
+</tr>
+</table>

@@ -1,0 +1,190 @@
+<br>
+
+<p class="i">
+<font color="red">図3.45</font> 
+の
+<font color="red">リスト35</font> 
+の関連実行部分は
+</p>
+
+
+<ul class="i">
+<li class="i">
+<font color="blue">codepoint</font> 
+が20 のときに
+<font color="blue">LD A,PORT</font> 
+が実行されています。</li>
+
+<li class="i">
+<font color="blue">codepoint</font> 
+が25 のときに
+<font color="blue">LD A,(X)</font> 
+が実行されています。
+</li>
+
+</ul>
+
+<hr color="#CC9966" size="10">
+<font size="4" color="#666633"><b>　　　レジスタB</b></font><br>
+<hr color="#CC9966">
+
+<p class="i">
+<font color="blue">レジスタB</font> 
+は補助的な記憶場所として作りました。
+<font color="red">リスト36</font> 
+の
+<font color="blue">regB</font> 
+は
+<font color="blue">レジスタB</font> 
+の値を記憶しています。
+</p>
+
+<table align="left">
+<a name="LST36"></a>
+<caption><font color="red">　リスト36</font>　レジスタB</caption>
+<tr>
+<td >&nbsp;　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+if (reset)
+   regB=0;
+else
+   switch(codec)
+      case 11: regB=regA;   { LD B,A }
+      case 27: regB=datain; { LD B,(X) }
+      default: regB=regB;
+   endswitch
+endif
+</font>
+</pre>
+</td>
+<td >&nbsp;　&nbsp;</td>
+</tr>
+
+<tr>
+<td colspan="3">
+
+<p class="i">
+<font color="red">図3.46</font> 
+の
+<font color="red">リスト36</font> 
+の関連実行部分は
+</p>
+
+<ul>
+<li>
+<font color="blue">codepoint</font> 
+が29 のときに
+<font color="blue">LD B,(X)</font> 
+が実行されています。
+</li>
+</ul>
+
+</td>
+</tr>
+
+</table>
+
+<table align="left">
+<caption><font color="red">図3.46</font> リスト36 の関連実行部分</caption>
+<tr>
+<td>&nbsp;&nbsp</td>
+<td align="center">
+<a href="../LIB/FG09E02A.png" target="_blank">
+<img src="../LIB/FG09E02A.png" border="0" alt="FG09E02A.png(56402 byte)" width="380">
+</a>
+</td>
+<td>&nbsp;　　　&nbsp</td>
+</tr>
+</table>
+
+<br clear="left"><br>
+
+<hr color="#CC9966" size="10">
+<font size="4" color="#666633"><b>　　　レジスタX</b></font><br>
+<hr color="#CC9966">
+
+<p class="i">
+<font color="blue">レジスタX</font> 
+はメモリの番地を指定するレジスタとして作りました。
+<font color="red">リスト37</font> 
+の
+<font color="blue">regX</font> 
+は
+<font color="blue">レジスタX</font> 
+の値を記憶しています。
+</p>
+
+<table align="right">
+<a name="LST37"></a>
+<caption><font color="red">　リスト37</font>　レジスタX</caption>
+<tr>
+<td >&nbsp;　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+if (reset)
+   regX=0;
+else
+   switch(codec)
+      case 4:  regX=coded;   { LD  X,d8  }
+      case 15: regX=regX+1;  { INC X     }
+      case 21: regX=regA;    { LD  X,A   }
+      case 25: regX=regX-1;  { DEC X     }
+      case 28: regX=datain;  { LD  X,(X) }
+      default: regX=regX;
+   endswitch
+endif
+</font>
+</pre>
+</td>
+<td >&nbsp;　&nbsp;</td>
+</tr>
+</table>
+
+<p class="i">
+<font color="red">図3.46</font> 
+の
+<font color="red">リスト37</font> 
+の関連実行部分は
+</p>
+
+<ul>
+<li class="i">
+<font color="blue">codepoint</font> 
+が26 のときに
+<font color="blue">INC X</font> 
+が実行されています。
+</li>
+
+<li class="i">
+<font color="blue">codepoint</font> 
+が31 のときに
+<font color="blue">DEC X</font> 
+が実行されています。
+</li>
+
+<li class="i">
+<font color="blue">codepoint</font> 
+が34 のときに
+<font color="blue">LD X,11</font> 
+が実行されています。
+</li>
+</ul>
+
+<br clear="right">
+
+<hr color="#6666CC" size="10">
+<font size="4" color="#5454AB"><b>　　　フラグ</b></font><br>
+<hr color="#6666CC">
+
+<p class="i">
+フラグは演算の結果の桁上がりを示す
+<font color="blue">C</font> 
+と演算の結果が0 になったことを示す
+<font color="blue">Z</font> 
+があります。これらのフラ
+グに演算の結果を記憶するのは後で分岐命令に利用するためです。
+</p>
+

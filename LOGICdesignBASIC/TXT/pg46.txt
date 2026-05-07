@@ -1,0 +1,184 @@
+<hr color="#6666CC" size="10">
+<font size="4" color="#5454AB"><b>　　　プログラムカウンタ</b></font><br>
+<hr color="#6666CC">
+
+<br>
+
+<table align="right">
+<a name="LST34"></a>
+<caption><font color="red">　リスト34</font>　プログラムカウンタ</caption>
+<tr>
+<td >&nbsp;　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+if (reset)
+   codepoint=0;
+else
+   if (codec6p&flgC)           { JPC b8 }
+      codepoint=coded;
+   else
+      if (codec7p&!flgC)       { JPNC b8 }
+         codepoint=coded;
+      else
+         if (codec8p&flgZ)     { JPZ b8 }
+            codepoint=coded;
+         else
+            if (codec9p&!flgZ) { JPNZ b8 }
+               codepoint=coded;
+            else
+               if (codec10p)   { JP b8 }
+                  codepoint=coded;
+               else
+                  codepoint=codepoint+1;
+               endif
+            endif
+         endif
+      endif
+   endif
+endif
+</font>
+</pre>
+</td>
+<td >&nbsp;　&nbsp;</td>
+</tr>
+</table>
+
+<p class="i">
+本プロセッサはすべての命令を1CLK で実行するのでプログラムカウンタを停止する制御はありません
+<font color="red">リスト34</font> 
+の
+<font color="blue">codepoint</font> 
+がプログラムカウンタです。なにもなければひとつずつ増えていきますが分岐条件と合っ
+たときは
+<font color="blue">codepoint</font> 
+に
+<font color="blue">coded</font> 
+が記憶されます。
+</p>
+
+<p class="i">
+<font color="red">図3.44</font> 
+の
+<font color="red">リスト34</font> 
+の関連実行部分は
+</p>
+
+<ul class="i">
+<li class="i">
+<font color="blue">codepoint</font> 
+が52 のときに
+<font color="blue">JPC 60</font> 
+が実行されています。
+</li>
+
+<li class="i">
+<font color="blue">codepoint</font> 
+が28 のときに
+<font color="blue">JPC 49</font> 
+が実行されています。
+</li>
+
+<li class="i">
+<font color="blue">codepoint</font> 
+が62 のときに
+<font color="blue">JP 23</font> 
+が実行されています。
+</li>
+
+<li class="i">
+<font color="blue">codepoint</font> 
+が37 のときに
+<font color="blue">JP 49</font> 
+が実行されています。
+</li>
+</ul>
+
+<br clear="right">
+
+<table>
+<caption><font color="red">図3.44</font> リスト34 の関連実行部分</caption>
+<tr>
+<td>&nbsp;&nbsp</td>
+<td align="center">
+<a href="../LIB/FG09E01A.png" target="_blank">
+<img src="../LIB/FG09E01A.png" border="0" alt="FG09E01A.png(70018 byte)" width="500">
+</a>
+</td>
+<td>&nbsp;　　　&nbsp</td>
+</tr>
+</table>
+
+<br clear="right">
+
+<hr color="#6666CC" size="10">
+<font size="4" color="#5454AB"><b>　　　レジスタ</b></font><br>
+<hr color="#6666CC">
+
+<p class="i">
+本プロセッサは専用レジスタ形式をとっていますレジスタは通常のデータを扱う
+<font color="blue">A</font> 
+と
+<font color="blue">B</font> 
+の2 本とメモリの番
+地を扱う
+<font color="blue">X</font> 
+の1 本の計三本があります。
+</p>
+
+<hr color="#CC9966" size="10">
+<font size="4" color="#666633"><b>　　　レジスタA</b></font><br>
+<hr color="#CC9966">
+
+<p class="i">
+<font color="red">リスト35</font> 
+の
+<font color="blue">regA</font> 
+はレジスタ
+<font color="blue">A</font> 
+の値を記憶しています。
+</p>
+
+<table align="left">
+<a name="LST35"></a>
+<caption><font color="red">　リスト35</font>　レジスタA</caption>
+<tr>
+<td >&nbsp;　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+if (reset)
+   regA=0;
+else
+   switch(codec)
+      case 2:  regA=datain;   { LD  A,(X) }
+      case 3:  regA=coded;    { LD  A,d8 }
+      case 14: regA=regA+1;   { INC A }
+      case 20: regA=regB;     { LD  A,B }
+      case 22: regA=regX;     { LD  A,X }
+      case 24: regA=regA-1;   { DEC A }
+      case 29: regA=portin;   { LD  A,PORT }
+      default: regA=regA;
+   endswitch
+endif
+</font>
+</pre>
+</td>
+<td >&nbsp;　&nbsp;</td>
+</tr>
+</table>
+
+<table>
+<caption><font color="red">図3.45</font> リスト35 の関連実行部分</caption>
+<tr>
+<td>&nbsp;&nbsp</td>
+<td align="center">
+<a href="../LIB/FG09E01B.png" target="_blank">
+<img src="../LIB/FG09E01B.png" border="0" alt="FG09E01B.png(59041 byte)" width="400">
+</a>
+</td>
+<td>&nbsp;　　　&nbsp</td>
+</tr>
+</table>
+
+<br clear="left">

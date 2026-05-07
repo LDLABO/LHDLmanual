@@ -1,0 +1,113 @@
+<br>
+
+<table class="i">
+<caption><font color="red">図5.5</font> IC の出力特性</caption>
+<tr>
+<td>&nbsp;&nbsp</td>
+<td align="center">
+<a href="../LIB/FG09F25A.png" target="_blank">
+<img src="../LIB/FG09F25A.png" border="0" alt="FG09F25A.png(30842 byte)" width="800">
+</a>
+</td>
+<td>&nbsp;　　　&nbsp</td>
+</tr>
+</table>
+
+<br>
+
+<table class="i">
+<caption><font color="red">図5.6</font> キーボード駆動回路A</caption>
+<tr>
+<td>&nbsp;&nbsp</td>
+<td align="center">
+<a href="../LIB/FG09F25B.png" target="_blank">
+<img src="../LIB/FG09F25B.png" border="0" alt="FG09F25B.png(86685 byte)" width="700">
+</a>
+</td>
+<td>&nbsp;　　　&nbsp</td>
+</tr>
+</table>
+
+<p class="i">
+<font color="red">図5.6</font>
+はIC の出力を直接には使わない方法です。
+<font color="blue">R6</font> 
+はIC の端子に低電位を認識させるための抵抗です。
+<font color="blue">R5</font>
+はIC の端子に高電位を認識させるための抵抗です。
+<font color="blue">Q2</font> 
+のコレクタ電流で
+<font color="blue">10uA</font> 
+を駆動するには
+<font color="blue">Q2</font> 
+の
+<font color="blue">hfe</font> 
+が
+<font color="blue">100</font>
+とすればベース電流は
+<font color="blue">10uA/100=0.1uA</font> 
+になります。
+<font color="blue">R3</font> 
+は
+<font color="blue">(Vp-Vbe-Vce)/0.1uA=(5-1-0)/0.1uA=40MΩ</font> 
+です。微少な電流を駆動するので非常に大きな値になりましたが、この程度なら
+<font color="blue">R1</font> 
+, 
+<font color="blue">R3</font> 
+, 
+<font color="blue">R4</font> 
+は
+<font color="blue">10kΩ</font> 
+でよいと思います。
+<font color="blue">R4</font> 
+は
+<font color="blue">Q2</font> 
+のコレクタ電流を確実に遮断するためのものです。
+</p>
+
+<table align="right">
+<caption><font color="red">図5.7</font> キーボード駆動回路B</caption>
+<tr>
+<td>&nbsp;&nbsp</td>
+<td align="center">
+<a href="../LIB/FG09F25C.png" target="_blank">
+<img src="../LIB/FG09F25C.png" border="0" alt="FG09F25C.png(74153 byte)" width="350">
+</a>
+</td>
+<td>&nbsp;　　　&nbsp</td>
+</tr>
+</table>
+
+<p class="i">
+<font color="red">図5.7</font> 
+はIC の出力を直接使う方法です。
+キーボードの駆動回路で流す電流は微少でも
+よいので
+<font color="red">図5.7</font> 
+でもよいかも知れません。
+<font color="blue">Voh</font>
+が
+<font color="blue">2.4V</font> 
+でダイオードの順方向電圧が
+<font color="blue">Vf</font> 
+なら
+<font color="blue">Voh-Vf=2.4-1.0=1.4V</font> 
+なので高電位の認識に必要な
+<font color="blue">Vih</font> 
+の
+<font color="blue">2.0V</font> 
+に足りません。
+<font color="blue">Voh</font> 
+は数mA を駆動した場合の値ですから微少電流の駆動の場合に
+<font color="blue">3.5～4.0V</font> 
+になるなら問題ありません。普通のダイオードを使うと
+<font color="blue">1V</font> 
+くらいの電圧降下があるので順方向電圧が小さいものを選んだほうがよいかも知れません。
+<font color="blue">B0～B3</font> 
+にIC の出力を直接つなぐことが
+できないのは複数のキーが押されたときに高電位の
+出力と低電位の出力が短絡される場合があるからです。
+</p>
+
+<br clear="right">
+

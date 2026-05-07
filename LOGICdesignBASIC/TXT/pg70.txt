@@ -1,0 +1,159 @@
+<hr color="#CC9966" size="10">
+<font size="4" color="#666633"><b>　　　除算器</b></font><br>
+<hr color="#CC9966">
+
+<p class="i">
+<font color="red">リスト69</font> 
+の
+<font color="blue">divout=divina/divinb</font> 
+の部分は言語が演算子で提供する記憶形式の8 ビットの除算を使ってプロセッサの除算命令を実現しています。除算命令は
+<font color="blue">DIV r0,n</font> 
+なので入力
+<font color="blue">a</font> 
+はレジスタ
+<font color="blue">R0</font> 
+から入力
+<font color="blue">b</font> 
+は即値から値を持ってきます。
+</p>
+
+<table align="right">
+<a name="LST69"></a>
+<caption><font color="red">　リスト69</font>　除算の実行</caption>
+<tr>
+<td >&nbsp;　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+{ PPU 除算器 }
+if (!code23p)
+   divout=divina/divinb;
+endif
+
+{ PPU 除算器入力a }
+if (code23p)
+   switch(PORT0ADD)
+      case 0:  divina=PORT0IN;
+      default: divina=divina;
+   endswitch
+else
+   divina=divina;
+endif
+
+{ PPU 除算器入力b }
+if (code23p)
+   divinb=DATAIN.8:15;
+else
+   divinb=divinb;
+endif
+
+{ PPU 1 レジスタFE }
+flgE=divout.8;
+</font>
+</pre>
+</td>
+<td >&nbsp;　&nbsp;</td>
+</tr>
+</table>
+
+<p class="i">
+この論理を実行した様子が
+<font color="red">図4.23</font> 
+です。
+<font color="blue">code23p</font> 
+が1 のときに除算器が初期化されて13 個のCLK を使って
+<font color="blue">divout.8</font> 
+が1 のときに結果が出ています。
+</p>
+
+<table class="i">
+<caption><font color="red">図4.23</font> 除算の実行</caption>
+<tr>
+<td>&nbsp;&nbsp</td>
+<td align="center">
+<a href="../LIB/FG09E29A.png" target="_blank">
+<img src="../LIB/FG09E29A.png" border="0" alt="FG09E29A.png(115073 byte)" width="500">
+</a>
+</td>
+<td>&nbsp;　　　&nbsp</td>
+</tr>
+</table>
+
+<br clear="right">
+
+<hr color="#CC9966" size="10">
+<font size="4" color="#666633"><b>　　　レジスタR0,1,6</b></font><br>
+<hr color="#CC9966">
+
+<table align="right">
+<a name="LST70"></a>
+<caption><font color="red">　リスト70</font>　レジスタR0,1,6</caption>
+<tr>
+<td >&nbsp;　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+{ PPU レジスタ代入}
+reg0R=BDATA;    { R0: BCDに変換する8ビットデータ }
+reg1R=divout;   { R1: 除算命令の除算結果 }
+reg6R=CONV;     { R6: 変換指示 }
+</font>
+</pre>
+</td>
+<td >&nbsp;　&nbsp;</td>
+</tr>
+</table>
+
+<p class="i">
+<font color="red">リスト70</font> 
+は読み出し専用のレジスタにそれぞれの値を代入しています。
+</p>
+
+<br clear="right">
+
+<hr color="#CC9966" size="10">
+<font size="4" color="#666633"><b>　　　レジスタR2</b></font><br>
+<hr color="#CC9966">
+
+<table align="right">
+<a name="LST71"></a>
+<caption><font color="red">　リスト71</font>　レジスタR2</caption>
+<tr>
+<td >&nbsp;　&nbsp;</td>
+<td>
+<pre>
+<font face="Lucida Console" color="#330099" size="2">
+{ PPU レジスタR2 }
+if (RESET)
+   reg2R=0;
+else
+   if (RW)
+      switch(PORT0ADD)
+         case 2:  reg2R=PORT0OUT;
+         default: reg2R=reg2R;
+      endswitch
+   else
+      reg2R=reg2R;
+   endif
+endif
+</font>
+</pre>
+</td>
+<td >&nbsp;　&nbsp;</td>
+</tr>
+</table>
+
+<p class="i">
+<font color="red">リスト71</font> 
+のレジスタ
+<font color="blue">R2</font> 
+は
+<font color="blue">100</font> 
+の位を記憶するレジスタで
+すがその機能は論理によってではなくプログラムの実行によっ
+て実現しています。読み書きだけですがプログラムからは自由
+に使えるようになっています。
+</p>
+
+<br clear="right">
+
