@@ -1,0 +1,673 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+	
+    <link type="text/css" rel="stylesheet" href="./main.css">
+	<title></title>
+</head>
+<body>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="100%" align="center">
+<tbody><tr><td>
+<a name="1">&nbsp;</a>
+<hr>
+<b>　　　FDD読み取り器</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="100%" align="center">
+<tbody><tr><td>
+<a name="2">&nbsp;</a>
+<hr size="20" color="#6699CC">
+<b>　　　データビット読み取り</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<p class="i">
+データビットは
+<font color="blue">WINDOW</font>
+が
+<font color="blue">1</font>
+の範囲にあります、これを読み取ってシフトレジスタの
+<font color="blue">rddata</font>
+に蓄積します。
+</p>
+
+<a name="FIG1">&nbsp;</a><table class="i" align="left">
+
+<tbody><tr><td align="center"><font color="red">図1: <font color="#336666">データビット読み取り</font></font></td></tr>
+<tr><td>
+<img src="./FIG1.jpg" border="0" alt="FIG1.jpg(14772 byte)" width="418" height="162">
+</td>
+</tr>
+</tbody></table>
+
+<p class="i">
+<font color="blue">WINDOW</font>
+が
+<font color="blue">1</font>
+の範囲中に
+<font color="blue">RDATA</font>
+が
+<font color="blue">1</font>
+になれば、そのビットは
+<font color="blue">1</font>
+であり
+<font color="blue">RDATA</font>
+が
+<font color="blue">1</font>
+にならなければ、そのビットは
+<font color="blue">0</font>
+です、その値は
+<font color="blue">rdset</font>
+に記憶されて
+<font color="blue">WINDOW</font>
+が
+<font color="blue">1</font>
+から
+<font color="blue">0</font>
+になるときに
+<font color="blue">rddata</font>
+のシフトレジスタに記憶します。
+<font color="blue">rdset</font>
+の記憶と
+<font color="blue">rddata</font>
+のシフトレジスタの駆動は
+<font color="blue">rds.0</font>
+が
+<font color="blue">1</font>
+のときに行います。
+</p>
+
+<br clear="left">
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="100%" align="center">
+<tbody><tr><td>
+<a name="3">&nbsp;</a>
+<hr size="20" color="#6699CC">
+<b>　　　クロックビット読み取り</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<p class="i">
+クロックビットは
+<font color="blue">WINDOW</font>
+が
+<font color="blue">0</font>
+の範囲にあります、これを読み取ってシフトレジスタの
+<font color="blue">rcdata</font>
+に蓄積します。
+</p>
+
+<a name="FIG2">&nbsp;</a><table class="i" align="left">
+
+<tbody><tr><td align="center"><font color="red">図2: <font color="#336666">クロックビット読み取り</font></font></td></tr>
+<tr><td>
+<img src="./FIG2.jpg" border="0" alt="FIG2.jpg(14702 byte)" width="424" height="159">
+</td>
+</tr>
+</tbody></table>
+
+<p class="i">
+<font color="blue">WINDOW</font>
+が
+<font color="blue">0</font>
+の範囲中に
+<font color="blue">RDATA</font>
+が
+<font color="blue">1</font>
+になれば、そのビットは
+<font color="blue">1</font>
+であり
+<font color="blue">RDATA</font>
+が
+<font color="blue">1</font>
+にならなければ、そのビットは
+<font color="blue">0</font>
+です、その値は
+<font color="blue">rcset</font>
+に記憶されて
+<font color="blue">WINDOW</font>
+が
+<font color="blue">0</font>
+から
+<font color="blue">1</font>
+になるときに
+<font color="blue">rcdata</font>
+のシフトレジスタに記憶します。
+<font color="blue">rcset</font>
+の記憶と
+<font color="blue">rcdata</font>
+のシフトレジスタの駆動は
+<font color="blue">rcs.0</font>
+が
+<font color="blue">1</font>
+のときに行います。
+</p>
+
+<br clear="left">
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="100%" align="center">
+<tbody><tr><td>
+<a name="4">&nbsp;</a>
+<hr size="20" color="#6699CC">
+<b>　　　トラックの構造</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<p class="i">
+トラックの構造は
+<font color="red">図3</font>
+のようになっています。
+トラックの先頭は機械的な方法で取得された信号とディスクに書き込まれたデータで検出できます。
+<font color="blue">INDEX</font>
+データから読み出すためには機械的な
+<font color="blue">INDEX</font>
+によってデータ分離器の初期化を行います。
+</p>
+
+<a name="FIG3">&nbsp;</a><table class="i" align="left">
+
+<tbody><tr><td align="center"><font color="red">図3: <font color="#336666">トラックの構造</font></font></td></tr>
+<tr><td>
+<img src="./FIG3.jpg" border="0" alt="FIG3.jpg(11850 byte)" width="504" height="152">
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+<p class="i">
+<font color="blue">INDEX</font>
+と
+<font color="blue">SECTOR</font>
+には有効データがあります、この最後のデータを読んだあとでは次の
+<font color="blue">SECTOR</font>
+を読むためにデータ分離器を初期化します。
+</p>
+
+<br clear="left">
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="100%" align="center">
+<tbody><tr><td>
+<a name="5">&nbsp;</a>
+<hr size="7" color="#6699CC">
+<b>　　　INDEX</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<p class="i">
+<font color="blue">INDEX</font>
+は有効データなので先頭に
+<font color="blue">SYNC</font>
+を持っています。
+</p>
+
+<a name="FIG4">&nbsp;</a><table class="i" align="left">
+
+<tbody><tr><td align="center"><font color="red">図4: <font color="#336666">FM方式のINDEX</font></font></td></tr>
+<tr><td>
+<img src="./FIG4.jpg" border="0" alt="FIG4.jpg(2961 byte)" width="141" height="45">
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left">
+
+<a name="FIG5">&nbsp;</a><table class="i" align="left">
+
+<tbody><tr><td align="center"><font color="red">図5: <font color="#336666">MFM方式のINDEX</font></font></td></tr>
+<tr><td>
+<img src="./FIG5.jpg" border="0" alt="FIG5.jpg(6014 byte)" width="336" height="64">
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+<p class="i">
+<font color="blue">SYNC</font>
+の次には識別データがありますが通常のデータと区別するために識別データのクロックパルスの一部を付けません、
+これを
+<font color="red">ミッシングクロック</font>
+と言います。
+両方式の
+<font color="blue">INDEX</font>
+のデータバイトとクロックバイトを示します。
+</p>
+
+<ul class="i">
+<li class="i">
+<b>FM方式</b>
+ : FC (D7)
+</li>
+
+<li class="i">
+<b>MFM方式</b>
+ : C2 C2 C2 FC (14 14 14 01)
+</li>
+</ul>
+
+<p class="i">
+<font color="blue">FM</font>
+方式ではクロックバイトは
+<font color="blue">FF</font>
+ですから
+<font color="blue">D7</font>
+は
+<font color="blue">2</font>
+個の
+<font color="red">ミッシングクロック</font>
+を付けています。
+<font color="blue">MFM</font>
+方式では4バイトの構成になっていますがこれは
+<font color="blue">MFM</font>
+方式ではクロックパルスが減少するので
+<font color="red">ミッシングクロック</font>
+を増やすための処置です。
+</p>
+
+
+<br clear="left">
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="100%" align="center">
+<tbody><tr><td>
+<a name="6">&nbsp;</a>
+<hr size="7" color="#6699CC">
+<b>　　　SECTOR</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<p class="i">
+<font color="blue">SECTOR</font>
+はユーザのデータが記憶されるところです。
+目的の
+<font color="blue">SECTOR</font>
+の特定のためにIDフィールドがありますデータの記憶のためにデータフィールドがあります。
+</p>
+
+
+<a name="FIG6">&nbsp;</a><table class="i" align="left">
+
+<tbody><tr><td align="center"><font color="red">図6: <font color="#336666">SECTORの構造</font></font></td></tr>
+<tr><td>
+<img src="./FIG6.jpg" border="0" alt="FIG6.jpg(3767 byte)" width="204" height="40">
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left">
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="100%" align="center">
+<tbody><tr><td>
+<a name="7">&nbsp;</a>
+<hr size="7" color="#6699CC">
+<b>　　　IDフィールド</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<ul class="i">
+<li><b>ID0</b>
+ : シリンダ番号
+</li>
+<li><b>ID1</b>
+ : ヘッド番号
+</li>
+<li><b>ID2</b>
+ : レコード番号
+</li>
+<li><b>ID3</b>
+ : レコード長
+</li>
+</ul>
+
+<p class="i">
+<font color="blue">CRC</font>
+は次の計算を行います
+<font color="red">
+P(X)=X<sup><small>16</small></sup>+X<sup><small>12</small></sup>+X<sup><small>5</small></sup>+1
+</font>
+</p>
+
+
+<a name="FIG7">&nbsp;</a><table class="i" align="left">
+
+<tbody><tr><td align="center"><font color="red">図7: <font color="#336666">FM方式のIDフィールド</font></font></td></tr>
+<tr><td>
+<img src="./FIG7.jpg" border="0" alt="FIG7.jpg(7923 byte)" width="531" height="41">
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left">
+
+<a name="FIG8">&nbsp;</a><table class="i" align="left">
+
+<tbody><tr><td align="center"><font color="red">図8: <font color="#336666">MFM方式のIDフィールド</font></font></td></tr>
+<tr><td>
+<img src="./FIG8.jpg" border="0" alt="FIG8.jpg(10194 byte)" width="728" height="51">
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+<ul class="i">
+<li class="i">
+<b>FM方式</b>
+ : FE (C7)
+</li>
+
+<li class="i">
+<b>MFM方式</b>
+ : A1 A1 A1 FE (0A 0A 0A 00)
+</li>
+</ul>
+
+<br clear="left">
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="100%" align="center">
+<tbody><tr><td>
+<a name="8">&nbsp;</a>
+<hr size="7" color="#6699CC">
+<b>　　　データフィールド</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<p class="i">
+<font color="blue">CRC</font>
+は
+<font color="blue">ID</font>
+フィールドと同じ計算を行います。
+<font color="blue">DATA</font>
+の個数は
+<font color="blue">ID</font>
+フィールドの
+<font color="blue">レコード長</font>
+で示されます。
+</p>
+
+<a name="FIG9">&nbsp;</a><table class="i" align="left">
+
+<tbody><tr><td align="center"><font color="red">図9: <font color="#336666">FM方式のデータフィールド</font></font></td></tr>
+<tr><td>
+<img src="./FIG9.jpg" border="0" alt="FIG9.jpg(9010 byte)" width="527" height="77">
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left">
+
+<a name="FIG10">&nbsp;</a><table class="i" align="left">
+
+<tbody><tr><td align="center"><font color="red">図10: <font color="#336666">MFM方式のデータフィールド</font></font></td></tr>
+<tr><td>
+<img src="./FIG10.jpg" border="0" alt="FIG10.jpg(11466 byte)" width="736" height="77">
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+<ul class="i">
+<li class="i">
+<b>FM方式</b>
+ : FB/F8 (C7)
+</li>
+
+<li class="i">
+<b>MFM方式</b>
+ : A1 A1 A1 FB/F8 (0A 0A 0A 00)
+</li>
+</ul>
+
+<p class="i">
+データフィールドのデータが有効なときは
+<font color="blue">FB</font>
+を使います
+削除等で無効になっているときは
+<font color="blue">F8</font>
+を使います。
+</p>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="100%" align="center">
+<tbody><tr><td>
+<a name="9">&nbsp;</a>
+<hr size="20" color="#6699CC">
+<b>　　　トラック読み出し行程</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<p class="i">
+機械的インデックスの示す位置がトラックの基本的な開始位置になります、
+なぜなら何も書かれていないディスクのフォーマットでは機械的インデックスを基準にトラックを書き込んで
+いますからディスクの読み出しでは機械的インデックスの後にインデックスマークが書き込まれていること
+を前提にトラックの始まりを検出します。
+</p>
+
+<a name="FIG11">&nbsp;</a><table class="i" align="left">
+
+<tbody><tr><td align="center"><font color="red">図11: <font color="#336666">FM方式のトラック行程</font></font></td></tr>
+<tr><td>
+<img src="./FIG11.jpg" border="0" alt="FIG11.jpg(31778 byte)" width="468" height="522">
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+<a name="FIG12">&nbsp;</a><table class="i" align="left">
+
+<tbody><tr><td align="center"><font color="red">図12: <font color="#336666">MFM方式のトラック行程</font></font></td></tr>
+<tr><td>
+<img src="./FIG12.jpg" border="0" alt="FIG12.jpg(111696 byte)" width="905" height="756">
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="100%" align="center">
+<tbody><tr><td>
+<a name="10">&nbsp;</a>
+<hr size="20" color="#6699CC">
+<b>　　　読み出しデータ</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<p class="i">
+<font color="blue">FDD</font>
+から読み出すデータは2種類ありますデータパルスとクロックパルスを別々にシフトレジスタに記憶したものです。
+データパルスを記憶したものが普通の意味のデータですクロックパルスを記憶したクロックデータは
+インデックスマークやアドレスマークやデータマークなどの普通のデータとは明瞭に区別する必要があるのでデータ
+とクロックデータとでの照合に使います。
+</p>
+
+
+<a name="FIG13">&nbsp;</a><table class="i" align="left">
+
+<tbody><tr><td align="center"><font color="red">図13: <font color="#336666">読み出しデータ</font></font></td></tr>
+<tr><td>
+<img src="./FIG13.jpg" border="0" alt="FIG13.jpg(17581 byte)" width="415" height="302">
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="100%" align="center">
+<tbody><tr><td>
+<a name="11">&nbsp;</a>
+<hr size="20" color="#6699CC">
+<b>　　　マークデータ</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<p class="i">
+マークデータにはインデックスマーク、アドレスマーク、データマーク、削除データマークがあります。
+</p>
+
+<ul class="i">
+<li class="i">インデックスマークはトラックの先頭を示します。</li>
+<li class="i">アドレスマークはセクタの先頭を示すと同時にセクタ中のIDフィールドの先頭を示します。</li>
+<li class="i">データマークと削除データマークはデータフィールドの先頭を示します。</li>
+</ul>
+
+<p class="i">
+<font color="red">図11</font>
+と
+<font color="red">図12</font>
+のトラック行程の
+<font color="blue">trkseq</font>
+はマークデータの検出によって移行しています。
+</p>
+
+<p class="i">
+アドレスマークに連続してIDフィールドのデータが続いています
+データマークに連続して通常データが続いています。
+この2種類のマークデータの直後をバイト境界としてバイトデータを読み出していきます。
+このためにトラック行程の
+<font color="blue">trkseq</font>
+の変化点でビット同期指標の
+<font color="blue">bitsyncro</font>
+を
+<font color="red">1</font>
+にします。
+</p>
+
+<p class="i">
+バイトデータを読み出すべき範囲にあることを「同期確立後読み出し実行」の
+<font color="blue">readen</font>
+を
+<font color="red">1</font>
+にして示します。
+バイトデータを読み出すときに必要なビット計数の
+<font color="blue">rbc</font>
+とバイト計数の
+<font color="blue">rct</font>
+を
+<font color="blue">bitsyncro</font>
+で初期化しています。
+</p>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="100%" align="center">
+<tbody><tr><td>
+<a name="12">&nbsp;</a>
+<hr size="20" color="#6699CC">
+<b>　　　CRC</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<p class="i">
+<font color="blue">CRC</font>
+は
+<font color="blue">ID</font>
+フィールドとデータフィールドにおいて計算します。
+計算は初期値を
+<font color="red">0</font>
+として同期確立から開始します、その位置は
+<font color="blue">SYNC</font>
+の上なのでビット値は常に
+<font color="blue">0</font>
+であり
+<font color="blue">CRC</font>
+の計算値は
+<font color="blue">0</font>
+を維持します。
+その後は計算値はフィールドのデータを受けて変化しますがフィールドの後部の
+<font color="blue">2</font>
+バイトにはフィールドのデータに合わせて
+<font color="blue">CRC</font>
+の計算を
+0
+に戻す値が置かれていますからこの計算を終えた時点で
+<font color="blue">0</font>
+になります。
+ここで
+<font color="red">0</font>
+にならなけらばデータに異常があったことになります。
+</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<br clear="left">
+
+<br><br><hr><br><br>
+
+</body></html>

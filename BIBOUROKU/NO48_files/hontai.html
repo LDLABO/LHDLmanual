@@ -1,0 +1,776 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+	
+    <link type="text/css" rel="stylesheet" href="./main.css">
+	<title></title>
+</head>
+<body>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="100%" align="center">
+<tbody><tr><td>
+<a name="1">&nbsp;</a>
+<hr>
+<b>　　　データ分離器</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="100%" align="center">
+<tbody><tr><td>
+<a name="2">&nbsp;</a>
+<hr size="20" color="#6699CC">
+<b>　　　信号</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<p class="i">
+フロッピーディスクから読み出される信号は
+<font color="blue">FM</font>
+方式の場合は
+<font color="red">図1</font>
+、
+<font color="blue">MFM</font>
+方式の場合は
+<font color="red">図2</font>
+のようになります。
+</p>
+
+<a name="FIG1">&nbsp;</a><table class="i" align="left">
+
+<tbody><tr><td align="center"><font color="red">図1: <font color="#336666">FM信号</font></font></td></tr>
+<tr><td>
+<img src="./FIG1.jpg" border="0" alt="FIG1.jpg(11706 byte)" width="379" height="255">
+</td>
+</tr>
+</tbody></table>
+
+<p class="i">
+ビットデータはビットセルにあるデータパルスで表します。ビットセルの先頭にはクロックパルスを置きビットセルの真ん中のデータパルスの有無で
+ビット値を設定します。
+</p>
+
+<br clear="left">
+
+<p class="i">
+<font color="blue">MFM</font>
+方式は記録密度を高めるために
+<font color="blue">FM</font>
+方式と比べて同じデータでも周波数が半分程度になるように
+<font color="blue">クロックパルス</font>
+を減らした方式です。
+<br>
+<font color="blue">FM</font>
+方式を基本として自分の
+<font color="blue">ビットセル</font>
+と前の
+<font color="blue">ビットセル</font>
+に
+<font color="blue">データパルス</font>
+がないときだけ
+<font color="blue">クロックパルス</font>
+を付けます。
+</p>
+
+
+<a name="FIG2">&nbsp;</a><table class="i">
+
+<tbody><tr><td align="center"><font color="red">図2: <font color="#336666">MFM信号</font></font></td></tr>
+<tr><td>
+<img src="./FIG2.jpg" border="0" alt="FIG2.jpg(19287 byte)" width="762" height="238">
+</td>
+</tr>
+</tbody></table>
+
+<br>
+<hr>
+<br>
+
+<a name="FIG3">&nbsp;</a><table class="i" align="left">
+
+<tbody><tr><td align="center"><font color="red">図3: <font color="#336666">FMビット列 a</font></font></td></tr>
+<tr><td>
+<img src="./FIG3.jpg" border="0" alt="FIG3.jpg(7652 byte)" width="214" height="219">
+</td>
+</tr>
+</tbody></table>
+
+<p class="i">
+4ビットデータの
+<font color="blue">FM</font>
+方式の信号は
+<font color="red">図3</font>
+のようになります。
+<br>
+パルスの状態は
+<font color="red">図4</font>
+のようになります。
+</p>
+
+<br clear="left">
+
+<a name="FIG4">&nbsp;</a><table class="i">
+
+<tbody><tr><td align="center"><font color="red">図4: <font color="#336666">FMビット列 b</font></font></td></tr>
+<tr><td>
+<img src="./FIG4.jpg" border="0" alt="FIG4.jpg(11271 byte)" width="756" height="104">
+</td>
+</tr>
+</tbody></table>
+
+<br>
+<hr>
+<br>
+
+<a name="FIG5">&nbsp;</a><table class="i" align="left">
+
+<tbody><tr><td align="center"><font color="red">図5: <font color="#336666">MFMビット列 a</font></font></td></tr>
+<tr><td>
+<img src="./FIG5.jpg" border="0" alt="FIG5.jpg(7271 byte)" width="199" height="201">
+</td>
+</tr>
+</tbody></table>
+
+<p class="i">
+4ビットデータの
+<font color="blue">MFM</font>
+方式の信号は
+<font color="red">図5</font>
+のようになります。
+<br>
+パルスの状態は
+<font color="red">図6</font>
+のようになります。
+</p>
+
+<br clear="left">
+
+<a name="FIG6">&nbsp;</a><table class="i">
+
+<tbody><tr><td align="center"><font color="red">図6: <font color="#336666">MFMビット列 b</font></font></td></tr>
+<tr><td>
+<img src="./FIG6.jpg" border="0" alt="FIG6.jpg(10076 byte)" width="754" height="103">
+</td>
+</tr>
+</tbody></table>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="100%" align="center">
+<tbody><tr><td>
+<a name="3">&nbsp;</a>
+<hr size="20" color="#6699CC">
+<b>　　　同期</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<p class="i">
+<font color="blue">ビットセル</font>
+から
+<font color="blue">ビットデータ</font>
+を取り出すためには
+<font color="blue">ビットセル</font>
+の位置を確定させておく必要があります。
+ディスクデータの読み取り装置が
+<font color="blue">ビットセル</font>
+の位置を特定していることが
+<font color="blue">同期</font>
+していることになります。
+</p>
+
+<a name="FIG7">&nbsp;</a><table class="i">
+
+<tbody><tr><td align="center"><font color="red">図7: <font color="#336666">ディスク</font></font></td></tr>
+<tr><td>
+<img src="./FIG7.jpg" border="0" alt="FIG7.jpg(18622 byte)" width="494" height="304">
+</td>
+</tr>
+</tbody></table>
+
+<p class="i">
+ディスクには有効データ以外のものが
+<font color="red">図7</font>
+のように書き込まれています。
+有効データの前には
+<font color="blue">SYNC</font>
+があります。
+それ以外には
+<font color="blue">GAP</font>
+が書き込まれています。
+<br>
+<font color="blue">SYNC</font>
+は
+<font color="red">図8</font>
+のようにデータとしては
+<font color="red">00</font>
+で
+<font color="red">図9</font>
+のようにクロックパルスだけの列です、データ分離器はここでクロックパルスの位置からデータパルスが現れる範囲を特定することで同期を完了します。
+</p>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="100%" align="center">
+<tbody><tr><td>
+<a name="4">&nbsp;</a>
+<hr size="7" color="#6699CC">
+<b>　　　SYNC</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<p class="i">
+<font color="blue">SYNC</font>
+のデータは
+<font color="blue">00</font>
+なのでFM方式でもMFM方式でも同じパルス列になります。
+</p>
+
+<a name="FIG8">&nbsp;</a><table class="i">
+
+<tbody><tr><td align="center"><font color="red">図8: <font color="#336666">SYNCデータ</font></font></td></tr>
+<tr><td>
+<img src="./FIG8.jpg" border="0" alt="FIG8.jpg(13756 byte)" width="439" height="200">
+</td>
+</tr>
+</tbody></table>
+
+
+<a name="FIG9">&nbsp;</a><table class="i">
+
+<tbody><tr><td align="center"><font color="red">図9: <font color="#336666">SYNCパルス</font></font></td></tr>
+<tr><td>
+<img src="./FIG9.jpg" border="0" alt="FIG9.jpg(20093 byte)" width="753" height="216">
+</td>
+</tr>
+</tbody></table>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="100%" align="center">
+<tbody><tr><td>
+<a name="5">&nbsp;</a>
+<hr size="7" color="#6699CC">
+<b>　　　GAP</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<p class="i">
+<font color="blue">GAP</font>
+は
+<font color="red">図10</font>
+のようにデータとしては
+<font color="red">FF</font>
+で
+<font color="red">図11</font>
+のような
+<font color="blue">SYNC</font>
+の2倍の周波数のパルス列です。
+周波数の違いで
+<font color="blue">SYNC</font>
+と区別します。
+</p>
+
+<a name="FIG10">&nbsp;</a><table class="i">
+
+<tbody><tr><td align="center"><font color="red">図10: <font color="#336666">GAPデータ</font></font></td></tr>
+<tr><td>
+<img src="./FIG10.jpg" border="0" alt="FIG10.jpg(14734 byte)" width="434" height="198">
+</td>
+</tr>
+</tbody></table>
+
+
+<a name="FIG11">&nbsp;</a><table class="i">
+
+<tbody><tr><td align="center"><font color="red">図11: <font color="#336666">GAPパルス</font></font></td></tr>
+<tr><td>
+<img src="./FIG11.jpg" border="0" alt="FIG11.jpg(23250 byte)" width="745" height="213">
+</td>
+</tr>
+</tbody></table>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<br>
+<p class="i">
+<a name="5A">&nbsp;</a>
+<b>MFM方式のFFデータ</b>
+</p><hr width="200" color="blue" class="i" align="left">
+<p></p>
+
+<p class="i">
+<font color="blue">SYNC</font>
+に関しては
+<font color="blue">FM</font>
+方式も
+<font color="blue">MFM</font>
+方式もデータ
+<font color="red">00</font>
+のパルス列を使用していますが
+<font color="blue">GAP</font>
+のデータは
+<font color="blue">FM</font>
+方式と
+<font color="blue">MFM</font>
+方式では異なるデータを使用しています。
+<br>
+なぜならば
+<font color="red">図12</font>
+を見ると
+<font color="blue">FM</font>
+方式の
+<font color="blue">GAP</font>
+データと同じ
+<font color="red">FF</font>
+を
+<font color="blue">MFM</font>
+方式で表すと
+<font color="red">図13</font>
+のように
+<font color="blue">SYNC</font>
+と
+<font color="blue">GAP</font>
+は同じパルス列になってしまうので
+<font color="red">FF</font>
+が使えないことが分かります。
+</p>
+
+<a name="FIG12">&nbsp;</a><table class="i">
+
+<tbody><tr><td align="center"><font color="red">図12: <font color="#336666">MFM方式のFFデータ</font></font></td></tr>
+<tr><td>
+<img src="./FIG12.jpg" border="0" alt="FIG12.jpg(13527 byte)" width="437" height="202">
+</td>
+</tr>
+</tbody></table>
+
+<a name="FIG13">&nbsp;</a><table class="i">
+
+<tbody><tr><td align="center"><font color="red">図13: <font color="#336666">MFM方式のFFパルス</font></font></td></tr>
+<tr><td>
+<img src="./FIG13.jpg" border="0" alt="FIG13.jpg(20445 byte)" width="748" height="214">
+</td>
+</tr>
+</tbody></table>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<br>
+<p class="i">
+<a name="5B">&nbsp;</a>
+<b>MFM方式のGAPデータ</b>
+</p><hr width="200" color="blue" class="i" align="left">
+<p></p>
+
+<p class="i">
+<font color="blue">MFM</font>
+方式の
+<font color="blue">GAP</font>
+データは
+<font color="red">図14</font>
+のように
+<font color="red">4E</font>
+を使用しています。
+パルス列は
+<font color="red">図15</font>
+のように周期の一定しないパルス間隔になっています。
+</p>
+
+<a name="FIG14">&nbsp;</a><table class="i">
+
+<tbody><tr><td align="center"><font color="red">図14: <font color="#336666">MFM方式のGAPデータ</font></font></td></tr>
+<tr><td>
+<img src="./FIG14.jpg" border="0" alt="FIG14.jpg(13825 byte)" width="435" height="199">
+</td>
+</tr>
+</tbody></table>
+
+<a name="FIG15">&nbsp;</a><table class="i">
+
+<tbody><tr><td align="center"><font color="red">図15: <font color="#336666">MFM方式のGAPパルス</font></font></td></tr>
+<tr><td>
+<img src="./FIG15.jpg" border="0" alt="FIG15.jpg(19495 byte)" width="750" height="220">
+</td>
+</tr>
+</tbody></table>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="100%" align="center">
+<tbody><tr><td>
+<a name="6">&nbsp;</a>
+<hr size="20" color="#6699CC">
+<b>　　　同期確立</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<p class="i">
+<font color="blue">GAP</font>
+では同期確立しないこと
+<font color="blue">SYNC</font>
+の間に同期確立させます。
+</p>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="100%" align="center">
+<tbody><tr><td>
+<a name="7">&nbsp;</a>
+<hr size="7" color="#6699CC">
+<b>　　　周期計数</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+
+<p class="i">
+フロッピーディスクから読み出される
+<font color="blue">RDATA</font>
+のパルスの時間の間隔を
+<font color="blue">16MHz</font>
+のCLKで計数して
+<font color="blue">ps</font>
+に記憶します。
+</p>
+
+<a name="FIG16">&nbsp;</a><table class="i">
+
+<tbody><tr><td align="center"><font color="red">図16: <font color="#336666">周期計数</font></font></td></tr>
+<tr><td>
+<img src="./FIG16.jpg" border="0" alt="FIG16.jpg(4396 byte)" width="367" height="86">
+</td>
+</tr>
+</tbody></table>
+
+<p class="i">
+<font color="blue">FM</font>
+方式では
+<font color="blue">GAP</font>
+に入っていると
+<font color="blue">32</font>
+個程度
+<font color="blue">SYNC</font>
+に入っていると
+<font color="blue">64</font>
+個程度を計数します。
+</p>
+
+<p class="i">
+<font color="blue">MFM</font>
+方式では
+<font color="blue">GAP</font>
+に入っていると
+計数値が一定せず
+<font color="blue">SYNC</font>
+に入っていると
+<font color="blue">32</font>
+個程度を計数します。
+</p>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="100%" align="center">
+<tbody><tr><td>
+<a name="8">&nbsp;</a>
+<hr size="7" color="#6699CC">
+<b>　　　データ窓</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<p class="i">
+<font color="blue">SYNC</font>
+中はクロックパルスだけなのでこの間にデータの取得範囲を特定できます。
+</p>
+
+<a name="FIG17">&nbsp;</a><table class="i">
+
+<tbody><tr><td align="center"><font color="red">図17: <font color="#336666">データ窓</font></font></td></tr>
+<tr><td>
+<img src="./FIG17.jpg" border="0" alt="FIG17.jpg(11831 byte)" width="485" height="174">
+</td>
+</tr>
+</tbody></table>
+
+<p class="i">
+<font color="blue">SYNC</font>
+中にクロックパルスが入ったら
+<font color="blue">wct</font>
+に
+<font color="blue">ps</font>
+の
+<font color="blue">1/4</font>
+を記憶させて
+<font color="blue">window</font>
+を
+<font color="blue">0</font>
+にすると
+<font color="red">図17</font>
+のように
+<font color="blue">window</font>
+はデータのある位置を示すようになります。
+<font color="blue">wct</font>
+が
+<font color="blue">0</font>
+になったときは
+<font color="blue">ps</font>
+の
+<font color="blue">半分</font>
+を記憶します。
+</p>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="100%" align="center">
+<tbody><tr><td>
+<a name="9">&nbsp;</a>
+<hr size="7" color="#6699CC">
+<b>　　　同期検査</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<p class="i">
+データ窓がクロックパルスとクロックパルスの間に固定すればデータ窓とクロックパルスが同期したことになります。
+<br>
+<font color="blue">lockd</font>
+は
+<font color="blue">SYNC</font>
+中のクロックパルスとデータ窓との関係を表しています。
+<font color="red">図18</font>
+の検査範囲のところにパルスが捕らえられなければ同期しているとして
+<font color="red">8</font>
+になります。
+検査範囲のところにパルスを捕らえると同期していないとして
+<font color="red">3</font>
+になります。
+</p>
+
+<a name="FIG18">&nbsp;</a><table class="i">
+
+<tbody><tr><td align="center"><font color="red">図18: <font color="#336666">同期検査</font></font></td></tr>
+<tr><td>
+<img src="./FIG18.jpg" border="0" alt="FIG18.jpg(12581 byte)" width="519" height="128">
+</td>
+</tr>
+</tbody></table>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="100%" align="center">
+<tbody><tr><td>
+<a name="10">&nbsp;</a>
+<hr size="7" color="#6699CC">
+<b>　　　同期計数</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<p class="i">
+<font color="blue">SYNC</font>
+はFM方式で
+<font color="blue">6</font>
+バイト、MFM方式で
+<font color="blue">12</font>
+バイトです。
+ビットではそれぞれ
+<font color="blue">48</font>
+と
+<font color="blue">96</font>
+です。
+
+同期検査の
+<font color="blue">lockd</font>
+が
+<font color="red">8</font>
+のとき同期しているものとみなして
+<font color="blue">lockct</font>
+で計数します。
+
+<br>
+本論理では
+<font color="red">16</font>
+まで計数したら同期確立とみなして
+<font color="blue">lock</font>
+を
+<font color="red">1</font>
+にします。
+そして初期化あるいは再同期まで維持します。
+</p>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="100%" align="center">
+<tbody><tr><td>
+<a name="11">&nbsp;</a>
+<hr size="20" color="#6699CC">
+<b>　　　微調整</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<p class="i">
+<font color="blue">SYNC</font>
+中に同期確立した後はデータ窓の
+<font color="blue">WINDOW</font>
+の制御は微調整制御に切り替えます。
+</p>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="100%" align="center">
+<tbody><tr><td>
+<a name="12">&nbsp;</a>
+<hr size="7" color="#6699CC">
+<b>　　　偏差検出</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<p class="i">
+<font color="blue">RDATA</font>
+のパルスがデータ窓の
+<font color="blue">WINDOW</font>
+のデータ範囲かクロック範囲の中心で捕らえるのが理想的な位置です、
+この位置からの偏差を
+<font color="red">図19</font>
+のように計測して微調整に使います。
+</p>
+
+<a name="FIG19">&nbsp;</a><table class="i">
+
+<tbody><tr><td align="center"><font color="red">図19: <font color="#336666">偏差検出</font></font></td></tr>
+<tr><td>
+<img src="./FIG19.jpg" border="0" alt="FIG19.jpg(15443 byte)" width="568" height="212">
+</td>
+</tr>
+</tbody></table>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="100%" align="center">
+<tbody><tr><td>
+<a name="13">&nbsp;</a>
+<hr size="7" color="#6699CC">
+<b>　　　偏差調整</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<p class="i">
+同期確立後の
+<font color="blue">wct</font>
+の設定値は
+<font color="blue">ss</font>
+で行います。
+データ窓の中心からパルスが左にある場合はデータ窓を短くします。
+右にある場合はデータ窓を長くします。
+</p>
+
+<a name="FIG20">&nbsp;</a><table class="i">
+
+<tbody><tr><td align="center"><font color="red">図20: <font color="#336666">偏差調整</font></font></td></tr>
+<tr><td>
+<img src="./FIG20.jpg" border="0" alt="FIG20.jpg(23161 byte)" width="700" height="264">
+</td>
+</tr>
+</tbody></table>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="100%" align="center">
+<tbody><tr><td>
+<a name="14">&nbsp;</a>
+<hr size="7" color="#6699CC">
+<b>　　　調整値作成</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<br>
+<p class="i">
+<a name="14A">&nbsp;</a>
+<b>左調整</b>
+</p><hr width="80" color="blue" class="i" align="left">
+<p></p>
+
+<p class="i">
+左調整範囲でパルスが入ってから
+<font color="blue">sseq</font>
+が
+<font color="blue">1</font>
+になるまでを
+<font color="blue">lz</font>
+を
+<font color="red">1</font>
+にします。
+</p>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<br>
+<p class="i">
+<a name="14B">&nbsp;</a>
+<b>右調整</b>
+</p><hr width="80" color="blue" class="i" align="left">
+<p></p>
+
+<p class="i">
+右調整範囲に入ると
+<font color="blue">rzc</font>
+で増計数を行いパルスが入ったら減計数に転じます。
+減計数の間を
+<font color="blue">rz</font>
+を
+<font color="red">1</font>
+にします。
+</p>
+
+<a name="FIG21">&nbsp;</a><table class="i">
+
+<tbody><tr><td align="center"><font color="red">図21: <font color="#336666">調整値作成</font></font></td></tr>
+<tr><td>
+<img src="./FIG21.jpg" border="0" alt="FIG21.jpg(34816 byte)" width="729" height="343">
+</td>
+</tr>
+</tbody></table>
+
+<br><br><hr><br><br>
+
+</body></html>
