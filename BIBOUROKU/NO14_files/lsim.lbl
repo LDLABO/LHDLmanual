@@ -1,0 +1,15 @@
+RESET0:red
+RXD0:red
+SC0:red
+DATA.7-0:aqua
+PARITY0:aqua
+SREQP0:green
+SDATA.7-0:green
+CTS0:green
+SEND.1-0:green
+rcomon[T0P0]
+rcomoff[T1P0]
+rshift[T2P.8-0]
+bitcount[T3P.3-0]
+paritycount[T4P.3-0]
+scbp[T5P0]
