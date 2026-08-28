@@ -1,0 +1,419 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link type="text/css" rel="stylesheet" href="./main.css">
+
+<body>
+<br>
+<h1>ランプ点滅</h1>
+スイッチを押すたびに点滅を繰り返す論理を作ります。<br>
+<a href="../g03/g0.html" target="right">チャタリング除去</a>
+で作った論理譜を手続きに利用します。
+
+<h6>SAMPLE.L</h6>
+<pre>
+{ =============================================== }
+{      ランプ点滅                                 }
+{ =============================================== }
+logicname sample
+
+{ =============================================== }
+{      手続き譜                                   }
+{ =============================================== }
+procedure sw
+input  swa,swb;
+output q;
+bitr   regq;
+
+   if (swb)
+      regq=0;
+   else
+      if (swa)
+         regq=1;
+      else
+         regq=regq;
+      endif
+   endif
+
+   q=regq;
+endp
+
+{ =============================================== }
+{      実効譜                                     }
+{ =============================================== }
+entity main
+input  Reset;
+input  swa,swb;
+output lamp;
+bitn   q;
+bitr   on[2];
+bitr   reglamp[2];
+
+   if (!Reset)
+      q=sw(swa,swb);
+
+      if (q)
+         if (on==0)
+            on=1;
+         else
+            on=2;
+         endif
+      else
+         on=0;
+      endif
+
+      if (on.0)
+         reglamp=reglamp+1;
+      else
+         reglamp=reglamp;
+      endif
+   endif
+
+   lamp=reglamp.0;
+ende
+
+{ =============================================== }
+{      機能実行譜                                 }
+{ =============================================== }
+entity sim
+output Reset;
+output swa,swb;
+output lamp;
+bitr   tc[5];
+input  simres;
+
+   simres=0; {<font color="red">←LSIMを使うとき以外は外すか注釈にする。</font>}
+   part main(Reset,swa,swb,lamp)
+   if (!simres) tc=tc+1; endif
+
+   switch(tc)
+      case 0:  Reset=1;
+      case 1:  Reset=1;
+      case 2:  Reset=1;
+      case 3:  swa=1;
+      case 6:  swb=1;
+      case 9:  swa=1;
+      case 12: swb=1;
+      case 15: swa=1;
+      case 18: swb=1;
+      case 21: swa=1;
+      case 24: swb=1;
+      case 27: swa=1;
+      case 30: swb=1;
+   endswitch
+
+ende
+endlogic
+</pre>
+<hr>
+<img src="./FG04G08D.jpg" alt="">
+<br><br>
+上が機能実行の結果です。
+<hr>
+<h6>e0.v</h6>
+<pre lang="ja">module main (
+        clk
+        ,n_n20                               // reg
+        ,swb0                                // input
+        ,swa0                                // input
+        ,Reset0                              // input
+        ,n_n34                               // wire
+        ,n_n7                                // reg
+        ,n_n8                                // reg
+        ,n_n10                               // reg
+        ,lamp0                               // output
+        );
+
+input  clk;
+input  swb0 ;
+input  swa0 ;
+input  Reset0 ;
+output lamp0 ;
+output n_n20 ;
+reg    n_n20 ;
+output n_n7 ;
+reg    n_n7 ;
+output n_n8 ;
+reg    n_n8 ;
+output n_n10 ;
+reg    n_n10 ;
+output n_n34 ;
+wire   n_n34 ;
+
+// equations
+
+
+always @ (posedge clk) begin
+   n_n20 &lt;= (~swb0 &amp; swa0 &amp; ~Reset0)
+      | (n_n20 &amp; ~swb0 &amp; ~swa0 &amp; ~Reset0) ;
+
+   n_n7 &lt;= (~Reset0 &amp; n_n20 &amp; ~n_n34) ;
+
+   n_n8 &lt;= (~Reset0 &amp; n_n20 &amp; n_n34) ;
+
+   n_n10 &lt;= (~n_n10 &amp; ~Reset0 &amp; n_n7)
+      | (n_n10 &amp; ~Reset0 &amp; ~n_n7) ;
+
+end
+
+assign n_n34 = (n_n7)
+         | (n_n8) ;
+
+assign lamp0 = (n_n10) ;
+
+endmodule
+</pre>
+<hr>
+上がVerilog-HDLの論理式に出力したものです。
+チップ化するときにPLDメーカの開発ツールでも検証するときは下のe1.vを使って下さい。
+これは実効譜の設計論理に機能実行譜の検証論理を追加して一体にしたものです。
+この譜の入力はCLKと初期化だけで他の入力信号は検証論理が時系列に配置します。 
+<h6>e1.v</h6>
+<pre lang="ja">module sim (
+        clk
+        ,n_n20                                   // reg
+        ,sim_swb0                                // output
+        ,swb0                                    // output
+        ,sim_swa0                                // output
+        ,swa0                                    // output
+        ,sim_Reset0                              // output
+        ,Reset0                                  // output
+        ,n_n34                                   // wire
+        ,n_n7                                    // reg
+        ,n_n8                                    // reg
+        ,n_n10                                   // reg
+        ,sim_lamp0                               // output
+        ,lamp0                                   // output
+        ,n_n55                                   // reg
+        ,n_n56                                   // reg
+        ,n_n69                                   // wire
+        ,n_n57                                   // reg
+        ,n_n70                                   // wire
+        ,n_n58                                   // reg
+        ,n_n71                                   // wire
+        ,n_n59                                   // reg
+        ,simres0                                 // input
+        );
+
+input  clk;
+output sim_swb0 ;
+output sim_swa0 ;
+output sim_Reset0 ;
+output sim_lamp0 ;
+input  simres0 ;
+output n_n20 ;
+reg    n_n20 ;
+output n_n7 ;
+reg    n_n7 ;
+output n_n8 ;
+reg    n_n8 ;
+output n_n10 ;
+reg    n_n10 ;
+output n_n55 ;
+reg    n_n55 ;
+output n_n56 ;
+reg    n_n56 ;
+output n_n57 ;
+reg    n_n57 ;
+output n_n58 ;
+reg    n_n58 ;
+output n_n59 ;
+reg    n_n59 ;
+output n_n34 ;
+wire   n_n34 ;
+output n_n69 ;
+wire   n_n69 ;
+output n_n70 ;
+wire   n_n70 ;
+output n_n71 ;
+wire   n_n71 ;
+output swb0 ;
+output swa0 ;
+output Reset0 ;
+output lamp0 ;
+
+// equations
+
+always @ (posedge clk) begin
+   n_n20 &lt;= (~swb0 &amp; swa0 &amp; ~Reset0)
+      | (n_n20 &amp; ~swb0 &amp; ~swa0 &amp; ~Reset0) ;
+
+   n_n7 &lt;= (~Reset0 &amp; n_n20 &amp; ~n_n34) ;
+
+   n_n8 &lt;= (~Reset0 &amp; n_n20 &amp; n_n34) ;
+
+   n_n10 &lt;= (~n_n10 &amp; ~Reset0 &amp; n_n7)
+      | (n_n10 &amp; ~Reset0 &amp; ~n_n7) ;
+
+   n_n55 &lt;= (~n_n55 &amp; ~simres0) ;
+
+   n_n56 &lt;= (~n_n56 &amp; n_n55 &amp; ~simres0)
+      | (n_n56 &amp; ~n_n55 &amp; ~simres0) ;
+
+   n_n57 &lt;= (~n_n57 &amp; n_n56 &amp; n_n55 &amp; ~simres0)
+      | (n_n57 &amp; ~simres0 &amp; ~n_n69) ;
+
+   n_n58 &lt;= (~n_n58 &amp; n_n57 &amp; n_n56 &amp; n_n55 &amp; ~simres0)
+      | (n_n58 &amp; ~simres0 &amp; ~n_n70) ;
+
+   n_n59 &lt;= (~n_n59 &amp; n_n58 &amp; n_n57 &amp; n_n56 &amp; n_n55 &amp; ~simres0)
+      | (n_n59 &amp; ~simres0 &amp; ~n_n71) ;
+
+end
+
+assign n_n34 = (n_n7)
+         | (n_n8) ;
+
+assign lamp0 = (n_n10) ;
+
+assign n_n69 = (n_n56 &amp; n_n55 &amp; ~simres0) ;
+
+assign n_n70 = (n_n57 &amp; n_n56 &amp; n_n55 &amp; ~simres0) ;
+
+assign n_n71 = (n_n58 &amp; n_n57 &amp; n_n56 &amp; n_n55 &amp; ~simres0) ;
+
+assign Reset0 = (~n_n56 &amp; ~n_n57 &amp; ~n_n58 &amp; ~n_n59)
+         | (~n_n57 &amp; ~n_n58 &amp; ~n_n59 &amp; ~n_n55) ;
+
+assign swa0 = (n_n55 &amp; n_n56 &amp; ~n_n57 &amp; ~n_n58 &amp; ~n_n59)
+         | (n_n55 &amp; ~n_n56 &amp; ~n_n57 &amp; n_n58 &amp; ~n_n59)
+         | (n_n55 &amp; n_n56 &amp; n_n57 &amp; n_n58 &amp; ~n_n59)
+         | (n_n55 &amp; ~n_n56 &amp; n_n57 &amp; ~n_n58 &amp; n_n59)
+         | (n_n55 &amp; n_n56 &amp; ~n_n57 &amp; n_n58 &amp; n_n59) ;
+
+assign swb0 = (~n_n55 &amp; n_n56 &amp; n_n57 &amp; ~n_n58 &amp; ~n_n59)
+         | (~n_n55 &amp; ~n_n56 &amp; n_n57 &amp; n_n58 &amp; ~n_n59)
+         | (~n_n55 &amp; n_n56 &amp; ~n_n57 &amp; ~n_n58 &amp; n_n59)
+         | (~n_n55 &amp; ~n_n56 &amp; ~n_n57 &amp; n_n58 &amp; n_n59)
+         | (~n_n55 &amp; n_n56 &amp; n_n57 &amp; n_n58 &amp; n_n59) ;
+
+assign sim_swb0 = swb0 ;
+assign sim_swa0 = swa0 ;
+assign sim_Reset0 = Reset0 ;
+assign sim_lamp0 = lamp0 ;
+
+endmodule
+</pre>
+<hr>
+上の譜のテストベンチが下の譜です。
+初期化とCLKを定義しているだけです。
+<h6>s1.v</h6>
+<pre lang="ja">`timescale 1ps/1ps
+module test_bench ;
+
+reg clk ;
+reg  simres0 ;
+
+wire n_n20 ;
+wire sim_swb0 ;
+wire swb0 ;
+wire sim_swa0 ;
+wire swa0 ;
+wire sim_Reset0 ;
+wire Reset0 ;
+wire n_n34 ;
+wire n_n7 ;
+wire n_n8 ;
+wire n_n10 ;
+wire sim_lamp0 ;
+wire lamp0 ;
+wire n_n55 ;
+wire n_n56 ;
+wire n_n69 ;
+wire n_n57 ;
+wire n_n70 ;
+wire n_n58 ;
+wire n_n71 ;
+wire n_n59 ;
+
+sim sim (
+   clk,
+   n_n20,
+   sim_swb0,
+   swb0,
+   sim_swa0,
+   swa0,
+   sim_Reset0,
+   Reset0,
+   n_n34,
+   n_n7,
+   n_n8,
+   n_n10,
+   sim_lamp0,
+   lamp0,
+   n_n55,
+   n_n56,
+   n_n69,
+   n_n57,
+   n_n70,
+   n_n58,
+   n_n71,
+   n_n59,
+   simres0);
+
+parameter STEP = 10000 ;
+
+always #(STEP/2) clk = ~clk ;
+
+initial begin
+   clk = 0 ;
+   simres0 = 0 ;
+   #(STEP*2)
+   simres0 = 1 ;
+   #(STEP*5)
+   simres0 = 0 ;
+   #(STEP*30)
+   // $finish ;
+   $stop ;
+end
+
+endmodule
+</pre>
+<hr>
+上のe1.vとs1.vをPLDメーカの開発ツールで検証する
+と下の結果が得られました。
+e1.vは検証用のものです、チップ化はe0.vで行います
+。 
+<br><br>
+<img src="./FG04G08E.jpg" alt="">
+<hr>
+LSIM用の検証用の論理譜はt1.simです、これには検証
+用の論理譜が追加されています。
+全信号の動きは下のようになっています、_n34より下
+が検証論理の信号です。
+<br><br>
+<img src="./FG04G08F.jpg" alt="">
+<hr>
+L譜ではinputやoutputなどの端子信号以外の信号名は
+コンパイラが自動的に生成した信号名に割り当てられ
+ます。<br>
+これらは選択機能の -log を指定してコンパイルする
+とLDC.LOGが作られるので、その中のentity simを処
+理した「LSIM FILE OUT」に割り当てが書かれていま
+す。<br>
+例えば、スイッチを押すたびに、1CLKだけ1になる
+on.0は_n7に割り当てられています。
+<h6>LDC.LOGから抜粋</h6>
+<pre lang="ja">LSIM FILE OUT
+0    (20):       _7.0 -&gt; _n20
+1    (51):ut swb0
+2    (49):ut swa0
+3    (47):ut Reset0
+4    (34):    _ic13.5 -&gt; _n34
+5    (7):       on.0 -&gt; _n7
+6    (8):       on.1 -&gt; _n8
+7    (10):  reglamp.0 -&gt; _n10
+8    (53):ut lamp0
+9    (55):       tc.0 -&gt; _n55
+10   (56):       tc.1 -&gt; _n56
+11   (69):      _26.2 -&gt; _n69
+12   (57):       tc.2 -&gt; _n57
+13   (70):      _26.3 -&gt; _n70
+14   (58):       tc.3 -&gt; _n58
+15   (71):      _26.4 -&gt; _n71
+16   (59):       tc.4 -&gt; _n59
+</pre>
+
+<br><br><br><hr><br>
+
+
+</body>
+</html>

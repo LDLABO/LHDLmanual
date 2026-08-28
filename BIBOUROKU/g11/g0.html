@@ -1,0 +1,178 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link type="text/css" rel="stylesheet" href="./main.css">
+
+<body>
+<br>
+<h1>非同期直列受信</h1>
+8ビットの受信器です、データビット列の前にスター
+トビットが1ビット、データビット列の後ろにパリテ
+ィビットとストップビットがあります。<br>
+CLKは1ビットの幅の16分の1の周波数とします。
+<h6>SAMPLE.L</h6>
+<pre>
+{ =============================================== }
+{      非同期直列受信                             }
+{ =============================================== }
+logicname sample
+
+{ =============================================== }
+{      実効譜                                     }
+{ =============================================== }
+entity main
+input  Reset;       {<font color="red">初期化</font>}
+input  sin;         {<font color="red">受信入力</font>}
+output tp0[4];
+output tp1;
+output tp2[4];
+output data[10];    {<font color="red">受信データ</font>}
+bitr   pc[4];       {<font color="red">ビット幅計数</font>}
+bitr   en;          {<font color="red">受信有効</font>}
+bitr   bc[4];       {<font color="red">ビット計数</font>}
+bitr   regdata[10]; {<font color="red">仮受信データ</font>}
+
+{ ----------------------------------------------- }
+{ ビット幅計数                                    }
+{ ----------------------------------------------- }
+   if (!Reset)
+      if (!sin)
+         if ((pc==8)&amp;(!en))
+            pc=0;
+         else
+            pc=pc+1;
+         endif
+      else
+         if (en)
+            pc=pc+1;
+         else
+            pc=0;
+         endif
+      endif
+   endif
+
+{ ----------------------------------------------- }
+{ 受信有効                                        }
+{ ----------------------------------------------- }
+   if (!Reset)
+      if (bc!=9)
+         if (pc==8)
+            if (en)
+               en=en;
+            else
+               en=1;
+            endif
+         else
+            en=en;
+         endif
+      endif
+   endif
+
+{ ----------------------------------------------- }
+{ ビット計数                                      }
+{ ----------------------------------------------- }
+   if (!Reset)
+      if (bc!=10)
+         if (pc==15)
+            bc=bc+1;
+         else
+            bc=bc;
+         endif
+      endif
+   endif
+
+{ ----------------------------------------------- }
+{ 受信データ                                      }
+{ ----------------------------------------------- }
+   if (!Reset)
+      if (pc==15)
+         regdata.0=sin;
+         regdata.1=regdata.0;
+         regdata.2=regdata.1;
+         regdata.3=regdata.2;
+         regdata.4=regdata.3;
+         regdata.5=regdata.4;
+         regdata.6=regdata.5;
+         regdata.7=regdata.6;
+         regdata.8=regdata.7;
+         regdata.9=regdata.8;
+      else
+         regdata=regdata;
+      endif
+   endif
+
+   data.8=regdata.0;
+   data.0:7=regdata.8:1;
+
+{ ----------------------------------------------- }
+{ テスト端子                                      }
+{ ----------------------------------------------- }
+   tp0=bc;
+   tp1=en;
+   tp2=pc;
+
+ende
+
+{ =============================================== }
+{      機能実行譜                                 }
+{ =============================================== }
+entity sim
+output Reset;
+output sin;
+output tp0[4];
+output tp1;
+output tp2[4];
+output data[10];
+bitr   tc[8];
+
+   part main(Reset,sin,tp0,tp1,tp2,data)
+   tc=tc+1;
+
+   if (tc&lt;6) sin=1; endif
+   if (tc&lt;4) Reset=1; endif
+   if ((tc&gt;=6)  &amp;(tc&lt;=21))  sin=0; endif   { start bit  }
+   if ((tc&gt;=22) &amp;(tc&lt;=37))  sin=0; endif   { data bit 0 }
+   if ((tc&gt;=38) &amp;(tc&lt;=53))  sin=1; endif   {          1 }
+   if ((tc&gt;=54) &amp;(tc&lt;=69))  sin=0; endif   {          2 }
+   if ((tc&gt;=70) &amp;(tc&lt;=85))  sin=1; endif   {          3 }
+   if ((tc&gt;=86) &amp;(tc&lt;=101)) sin=0; endif   {          4 }
+   if ((tc&gt;=102)&amp;(tc&lt;=117)) sin=1; endif   {          5 }
+   if ((tc&gt;=118)&amp;(tc&lt;=133)) sin=0; endif   {          6 }
+   if ((tc&gt;=134)&amp;(tc&lt;=149)) sin=1; endif   {          7 }
+   if ((tc&gt;=150)&amp;(tc&lt;=165)) sin=1; endif   { parity bit }
+   if (tc&gt;=166) sin=1; endif               { stop bit   }
+
+ende
+endlogic
+</pre>
+<hr>
+スタートビットがsinに入ってから8CLK後にenを1にし
+て受信動作を能動にします。
+<br><br>
+この後16CLKごとにデータ取得点とします。
+<br><br>
+<img src="./FG04G10D.jpg" alt="">
+<hr>
+pcが0fh(10進数で15)になるたびにbcを増してシフト
+レジスタregdataに、そのときのsinの値を記憶します
+。<br>
+regdataはdataに代入されています。<br>
+<br>
+<img src="./FG04G10E.jpg" alt="">
+<hr>
+<img src="./FG04G10F.jpg" alt="">
+<hr>
+<img src="./FG04G10G.jpg" alt="">
+<hr>
+<img src="./FG04G10H.jpg" alt="">
+<hr>
+<img src="./FG04G10J.jpg" alt="">
+<hr>
+bcが9になったらパリティビットの通過としてenを
+1から0にして受信動作を停止します、受信データが
+data0からdata7にパリティがdata8に確定します。<br>
+<br>
+<img src="./FG04G10K.jpg" alt="">
+
+<br><br><br><hr><br>
+
+</body>
+</html>

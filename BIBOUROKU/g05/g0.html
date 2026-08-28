@@ -1,0 +1,116 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link type="text/css" rel="stylesheet" href="./main.css">
+
+<body>
+<br>
+<h1>計数器</h1>
+スイッチを押すたびに増数する計数器です。<br>
+構造は
+<a href="../g04/g0.html" target="right">ランプ点滅</a>
+とほぼ同じで点滅を計数<font color="red">(※のところ)</font>に変えただけです。
+<h6>SAMPLE.L</h6>
+<pre lang="ja">
+{ =============================================== }
+{      計数器                                     }
+{ =============================================== }
+logicname sample
+
+{ =============================================== }
+{      手続き譜                                   }
+{ =============================================== }
+procedure sw
+input  swa,swb;
+output q;
+bitr   regq;
+
+   if (swb)
+      regq=0;
+   else
+      if (swa)
+         regq=1;
+      else
+         regq=regq;
+      endif
+   endif
+
+   q=regq;
+endp
+
+{ =============================================== }
+{      実効譜                                     }
+{ =============================================== }
+entity main
+input  Reset;
+input  swa,swb;
+output count[4];   {<font color="red">※</font>}
+bitn   q;
+bitr   on[2];
+bitr   regcount[4];   {<font color="red">※</font>}
+
+   if (!Reset)
+      q=sw(swa,swb);
+
+      if (q)
+         if (on==0)
+            on=1;
+         else
+            on=2;
+         endif
+      else
+         on=0;
+      endif
+
+      if (on.0)
+         regcount=regcount+1;   {<font color="red">※</font>}
+      else
+         regcount=regcount;   {<font color="red">※</font>}
+      endif
+   endif
+
+   count=regcount;   {<font color="red">※</font>}
+ende
+
+{ =============================================== }
+{      機能実行譜                                 }
+{ =============================================== }
+entity sim
+output Reset;
+output swa,swb;
+output count[4];   {<font color="red">※</font>}
+bitr   tc[5];
+input  simres;
+
+   simres=0;
+   part main(Reset,swa,swb,count)   {<font color="red">※</font>}
+   if (!simres) tc=tc+1; endif
+
+   switch(tc)
+      case 0:  Reset=1;
+      case 1:  Reset=1;
+      case 2:  Reset=1;
+      case 3:  swa=1;
+      case 6:  swb=1;
+      case 9:  swa=1;
+      case 12: swb=1;
+      case 15: swa=1;
+      case 18: swb=1;
+      case 21: swa=1;
+      case 24: swb=1;
+      case 27: swa=1;
+      case 30: swb=1;
+   endswitch
+
+ende
+endlogic
+</pre>
+<hr>
+機能実行の結果です、2進数で4桁あるので10進数の0
+から15まで計数できます。
+<br><br>
+<img src="./FG04G08S.jpg" alt="">
+
+<br><br><br><hr><br>
+
+
+</body>
+</html>
