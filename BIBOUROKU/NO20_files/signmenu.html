@@ -1,0 +1,414 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+	
+    <link type="text/css" rel="stylesheet" href="./main.css">
+	<title></title>
+</head>
+
+<body bgcolor="#DEDD80">
+
+<a href="hontai.html#FIG1" target="top"><font color="blue" size="2"><font color="red">図1:</font>レジスタセット</font></a>
+<br>
+<a href="hontai.html#FIG2" target="top"><font color="blue" size="2"><font color="red">図2:</font>フラグレジスタ</font></a>
+<br>
+<a href="hontai.html#FIG3" target="top"><font color="blue" size="2"><font color="red">図3:</font>MOV R16d,R16s</font></a>
+<br>
+<a href="hontai.html#FIG4" target="top"><font color="blue" size="2"><font color="red">図4:</font>基本命令構造</font></a>
+<br>
+<a href="hontai.html#FIG5" target="top"><font color="blue" size="2"><font color="red">図5:</font>MOV AX ,mem</font></a>
+<br>
+<a href="hontai.html#FIG6A" target="top"><font color="blue" size="2"><font color="red">図6A:</font>MOV AX ,mem (奇数)</font></a>
+<br>
+<a href="hontai.html#FIG6B" target="top"><font color="blue" size="2"><font color="red">図6B:</font>MOV AX ,mem (偶数)</font></a>
+<br>
+<a href="hontai.html#FIG7" target="top"><font color="blue" size="2"><font color="red">図7:</font>MOV AL ,mem</font></a>
+<br>
+<a href="hontai.html#FIG8A" target="top"><font color="blue" size="2"><font color="red">図8A:</font>MOV AL ,mem (奇数)</font></a>
+<br>
+<a href="hontai.html#FIG8B" target="top"><font color="blue" size="2"><font color="red">図8B:</font>MOV AL ,mem (偶数)</font></a>
+<br>
+<a href="hontai.html#FIG9" target="top"><font color="blue" size="2"><font color="red">図9:</font>セグメントレジスタ割り当て</font></a>
+<br>
+<a href="hontai.html#FIG10" target="top"><font color="blue" size="2"><font color="red">図10:</font>MOV mem ,AX</font></a>
+<br>
+<a href="hontai.html#FIG11A" target="top"><font color="blue" size="2"><font color="red">図11A:</font>MOV mem ,AX (奇数)</font></a>
+<br>
+<a href="hontai.html#FIG11B" target="top"><font color="blue" size="2"><font color="red">図11B:</font>MOV mem ,AX (偶数)</font></a>
+<br>
+<a href="hontai.html#FIG12" target="top"><font color="blue" size="2"><font color="red">図12:</font>MOV mem ,AL</font></a>
+<br>
+<a href="hontai.html#FIG13A" target="top"><font color="blue" size="2"><font color="red">図13A:</font>MOV mem ,AL (奇数)</font></a>
+<br>
+<a href="hontai.html#FIG13B" target="top"><font color="blue" size="2"><font color="red">図13B:</font>MOV mem ,AL (偶数)</font></a>
+<br>
+<a href="hontai.html#FIG14" target="top"><font color="blue" size="2"><font color="red">図14:</font>MOV R16d,R16s</font></a>
+<br>
+<a href="hontai.html#FIG15A" target="top"><font color="blue" size="2"><font color="red">図15A:</font>MOV R16d,AX</font></a>
+<br>
+<a href="hontai.html#FIG15B" target="top"><font color="blue" size="2"><font color="red">図15B:</font>MOV R16d,BX</font></a>
+<br>
+<a href="hontai.html#FIG15C" target="top"><font color="blue" size="2"><font color="red">図15C:</font>MOV R16d,CX</font></a>
+<br>
+<a href="hontai.html#FIG15D" target="top"><font color="blue" size="2"><font color="red">図15D:</font>MOV R16d,DX</font></a>
+<br>
+<a href="hontai.html#FIG15E" target="top"><font color="blue" size="2"><font color="red">図15E:</font>MOV R16d,SI</font></a>
+<br>
+<a href="hontai.html#FIG15F" target="top"><font color="blue" size="2"><font color="red">図15F:</font>MOV R16d,DI</font></a>
+<br>
+<a href="hontai.html#FIG15G" target="top"><font color="blue" size="2"><font color="red">図15G:</font>MOV R16d,BP</font></a>
+<br>
+<a href="hontai.html#FIG15H" target="top"><font color="blue" size="2"><font color="red">図15H:</font>MOV R16d,SP</font></a>
+<br>
+<a href="hontai.html#FIG16" target="top"><font color="blue" size="2"><font color="red">図16:</font>MOV R8d,R8s</font></a>
+<br>
+<a href="hontai.html#FIG17A" target="top"><font color="blue" size="2"><font color="red">図17A:</font>MOV R8d,AL</font></a>
+<br>
+<a href="hontai.html#FIG17B" target="top"><font color="blue" size="2"><font color="red">図17B:</font>MOV R8d,AH</font></a>
+<br>
+<a href="hontai.html#FIG17C" target="top"><font color="blue" size="2"><font color="red">図17C:</font>MOV R8d,BL</font></a>
+<br>
+<a href="hontai.html#FIG17D" target="top"><font color="blue" size="2"><font color="red">図17D:</font>MOV R8d,BH</font></a>
+<br>
+<a href="hontai.html#FIG17E" target="top"><font color="blue" size="2"><font color="red">図17E:</font>MOV R8d,CL</font></a>
+<br>
+<a href="hontai.html#FIG17F" target="top"><font color="blue" size="2"><font color="red">図17F:</font>MOV R8d,CH</font></a>
+<br>
+<a href="hontai.html#FIG17G" target="top"><font color="blue" size="2"><font color="red">図17G:</font>MOV R8d,DL</font></a>
+<br>
+<a href="hontai.html#FIG17H" target="top"><font color="blue" size="2"><font color="red">図17H:</font>MOV R8d,DH</font></a>
+<br>
+<a href="hontai.html#FIG18" target="top"><font color="blue" size="2"><font color="red">図18:</font>MOV R16d,mem</font></a>
+<br>
+<a href="hontai.html#FIG19A" target="top"><font color="blue" size="2"><font color="red">図19A:</font>MOV R16d,mem (奇数)</font></a>
+<br>
+<a href="hontai.html#FIG19B" target="top"><font color="blue" size="2"><font color="red">図19B:</font>MOV R16d,mem (偶数)</font></a>
+<br>
+<a href="hontai.html#FIG20A" target="top"><font color="blue" size="2"><font color="red">図20A:</font>MOV R16d,[BX] (奇数)</font></a>
+<br>
+<a href="hontai.html#FIG20B" target="top"><font color="blue" size="2"><font color="red">図20B:</font>MOV R16d,[BX] (偶数)</font></a>
+<br>
+<a href="hontai.html#FIG21" target="top"><font color="blue" size="2"><font color="red">図21A:</font>MOV R16d,[BX]</font></a>
+<br>
+<a href="hontai.html#FIG22" target="top"><font color="blue" size="2"><font color="red">図22:</font>MOV R16d,[SI]</font></a>
+<br>
+<a href="hontai.html#FIG23A" target="top"><font color="blue" size="2"><font color="red">図23A:</font>MOV R16d,[SI] (奇数)</font></a>
+<br>
+<a href="hontai.html#FIG23B" target="top"><font color="blue" size="2"><font color="red">図23B:</font>MOV R16d,[SI] (偶数)</font></a>
+<br>
+<a href="hontai.html#FIG24" target="top"><font color="blue" size="2"><font color="red">図24:</font>MOV R16d,[DI]</font></a>
+<br>
+<a href="hontai.html#FIG25A" target="top"><font color="blue" size="2"><font color="red">図25A:</font>MOV R16d,[DI] (奇数)</font></a>
+<br>
+<a href="hontai.html#FIG25B" target="top"><font color="blue" size="2"><font color="red">図25B:</font>MOV R16d,[DI] (偶数)</font></a>
+<br>
+<a href="hontai.html#FIG26" target="top"><font color="blue" size="2"><font color="red">図26:</font>MOV R16d,[BX+SI]</font></a>
+<br>
+<a href="hontai.html#FIG27A" target="top"><font color="blue" size="2"><font color="red">図27A:</font>MOV R16d,[BX+SI] (奇数)</font></a>
+<br>
+<a href="hontai.html#FIG27B" target="top"><font color="blue" size="2"><font color="red">図27B:</font>MOV R16d,[BX+SI] (偶数)</font></a>
+<br>
+<a href="hontai.html#FIG28" target="top"><font color="blue" size="2"><font color="red">図28:</font>MOV R16d,[BX+DI]</font></a>
+<br>
+<a href="hontai.html#FIG29A" target="top"><font color="blue" size="2"><font color="red">図29A:</font>MOV R16d,[BX+DI] (奇数)</font></a>
+<br>
+<a href="hontai.html#FIG29B" target="top"><font color="blue" size="2"><font color="red">図29B:</font>MOV R16d,[BX+DI] (偶数)</font></a>
+<br>
+<a href="hontai.html#FIG30" target="top"><font color="blue" size="2"><font color="red">図30:</font>MOV R16d,[BP+SI]</font></a>
+<br>
+<a href="hontai.html#FIG31A" target="top"><font color="blue" size="2"><font color="red">図31A:</font>MOV R16d,[BP+SI] (奇数)</font></a>
+<br>
+<a href="hontai.html#FIG31B" target="top"><font color="blue" size="2"><font color="red">図31B:</font>MOV R16d,[BP+SI] (偶数)</font></a>
+<br>
+<a href="hontai.html#FIG32" target="top"><font color="blue" size="2"><font color="red">図32:</font>MOV R16d,[BP+DI]</font></a>
+<br>
+<a href="hontai.html#FIG33A" target="top"><font color="blue" size="2"><font color="red">図33A:</font>MOV R16d,[BP+DI] (奇数)</font></a>
+<br>
+<a href="hontai.html#FIG33B" target="top"><font color="blue" size="2"><font color="red">図33B:</font>MOV R16d,[BP+DI] (偶数)</font></a>
+<br>
+<a href="hontai.html#FIG34" target="top"><font color="blue" size="2"><font color="red">図34:</font>MOV R16d,[SI+d8]</font></a>
+<br>
+<a href="hontai.html#FIG35A" target="top"><font color="blue" size="2"><font color="red">図35A:</font>MOV R16d,[SI+d8] (奇数)</font></a>
+<br>
+<a href="hontai.html#FIG35B" target="top"><font color="blue" size="2"><font color="red">図35B:</font>MOV R16d,[SI+d8] (偶数)</font></a>
+<br>
+<a href="hontai.html#FIG36" target="top"><font color="blue" size="2"><font color="red">図36:</font>MOV R16d,[DI+d8]</font></a>
+<br>
+<a href="hontai.html#FIG37A" target="top"><font color="blue" size="2"><font color="red">図37A:</font>MOV R16d,[DI+d8] (奇数)</font></a>
+<br>
+<a href="hontai.html#FIG37B" target="top"><font color="blue" size="2"><font color="red">図37B:</font>MOV R16d,[DI+d8] (偶数)</font></a>
+<br>
+<a href="hontai.html#FIG38" target="top"><font color="blue" size="2"><font color="red">図38:</font>MOV R16d,[BX+d8]</font></a>
+<br>
+<a href="hontai.html#FIG39A" target="top"><font color="blue" size="2"><font color="red">図39A:</font>MOV R16d,[BX+d8] (奇数)</font></a>
+<br>
+<a href="hontai.html#FIG39B" target="top"><font color="blue" size="2"><font color="red">図39B:</font>MOV R16d,[BX+d8] (偶数)</font></a>
+<br>
+<a href="hontai.html#FIG40" target="top"><font color="blue" size="2"><font color="red">図40:</font>MOV R16d,[BP+d8]</font></a>
+<br>
+<a href="hontai.html#FIG41A" target="top"><font color="blue" size="2"><font color="red">図41A:</font>MOV R16d,[BP+d8] (奇数)</font></a>
+<br>
+<a href="hontai.html#FIG41B" target="top"><font color="blue" size="2"><font color="red">図41B:</font>MOV R16d,[BP+d8] (偶数)</font></a>
+<br>
+<a href="hontai.html#FIG42" target="top"><font color="blue" size="2"><font color="red">図42:</font>MOV R16d,[BX+SI+d8]</font></a>
+<br>
+<a href="hontai.html#FIG43A" target="top"><font color="blue" size="2"><font color="red">図43A:</font>MOV R16d,[BX+SI+d8] (奇数)</font></a>
+<br>
+<a href="hontai.html#FIG43B" target="top"><font color="blue" size="2"><font color="red">図43B:</font>MOV R16d,[BX+SI+d8] (偶数)</font></a>
+<br>
+<a href="hontai.html#FIG44" target="top"><font color="blue" size="2"><font color="red">図44:</font>MOV R16d,[BX+DI+d8]</font></a>
+<br>
+<a href="hontai.html#FIG45A" target="top"><font color="blue" size="2"><font color="red">図45A:</font>MOV R16d,[BX+DI+d8] (奇数)</font></a>
+<br>
+<a href="hontai.html#FIG45B" target="top"><font color="blue" size="2"><font color="red">図45B:</font>MOV R16d,[BX+DI+d8] (偶数)</font></a>
+<br>
+<a href="hontai.html#FIG46" target="top"><font color="blue" size="2"><font color="red">図46:</font>MOV R16d,[BP+SI+d8]</font></a>
+<br>
+<a href="hontai.html#FIG47A" target="top"><font color="blue" size="2"><font color="red">図47A:</font>MOV R16d,[BP+SI+d8] (奇数)</font></a>
+<br>
+<a href="hontai.html#FIG47B" target="top"><font color="blue" size="2"><font color="red">図47B:</font>MOV R16d,[BP+SI+d8] (偶数)</font></a>
+<br>
+<a href="hontai.html#FIG48" target="top"><font color="blue" size="2"><font color="red">図48:</font>MOV R16d,[BP+DI+d8]</font></a>
+<br>
+<a href="hontai.html#FIG49A" target="top"><font color="blue" size="2"><font color="red">図49A:</font>MOV R16d,[BP+DI+d8] (奇数)</font></a>
+<br>
+<a href="hontai.html#FIG49B" target="top"><font color="blue" size="2"><font color="red">図49B:</font>MOV R16d,[BP+DI+d8] (偶数)</font></a>
+<br>
+<a href="hontai.html#FIG50" target="top"><font color="blue" size="2"><font color="red">図50:</font>MOV R16d,[SI+d16]</font></a>
+<br>
+<a href="hontai.html#FIG51A" target="top"><font color="blue" size="2"><font color="red">図51A:</font>MOV R16d,[SI+d16] (奇数)</font></a>
+<br>
+<a href="hontai.html#FIG51B" target="top"><font color="blue" size="2"><font color="red">図51B:</font>MOV R16d,[SI+d16] (偶数)</font></a>
+<br>
+<a href="hontai.html#FIG52" target="top"><font color="blue" size="2"><font color="red">図52:</font>MOV R16d,[DI+d16]</font></a>
+<br>
+<a href="hontai.html#FIG53A" target="top"><font color="blue" size="2"><font color="red">図53A:</font>MOV R16d,[DI+d16] (奇数)</font></a>
+<br>
+<a href="hontai.html#FIG53B" target="top"><font color="blue" size="2"><font color="red">図53B:</font>MOV R16d,[DI+d16] (偶数)</font></a>
+<br>
+<a href="hontai.html#FIG54" target="top"><font color="blue" size="2"><font color="red">図54:</font>MOV R16d,[BP+d16]</font></a>
+<br>
+<a href="hontai.html#FIG55A" target="top"><font color="blue" size="2"><font color="red">図55A:</font>MOV R16d,[BP+d16] (奇数)</font></a>
+<br>
+<a href="hontai.html#FIG55B" target="top"><font color="blue" size="2"><font color="red">図55B:</font>MOV R16d,[BP+d16] (偶数)</font></a>
+<br>
+<a href="hontai.html#FIG56" target="top"><font color="blue" size="2"><font color="red">図56:</font>MOV R16d,[BX+d16]</font></a>
+<br>
+<a href="hontai.html#FIG57A" target="top"><font color="blue" size="2"><font color="red">図57A:</font>MOV R16d,[BX+d16] (奇数)</font></a>
+<br>
+<a href="hontai.html#FIG57B" target="top"><font color="blue" size="2"><font color="red">図57B:</font>MOV R16d,[BX+d16] (偶数)</font></a>
+<br>
+<a href="hontai.html#FIG58" target="top"><font color="blue" size="2"><font color="red">図58:</font>MOV R16d,[BX+SI+d16]</font></a>
+<br>
+<a href="hontai.html#FIG59A" target="top"><font color="blue" size="2"><font color="red">図59A:</font>MOV R16d,[BX+SI+d16] (奇数)</font></a>
+<br>
+<a href="hontai.html#FIG59B" target="top"><font color="blue" size="2"><font color="red">図59B:</font>MOV R16d,[BX+SI+d16] (偶数)</font></a>
+<br>
+<a href="hontai.html#FIG60" target="top"><font color="blue" size="2"><font color="red">図60:</font>MOV R16d,[BX+DI+d16]</font></a>
+<br>
+<a href="hontai.html#FIG61A" target="top"><font color="blue" size="2"><font color="red">図61A:</font>MOV R16d,[BX+DI+d16] (奇数)</font></a>
+<br>
+<a href="hontai.html#FIG61B" target="top"><font color="blue" size="2"><font color="red">図61B:</font>MOV R16d,[BX+DI+d16] (偶数)</font></a>
+<br>
+<a href="hontai.html#FIG62" target="top"><font color="blue" size="2"><font color="red">図62:</font>MOV R16d,[BP+SI+d16]</font></a>
+<br>
+<a href="hontai.html#FIG63A" target="top"><font color="blue" size="2"><font color="red">図63A:</font>MOV R16d,[BP+SI+d16] (奇数)</font></a>
+<br>
+<a href="hontai.html#FIG63B" target="top"><font color="blue" size="2"><font color="red">図63B:</font>MOV R16d,[BP+SI+d16] (偶数)</font></a>
+<br>
+<a href="hontai.html#FIG64" target="top"><font color="blue" size="2"><font color="red">図64:</font>MOV R16d,[BP+DI+d16]</font></a>
+<br>
+<a href="hontai.html#FIG65A" target="top"><font color="blue" size="2"><font color="red">図65A:</font>MOV R16d,[BP+DI+d16] (奇数)</font></a>
+<br>
+<a href="hontai.html#FIG65B" target="top"><font color="blue" size="2"><font color="red">図65B:</font>MOV R16d,[BP+DI+d16] (偶数)</font></a>
+<br>
+<a href="hontai.html#FIG66" target="top"><font color="blue" size="2"><font color="red">図66:</font>MOV R8d,mem</font></a>
+<br>
+<a href="hontai.html#FIG67A" target="top"><font color="blue" size="2"><font color="red">図67A:</font>MOV R8d,mem (奇数)</font></a>
+<br>
+<a href="hontai.html#FIG67B" target="top"><font color="blue" size="2"><font color="red">図67B:</font>MOV R8d,mem (偶数)</font></a>
+<br>
+<a href="hontai.html#FIG68" target="top"><font color="blue" size="2"><font color="red">図68:</font>MOV R8d,[BX]</font></a>
+<br>
+<a href="hontai.html#FIG69A" target="top"><font color="blue" size="2"><font color="red">図69A:</font>MOV R8d,[BX] (奇数)</font></a>
+<br>
+<a href="hontai.html#FIG69B" target="top"><font color="blue" size="2"><font color="red">図69B:</font>MOV R8d,[BX] (偶数)</font></a>
+<br>
+<a href="hontai.html#FIG70" target="top"><font color="blue" size="2"><font color="red">図70:</font>MOV R8d,[SI]</font></a>
+<br>
+<a href="hontai.html#FIG71A" target="top"><font color="blue" size="2"><font color="red">図71A:</font>MOV R8d,[SI] (奇数)</font></a>
+<br>
+<a href="hontai.html#FIG71B" target="top"><font color="blue" size="2"><font color="red">図71B:</font>MOV R8d,[SI] (偶数)</font></a>
+<br>
+<a href="hontai.html#FIG72" target="top"><font color="blue" size="2"><font color="red">図72:</font>MOV R8d,[DI]</font></a>
+<br>
+<a href="hontai.html#FIG73A" target="top"><font color="blue" size="2"><font color="red">図73A:</font>MOV R8d,[DI] (奇数)</font></a>
+<br>
+<a href="hontai.html#FIG73B" target="top"><font color="blue" size="2"><font color="red">図73B:</font>MOV R8d,[DI] (偶数)</font></a>
+<br>
+<a href="hontai.html#FIG74" target="top"><font color="blue" size="2"><font color="red">図74:</font>MOV R8d,[BX+SI]</font></a>
+<br>
+<a href="hontai.html#FIG75A" target="top"><font color="blue" size="2"><font color="red">図75A:</font>MOV R8d,[BX+SI] (奇数)</font></a>
+<br>
+<a href="hontai.html#FIG75B" target="top"><font color="blue" size="2"><font color="red">図75B:</font>MOV R8d,[BX+SI] (偶数)</font></a>
+<br>
+<a href="hontai.html#FIG76" target="top"><font color="blue" size="2"><font color="red">図76:</font>MOV R8d,[BX+DI]</font></a>
+<br>
+<a href="hontai.html#FIG77A" target="top"><font color="blue" size="2"><font color="red">図77A:</font>MOV R8d,[BX+DI] (奇数)</font></a>
+<br>
+<a href="hontai.html#FIG77B" target="top"><font color="blue" size="2"><font color="red">図77B:</font>MOV R8d,[BX+DI] (偶数)</font></a>
+<br>
+<a href="hontai.html#FIG78" target="top"><font color="blue" size="2"><font color="red">図78:</font>MOV R8d,[BP+SI]</font></a>
+<br>
+<a href="hontai.html#FIG79A" target="top"><font color="blue" size="2"><font color="red">図79A:</font>MOV R8d,[BP+SI] (奇数)</font></a>
+<br>
+<a href="hontai.html#FIG79B" target="top"><font color="blue" size="2"><font color="red">図79B:</font>MOV R8d,[BP+SI] (偶数)</font></a>
+<br>
+<a href="hontai.html#FIG80" target="top"><font color="blue" size="2"><font color="red">図80:</font>MOV R8d,[BP+DI]</font></a>
+<br>
+<a href="hontai.html#FIG81A" target="top"><font color="blue" size="2"><font color="red">図81A:</font>MOV R8d,[BP+DI] (奇数)</font></a>
+<br>
+<a href="hontai.html#FIG81B" target="top"><font color="blue" size="2"><font color="red">図81B:</font>MOV R8d,[BP+DI] (偶数)</font></a>
+<br>
+<a href="hontai.html#FIG82" target="top"><font color="blue" size="2"><font color="red">図82:</font>MOV R8d,[SI+d8]</font></a>
+<br>
+<a href="hontai.html#FIG83A" target="top"><font color="blue" size="2"><font color="red">図83A:</font>MOV R8d,[SI+d8] (奇数)</font></a>
+<br>
+<a href="hontai.html#FIG83B" target="top"><font color="blue" size="2"><font color="red">図83B:</font>MOV R8d,[SI+d8] (偶数)</font></a>
+<br>
+<a href="hontai.html#FIG84" target="top"><font color="blue" size="2"><font color="red">図84:</font>MOV R8d,[DI+d8]</font></a>
+<br>
+<a href="hontai.html#FIG85A" target="top"><font color="blue" size="2"><font color="red">図85A:</font>MOV R8d,[DI+d8] (奇数)</font></a>
+<br>
+<a href="hontai.html#FIG85B" target="top"><font color="blue" size="2"><font color="red">図85B:</font>MOV R8d,[DI+d8] (偶数)</font></a>
+<br>
+<a href="hontai.html#FIG86" target="top"><font color="blue" size="2"><font color="red">図86:</font>MOV R8d,[BP+d8]</font></a>
+<br>
+<a href="hontai.html#FIG87A" target="top"><font color="blue" size="2"><font color="red">図87A:</font>MOV R8d,[BP+d8] (奇数)</font></a>
+<br>
+<a href="hontai.html#FIG87B" target="top"><font color="blue" size="2"><font color="red">図87B:</font>MOV R8d,[BP+d8] (偶数)</font></a>
+<br>
+<a href="hontai.html#FIG88" target="top"><font color="blue" size="2"><font color="red">図88:</font>MOV R8d,[BX+d8]</font></a>
+<br>
+<a href="hontai.html#FIG89A" target="top"><font color="blue" size="2"><font color="red">図89A:</font>MOV R8d,[BX+d8] (奇数)</font></a>
+<br>
+<a href="hontai.html#FIG89B" target="top"><font color="blue" size="2"><font color="red">図89B:</font>MOV R8d,[BX+d8] (偶数)</font></a>
+<br>
+<a href="hontai.html#FIG90" target="top"><font color="blue" size="2"><font color="red">図90:</font>MOV R8d,[BX+SI+d8]</font></a>
+<br>
+<a href="hontai.html#FIG91A" target="top"><font color="blue" size="2"><font color="red">図91A:</font>MOV R8d,[BX+SI+d8] (奇数)</font></a>
+<br>
+<a href="hontai.html#FIG91B" target="top"><font color="blue" size="2"><font color="red">図91B:</font>MOV R8d,[BX+SI+d8] (偶数)</font></a>
+<br>
+<a href="hontai.html#FIG92" target="top"><font color="blue" size="2"><font color="red">図92:</font>MOV R8d,[BX+DI+d8]</font></a>
+<br>
+<a href="hontai.html#FIG93A" target="top"><font color="blue" size="2"><font color="red">図93A:</font>MOV R8d,[BX+DI+d8] (奇数)</font></a>
+<br>
+<a href="hontai.html#FIG93B" target="top"><font color="blue" size="2"><font color="red">図93B:</font>MOV R8d,[BX+DI+d8] (偶数)</font></a>
+<br>
+<a href="hontai.html#FIG94" target="top"><font color="blue" size="2"><font color="red">図94:</font>MOV R8d,[BP+SI+d8]</font></a>
+<br>
+<a href="hontai.html#FIG95A" target="top"><font color="blue" size="2"><font color="red">図95A:</font>MOV R8d,[BP+SI+d8] (奇数)</font></a>
+<br>
+<a href="hontai.html#FIG95B" target="top"><font color="blue" size="2"><font color="red">図95B:</font>MOV R8d,[BP+SI+d8] (偶数)</font></a>
+<br>
+<a href="hontai.html#FIG96" target="top"><font color="blue" size="2"><font color="red">図96:</font>MOV R8d,[BP+DI+d8]</font></a>
+<br>
+<a href="hontai.html#FIG97A" target="top"><font color="blue" size="2"><font color="red">図97A:</font>MOV R8d,[BP+DI+d8] (奇数)</font></a>
+<br>
+<a href="hontai.html#FIG97B" target="top"><font color="blue" size="2"><font color="red">図97B:</font>MOV R8d,[BP+DI+d8] (偶数)</font></a>
+<br>
+<a href="hontai.html#FIG98" target="top"><font color="blue" size="2"><font color="red">図98:</font>MOV R8d,[SI+d16]</font></a>
+<br>
+<a href="hontai.html#FIG99A" target="top"><font color="blue" size="2"><font color="red">図99A:</font>MOV R8d,[SI+d16] (奇数)</font></a>
+<br>
+<a href="hontai.html#FIG99B" target="top"><font color="blue" size="2"><font color="red">図99B:</font>MOV R8d,[SI+d16] (偶数)</font></a>
+<br>
+<a href="hontai.html#FIG100" target="top"><font color="blue" size="2"><font color="red">図100:</font>MOV R8d,[DI+d16]</font></a>
+<br>
+<a href="hontai.html#FIG101A" target="top"><font color="blue" size="2"><font color="red">図101A:</font>MOV R8d,[DI+d16] (奇数)</font></a>
+<br>
+<a href="hontai.html#FIG101B" target="top"><font color="blue" size="2"><font color="red">図101B:</font>MOV R8d,[DI+d16] (偶数)</font></a>
+<br>
+<a href="hontai.html#FIG102" target="top"><font color="blue" size="2"><font color="red">図102:</font>MOV R8d,[BP+d16]</font></a>
+<br>
+<a href="hontai.html#FIG103A" target="top"><font color="blue" size="2"><font color="red">図103A:</font>MOV R8d,[BP+d16] (奇数)</font></a>
+<br>
+<a href="hontai.html#FIG103B" target="top"><font color="blue" size="2"><font color="red">図103B:</font>MOV R8d,[BP+d16] (偶数)</font></a>
+<br>
+<a href="hontai.html#FIG104" target="top"><font color="blue" size="2"><font color="red">図104:</font>MOV R8d,[BX+d16]</font></a>
+<br>
+<a href="hontai.html#FIG105A" target="top"><font color="blue" size="2"><font color="red">図105A:</font>MOV R8d,[BX+d16] (奇数)</font></a>
+<br>
+<a href="hontai.html#FIG105B" target="top"><font color="blue" size="2"><font color="red">図105B:</font>MOV R8d,[BX+d16] (偶数)</font></a>
+<br>
+<a href="hontai.html#FIG106" target="top"><font color="blue" size="2"><font color="red">図106:</font>MOV R8d,[BX+SI+d16]</font></a>
+<br>
+<a href="hontai.html#FIG107A" target="top"><font color="blue" size="2"><font color="red">図107A:</font>MOV R8d,[BX+SI+d16] (奇数)</font></a>
+<br>
+<a href="hontai.html#FIG107B" target="top"><font color="blue" size="2"><font color="red">図107B:</font>MOV R8d,[BX+SI+d16] (偶数)</font></a>
+<br>
+<a href="hontai.html#FIG108" target="top"><font color="blue" size="2"><font color="red">図108:</font>MOV R8d,[BX+DI+d16]</font></a>
+<br>
+<a href="hontai.html#FIG109A" target="top"><font color="blue" size="2"><font color="red">図109A:</font>MOV R8d,[BX+DI+d16] (奇数)</font></a>
+<br>
+<a href="hontai.html#FIG109B" target="top"><font color="blue" size="2"><font color="red">図109B:</font>MOV R8d,[BX+DI+d16] (偶数)</font></a>
+<br>
+<a href="hontai.html#FIG110" target="top"><font color="blue" size="2"><font color="red">図110:</font>MOV R8d,[BP+SI+d16]</font></a>
+<br>
+<a href="hontai.html#FIG111A" target="top"><font color="blue" size="2"><font color="red">図111A:</font>MOV R8d,[BP+SI+d16] (奇数)</font></a>
+<br>
+<a href="hontai.html#FIG111B" target="top"><font color="blue" size="2"><font color="red">図111B:</font>MOV R8d,[BP+SI+d16] (偶数)</font></a>
+<br>
+<a href="hontai.html#FIG112" target="top"><font color="blue" size="2"><font color="red">図112:</font>MOV R8d,[BP+DI+d16]</font></a>
+<br>
+<a href="hontai.html#FIG113A" target="top"><font color="blue" size="2"><font color="red">図113A:</font>MOV R8d,[BP+DI+d16] (奇数)</font></a>
+<br>
+<a href="hontai.html#FIG113B" target="top"><font color="blue" size="2"><font color="red">図113B:</font>MOV R8d,[BP+DI+d16] (偶数)</font></a>
+<br>
+<a href="hontai.html#FIG114" target="top"><font color="blue" size="2"><font color="red">図114:</font>MOV SRd,R16s</font></a>
+<br>
+<a href="hontai.html#FIG115" target="top"><font color="blue" size="2"><font color="red">図115:</font>MOV SRd,R16s</font></a>
+<br>
+<a href="hontai.html#FIG116" target="top"><font color="blue" size="2"><font color="red">図116:</font>セグメントレジスタ選択</font></a>
+<br>
+<a href="hontai.html#FIG117" target="top"><font color="blue" size="2"><font color="red">図117:</font>MOV SRd,mem</font></a>
+<br>
+<a href="hontai.html#FIG118A" target="top"><font color="blue" size="2"><font color="red">図118A:</font>MOV SRd,mem (偶数)</font></a>
+<br>
+<a href="hontai.html#FIG118B" target="top"><font color="blue" size="2"><font color="red">図118B:</font>MOV SRd,mem (奇数)</font></a>
+<br>
+<a href="hontai.html#FIG119" target="top"><font color="blue" size="2"><font color="red">図119:</font>MOV SRs,R16d</font></a>
+<br>
+<a href="hontai.html#FIG120" target="top"><font color="blue" size="2"><font color="red">図120:</font>MOV SRs,R16d</font></a>
+<br>
+<a href="hontai.html#FIG121" target="top"><font color="blue" size="2"><font color="red">図121:</font>MOV mem,SRs</font></a>
+<br>
+<a href="hontai.html#FIG122A" target="top"><font color="blue" size="2"><font color="red">図122A:</font>MOV mem,SRs (奇数)</font></a>
+<br>
+<a href="hontai.html#FIG122B" target="top"><font color="blue" size="2"><font color="red">図122B:</font>MOV mem,SRs (偶数)</font></a>
+<br>
+<a href="hontai1.html#FIG123" target="top"><font color="blue" size="2"><font color="red">図123:</font>XCHG AX,R16</font></a>
+<br>
+<a href="hontai1.html#FIG124" target="top"><font color="blue" size="2"><font color="red">図124:</font>XCHG AX,R16</font></a>
+<br>
+<a href="hontai1.html#FIG125" target="top"><font color="blue" size="2"><font color="red">図125:</font>XCHG R8d,R8s</font></a>
+<br>
+<a href="hontai1.html#FIG126" target="top"><font color="blue" size="2"><font color="red">図126:</font>XCHG R8d,R8s</font></a>
+<br>
+<a href="hontai1.html#FIG127" target="top"><font color="blue" size="2"><font color="red">図127:</font>XCHG R16d,R16s</font></a>
+<br>
+<a href="hontai1.html#FIG128" target="top"><font color="blue" size="2"><font color="red">図128:</font>XCHG R16d,R16s</font></a>
+<br>
+<a href="hontai1.html#FIG129" target="top"><font color="blue" size="2"><font color="red">図129:</font>XCHG R16d,mem</font></a>
+<br>
+<a href="hontai1.html#FIG130" target="top"><font color="blue" size="2"><font color="red">図130:</font>XCHG R16d,mem</font></a>
+<br>
+<a href="hontai1.html#FIG131" target="top"><font color="blue" size="2"><font color="red">図131:</font>XCHG R8d,mem</font></a>
+<br>
+<a href="hontai1.html#FIG132" target="top"><font color="blue" size="2"><font color="red">図132:</font>XCHG R8d,mem</font></a>
+<br>
+
+
+</body></html>

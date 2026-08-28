@@ -1,0 +1,5913 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+	
+    <link type="text/css" rel="stylesheet" href="./main.css">
+	<title></title>
+</head>
+<body>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="100%" align="center">
+<tbody><tr><td>
+<a name="1">&nbsp;</a>
+<hr size="20" color="#6699CC">
+<b>　　　8086</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="100%" align="center">
+<tbody><tr><td>
+<a name="2">&nbsp;</a>
+<hr size="20" color="#669933">
+<b>　　　レジスタセット</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<table width="85%" align="center">
+
+<tbody><tr>
+<td>
+
+<a name="FIG1">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図1:レジスタセット</font>
+</td>
+</tr>
+<tr>
+<td>
+<img src="./FIG1.jpg" border="0" alt="FIG1.jpg(21218 byte)" width="199" height="482">
+</td>
+</tr>
+</tbody></table>
+
+<p class="i">
+8086のレジスタセットは専用レジスタ形式を採っています。
+歴史的にはインテルの最初の16ビットのプロセッサです。
+<br>
+その前には8ビットプロセッサの8085がありますが、これは8080と同じレジスタセットのプロセッサでした。
+<br>
+8080はレジスタペアが3本ありましたが、8086のレジスタは
+<font color="blue">AX</font>,
+<font color="blue">BX</font>,
+<font color="blue">CX</font>,
+<font color="blue">DX</font>
+の4本で上下を8ビットレジスタとして使えますから8080を少し拡張した程度になっています。
+<br>
+これはインテルの8ビットプロセッサのユーザのアセンブラプログラムの変更を容易にすることを考慮したと思われます。
+<br>
+8086で特徴的なのは64Kバイト以上の連続したプログラムやデータを簡単に扱えないことがあります。
+8085と同じ40ピンのパッケージに収めることを最優先にしたためにメモリ空間を狭めたことが原因と推測されます。
+<br>
+8086はメモリ空間を3種類の専用領域に分割して
+<font color="blue">CS</font>,
+<font color="blue">DS</font>,
+<font color="blue">SS</font>,
+<font color="blue">ES</font>
+の4本のセグメントレジスタに登録します。
+<br>
+<font color="blue">BP</font>,
+<font color="blue">SI</font>,
+<font color="blue">DI</font>
+の3本のインデックスレジスタを持っていますがセグメント内の相対的な位置を示します、
+プログラムカウンタの
+<font color="blue">IP</font>
+やスタックポインタの
+<font color="blue">SP</font>
+も同様です。
+</p>
+
+</td>
+</tr>
+</tbody></table>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="100%" align="center">
+<tbody><tr><td>
+<a name="3">&nbsp;</a>
+<hr size="20" color="#669933">
+<b>　　　フラグレジスタ</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<table width="85%" align="center">
+<tbody><tr>
+<td>
+
+<p class="i">
+<font color="blue">8080/8085</font>
+のフラグレジスタを上位に8ビット拡張するかたちになっています。
+</p>
+
+<a name="FIG2">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図2:フラグレジスタ</font>
+</td>
+</tr>
+<tr>
+<td>
+<img src="./FIG2.jpg" border="0" alt="FIG2.jpg(17687 byte)" width="446" height="267">
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left">
+
+<p class="i">
+フラグは命令に起因して1か0になりますので詳しくは命令の項を参照してください
+概要は次のとおりです。
+</p>
+
+<ul class="i">
+<li class="i">
+キャリー<br>
+演算によってレジスタの最上位ビットからの桁上げがあった場合に1になります。
+またレジスタのビット移動に本フラグを介在させる命令があります。
+</li>
+<li class="i">
+パリティ<br>
+演算によってレジスタの1になっているビットが偶数個である場合に1になります。
+</li>
+<li class="i">
+補助キャリー<br>
+レジスタのビット3からビット4への桁上げがあったとき1になります。
+BCDの演算を行ったときの10進補正に使われます。
+</li>
+<li class="i">
+ゼロ<br>
+演算によってレジスタが0になったとき1になります。
+</li>
+<li class="i">
+符号<br>
+演算によってレジスタの最上位ビットが1のとき1になります。
+正負をもつ数値の符号は最上位のビットに設定されています。
+</li>
+<li class="i">
+トラップ<br>
+本フラグを1にすると1命令が終了する毎に割り込みが発生します。
+</li>
+<li class="i">
+割り込みイネーブル<br>
+本フラグを1にすると制御可能な割り込みを有効にします。
+</li>
+<li class="i">
+方向<br>
+命令を連続的に実行させるときに自動的にレジスタのSIやDIを増減させる場合があり、その指標になります。
+</li>
+<li class="i">
+オーバーフロー<br>
+演算で正負をもつ数値が正の範囲または負の範囲を超えたとき1になります。
+</li>
+</ul>
+
+</td>
+</tr>
+</tbody></table>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="100%" align="center">
+<tbody><tr><td>
+<a name="4">&nbsp;</a>
+<hr size="20" color="#669933">
+<b>　　　セグメント</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<table width="85%" align="center">
+<tbody><tr>
+<td>
+
+<p class="i">
+8086は64Kバイト以上のメモリ空間を扱えますが全レジスタが16ビットなので、これで直接に
+指定することはできません。
+<br>
+メモリ空間の操作にはセグメントレジスタが関わりますが、これも16ビットです。
+<br>
+8086ではセグメントレジスタは16ビットですがメモリ空間に反映させるときは値を16倍にします。
+これによって8086のメモリ空間は64Kバイトの16倍で1024Kバイトになります。
+<br>
+メモリ空間は1024Kバイトありますが64Kバイト以上のプログラムでは、その境界でセグメントレジスタを
+変更しなければなりません。
+データも64Kバイト以上の操作では、その境界でセグメントレジスタを変更しなければなりません。
+そうしなければ64Kバイトの先頭に戻ってしまいます。
+<br>
+アセンブリ言語で全部を作っていればさして問題ではないのですがコンパイラを使う場合には上記の問題
+をコンパイラがどのように処理しているかにかかっておりコンパイラ次第ということになります。
+<br>
+C言語でプログラムを書く場合にも8086特有の問題を気にしなければならないという弱点になっています。
+<br>
+80386では
+<font color="blue">IP</font>,
+<font color="blue">SP</font>,
+<font color="blue">BP</font>,
+<font color="blue">SI</font>,
+<font color="blue">DI</font>
+が32ビット化されてプロセッサの持つ全メモリ空間を指定できるようになりました。
+<br>
+8080では
+<font color="blue">HL</font>
+レジスタで16ビットのメモリ空間を操作していたので8086でも同じことをする必要があったということですが
+、それなら20ビットのレジスタを持つことになります。
+モトローラは8ビットのプロセッサの次に内部32ビットの68000を出してきましたがバスインターフェースは
+アドレスバスが24ビットでデータバスが16ビットです。
+これらの中途半端な状態が解消したのは内部も外部も32ビット化した80386や68020になってからでした。
+<br>
+セグメントの問題を抱えた8086ですがパッケージは8080と同じ40ピンでした68000にはセグメントのような問題はなかった
+のですがパッケージは64ピンでした今ではPLCCでもフラットパッケージでも64ピンなら小さなICですが当時は
+2.54mmピッチのDIPで巨大という印象を持ちました。
+<br>
+8080でやっていたことが8086ではできなかったことがセグメントの由来です。
+</p>
+</td>
+</tr>
+</tbody></table>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="85%" align="center">
+<tbody><tr><td>
+<a name="5">&nbsp;</a>
+<hr size="7" color="#FF9966">
+<b>　　　セグメントレジスタ</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<table width="85%" align="center">
+<tbody><tr>
+<td>
+
+<p class="i">
+今までの8ビットのプロセッサではなかったことですが1Mバイトのメモリ空間を64Kバイトに分割して使います。
+今までになかったことと言うのはメモリ空間の大きさのことではなくメモリ空間が論理的メモリ空間と物理的
+メモリ空間の2本立てになったことです。
+<br>
+例えば論理的メモリ空間の番地の
+<font color="blue">1234H</font>
+は
+物理的メモリ空間の
+<font color="blue">11234H</font>
+でもあるし
+<font color="blue">21234H</font>
+でもあるし
+<font color="blue">13574H</font>
+でもあり得ます。
+それぞれセグメントレジスタが
+<font color="blue">1000H</font>
+、
+<font color="blue">2000H</font>
+、
+<font color="blue">1234H</font>
+の場合です。
+<br>
+<font color="blue">8080</font>
+の場合ではプログラムが書かれたときに指定されたメモリ位置で実行するしかなかったのです
+、100Hとプログラムの開始番地が指定されていたら実行時には100Hに配置してから実行するしか
+ありませんでした。
+<br>
+<font color="blue">8086</font>
+では実行時のセグメントレジスタの値によって物理的メモリ空間のどこに配置されていても構いません。
+<font color="red">「実行時」</font>にと言うところが重要な点です。
+<br>
+他にも重要な点は
+論理的メモリ空間であれば複数のプログラムが同じ番地を異なった目的で使用しても支障がないことです
+物理的メモリ空間によって
+<font color="blue">部品としての実メモリ</font>
+の同じ位置にも違う位置にもセグメントレジスタの値で操作できるからです。
+</p>
+
+<p class="i">
+プロセッサで動いているプログラムを2種類に分ける構造が導入されていると思います。
+すなわち論理的メモリ空間の中だけで動くプログラムと物理的メモリ空間も操作しながら動くプログラム
+の2種類です。
+ユーザープログラムとシステムプログラムの関係、アプリーケーションとオペレーティングシステムの関係
+に分離されていきます。
+</p>
+
+<p class="i">
+次にメモリ空間を機能的に分ける構造が導入されています、
+<font color="blue">8080</font>
+のときにもアセンブリ言語ではプログラムを書くときにコード領域やデータ領域を定義する文が用意されて
+いて使っていました。
+<font color="blue">8086</font>
+では論理的メモリ空間を
+<font color="blue">コード</font>
+を置くところと
+<font color="blue">データ</font>
+を置くところと
+<font color="blue">スタック</font>
+を置くところに分けることができます。
+これらは3種類のセグメントレジスタを使って実現されています。
+すなわちプログラムカウンタの
+<font color="blue">IP</font>
+は暗黙的にコード用のセグメントレジスタで番地を指します。
+スタックポインタの
+<font color="blue">SP</font>
+は暗黙的にスタック用のセグメントレジスタで番地を指します。
+その他のメモリ操作ではは暗黙的にデータ用のセグメントレジスタで番地を指します。
+<font color="blue">コード</font>
+と
+<font color="blue">スタック</font>
+と
+<font color="blue">データ</font>
+が別々の論理的メモリ空間に配置されるようになりました。
+</p>
+
+<hr width="70%">
+
+<font color="gray">
+<p class="i">
+8086で方向づけを行い80286で大枠を作り80386で実用化させて以降のプロセッサで完成発展させていったと言うことになるでしょう。
+大型計算機で行っていたことをマイクロプロセッサに導入する端緒を作ったことになると思います。
+<br>
+大型計算機の技術は高価な装置なのでなるべく大勢の人間で使用することで費用対効果の単価をさげることでたくさん購入してもらいたいと
+言うのが発端だと思います。
+<br>
+コンピュータの開発も速度は遅くてもいいから望みの機能を一から作らなくても部分的な変更で得られる装置
+と言う事が主眼だったと思います。
+部分的な変更とは仕事の組み合わせと言うことであり仕事とはコンピュータの命令であり組み合わせるとは時間軸上に積み重ねると言うことです。
+遅くてもいいけど複雑な仕事ができる能力をもつ機械と言うのがコンピュータの本質です。
+<br>
+マイクロコンピュータは大型計算機と違って最初から大量に購入されないと採算の合わない半導体メーカの取り組んでいる
+商品なのですがコンピュータの苦手な速度の向上や大規模化のための集積度の向上など半導体技術の進歩は著しいものがあった
+と思いますがマイクロコンピュータの実現するコンピュータ技術の方向性は大型計算機と違った方向を目指したほうがよかったのではないかと思う
+今日この頃です。
+</p>
+</font>
+
+</td>
+</tr>
+</tbody></table>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="85%" align="center">
+<tbody><tr><td>
+<a name="6">&nbsp;</a>
+<hr size="7" color="#FF9966">
+<b>　　　レジスタCS</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<table width="85%" align="center">
+<tbody><tr>
+<td>
+<p class="i">
+本レジスタは
+<font color="blue">コードセグメントレジスタ</font>
+と呼び16倍されてレジスタ
+<font color="blue">IP</font>
+に加算されて命令を読み出す番地になります。
+</p>
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left">
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="85%" align="center">
+<tbody><tr><td>
+<a name="7">&nbsp;</a>
+<hr size="7" color="#FF9966">
+<b>　　　レジスタDS</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<table width="85%" align="center">
+<tbody><tr>
+<td>
+<p class="i">
+本レジスタは
+<font color="blue">データセグメントレジスタ</font>
+と呼び暗黙的に
+<font color="blue">データ</font>
+を操作する番地に16倍されて加算されます。
+レジスタ
+<font color="blue">SI</font>
+の間接番地指定は暗黙的に本レジスタが当てられます。
+</p>
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left">
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="85%" align="center">
+<tbody><tr><td>
+<a name="8">&nbsp;</a>
+<hr size="7" color="#FF9966">
+<b>　　　レジスタSS</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<table width="85%" align="center">
+<tbody><tr>
+<td>
+<p class="i">
+本レジスタは
+<font color="blue">スタックセグメントレジスタ</font>
+と呼び暗黙的に
+<font color="blue">スタック</font>
+を操作する番地に16倍されて加算されます。
+レジスタ
+<font color="blue">BP</font>
+の間接番地指定は暗黙的に本レジスタが当てられます。
+</p>
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left">
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="85%" align="center">
+<tbody><tr><td>
+<a name="9">&nbsp;</a>
+<hr size="7" color="#FF9966">
+<b>　　　レジスタES</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<table width="85%" align="center">
+<tbody><tr>
+<td>
+<p class="i">
+本レジスタは
+<font color="blue">エクストラセグメントレジスタ</font>
+と呼び一部の命令で暗黙的に
+<font color="blue">データ</font>
+を操作する番地に16倍されて加算されます。
+レジスタ
+<font color="blue">DI</font>
+の間接番地指定は暗黙的に本レジスタが当てられます。
+</p>
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left">
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="100%" align="center">
+<tbody><tr><td>
+<a name="10">&nbsp;</a>
+<hr size="20" color="#669933">
+<b>　　　初期化</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<table width="85%" align="center">
+
+<tbody><tr>
+<td>
+
+<p class="i">
+初期化で値の確定するのは下記のレジスタです。
+</p>
+
+<ul class="i">
+<li class="i">IP : 0000H</li>
+<li class="i">CS : FFFFH</li>
+<li class="i">DS : 0000H</li>
+<li class="i">SS : 0000H</li>
+<li class="i">ES : 0000H</li>
+</ul>
+
+<p class="i">
+プログラムの読み取りの開始番地は
+<font color="blue">FFFF0H</font>
+からになります。
+</p>
+
+</td>
+</tr>
+</tbody></table>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="100%" align="center">
+<tbody><tr><td>
+<a name="11">&nbsp;</a>
+<hr size="20" color="#669933">
+<b>　　　メモリ操作</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<table width="85%" align="center">
+
+<tbody><tr>
+<td>
+
+<p class="i">
+8ビットのプロセッサが8ビットのデータバスでメモリを操作するように
+16ビットのプロセッサが16ビットのデータバスでメモリを操作すれば8ビットと同じ考え方ですが
+8086では8ビットデータも扱えるようになっていますのでプロセッサとメモリの関係が複雑になっています。
+<br>
+例えば8ビットのプロセッサの
+<font color="blue">8080</font>
+では0～3の4番地があれば4バイトのデータを操作できるように
+16ビットのプロセッサでも0～3の4番地があれば4ワードのデータが操作できるようにしてよかった訳ですが
+実際には
+<font color="blue">8086</font>
+では16ビットのデータバスにひとつの番地を割り付けるのではなく上下の8ビットでふたつの番地を割り付けています。
+<br>
+<font color="red">MOV 1234H,AX</font>
+は1234H番地への書き込み操作が1回ですが
+<font color="red">MOV 1235H,AX</font>
+の場合は
+<font color="blue">1234H</font>
+番地で
+<font color="green">上位</font>
+8ビットにレジスタ
+<font color="blue">AX</font>
+の
+<font color="green">下位</font>
+8ビットを書き込み、
+<font color="blue">1236H</font>
+番地で
+<font color="green">下位</font>
+8ビットにレジスタ
+<font color="blue">AX</font>
+の
+<font color="green">上位</font>
+8ビットの書き込みで書き込み操作が2回になります。
+<br>
+これらはプログラムの実行速度に影響がありますがプログラムを書く場合に意識しなくても
+<font color="blue">8086</font>
+が暗黙的に実行してくれます。
+しかし奇数番地から2バイト命令が長く配置されている場合は偶数番地から配置されている場合よりも2倍のメモリ操作を
+実施していることになります。
+<font color="blue">8086</font>
+を論理設計する場合はプログラムでもデータでもメモリ操作にこのことを留意する必要があります。
+<font color="blue">Pentium</font>
+は
+<font color="blue">32</font>
+ビットのプロセッサですがデータバスは
+<font color="blue">64</font>
+ビットになっているので
+<font color="blue">32</font>
+ビットの境界をまたぐデータでも
+<font color="blue">1回</font>
+のメモリ操作で済ませるようになっています。
+<font color="blue">8086</font>
+を新規に論理設計する場合にはデータバスを32ビットにするとメモリ操作の論理を簡素化できて速度の向上もできると思います。
+</p>
+
+<hr>
+
+<p class="i">
+<font color="gray">
+新規にプロセッサを設計する場合には操作するデータサイズの種類を少なくして
+プロセッサの論理を簡素にして速度を向上するのに16ビットなら16ビット以下のデータを扱わないようにするのは8ビットのプロセッサ
+が4ビットのレジスタを持たないように考慮されてよいと思います。
+</font>
+</p>
+
+</td>
+</tr>
+</tbody></table>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="100%" align="center">
+<tbody><tr><td>
+<a name="12">&nbsp;</a>
+<hr size="20" color="#669933">
+<b>　　　命令</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<table width="85%" align="center">
+<tbody><tr>
+<td>
+
+<p class="i">
+8086の命令は可変長の命令形態をとっており1バイトから6バイトの長さの命令があります。
+8086の命令はメモリ番地の指定方法が豊富なCISCのプロセッサの典型で大枠としての基本構造はあるものの
+複雑で命令解析の論理設計は難解です、インテルのチップはマイクロコードで命令解析をしていると思われ
+ます。
+<br>
+<font color="gray">
+RISCのプロセッサでは命令数も少なく固定長の命令でメモリ番地の指定方法も必要最小限にとどめています。
+このことが命令構造の単純化に大きく貢献しています命令解析の論理設計も容易です。
+</font>
+</p>
+
+</td>
+</tr>
+</tbody></table>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="85%" align="center">
+<tbody><tr><td>
+<a name="13">&nbsp;</a>
+<hr size="7" color="#FF9966">
+<b>　　　構造</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<table width="85%" align="center">
+<tbody><tr>
+<td>
+
+<p class="i">
+命令の構造を
+<font color="blue">MOV</font>
+命令の例で概観します。
+
+</p><ul class="i">
+<li class="i"><font color="blue">命令種別</font>
+　<font color="blue">MOV</font>
+命令は11種類がありますが
+<font color="blue">命令種別</font>
+の値が違うものや
+<font color="blue">命令種別</font>
+に当てられているビット数が異なるものがあります。
+</li>
+
+<li class="i"><font color="blue">データ方向</font>
+　即値をレジスタやメモリに記憶する命令の場合は不用なのでこのビットには他の機能が配置されて命令構造が変わっているものがあります。
+</li>
+
+<li class="i"><font color="blue">16ビット</font>
+　データの大きさをバイトかワードで示すビットですが同じ
+<font color="blue">MOV</font>
+命令の中でも位置が違っているものやこのビットを持たないものもあります。　
+</li>
+
+<li class="i"><font color="blue">レジスタモード</font>
+　データ操作の種類を示しています例の場合はレジスタ同士なのでレジスタモードです他の場合はメモリモードですが
+<ruby>
+<rb>閾値</rb>
+<rp>（</rp>
+<rt>しきいち</rt>
+<rp>）</rp>
+</ruby>
+の大きさやありなしの種類で分かれます。
+このバイトを必要としない命令には付けられません。
+</li>
+</ul>
+
+<p></p>
+
+<a name="FIG3">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図3: <font color="#006699">MOV R16d,R16s</font></font>
+</td>
+</tr>
+<tr>
+<td>
+<img src="./FIG3.jpg" border="0" alt="FIG3.jpg(11488 byte)" width="406" height="146">
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left">
+
+<p class="i">
+8086の命令の標準的な構造は
+<font color="red">図3</font>
+のようなものでこの後に
+<ruby>
+<rb>閾値</rb>
+<rp>（</rp>
+<rt>しきいち</rt>
+<rp>）</rp>
+</ruby>
+や即値や番地が続く場合もあります。
+</p>
+
+<hr>
+
+<p class="i">
+8086には先にも述べたように命令構造の厳格な一貫性はありませんがほぼ
+<font color="red">図4</font>
+のようになっています。
+これはメモリかレジスタの2個のデータを操作する命令の情報を表現する構造です、ほかに
+番地を即値で表したりデータを即値で表す場合にはバイトが追加されます。
+また簡単な命令では2バイト目が無いものや番地やデータの即値になっているものもあります。
+<font color="red">図4</font>
+の
+<font color="blue">reg</font>
+を
+<font color="blue">opcode</font>
+の拡張に使っている命令もあります。
+</p>
+
+<a name="FIG4">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図4: <font color="#006699">基本命令構造</font></font>
+</td>
+</tr>
+<tr>
+<td>
+<img src="./FIG4.jpg" border="0" alt="FIG4.jpg(51365 byte)" width="464" height="383">
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+<p class="i">
+命令の解析は命令語を全部読み取らないとできませんが8086は可変長命令なので命令語を
+全部読み取るためには命令語の長さを知る必要があります。
+8086では簡単な命令では1バイト目で標準的な命令では2バイト目まで読めば命令長が分かります。
+</p>
+
+<a name="FIG9">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図9: <font color="#006699">セグメントレジスタ割り当て</font></font>
+</td>
+</tr>
+<tr>
+<td>
+<img src="./FIG9.jpg" border="0" alt="FIG9.jpg(12185 byte)" width="196" height="240">
+</td>
+</tr>
+</tbody></table>
+
+</td>
+</tr>
+</tbody></table>
+
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="100%" align="center">
+<tbody><tr><td>
+<a name="14">&nbsp;</a>
+<hr size="20" color="#669933">
+<b>　　　MOV命令</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="85%" align="center">
+<tbody><tr><td>
+<a name="15">&nbsp;</a>
+<hr size="7" color="#FF9966">
+<b>　　　MOV AX ,mem</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<table width="85%" align="center">
+<tbody><tr>
+<td>
+
+<p class="i">
+命令の第一バイトで命令長を特定できます、第二、三バイトはメモリを指定する番地です。
+番地はセグメントレジスタ
+<font color="blue">DS</font>
+の値を16倍したものと加算して有効番地になります。
+セグメントレジスタ
+<font color="blue">DS</font>
+以外を使う場合はセグメントを指定する命令を本命令の直前に実行すると
+セグメントレジスタを変更できます。
+</p>
+
+<a name="FIG5">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図5: <font color="#006699">MOV AX ,mem</font></font>
+</td>
+</tr>
+<tr>
+<td>
+<img src="./FIG5.jpg" border="0" alt="FIG5.jpg(10658 byte)" width="577" height="83">
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left">
+
+<p class="i">
+本命令ではフラグレジスタは変化しません。
+<br>
+レジスタ
+<font color="blue">AX</font>
+は他のレジスタと同機能の命令よりも本命令のように特別に短い命令符が割り当てられている場合があります。
+</p>
+
+<a name="FIG6A">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図6A: <font color="#006699">MOV AX ,mem (奇数)</font></font>
+</td>
+</tr>
+<tr>
+<td bgcolor="silver">
+<a href="https://ldlabo.hishaku.com/NO20/file1.pdf" target="_blank">
+<img src="./FIG6A.jpg" border="0" alt="FIG6A.jpg(19169 byte)" width="485" height="293">
+</a>
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left">
+
+<a name="FIG6B">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図6B: <font color="#006699">MOV AX ,mem (偶数)</font></font>
+</td>
+</tr>
+<tr>
+<td bgcolor="silver">
+<a href="https://ldlabo.hishaku.com/NO20/file4.pdf" target="_BLANK">
+<img src="./FIG6B.jpg" border="0" alt="FIG6B.jpg(19348 byte)" width="481" height="310">
+</a>
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left">
+
+</td>
+</tr>
+</tbody></table>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="85%" align="center">
+<tbody><tr><td>
+<a name="16">&nbsp;</a>
+<hr size="7" color="#FF9966">
+<b>　　　MOV AL ,mem</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<table width="85%" align="center">
+<tbody><tr>
+<td>
+
+<p class="i">
+命令の第一バイトで命令長を特定できます、第二、三バイトはメモリを指定する番地です。
+番地はセグメントレジスタ
+<font color="blue">DS</font>
+の値を16倍したものと加算して有効番地になります。
+セグメントレジスタ
+<font color="blue">DS</font>
+以外を使う場合はセグメントを指定する命令を本命令の直前に実行すると
+セグメントレジスタを変更できます。
+</p>
+
+<a name="FIG7">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図7: <font color="#006699">MOV AL ,mem</font></font>
+</td>
+</tr>
+<tr>
+<td>
+<img src="./FIG7.jpg" border="0" alt="FIG7.jpg(10584 byte)" width="583" height="85">
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left">
+
+<p class="i">
+本命令ではフラグレジスタは変化しません。
+<br>
+レジスタ
+<font color="blue">AL</font>
+は他のレジスタと同機能の命令よりも本命令のように特別に短い命令符が割り当てられている場合があります。
+</p>
+
+<a name="FIG8A">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図8A: <font color="#006699">MOV AL ,mem (奇数)</font></font>
+</td>
+</tr>
+<tr>
+<td bgcolor="silver">
+<a href="https://ldlabo.hishaku.com/NO20/file2.pdf" target="_blank">
+<img src="./FIG8A.jpg" border="0" alt="FIG8.jpg(18801 byte)" width="504" height="293">
+</a>
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left">
+
+<a name="FIG8B">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図8B: <font color="#006699">MOV AL ,mem (偶数)</font></font>
+</td>
+</tr>
+<tr>
+<td bgcolor="silver">
+<a href="https://ldlabo.hishaku.com/NO20/file3.pdf" target="_blank">
+<img src="./FIG8B.jpg" border="0" alt="FIG9.jpg(21579 byte)" width="494" height="301">
+</a>
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left">
+
+</td>
+</tr>
+</tbody></table>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="85%" align="center">
+<tbody><tr><td>
+<a name="17">&nbsp;</a>
+<hr size="7" color="#FF9966">
+<b>　　　MOV mem ,AX</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<table width="85%" align="center">
+<tbody><tr>
+<td>
+
+<p class="i">
+命令の第一バイトで命令長を特定できます、第二、三バイトはメモリを指定する番地です。
+番地はセグメントレジスタ
+<font color="blue">DS</font>
+の値を16倍したものと加算して有効番地になります。
+セグメントレジスタ
+<font color="blue">DS</font>
+以外を使う場合はセグメントを指定する命令を本命令の直前に実行すると
+セグメントレジスタを変更できます。
+</p>
+
+<a name="FIG10">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図10: <font color="#006699">MOV mem ,AX</font></font>
+</td>
+</tr>
+<tr>
+<td>
+
+<img src="./FIG10.jpg" border="0" alt="FIG10.jpg(10379 byte)" width="584" height="84">
+
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left">
+
+<p class="i">
+本命令ではフラグレジスタは変化しません。
+<br>
+レジスタ
+<font color="blue">AX</font>
+は他のレジスタと同機能の命令よりも本命令のように特別に短い命令符が割り当てられている場合があります。
+</p>
+
+<a name="FIG11A">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図11A: <font color="#006699">MOV mem ,AX (奇数)</font></font>
+</td>
+</tr>
+<tr>
+<td bgcolor="silver">
+<a href="https://ldlabo.hishaku.com/NO20/file1.pdf" target="_blank">
+<img src="./FIG11A.JPG" border="0" width="485" height="293" alt="FIG11A.JPG">
+</a>
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left">
+
+<a name="FIG11B">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図11B: <font color="#006699">MOV mem ,AX (偶数)</font></font>
+</td>
+</tr>
+<tr>
+<td bgcolor="silver">
+<a href="https://ldlabo.hishaku.com/NO20/file4.pdf" target="_blank">
+<img src="./FIG11B.JPG" width="481" height="310" alt="FIG11B.JPG 19170" border="0">
+</a>
+</td>
+</tr>
+</tbody></table>
+
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left">
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="85%" align="center">
+<tbody><tr><td>
+<a name="18">&nbsp;</a>
+<hr size="7" color="#FF9966">
+<b>　　　MOV mem ,AL</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<table width="85%" align="center">
+<tbody><tr>
+<td>
+
+<p class="i">
+命令の第一バイトで命令長を特定できます、第二、三バイトはメモリを指定する番地です。
+番地はセグメントレジスタ
+<font color="blue">DS</font>
+の値を16倍したものと加算して有効番地になります。
+セグメントレジスタ
+<font color="blue">DS</font>
+以外を使う場合はセグメントを指定する命令を本命令の直前に実行すると
+セグメントレジスタを変更できます。
+</p>
+
+<a name="FIG12">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図12: <font color="#006699">MOV mem ,AL</font></font>
+</td>
+</tr>
+<tr>
+<td>
+<img src="./FIG12.jpg" border="0" alt="FIG12.jpg(10253 byte)" width="584" height="82">
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left">
+
+<p class="i">
+本命令ではフラグレジスタは変化しません。
+<br>
+レジスタ
+<font color="blue">AL</font>
+は他のレジスタと同機能の命令よりも本命令のように特別に短い命令符が割り当てられている場合があります。
+</p>
+
+<a name="FIG13A">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図13A: <font color="#006699">MOV mem ,AL (奇数)</font></font>
+</td>
+</tr>
+<tr>
+<td bgcolor="silver">
+<a href="https://ldlabo.hishaku.com/NO20/file2.pdf" target="_blank">
+<img src="./FIG13A.jpg" border="0" alt="FIG13A.jpg(20559 byte)" width="504" height="293">
+</a>
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left">
+
+<a name="FIG13B">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図13B: <font color="#006699">MOV mem ,AL (偶数)</font></font>
+</td>
+</tr>
+<tr>
+<td bgcolor="silver">
+<a href="https://ldlabo.hishaku.com/NO20/file3.pdf" target="_blank">
+<img src="./FIG13B.jpg" border="0" alt="FIG13B.jpg(20451 byte)" width="494" height="301">
+</a>
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left">
+
+</td>
+</tr>
+</tbody></table>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="85%" align="center">
+<tbody><tr><td>
+<a name="19">&nbsp;</a>
+<hr size="7" color="#FF9966">
+<b>　　　MOV R16d,R16s</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<table width="85%" align="center">
+<tbody><tr>
+<td>
+
+<p class="i">
+<font color="red">図4</font>
+の基本命令構造の命令です。
+</p>
+
+<a name="FIG14">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図14: <font color="#006699">MOV R16d,R16s</font></font>
+</td>
+</tr>
+<tr>
+<td>
+<img src="./FIG14.jpg" border="0" alt="FIG14.jpg(4938 byte)" width="384" height="42">
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+<p class="i">
+本命令ではフラグレジスタは変化しません。
+</p>
+
+<a name="FIG15A">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図15A: <font color="#006699">MOV R16d,AX</font></font>
+</td>
+</tr>
+<tr>
+<td bgcolor="silver">
+<a href="https://ldlabo.hishaku.com/NO20/file5.pdf" target="_blank">
+<img src="./FIG15A.jpg" border="0" alt="FIG15A.jpg(21871 byte)" width="457" height="358">
+</a>
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+<a name="FIG15B">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図15B: <font color="#006699">MOV R16d,BX</font></font>
+</td>
+</tr>
+<tr>
+<td bgcolor="silver">
+<a href="https://ldlabo.hishaku.com/NO20/file8.pdf" target="_blank">
+<img src="./FIG15B.jpg" border="0" alt="FIG15B.jpg(24350 byte)" width="481" height="382">
+</a>
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+<a name="FIG15C">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図15C: <font color="#006699">MOV R16d,CX</font></font>
+</td>
+</tr>
+<tr>
+<td bgcolor="silver">
+<a href="https://ldlabo.hishaku.com/NO20/file9.pdf" target="_blank">
+<img src="./FIG15C.jpg" border="0" alt="FIG15C.jpg(23030 byte)" width="464" height="375">
+</a>
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+<a name="FIG15D">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図15D: <font color="#006699">MOV R16d,DX</font></font>
+</td>
+</tr>
+<tr>
+<td bgcolor="silver">
+<a href="https://ldlabo.hishaku.com/NO20/file10.pdf" target="_blank">
+<img src="./FIG15D.jpg" border="0" alt="FIG15D.jpg(23369 byte)" width="467" height="375">
+</a>
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+<a name="FIG15E">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図15E: <font color="#006699">MOV R16d,SI</font></font>
+</td>
+</tr>
+<tr>
+<td bgcolor="silver">
+<a href="https://ldlabo.hishaku.com/NO20/file11.pdf" target="_blank">
+<img src="./FIG15E.jpg" border="0" alt="FIG15E.jpg(24016 byte)" width="459" height="366">
+</a>
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+<a name="FIG15F">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図15F: <font color="#006699">MOV R16d,DI</font></font>
+</td>
+</tr>
+<tr>
+<td bgcolor="silver">
+<a href="https://ldlabo.hishaku.com/NO20/file12.pdf" target="_blank">
+<img src="./FIG15F.jpg" border="0" alt="FIG15F.jpg(23751 byte)" width="460" height="378">
+</a>
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+<a name="FIG15G">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図15G: <font color="#006699">MOV R16d,BP</font></font>
+</td>
+</tr>
+<tr>
+<td bgcolor="silver">
+<a href="https://ldlabo.hishaku.com/NO20/file13.pdf" target="_blank">
+<img src="./FIG15G.jpg" border="0" alt="FIG15G.jpg(24139 byte)" width="464" height="372">
+</a>
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+<a name="FIG15H">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図15H: <font color="#006699">MOV R16d,SP</font></font>
+</td>
+</tr>
+<tr>
+<td bgcolor="silver">
+<a href="https://ldlabo.hishaku.com/NO20/file14.pdf" target="_blank">
+<img src="./FIG15H.jpg" border="0" alt="FIG15H.jpg(24468 byte)" width="466" height="377">
+</a>
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+</td>
+</tr>
+</tbody></table>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="85%" align="center">
+<tbody><tr><td>
+<a name="20">&nbsp;</a>
+<hr size="7" color="#FF9966">
+<b>　　　MOV R8d,R8s</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<table width="85%" align="center">
+<tbody><tr>
+<td>
+
+<p class="i">
+<font color="red">図4</font>
+の基本命令構造の命令です。
+</p>
+
+<a name="FIG16">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図16: <font color="#006699">MOV R8d,R8s</font></font>
+</td>
+</tr>
+<tr>
+<td>
+<img src="./FIG16.jpg" border="0" alt="FIG16.jpg(4853 byte)" width="375" height="41">
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+<p class="i">
+本命令ではフラグレジスタは変化しません。
+</p>
+
+<a name="FIG17A">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図17A: <font color="#006699">MOV R8d,AL</font></font>
+</td>
+</tr>
+<tr>
+<td bgcolor="silver">
+<a href="https://ldlabo.hishaku.com/NO20/file6.pdf" target="_blank">
+<img src="./FIG17A.jpg" border="0" alt="FIG17.jpg(21244 byte)" width="450" height="356">
+</a>
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+<a name="FIG17B">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図17B: <font color="#006699">MOV R8d,AH</font></font>
+</td>
+</tr>
+<tr>
+<td bgcolor="silver">
+<a href="https://ldlabo.hishaku.com/NO20/file15.pdf" target="_blank">
+<img src="./FIG17B.jpg" border="0" alt="FIG17B.jpg(22623 byte)" width="455" height="383">
+</a>
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+<a name="FIG17C">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図17C: <font color="#006699">MOV R8d,BL</font></font>
+</td>
+</tr>
+<tr>
+<td bgcolor="silver">
+<a href="https://ldlabo.hishaku.com/NO20/file16.pdf" target="_blank">
+<img src="./FIG17C.jpg" border="0" alt="FIG17C.jpg(23225 byte)" width="456" height="380">
+</a>
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+<a name="FIG17D">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図17D: <font color="#006699">MOV R8d,BH</font></font>
+</td>
+</tr>
+<tr>
+<td bgcolor="silver">
+<a href="https://ldlabo.hishaku.com/NO20/file17.pdf" target="_blank">
+<img src="./FIG17D.jpg" border="0" alt="FIG17D.jpg(22669 byte)" width="442" height="373">
+</a>
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+<a name="FIG17E">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図17E: <font color="#006699">MOV R8d,CL</font></font>
+</td>
+</tr>
+<tr>
+<td bgcolor="silver">
+<a href="https://ldlabo.hishaku.com/NO20/file18.pdf" target="_blank">
+<img src="./FIG17E.jpg" border="0" alt="FIG17E.jpg(23167 byte)" width="457" height="379">
+</a>
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+<a name="FIG17F">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図17F: <font color="#006699">MOV R8d,CH</font></font>
+</td>
+</tr>
+<tr>
+<td bgcolor="silver">
+<a href="https://ldlabo.hishaku.com/NO20/file19.pdf" target="_blank">
+<img src="./FIG17F.jpg" border="0" alt="FIG17F.jpg(24075 byte)" width="453" height="369">
+</a>
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+<a name="FIG17G">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図17G: <font color="#006699">MOV R8d,DL</font></font>
+</td>
+</tr>
+<tr>
+<td bgcolor="silver">
+<a href="https://ldlabo.hishaku.com/NO20/file20.pdf" target="_blank">
+<img src="./FIG17G.jpg" border="0" alt="FIG17G.jpg(22788 byte)" width="456" height="384">
+</a>
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+<a name="FIG17H">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図17H: <font color="#006699">MOV R8d,DH</font></font>
+</td>
+</tr>
+<tr>
+<td bgcolor="silver">
+<a href="https://ldlabo.hishaku.com/NO20/file21.pdf" target="_blank">
+<img src="./FIG17H.jpg" border="0" alt="FIG17H.jpg(22746 byte)" width="439" height="372">
+</a>
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+</td>
+</tr>
+</tbody></table>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="85%" align="center">
+<tbody><tr><td>
+<a name="21">&nbsp;</a>
+<hr size="7" color="#FF9966">
+<b>　　　MOV R16d,mem</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<table width="85%" align="center">
+<tbody><tr>
+<td>
+
+<p class="i">
+<font color="red">図4</font>
+の基本命令構造に番地を指定するための2バイトが追加されています。
+</p>
+
+<a name="FIG18">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図18: <font color="#006699">MOV R16d,mem</font></font>
+</td>
+</tr>
+<tr>
+<td>
+<img src="./FIG18.jpg" border="0" alt="FIG18.jpg(9296 byte)" width="569" height="68">
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+<p class="i">
+本命令ではフラグレジスタは変化しません。
+</p>
+
+<a name="FIG19A">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図19A: <font color="#006699">MOV R16d,mem (奇数)</font></font>
+</td>
+</tr>
+<tr>
+<td bgcolor="silver">
+<a href="https://ldlabo.hishaku.com/NO20/file7A.pdf" target="_blank">
+<img src="./FIG19A.jpg" border="0" alt="FIG19A.jpg(41746 byte)" width="563" height="462">
+</a>
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://ldlabo.hishaku.com/NO20/file7B.pdf" target="_blank">続き</a>
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+<a name="FIG19B">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図19B: <font color="#006699">MOV R16d,mem (偶数)</font></font>
+</td>
+</tr>
+<tr>
+<td bgcolor="silver">
+<a href="https://ldlabo.hishaku.com/NO20/file22a.pdf" target="_blank">
+<img src="./FIG19B.jpg" border="0" alt="FIG19B.jpg(41879 byte)" width="576" height="474">
+</a>
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://ldlabo.hishaku.com/NO20/file22b.pdf" target="_blank">続き</a>
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+</td>
+</tr>
+</tbody></table>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="85%" align="center">
+<tbody><tr><td>
+<a name="22">&nbsp;</a>
+<hr size="7" color="#FF9966">
+<b>　　　MOV R16d,[BX]</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<table width="85%" align="center">
+<tbody><tr>
+<td>
+
+<p class="i">
+<font color="red">図4</font>
+の基本命令構造の命令です。
+</p>
+
+<a name="FIG21">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図21: <font color="#006699">MOV R16d,[BX]</font></font>
+</td>
+</tr>
+<tr>
+<td>
+<img src="./FIG21.jpg" border="0" alt="FIG21.jpg(6186 byte)" width="436" height="48">
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+<p class="i">
+本命令ではフラグレジスタは変化しません。
+</p>
+
+<a name="FIG20A">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図20A: <font color="#006699">MOV R16d,[BX] (奇数)</font></font>
+</td>
+</tr>
+<tr>
+<td bgcolor="silver">
+<a href="https://ldlabo.hishaku.com/NO20/file23.lzh" target="_blank">
+<img src="./FIG20A.jpg" border="0" alt="FIG20A.jpg(35516 byte)" width="487" height="464">
+</a>
+</td>
+</tr>
+<tr>
+<td>
+
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+<a name="FIG20B">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図20B: <font color="#006699">MOV R16d,[BX] (偶数)</font></font>
+</td>
+</tr>
+<tr>
+<td bgcolor="silver">
+<a href="https://ldlabo.hishaku.com/NO20/file24.lzh" target="_blank">
+<img src="./FIG20B.jpg" border="0" alt="FIG20B.jpg(36148 byte)" width="487" height="466">
+</a>
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+</td>
+</tr>
+</tbody></table>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="85%" align="center">
+<tbody><tr><td>
+<a name="23">&nbsp;</a>
+<hr size="7" color="#FF9966">
+<b>　　　MOV R16d,[SI]</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<table width="85%" align="center">
+<tbody><tr>
+<td>
+
+<p class="i">
+<font color="red">図4</font>
+の基本命令構造の命令です。
+</p>
+
+<a name="FIG22">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図22: <font color="#006699">MOV R16d,[SI]</font></font>
+</td>
+</tr>
+<tr>
+<td>
+<img src="./FIG22.jpg" border="0" alt="FIG22.jpg(5233 byte)" width="359" height="46">
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+<p class="i">
+本命令ではフラグレジスタは変化しません。
+</p>
+
+<a name="FIG23A">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図23A: <font color="#006699">MOV R16d,[SI] (奇数)</font></font>
+</td>
+</tr>
+<tr>
+<td bgcolor="silver">
+<a href="https://ldlabo.hishaku.com/NO20/file25.lzh" target="_blank">
+<img src="./FIG23A.jpg" border="0" alt="FIG23A.jpg(36357 byte)" width="491" height="470">
+</a>
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+<a name="FIG23B">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図23B: <font color="#006699">MOV R16d,[SI] (偶数)</font></font>
+</td>
+</tr>
+<tr>
+<td bgcolor="silver">
+<a href="https://ldlabo.hishaku.com/NO20/file26.lzh" target="_blank">
+<img src="./FIG23B.jpg" border="0" alt="FIG23B.jpg(35053 byte)" width="482" height="475">
+</a>
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+</td>
+</tr>
+</tbody></table>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="85%" align="center">
+<tbody><tr><td>
+<a name="24">&nbsp;</a>
+<hr size="7" color="#FF9966">
+<b>　　　MOV R16d,[DI]</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<table width="85%" align="center">
+<tbody><tr>
+<td>
+
+<p class="i">
+<font color="red">図4</font>
+の基本命令構造の命令です。
+</p>
+
+<a name="FIG24">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図24: <font color="#006699">MOV R16d,[DI]</font></font>
+</td>
+</tr>
+<tr>
+<td>
+<img src="./FIG24.jpg" border="0" alt="FIG24.jpg(5249 byte)" width="353" height="48">
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+<p class="i">
+本命令ではフラグレジスタは変化しません。
+</p>
+
+<a name="FIG25A">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図25A: <font color="#006699">MOV R16d,[DI] (奇数)</font></font>
+</td>
+</tr>
+<tr>
+<td bgcolor="silver">
+<a href="https://ldlabo.hishaku.com/NO20/file27.lzh" target="_blank">
+<img src="./FIG25A.jpg" border="0" alt="FIG25A.jpg(36027 byte)" width="482" height="464">
+</a>
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+<a name="FIG25B">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図25B: <font color="#006699">MOV R16d,[DI] (偶数)</font></font>
+</td>
+</tr>
+<tr>
+<td bgcolor="silver">
+<a href="https://ldlabo.hishaku.com/NO20/file28.lzh" target="_blank">
+<img src="./FIG25B.jpg" border="0" alt="FIG25B.jpg(36808 byte)" width="487" height="468">
+</a>
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+</td>
+</tr>
+</tbody></table>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="85%" align="center">
+<tbody><tr><td>
+<a name="25">&nbsp;</a>
+<hr size="7" color="#FF9966">
+<b>　　　MOV R16d,[BX+SI]</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<table width="85%" align="center">
+<tbody><tr>
+<td>
+
+<p class="i">
+<font color="red">図4</font>
+の基本命令構造の命令です。
+</p>
+
+<a name="FIG26">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図26: <font color="#006699">MOV R16d,[BX+SI]</font></font>
+</td>
+</tr>
+<tr>
+<td>
+<img src="./FIG26.jpg" border="0" alt="FIG26.jpg(4650 byte)" width="348" height="40">
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+<p class="i">
+本命令ではフラグレジスタは変化しません。
+</p>
+
+<a name="FIG27A">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図27A: <font color="#006699">MOV R16d,[BX+SI] (奇数)</font></font>
+</td>
+</tr>
+<tr>
+<td bgcolor="silver">
+<a href="https://ldlabo.hishaku.com/NO20/file29.lzh" target="_blank">
+<img src="./FIG27A.jpg" border="0" alt="FIG27A.jpg(34082 byte)" width="484" height="453">
+</a>
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+<a name="FIG27B">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図27B: <font color="#006699">MOV R16d,[BX+SI] (偶数)</font></font>
+</td>
+</tr>
+<tr>
+<td bgcolor="silver">
+<a href="https://ldlabo.hishaku.com/NO20/file30.lzh" target="_blank">
+<img src="./FIG27B.jpg" border="0" alt="FIG27B.jpg(36718 byte)" width="495" height="449">
+</a>
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+</td>
+</tr>
+</tbody></table>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="85%" align="center">
+<tbody><tr><td>
+<a name="26">&nbsp;</a>
+<hr size="7" color="#FF9966">
+<b>　　　MOV R16d,[BX+DI]</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<table width="85%" align="center">
+<tbody><tr>
+<td>
+
+<p class="i">
+<font color="red">図4</font>
+の基本命令構造の命令です。
+</p>
+
+<a name="FIG28">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図28: <font color="#006699">MOV R16d,[BX+DI]</font></font>
+</td>
+</tr>
+<tr>
+<td>
+<img src="./FIG28.jpg" border="0" alt="FIG28.jpg(4946 byte)" width="348" height="35">
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+<p class="i">
+本命令ではフラグレジスタは変化しません。
+</p>
+
+<a name="FIG29A">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図29A: <font color="#006699">MOV R16d,[BX+DI] (奇数)</font></font>
+</td>
+</tr>
+<tr>
+<td bgcolor="silver">
+<a href="https://ldlabo.hishaku.com/NO20/file31.lzh" target="_blank">
+<img src="./FIG29A.jpg" border="0" alt="FIG29A.jpg(32269 byte)" width="487" height="439">
+</a>
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+<a name="FIG29B">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図29B: <font color="#006699">MOV R16d,[BX+DI] (偶数)</font></font>
+</td>
+</tr>
+<tr>
+<td bgcolor="silver">
+<a href="https://ldlabo.hishaku.com/NO20/file32.lzh" target="_blank">
+<img src="./FIG29B.jpg" border="0" alt="FIG29B.jpg(33042 byte)" width="496" height="438">
+</a>
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+</td>
+</tr>
+</tbody></table>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="85%" align="center">
+<tbody><tr><td>
+<a name="27">&nbsp;</a>
+<hr size="7" color="#FF9966">
+<b>　　　MOV R16d,[BP+SI]</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<table width="85%" align="center">
+<tbody><tr>
+<td>
+
+<p class="i">
+<font color="red">図4</font>
+の基本命令構造の命令です。
+</p>
+
+<a name="FIG30">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図30: <font color="#006699">MOV R16d,[BP+SI]</font></font>
+</td>
+</tr>
+<tr>
+<td>
+<img src="./FIG30.jpg" border="0" alt="FIG30.jpg(4778 byte)" width="356" height="40">
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+<p class="i">
+本命令ではフラグレジスタは変化しません。
+</p>
+
+<a name="FIG31A">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図31A: <font color="#006699">MOV R16d,[BP+SI] (奇数)</font></font>
+</td>
+</tr>
+<tr>
+<td bgcolor="silver">
+<a href="https://ldlabo.hishaku.com/NO20/file33.lzh" target="_blank">
+<img src="./FIG31A.jpg" border="0" alt="FIG31A.jpg(33166 byte)" width="490" height="438">
+</a>
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+<a name="FIG31B">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図31B: <font color="#006699">MOV R16d,[BP+SI] (偶数)</font></font>
+</td>
+</tr>
+<tr>
+<td bgcolor="silver">
+<a href="https://ldlabo.hishaku.com/NO20/file34.lzh" target="_blank">
+<img src="./FIG31B.jpg" border="0" alt="FIG31B.jpg(35026 byte)" width="489" height="444">
+</a>
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+</td>
+</tr>
+</tbody></table>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="85%" align="center">
+<tbody><tr><td>
+<a name="28">&nbsp;</a>
+<hr size="7" color="#FF9966">
+<b>　　　MOV R16d,[BP+DI]</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<table width="85%" align="center">
+<tbody><tr>
+<td>
+
+<p class="i">
+<font color="red">図4</font>
+の基本命令構造の命令です。
+</p>
+
+<a name="FIG32">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図32: <font color="#006699">MOV R16d,[BP+DI]</font></font>
+</td>
+</tr>
+<tr>
+<td>
+<img src="./FIG32.jpg" border="0" alt="FIG32.jpg(4610 byte)" width="352" height="42">
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+<p class="i">
+本命令ではフラグレジスタは変化しません。
+</p>
+
+<a name="FIG33A">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図33A: <font color="#006699">MOV R16d,[BP+DI] (奇数)</font></font>
+</td>
+</tr>
+<tr>
+<td bgcolor="silver">
+<a href="https://ldlabo.hishaku.com/NO20/file35.lzh" target="_blank">
+<img src="./FIG33A.jpg" border="0" alt="FIG33A.jpg(34060 byte)" width="483" height="428">
+</a>
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+<a name="FIG33B">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図33B: <font color="#006699">MOV R16d,[BP+DI] (偶数)</font></font>
+</td>
+</tr>
+<tr>
+<td bgcolor="silver">
+<a href="https://ldlabo.hishaku.com/NO20/file36.lzh" target="_blank">
+<img src="./FIG33B.jpg" border="0" alt="FIG33B.jpg(34835 byte)" width="491" height="434">
+</a>
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+</td>
+</tr>
+</tbody></table>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="85%" align="center">
+<tbody><tr><td>
+<a name="29">&nbsp;</a>
+<hr size="7" color="#FF9966">
+<b>　　　MOV R16d,[SI+d8]</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<table width="85%" align="center">
+<tbody><tr>
+<td>
+
+<p class="i">
+<font color="red">図4</font>
+の基本命令構造の命令です。
+<font color="blue">d8</font>
+を指定するための1バイトが追加されています。 
+</p>
+
+<a name="FIG34">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図34: <font color="#006699">MOV R16d,[SI+d8]</font></font>
+</td>
+</tr>
+<tr>
+<td>
+<img src="./FIG34.jpg" border="0" alt="FIG34.jpg(6093 byte)" width="548" height="41">
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+<p class="i">
+本命令ではフラグレジスタは変化しません。
+</p>
+
+<a name="FIG35A">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図35A: <font color="#006699">MOV R16d,[SI+d8] (奇数)</font></font>
+</td>
+</tr>
+<tr>
+<td bgcolor="silver">
+<a href="https://ldlabo.hishaku.com/NO20/file37.lzh" target="_blank">
+<img src="./FIG35A.jpg" border="0" alt="FIG35A.jpg(34322 byte)" width="481" height="432">
+</a>
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+<a name="FIG35B">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図35B: <font color="#006699">MOV R16d,[SI+d8] (偶数)</font></font>
+</td>
+</tr>
+<tr>
+<td bgcolor="silver">
+<a href="https://ldlabo.hishaku.com/NO20/file38.lzh" target="_blank">
+<img src="./FIG35B.jpg" border="0" alt="FIG35B.jpg(34900 byte)" width="489" height="444">
+</a>
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+</td>
+</tr>
+</tbody></table>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="85%" align="center">
+<tbody><tr><td>
+<a name="30">&nbsp;</a>
+<hr size="7" color="#FF9966">
+<b>　　　MOV R16d,[DI+d8]</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<table width="85%" align="center">
+<tbody><tr>
+<td>
+
+<p class="i">
+<font color="red">図4</font>
+の基本命令構造の命令です。
+<font color="blue">d8</font>
+を指定するための1バイトが追加されています。 
+</p>
+
+<a name="FIG36">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図36: <font color="#006699">MOV R16d,[DI+d8]</font></font>
+</td>
+</tr>
+<tr>
+<td>
+<img src="./FIG36.jpg" border="0" alt="FIG36.jpg(6252 byte)" width="546" height="41">
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+<p class="i">
+本命令ではフラグレジスタは変化しません。
+</p>
+
+<a name="FIG37A">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図37A: <font color="#006699">MOV R16d,[DI+d8] (奇数)</font></font>
+</td>
+</tr>
+<tr>
+<td bgcolor="silver">
+<a href="https://ldlabo.hishaku.com/NO20/file39.lzh" target="_blank">
+<img src="./FIG37A.jpg" border="0" alt="FIG37A.jpg(35356 byte)" width="484" height="439">
+</a>
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+<a name="FIG37B">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図37B: <font color="#006699">MOV R16d,[DI+d8] (偶数)</font></font>
+</td>
+</tr>
+<tr>
+<td bgcolor="silver">
+<a href="https://ldlabo.hishaku.com/NO20/file40.lzh" target="_blank">
+<img src="./FIG37B.jpg" border="0" alt="FIG37B.jpg(34656 byte)" width="483" height="433">
+</a>
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+</td>
+</tr>
+</tbody></table>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="85%" align="center">
+<tbody><tr><td>
+<a name="31">&nbsp;</a>
+<hr size="7" color="#FF9966">
+<b>　　　MOV R16d,[BX+d8]</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<table width="85%" align="center">
+<tbody><tr>
+<td>
+
+<p class="i">
+<font color="red">図4</font>
+の基本命令構造の命令です。
+<font color="blue">d8</font>
+を指定するための1バイトが追加されています。 
+</p>
+
+<a name="FIG38">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図38: <font color="#006699">MOV R16d,[BX+d8]</font></font>
+</td>
+</tr>
+<tr>
+<td>
+<img src="./FIG38.jpg" border="0" alt="FIG38.jpg(6249 byte)" width="552" height="41">
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+<p class="i">
+本命令ではフラグレジスタは変化しません。
+</p>
+
+<a name="FIG39A">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図39A: <font color="#006699">MOV R16d,[BX+d8] (奇数)</font></font>
+</td>
+</tr>
+<tr>
+<td bgcolor="silver">
+<a href="https://ldlabo.hishaku.com/NO20/file41.lzh" target="_blank">
+<img src="./FIG39A.jpg" border="0" alt="FIG39A.jpg(35455 byte)" width="493" height="438">
+</a>
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+<a name="FIG39B">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図39B: <font color="#006699">MOV R16d,[BX+d8] (偶数)</font></font>
+</td>
+</tr>
+<tr>
+<td bgcolor="silver">
+<a href="https://ldlabo.hishaku.com/NO20/file42.lzh" target="_blank">
+<img src="./FIG39B.jpg" border="0" alt="FIG39B.jpg(34969 byte)" width="492" height="443">
+</a>
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+</td>
+</tr>
+</tbody></table>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="85%" align="center">
+<tbody><tr><td>
+<a name="32">&nbsp;</a>
+<hr size="7" color="#FF9966">
+<b>　　　MOV R16d,[BP+d8]</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<table width="85%" align="center">
+<tbody><tr>
+<td>
+
+<p class="i">
+<font color="red">図4</font>
+の基本命令構造の命令です。
+<font color="blue">d8</font>
+を指定するための1バイトが追加されています。 
+</p>
+
+<a name="FIG40">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図40: <font color="#006699">MOV R16d,[BP+d8]</font></font>
+</td>
+</tr>
+<tr>
+<td>
+<img src="./FIG40.jpg" border="0" alt="FIG40.jpg(5999 byte)" width="554" height="43">
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+<p class="i">
+本命令ではフラグレジスタは変化しません。
+</p>
+
+<a name="FIG41A">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図41A: <font color="#006699">MOV R16d,[BP+d8] (奇数)</font></font>
+</td>
+</tr>
+<tr>
+<td bgcolor="silver">
+<a href="https://ldlabo.hishaku.com/NO20/file43.lzh" target="_blank">
+<img src="./FIG41A.jpg" border="0" alt="FIG41A.jpg(34867 byte)" width="493" height="441">
+</a>
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+<a name="FIG41B">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図41B: <font color="#006699">MOV R16d,[BP+d8] (偶数)</font></font>
+</td>
+</tr>
+<tr>
+<td bgcolor="silver">
+<a href="https://ldlabo.hishaku.com/NO20/file44.lzh" target="_blank">
+<img src="./FIG41B.jpg" border="0" alt="FIG41B.jpg(36304 byte)" width="487" height="444">
+</a>
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+</td>
+</tr>
+</tbody></table>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="85%" align="center">
+<tbody><tr><td>
+<a name="33">&nbsp;</a>
+<hr size="7" color="#FF9966">
+<b>　　　MOV R16d,[BX+SI+d8]</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<table width="85%" align="center">
+<tbody><tr>
+<td>
+
+<p class="i">
+<font color="red">図4</font>
+の基本命令構造の命令です。
+<font color="blue">d8</font>
+を指定するための1バイトが追加されています。 
+</p>
+
+<a name="FIG42">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図42: <font color="#006699">MOV R16d,[BX+SI+d8]</font></font>
+</td>
+</tr>
+<tr>
+<td>
+<img src="./FIG42.jpg" border="0" alt="FIG42.jpg(6291 byte)" width="550" height="40">
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+<p class="i">
+本命令ではフラグレジスタは変化しません。
+</p>
+
+<a name="FIG43A">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図43A: <font color="#006699">MOV R16d,[BX+SI+d8] (奇数)</font></font>
+</td>
+</tr>
+<tr>
+<td bgcolor="silver">
+<a href="https://ldlabo.hishaku.com/NO20/file45.lzh" target="_blank">
+<img src="./FIG43A.jpg" border="0" alt="FIG43A.jpg(37861 byte)" width="501" height="435">
+</a>
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+<a name="FIG43B">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図43B: <font color="#006699">MOV R16d,[BX+SI+d8] (偶数)</font></font>
+</td>
+</tr>
+<tr>
+<td bgcolor="silver">
+<a href="https://ldlabo.hishaku.com/NO20/file46.lzh" target="_blank">
+<img src="./FIG43B.jpg" border="0" alt="FIG43B.jpg(37880 byte)" width="507" height="437">
+</a>
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+</td>
+</tr>
+</tbody></table>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="85%" align="center">
+<tbody><tr><td>
+<a name="34">&nbsp;</a>
+<hr size="7" color="#FF9966">
+<b>　　　MOV R16d,[BX+DI+d8]</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<table width="85%" align="center">
+<tbody><tr>
+<td>
+
+<p class="i">
+<font color="red">図4</font>
+の基本命令構造の命令です。
+<font color="blue">d8</font>
+を指定するための1バイトが追加されています。 
+</p>
+
+<a name="FIG44">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図44: <font color="#006699">MOV R16d,[BX+DI+d8]</font></font>
+</td>
+</tr>
+<tr>
+<td>
+<img src="./FIG44.jpg" border="0" alt="FIG44.jpg(6547 byte)" width="552" height="43">
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+<p class="i">
+本命令ではフラグレジスタは変化しません。
+</p>
+
+<a name="FIG45A">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図45A: <font color="#006699">MOV R16d,[BX+DI+d8] (奇数)</font></font>
+</td>
+</tr>
+<tr>
+<td bgcolor="silver">
+<a href="https://ldlabo.hishaku.com/NO20/file47.lzh" target="_blank">
+<img src="./FIG45A.jpg" border="0" alt="FIG45A.jpg(37801 byte)" width="518" height="436">
+</a>
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+<a name="FIG45B">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図45B: <font color="#006699">MOV R16d,[BX+DI+d8] (偶数)</font></font>
+</td>
+</tr>
+<tr>
+<td bgcolor="silver">
+<a href="https://ldlabo.hishaku.com/NO20/file48.lzh" target="_blank">
+<img src="./FIG45B.jpg" border="0" alt="FIG45B.jpg(37882 byte)" width="502" height="439">
+</a>
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+</td>
+</tr>
+</tbody></table>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="85%" align="center">
+<tbody><tr><td>
+<a name="35">&nbsp;</a>
+<hr size="7" color="#FF9966">
+<b>　　　MOV R16d,[BP+SI+d8]</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<table width="85%" align="center">
+<tbody><tr>
+<td>
+
+<p class="i">
+<font color="red">図4</font>
+の基本命令構造の命令です。
+<font color="blue">d8</font>
+を指定するための1バイトが追加されています。 
+</p>
+
+<a name="FIG46">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図46: <font color="#006699">MOV R16d,[BP+SI+d8]</font></font>
+</td>
+</tr>
+<tr>
+<td>
+<img src="./FIG46.jpg" border="0" alt="FIG46.jpg(6294 byte)" width="554" height="42">
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+<p class="i">
+本命令ではフラグレジスタは変化しません。
+</p>
+
+<a name="FIG47A">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図47A: <font color="#006699">MOV R16d,[BP+SI+d8] (奇数)</font></font>
+</td>
+</tr>
+<tr>
+<td bgcolor="silver">
+<a href="https://ldlabo.hishaku.com/NO20/file49.lzh" target="_blank">
+<img src="./FIG47A.jpg" border="0" alt="FIG47A.jpg(38108 byte)" width="508" height="434">
+</a>
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+<a name="FIG47B">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図47B: <font color="#006699">MOV R16d,[BP+SI+d8] (偶数)</font></font>
+</td>
+</tr>
+<tr>
+<td bgcolor="silver">
+<a href="https://ldlabo.hishaku.com/NO20/file50.lzh" target="_blank">
+<img src="./FIG47B.jpg" border="0" alt="FIG47B.jpg(36366 byte)" width="500" height="440">
+</a>
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+</td>
+</tr>
+</tbody></table>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="85%" align="center">
+<tbody><tr><td>
+<a name="36">&nbsp;</a>
+<hr size="7" color="#FF9966">
+<b>　　　MOV R16d,[BP+DI+d8]</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<table width="85%" align="center">
+<tbody><tr>
+<td>
+
+<p class="i">
+<font color="red">図4</font>
+の基本命令構造の命令です。
+<font color="blue">d8</font>
+を指定するための1バイトが追加されています。 
+</p>
+
+<a name="FIG48">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図48: <font color="#006699">MOV R16d,[BP+DI+d8]</font></font>
+</td>
+</tr>
+<tr>
+<td>
+<img src="./FIG48.jpg" border="0" alt="FIG48.jpg(6033 byte)" width="549" height="43">
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+<p class="i">
+本命令ではフラグレジスタは変化しません。
+</p>
+
+<a name="FIG49A">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図49A: <font color="#006699">MOV R16d,[BP+DI+d8] (奇数)</font></font>
+</td>
+</tr>
+<tr>
+<td bgcolor="silver">
+<a href="https://ldlabo.hishaku.com/NO20/file51.lzh" target="_blank">
+<img src="./FIG49A.jpg" border="0" alt="FIG49A.jpg(39191 byte)" width="513" height="435">
+</a>
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+<a name="FIG49B">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図49B: <font color="#006699">MOV R16d,[BP+DI+d8] (偶数)</font></font>
+</td>
+</tr>
+<tr>
+<td bgcolor="silver">
+<a href="https://ldlabo.hishaku.com/NO20/file52.lzh" target="_blank">
+<img src="./FIG49B.jpg" border="0" alt="FIG49B.jpg(37756 byte)" width="503" height="443">
+</a>
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+</td>
+</tr>
+</tbody></table>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="85%" align="center">
+<tbody><tr><td>
+<a name="37">&nbsp;</a>
+<hr size="7" color="#FF9966">
+<b>　　　MOV R16d,[SI+d16]</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<table width="85%" align="center">
+<tbody><tr>
+<td>
+
+<p class="i">
+<font color="red">図4</font>
+の基本命令構造の命令です。
+<font color="blue">d16</font>
+を指定するための2バイトが追加されています。 
+</p>
+
+<a name="FIG50">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図50: <font color="#006699">MOV R16d,[SI+d16]</font></font>
+</td>
+</tr>
+<tr>
+<td>
+<img src="./FIG50.jpg" border="0" alt="FIG50.jpg(7991 byte)" width="546" height="69">
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+<p class="i">
+本命令ではフラグレジスタは変化しません。
+</p>
+
+<a name="FIG51A">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図51A: <font color="#006699">MOV R16d,[SI+d16] (奇数)</font></font>
+</td>
+</tr>
+<tr>
+<td bgcolor="silver">
+<a href="https://ldlabo.hishaku.com/NO20/file53.lzh" target="_blank">
+<img src="./FIG51A.jpg" border="0" alt="FIG51A.jpg(39778 byte)" width="490" height="433">
+</a>
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+<a name="FIG51B">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図51B: <font color="#006699">MOV R16d,[SI+d16] (偶数)</font></font>
+</td>
+</tr>
+<tr>
+<td bgcolor="silver">
+<a href="https://ldlabo.hishaku.com/NO20/file54.lzh" target="_blank">
+<img src="./FIG51B.jpg" border="0" alt="FIG51B.jpg(36969 byte)" width="495" height="438">
+</a>
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+</td>
+</tr>
+</tbody></table>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="85%" align="center">
+<tbody><tr><td>
+<a name="38">&nbsp;</a>
+<hr size="7" color="#FF9966">
+<b>　　　MOV R16d,[DI+d16]</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<table width="85%" align="center">
+<tbody><tr>
+<td>
+
+<p class="i">
+<font color="red">図4</font>
+の基本命令構造の命令です。
+<font color="blue">d16</font>
+を指定するための2バイトが追加されています。 
+</p>
+
+<a name="FIG52">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図52: <font color="#006699">MOV R16d,[DI+d16]</font></font>
+</td>
+</tr>
+<tr>
+<td>
+<img src="./FIG52.jpg" border="0" alt="FIG52.jpg(8791 byte)" width="544" height="66">
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+<p class="i">
+本命令ではフラグレジスタは変化しません。
+</p>
+
+<a name="FIG53A">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図53A: <font color="#006699">MOV R16d,[DI+d16] (奇数)</font></font>
+</td>
+</tr>
+<tr>
+<td bgcolor="silver">
+<a href="https://ldlabo.hishaku.com/NO20/file55.lzh" target="_blank">
+<img src="./FIG53A.jpg" border="0" alt="FIG53A.jpg(39403 byte)" width="496" height="433">
+</a>
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+<a name="FIG53B">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図53B: <font color="#006699">MOV R16d,[DI+d16] (偶数)</font></font>
+</td>
+</tr>
+<tr>
+<td bgcolor="silver">
+<a href="https://ldlabo.hishaku.com/NO20/file56.lzh" target="_blank">
+<img src="./FIG53B.jpg" border="0" alt="FIG53B.jpg(38561 byte)" width="491" height="438">
+</a>
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+
+</td>
+</tr>
+</tbody></table>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="85%" align="center">
+<tbody><tr><td>
+<a name="39">&nbsp;</a>
+<hr size="7" color="#FF9966">
+<b>　　　MOV R16d,[BP+d16]</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<table width="85%" align="center">
+<tbody><tr>
+<td>
+
+<p class="i">
+<font color="red">図4</font>
+の基本命令構造の命令です。
+<font color="blue">d16</font>
+を指定するための2バイトが追加されています。 
+</p>
+
+<a name="FIG54">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図54: <font color="#006699">MOV R16d,[BP+d16]</font></font>
+</td>
+</tr>
+<tr>
+<td>
+<img src="./FIG54.jpg" border="0" alt="FIG54.jpg(8788 byte)" width="544" height="67">
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+<p class="i">
+本命令ではフラグレジスタは変化しません。
+</p>
+
+<a name="FIG55A">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図55A: <font color="#006699">MOV R16d,[BP+d16] (奇数)</font></font>
+</td>
+</tr>
+<tr>
+<td bgcolor="silver">
+<a href="https://ldlabo.hishaku.com/NO20/file57.lzh" target="_blank">
+<img src="./FIG55A.jpg" border="0" alt="FIG55A.jpg(40408 byte)" width="500" height="434">
+</a>
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+<a name="FIG55B">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図55B: <font color="#006699">MOV R16d,[BP+d16] (偶数)</font></font>
+</td>
+</tr>
+<tr>
+<td bgcolor="silver">
+<a href="https://ldlabo.hishaku.com/NO20/file58.lzh" target="_blank">
+<img src="./FIG55B.jpg" border="0" alt="FIG55B.jpg(39168 byte)" width="496" height="431">
+</a>
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+</td>
+</tr>
+</tbody></table>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="85%" align="center">
+<tbody><tr><td>
+<a name="40">&nbsp;</a>
+<hr size="7" color="#FF9966">
+<b>　　　MOV R16d,[BX+d16]</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<table width="85%" align="center">
+<tbody><tr>
+<td>
+
+<p class="i">
+<font color="red">図4</font>
+の基本命令構造の命令です。
+<font color="blue">d16</font>
+を指定するための2バイトが追加されています。 
+</p>
+
+<a name="FIG56">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図56: <font color="#006699">MOV R16d,[BX+d16]</font></font>
+</td>
+</tr>
+<tr>
+<td>
+<img src="./FIG56.jpg" border="0" alt="FIG56.jpg(9021 byte)" width="543" height="67">
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+<p class="i">
+本命令ではフラグレジスタは変化しません。
+</p>
+
+<a name="FIG57A">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図57A: <font color="#006699">MOV R16d,[BX+d16] (奇数)</font></font>
+</td>
+</tr>
+<tr>
+<td bgcolor="silver">
+<a href="https://ldlabo.hishaku.com/NO20/file59.lzh" target="_blank">
+<img src="./FIG57A.jpg" border="0" alt="FIG57A.jpg(39783 byte)" width="507" height="436">
+</a>
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+<a name="FIG57B">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図57B: <font color="#006699">MOV R16d,[BX+d16] (偶数)</font></font>
+</td>
+</tr>
+<tr>
+<td bgcolor="silver">
+<a href="https://ldlabo.hishaku.com/NO20/file60.lzh" target="_blank">
+<img src="./FIG57B.jpg" border="0" alt="FIG57B.jpg(38770 byte)" width="492" height="431">
+</a>
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+</td>
+</tr>
+</tbody></table>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="85%" align="center">
+<tbody><tr><td>
+<a name="41">&nbsp;</a>
+<hr size="7" color="#FF9966">
+<b>　　　MOV R16d,[BX+SI+d16]</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<table width="85%" align="center">
+<tbody><tr>
+<td>
+
+<p class="i">
+<font color="red">図4</font>
+の基本命令構造の命令です。
+<font color="blue">d16</font>
+を指定するための2バイトが追加されています。 
+</p>
+
+<a name="FIG58">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図58: <font color="#006699">MOV R16d,[BX+SI+d16]</font></font>
+</td>
+</tr>
+<tr>
+<td>
+<img src="./FIG58.jpg" border="0" alt="FIG58.jpg(8864 byte)" width="549" height="69">
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+<p class="i">
+本命令ではフラグレジスタは変化しません。
+</p>
+
+<a name="FIG59A">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図59A: <font color="#006699">MOV R16d,[BX+SI+d16] (奇数)</font></font>
+</td>
+</tr>
+<tr>
+<td bgcolor="silver">
+<a href="https://ldlabo.hishaku.com/NO20/file61.lzh" target="_blank">
+<img src="./FIG59A.jpg" border="0" alt="FIG59A.jpg(38065 byte)" width="531" height="433">
+</a>
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+<a name="FIG59B">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図59B: <font color="#006699">MOV R16d,[BX+SI+d16] (偶数)</font></font>
+</td>
+</tr>
+<tr>
+<td bgcolor="silver">
+<a href="https://ldlabo.hishaku.com/NO20/file62.lzh" target="_blank">
+<img src="./FIG59B.jpg" border="0" alt="FIG59B.jpg(38286 byte)" width="510" height="444">
+</a>
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+</td>
+</tr>
+</tbody></table>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="85%" align="center">
+<tbody><tr><td>
+<a name="42">&nbsp;</a>
+<hr size="7" color="#FF9966">
+<b>　　　MOV R16d,[BX+DI+d16]</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<table width="85%" align="center">
+<tbody><tr>
+<td>
+
+<p class="i">
+<font color="red">図4</font>
+の基本命令構造の命令です。
+<font color="blue">d16</font>
+を指定するための2バイトが追加されています。 
+</p>
+
+<a name="FIG60">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図60: <font color="#006699">MOV R16d,[BX+DI+d16]</font></font>
+</td>
+</tr>
+<tr>
+<td>
+<img src="./FIG60.jpg" border="0" alt="FIG60.jpg(8037 byte)" width="548" height="71">
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+<p class="i">
+本命令ではフラグレジスタは変化しません。
+</p>
+
+<a name="FIG61A">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図61A: <font color="#006699">MOV R16d,[BX+DI+d16] (奇数)</font></font>
+</td>
+</tr>
+<tr>
+<td bgcolor="silver">
+<a href="https://ldlabo.hishaku.com/NO20/file63.lzh" target="_blank">
+<img src="./FIG61A.jpg" border="0" alt="FIG61A.jpg(38368 byte)" width="517" height="428">
+</a>
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+<a name="FIG61B">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図61B: <font color="#006699">MOV R16d,[BX+DI+d16] (偶数)</font></font>
+</td>
+</tr>
+<tr>
+<td bgcolor="silver">
+<a href="https://ldlabo.hishaku.com/NO20/file64.lzh" target="_blank">
+<img src="./FIG61B.jpg" border="0" alt="FIG61B.jpg(40570 byte)" width="533" height="452">
+</a>
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+</td>
+</tr>
+</tbody></table>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="85%" align="center">
+<tbody><tr><td>
+<a name="43">&nbsp;</a>
+<hr size="7" color="#FF9966">
+<b>　　　MOV R16d,[BP+SI+d16]</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<table width="85%" align="center">
+<tbody><tr>
+<td>
+
+<p class="i">
+<font color="red">図4</font>
+の基本命令構造の命令です。
+<font color="blue">d16</font>
+を指定するための2バイトが追加されています。 
+</p>
+
+<a name="FIG62">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図62: <font color="#006699">MOV R16d,[BP+SI+d16]</font></font>
+</td>
+</tr>
+<tr>
+<td>
+<img src="./FIG62.jpg" border="0" alt="FIG62.jpg(8883 byte)" width="541" height="64">
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+<p class="i">
+本命令ではフラグレジスタは変化しません。
+</p>
+
+<a name="FIG63A">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図63A: <font color="#006699">MOV R16d,[BP+SI+d16] (奇数)</font></font>
+</td>
+</tr>
+<tr>
+<td bgcolor="silver">
+<a href="https://ldlabo.hishaku.com/NO20/file65.lzh" target="_blank">
+<img src="./FIG63A.jpg" border="0" alt="FIG63A.jpg(39570 byte)" width="519" height="422">
+</a>
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+<a name="FIG63B">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図63B: <font color="#006699">MOV R16d,[BP+SI+d16] (偶数)</font></font>
+</td>
+</tr>
+<tr>
+<td bgcolor="silver">
+<a href="https://ldlabo.hishaku.com/NO20/file66.lzh" target="_blank">
+<img src="./FIG63B.jpg" border="0" alt="FIG63B.jpg(37985 byte)" width="516" height="425">
+</a>
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+</td>
+</tr>
+</tbody></table>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="85%" align="center">
+<tbody><tr><td>
+<a name="44">&nbsp;</a>
+<hr size="7" color="#FF9966">
+<b>　　　MOV R16d,[BP+DI+d16]</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<table width="85%" align="center">
+<tbody><tr>
+<td>
+
+<p class="i">
+<font color="red">図4</font>
+の基本命令構造の命令です。
+<font color="blue">d16</font>
+を指定するための2バイトが追加されています。 
+</p>
+
+<a name="FIG64">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図64: <font color="#006699">MOV R16d,[BP+DI+d16]</font></font>
+</td>
+</tr>
+<tr>
+<td>
+<img src="./FIG64.jpg" border="0" alt="FIG64.jpg(8815 byte)" width="545" height="68">
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+<p class="i">
+本命令ではフラグレジスタは変化しません。
+</p>
+
+<a name="FIG65A">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図65A: <font color="#006699">MOV R16d,[BP+DI+d16] (奇数)</font></font>
+</td>
+</tr>
+<tr>
+<td bgcolor="silver">
+<a href="https://ldlabo.hishaku.com/NO20/file67.lzh" target="_blank">
+<img src="./FIG65A.jpg" border="0" alt="FIG65A.jpg(40146 byte)" width="523" height="432">
+</a>
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+<a name="FIG65B">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図65B: <font color="#006699">MOV R16d,[BP+DI+d16] (偶数)</font></font>
+</td>
+</tr>
+<tr>
+<td bgcolor="silver">
+<a href="https://ldlabo.hishaku.com/NO20/file68.lzh" target="_blank">
+<img src="./FIG65B.jpg" border="0" alt="FIG65B.jpg(40360 byte)" width="522" height="434">
+</a>
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+</td>
+</tr>
+</tbody></table>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="85%" align="center">
+<tbody><tr><td>
+<a name="45">&nbsp;</a>
+<hr size="7" color="#FF9966">
+<b>　　　MOV R8d,mem</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<table width="85%" align="center">
+<tbody><tr>
+<td>
+
+<p class="i">
+<font color="red">図4</font>
+の基本命令構造の命令です。
+番地を指定するための2バイトが追加されています。 
+</p>
+
+<a name="FIG66">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図66: <font color="#006699">MOV R8d,mem</font></font>
+</td>
+</tr>
+<tr>
+<td>
+<img src="./FIG66.jpg" border="0" alt="FIG66.jpg(9045 byte)" width="540" height="64">
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+<p class="i">
+本命令ではフラグレジスタは変化しません。
+</p>
+
+<a name="FIG67A">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図67A: <font color="#006699">MOV R8d,mem (奇数)</font></font>
+</td>
+</tr>
+<tr>
+<td bgcolor="silver">
+<a href="https://ldlabo.hishaku.com/NO20/file69.lzh" target="_blank">
+<img src="./FIG67A.jpg" border="0" alt="FIG67A.jpg(38924 byte)" width="523" height="443">
+</a>
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+<a name="FIG67B">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図67B: <font color="#006699">MOV R8d,mem (偶数)</font></font>
+</td>
+</tr>
+<tr>
+<td bgcolor="silver">
+<a href="https://ldlabo.hishaku.com/NO20/file70.lzh" target="_blank">
+<img src="./FIG67B.jpg" border="0" alt="FIG67B.jpg(37962 byte)" width="505" height="440">
+</a>
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+</td>
+</tr>
+</tbody></table>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="85%" align="center">
+<tbody><tr><td>
+<a name="46">&nbsp;</a>
+<hr size="7" color="#FF9966">
+<b>　　　MOV R8d,[BX]</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<table width="85%" align="center">
+<tbody><tr>
+<td>
+
+<p class="i">
+<font color="red">図4</font>
+の基本命令構造の命令です。
+</p>
+
+<a name="FIG68">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図68: <font color="#006699">MOV R8d,[BX]</font></font>
+</td>
+</tr>
+<tr>
+<td>
+<img src="./FIG68.jpg" border="0" alt="FIG68.jpg(4646 byte)" width="350" height="40">
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+<p class="i">
+本命令ではフラグレジスタは変化しません。
+</p>
+
+<a name="FIG69A">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図69A: <font color="#006699">MOV R8d,[BX] (奇数)</font></font>
+</td>
+</tr>
+<tr>
+<td bgcolor="silver">
+<a href="https://ldlabo.hishaku.com/NO20/file71.lzh" target="_blank">
+<img src="./FIG69A.jpg" border="0" alt="FIG69A.jpg(29744 byte)" width="483" height="410">
+</a>
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+<a name="FIG69B">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図69B: <font color="#006699">MOV R8d,[BX] (偶数)</font></font>
+</td>
+</tr>
+<tr>
+<td bgcolor="silver">
+<a href="https://ldlabo.hishaku.com/NO20/file72.lzh" target="_blank">
+<img src="./FIG69B.jpg" border="0" alt="FIG69B.jpg(30505 byte)" width="479" height="403">
+</a>
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+</td>
+</tr>
+</tbody></table>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="85%" align="center">
+<tbody><tr><td>
+<a name="47">&nbsp;</a>
+<hr size="7" color="#FF9966">
+<b>　　　MOV R8d,[SI]</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<table width="85%" align="center">
+<tbody><tr>
+<td>
+
+<p class="i">
+<font color="red">図4</font>
+の基本命令構造の命令です。
+</p>
+
+<a name="FIG70">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図70: <font color="#006699">MOV R8d,[SI]</font></font>
+</td>
+</tr>
+<tr>
+<td>
+<img src="./FIG70.jpg" border="0" alt="FIG70.jpg(4706 byte)" width="353" height="40">
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+<p class="i">
+本命令ではフラグレジスタは変化しません。
+</p>
+
+<a name="FIG71A">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図71A: <font color="#006699">MOV R8d,[SI] (奇数)</font></font>
+</td>
+</tr>
+<tr>
+<td bgcolor="silver">
+<a href="https://ldlabo.hishaku.com/NO20/file73.lzh" target="_blank">
+<img src="./FIG71A.jpg" border="0" alt="FIG71A.jpg(34603 byte)" width="479" height="448">
+</a>
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+<a name="FIG71B">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図71B: <font color="#006699">MOV R8d,[SI] (偶数)</font></font>
+</td>
+</tr>
+<tr>
+<td bgcolor="silver">
+<a href="https://ldlabo.hishaku.com/NO20/file74.lzh" target="_blank">
+<img src="./FIG71B.jpg" border="0" alt="FIG71B.jpg(34487 byte)" width="482" height="460">
+</a>
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+</td>
+</tr>
+</tbody></table>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="85%" align="center">
+<tbody><tr><td>
+<a name="48">&nbsp;</a>
+<hr size="7" color="#FF9966">
+<b>　　　MOV R8d,[DI]</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<table width="85%" align="center">
+<tbody><tr>
+<td>
+
+<p class="i">
+<font color="red">図4</font>
+の基本命令構造の命令です。
+</p>
+
+<a name="FIG72">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図72: <font color="#006699">MOV R8d,[DI]</font></font>
+</td>
+</tr>
+<tr>
+<td>
+<img src="./FIG72.jpg" border="0" alt="FIG72.jpg(5050 byte)" width="346" height="35">
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+<p class="i">
+本命令ではフラグレジスタは変化しません。
+</p>
+
+<a name="FIG73A">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図73A: <font color="#006699">MOV R8d,[DI] (奇数)</font></font>
+</td>
+</tr>
+<tr>
+<td bgcolor="silver">
+<a href="https://ldlabo.hishaku.com/NO20/file75.lzh" target="_blank">
+<img src="./FIG73A.jpg" border="0" alt="FIG73A.jpg(34321 byte)" width="492" height="460">
+</a>
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+<a name="FIG73B">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図73B: <font color="#006699">MOV R8d,[DI] (偶数)</font></font>
+</td>
+</tr>
+<tr>
+<td bgcolor="silver">
+<a href="https://ldlabo.hishaku.com/NO20/file76.lzh" target="_blank">
+<img src="./FIG73B.jpg" border="0" alt="FIG73B.jpg(34961 byte)" width="480" height="446">
+</a>
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+</td>
+</tr>
+</tbody></table>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="85%" align="center">
+<tbody><tr><td>
+<a name="49">&nbsp;</a>
+<hr size="7" color="#FF9966">
+<b>　　　MOV R8d,[BX+SI]</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<table width="85%" align="center">
+<tbody><tr>
+<td>
+
+<p class="i">
+<font color="red">図4</font>
+の基本命令構造の命令です。
+</p>
+
+<a name="FIG74">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図74: <font color="#006699">MOV R8d,[BX+SI]</font></font>
+</td>
+</tr>
+<tr>
+<td>
+<img src="./FIG74.jpg" border="0" alt="FIG74.jpg(5144 byte)" width="345" height="34">
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+<p class="i">
+本命令ではフラグレジスタは変化しません。
+</p>
+
+<a name="FIG75A">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図75A: <font color="#006699">MOV R8d,[BX+SI] (奇数)</font></font>
+</td>
+</tr>
+<tr>
+<td bgcolor="silver">
+<a href="https://ldlabo.hishaku.com/NO20/file77.lzh" target="_blank">
+<img src="./FIG75A.jpg" border="0" alt="FIG75A.jpg(34223 byte)" width="480" height="436">
+</a>
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+<a name="FIG75B">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図75B: <font color="#006699">MOV R8d,[BX+SI] (偶数)</font></font>
+</td>
+</tr>
+<tr>
+<td bgcolor="silver">
+<a href="https://ldlabo.hishaku.com/NO20/file78.lzh" target="_blank">
+<img src="./FIG75B.jpg" border="0" alt="FIG75B.jpg(34166 byte)" width="481" height="438">
+</a>
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+</td>
+</tr>
+</tbody></table>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="85%" align="center">
+<tbody><tr><td>
+<a name="50">&nbsp;</a>
+<hr size="7" color="#FF9966">
+<b>　　　MOV R8d,[BX+DI]</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<table width="85%" align="center">
+<tbody><tr>
+<td>
+
+<p class="i">
+<font color="red">図4</font>
+の基本命令構造の命令です。
+</p>
+
+<a name="FIG76">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図76: <font color="#006699">MOV R8d,[BX+DI]</font></font>
+</td>
+</tr>
+<tr>
+<td>
+<img src="./FIG76.jpg" border="0" alt="FIG76.jpg(5070 byte)" width="342" height="31">
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+<p class="i">
+本命令ではフラグレジスタは変化しません。
+</p>
+
+<a name="FIG77A">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図77A: <font color="#006699">MOV R8d,[BX+DI] (奇数)</font></font>
+</td>
+</tr>
+<tr>
+<td bgcolor="silver">
+<a href="https://ldlabo.hishaku.com/NO20/file79.lzh" target="_blank">
+<img src="./FIG77A.jpg" border="0" alt="FIG77A.jpg(31982 byte)" width="480" height="424">
+</a>
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+<a name="FIG77B">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図77B: <font color="#006699">MOV R8d,[BX+DI] (偶数)</font></font>
+</td>
+</tr>
+<tr>
+<td bgcolor="silver">
+<a href="https://ldlabo.hishaku.com/NO20/file80.lzh" target="_blank">
+<img src="./FIG77B.jpg" border="0" alt="FIG77B.jpg(32718 byte)" width="487" height="439">
+</a>
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+</td>
+</tr>
+</tbody></table>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="85%" align="center">
+<tbody><tr><td>
+<a name="51">&nbsp;</a>
+<hr size="7" color="#FF9966">
+<b>　　　MOV R8d,[BP+SI]</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<table width="85%" align="center">
+<tbody><tr>
+<td>
+
+<p class="i">
+<font color="red">図4</font>
+の基本命令構造の命令です。
+</p>
+
+<a name="FIG78">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図78: <font color="#006699">MOV R8d,[BP+SI]</font></font>
+</td>
+</tr>
+<tr>
+<td>
+<img src="./FIG78.jpg" border="0" alt="FIG78.jpg(5150 byte)" width="343" height="33">
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+<p class="i">
+本命令ではフラグレジスタは変化しません。
+</p>
+
+<a name="FIG79A">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図79A: <font color="#006699">MOV R8d,[BP+SI] (奇数)</font></font>
+</td>
+</tr>
+<tr>
+<td bgcolor="silver">
+<a href="https://ldlabo.hishaku.com/NO20/file81.lzh" target="_blank">
+<img src="./FIG79A.jpg" border="0" alt="FIG79A.jpg(39404 byte)" width="492" height="468">
+</a>
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+<a name="FIG79B">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図79B: <font color="#006699">MOV R8d,[BP+SI] (偶数)</font></font>
+</td>
+</tr>
+<tr>
+<td bgcolor="silver">
+<a href="https://ldlabo.hishaku.com/NO20/file82.lzh" target="_blank">
+<img src="./FIG79B.jpg" border="0" alt="FIG79B.jpg(38845 byte)" width="481" height="465">
+</a>
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+</td>
+</tr>
+</tbody></table>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="85%" align="center">
+<tbody><tr><td>
+<a name="52">&nbsp;</a>
+<hr size="7" color="#FF9966">
+<b>　　　MOV R8d,[BP+DI]</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<table width="85%" align="center">
+<tbody><tr>
+<td>
+
+<p class="i">
+<font color="red">図4</font>
+の基本命令構造の命令です。
+</p>
+
+<a name="FIG80">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図80: <font color="#006699">MOV R8d,[BP+DI]</font></font>
+</td>
+</tr>
+<tr>
+<td>
+<img src="./FIG80.jpg" border="0" alt="FIG80.jpg(5091 byte)" width="346" height="33">
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+<p class="i">
+本命令ではフラグレジスタは変化しません。
+</p>
+
+<a name="FIG81A">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図81A: <font color="#006699">MOV R8d,[BP+DI] (奇数)</font></font>
+</td>
+</tr>
+<tr>
+<td bgcolor="silver">
+<a href="https://ldlabo.hishaku.com/NO20/file83.lzh" target="_blank">
+<img src="./FIG81A.jpg" border="0" alt="FIG81A.jpg(38402 byte)" width="485" height="467">
+</a>
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+<a name="FIG81B">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図81B: <font color="#006699">MOV R8d,[BP+DI] (偶数)</font></font>
+</td>
+</tr>
+<tr>
+<td bgcolor="silver">
+<a href="https://ldlabo.hishaku.com/NO20/file84.lzh" target="_blank">
+<img src="./FIG81B.jpg" border="0" alt="FIG81B.jpg(38438 byte)" width="484" height="466">
+</a>
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+</td>
+</tr>
+</tbody></table>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="85%" align="center">
+<tbody><tr><td>
+<a name="53">&nbsp;</a>
+<hr size="7" color="#FF9966">
+<b>　　　MOV R8d,[SI+d8]</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<table width="85%" align="center">
+<tbody><tr>
+<td>
+
+<p class="i">
+<font color="red">図4</font>
+の基本命令構造の命令です。
+<font color="blue">d8</font>
+を指定するための1バイトが追加されています。 
+</p>
+
+<a name="FIG82">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図82: <font color="#006699">MOV R8d,[SI+d8]</font></font>
+</td>
+</tr>
+<tr>
+<td>
+<img src="./FIG82.jpg" border="0" alt="FIG82.jpg(6929 byte)" width="549" height="33">
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+<p class="i">
+本命令ではフラグレジスタは変化しません。
+</p>
+
+<a name="FIG83A">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図83A: <font color="#006699">MOV R8d,[SI+d8] (奇数)</font></font>
+</td>
+</tr>
+<tr>
+<td bgcolor="silver">
+<a href="https://ldlabo.hishaku.com/NO20/file85.lzh" target="_blank">
+<img src="./FIG83A.jpg" border="0" alt="FIG83A.jpg(38024 byte)" width="480" height="447">
+</a>
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+<a name="FIG83B">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図83B: <font color="#006699">MOV R8d,[SI+d8] (偶数)</font></font>
+</td>
+</tr>
+<tr>
+<td bgcolor="silver">
+<a href="https://ldlabo.hishaku.com/NO20/file86.lzh" target="_blank">
+<img src="./FIG83B.jpg" border="0" alt="FIG83B.jpg(35563 byte)" width="486" height="443">
+</a>
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+</td>
+</tr>
+</tbody></table>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="85%" align="center">
+<tbody><tr><td>
+<a name="54">&nbsp;</a>
+<hr size="7" color="#FF9966">
+<b>　　　MOV R8d,[DI+d8]</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<table width="85%" align="center">
+<tbody><tr>
+<td>
+
+<p class="i">
+<font color="red">図4</font>
+の基本命令構造の命令です。
+<font color="blue">d8</font>
+を指定するための1バイトが追加されています。 
+</p>
+
+<a name="FIG84">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図84: <font color="#006699">MOV R8d,[DI+d8]</font></font>
+</td>
+</tr>
+<tr>
+<td>
+<img src="./FIG84.jpg" border="0" alt="FIG84.jpg(6510 byte)" width="545" height="30">
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+<p class="i">
+本命令ではフラグレジスタは変化しません。
+</p>
+
+<a name="FIG85A">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図85A: <font color="#006699">MOV R8d,[DI+d8] (奇数)</font></font>
+</td>
+</tr>
+<tr>
+<td bgcolor="silver">
+<a href="https://ldlabo.hishaku.com/NO20/file87.lzh" target="_blank">
+<img src="./FIG85A.jpg" border="0" alt="FIG85A.jpg(38375 byte)" width="481" height="438">
+</a>
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+<a name="FIG85B">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図85B: <font color="#006699">MOV R8d,[DI+d8] (偶数)</font></font>
+</td>
+</tr>
+<tr>
+<td bgcolor="silver">
+<a href="https://ldlabo.hishaku.com/NO20/file88.lzh" target="_blank">
+<img src="./FIG85B.jpg" border="0" alt="FIG85B.jpg(37218 byte)" width="486" height="453">
+</a>
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+</td>
+</tr>
+</tbody></table>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="85%" align="center">
+<tbody><tr><td>
+<a name="55">&nbsp;</a>
+<hr size="7" color="#FF9966">
+<b>　　　MOV R8d,[BP+d8]</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<table width="85%" align="center">
+<tbody><tr>
+<td>
+
+<p class="i">
+<font color="red">図4</font>
+の基本命令構造の命令です。
+<font color="blue">d8</font>
+を指定するための1バイトが追加されています。 
+</p>
+
+<a name="FIG86">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図86: <font color="#006699">MOV R8d,[BP+d8]</font></font>
+</td>
+</tr>
+<tr>
+<td>
+<img src="./FIG86.jpg" border="0" alt="FIG86.jpg(6865 byte)" width="547" height="33">
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+<p class="i">
+本命令ではフラグレジスタは変化しません。
+</p>
+
+<a name="FIG87A">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図87A: <font color="#006699">MOV R8d,[BP+d8] (奇数)</font></font>
+</td>
+</tr>
+<tr>
+<td bgcolor="silver">
+<a href="https://ldlabo.hishaku.com/NO20/file89.lzh" target="_blank">
+<img src="./FIG87A.jpg" border="0" alt="FIG87A.jpg(37375 byte)" width="486" height="449">
+</a>
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+<a name="FIG87B">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図87B: <font color="#006699">MOV R8d,[BP+d8] (偶数)</font></font>
+</td>
+</tr>
+<tr>
+<td bgcolor="silver">
+<a href="https://ldlabo.hishaku.com/NO20/file90.lzh" target="_blank">
+<img src="./FIG87B.jpg" border="0" alt="FIG87B.jpg(37501 byte)" width="471" height="448">
+</a>
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+</td>
+</tr>
+</tbody></table>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="85%" align="center">
+<tbody><tr><td>
+<a name="56">&nbsp;</a>
+<hr size="7" color="#FF9966">
+<b>　　　MOV R8d,[BX+d8]</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<table width="85%" align="center">
+<tbody><tr>
+<td>
+
+<p class="i">
+<font color="red">図4</font>
+の基本命令構造の命令です。
+<font color="blue">d8</font>
+を指定するための1バイトが追加されています。 
+</p>
+
+<a name="FIG88">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図88: <font color="#006699">MOV R8d,[BX+d8]</font></font>
+</td>
+</tr>
+<tr>
+<td>
+<img src="./FIG88.jpg" border="0" alt="FIG88.jpg(6709 byte)" width="547" height="32">
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+<p class="i">
+本命令ではフラグレジスタは変化しません。
+</p>
+
+<a name="FIG89A">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図89A: <font color="#006699">MOV R8d,[BX+d8] (奇数)</font></font>
+</td>
+</tr>
+<tr>
+<td bgcolor="silver">
+<a href="https://ldlabo.hishaku.com/NO20/file91.lzh" target="_blank">
+<img src="./FIG89A.jpg" border="0" alt="FIG89A.jpg(33678 byte)" width="482" height="414">
+</a>
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+<a name="FIG89B">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図89B: <font color="#006699">MOV R8d,[BX+d8] (偶数)</font></font>
+</td>
+</tr>
+<tr>
+<td bgcolor="silver">
+<a href="https://ldlabo.hishaku.com/NO20/file92.lzh" target="_blank">
+<img src="./FIG89B.jpg" border="0" alt="FIG89B.jpg(31992 byte)" width="478" height="410">
+</a>
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+</td>
+</tr>
+</tbody></table>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="85%" align="center">
+<tbody><tr><td>
+<a name="57">&nbsp;</a>
+<hr size="7" color="#FF9966">
+<b>　　　MOV R8d,[BX+SI+d8]</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<table width="85%" align="center">
+<tbody><tr>
+<td>
+
+<p class="i">
+<font color="red">図4</font>
+の基本命令構造の命令です。
+<font color="blue">d8</font>
+を指定するための1バイトが追加されています。 
+</p>
+
+<a name="FIG90">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図90: <font color="#006699">MOV R8d,[BX+SI+d8]</font></font>
+</td>
+</tr>
+<tr>
+<td>
+<img src="./FIG90.jpg" border="0" alt="FIG90.jpg(6578 byte)" width="545" height="29">
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+<p class="i">
+本命令ではフラグレジスタは変化しません。
+</p>
+
+<a name="FIG91A">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図91A: <font color="#006699">MOV R8d,[BX+SI+d8] (奇数)</font></font>
+</td>
+</tr>
+<tr>
+<td bgcolor="silver">
+<a href="https://ldlabo.hishaku.com/NO20/file93.lzh" target="_blank">
+<img src="./FIG91A.jpg" border="0" alt="FIG91A.jpg(38378 byte)" width="511" height="435">
+</a>
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+<a name="FIG91B">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図91B: <font color="#006699">MOV R8d,[BX+SI+d8] (偶数)</font></font>
+</td>
+</tr>
+<tr>
+<td bgcolor="silver">
+<a href="https://ldlabo.hishaku.com/NO20/file94.lzh" target="_blank">
+<img src="./FIG91B.jpg" border="0" alt="FIG91B.jpg(37369 byte)" width="512" height="435">
+</a>
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+</td>
+</tr>
+</tbody></table>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="85%" align="center">
+<tbody><tr><td>
+<a name="58">&nbsp;</a>
+<hr size="7" color="#FF9966">
+<b>　　　MOV R8d,[BX+DI+d8]</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<table width="85%" align="center">
+<tbody><tr>
+<td>
+
+<p class="i">
+<font color="red">図4</font>
+の基本命令構造の命令です。
+<font color="blue">d8</font>
+を指定するための1バイトが追加されています。 
+</p>
+
+<a name="FIG92">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図92: <font color="#006699">MOV R8d,[BX+DI+d8]</font></font>
+</td>
+</tr>
+<tr>
+<td>
+<img src="./FIG92.jpg" border="0" alt="FIG92.jpg(6584 byte)" width="546" height="29">
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+<p class="i">
+本命令ではフラグレジスタは変化しません。
+</p>
+
+<a name="FIG93A">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図93A: <font color="#006699">MOV R8d,[BX+DI+d8] (奇数)</font></font>
+</td>
+</tr>
+<tr>
+<td bgcolor="silver">
+<a href="https://ldlabo.hishaku.com/NO20/file95.lzh" target="_blank">
+<img src="./FIG93A.jpg" border="0" alt="FIG93A.jpg(36013 byte)" width="501" height="426">
+</a>
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+<a name="FIG93B">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図93B: <font color="#006699">MOV R8d,[BX+DI+d8] (偶数)</font></font>
+</td>
+</tr>
+<tr>
+<td bgcolor="silver">
+<a href="https://ldlabo.hishaku.com/NO20/file96.lzh" target="_blank">
+<img src="./FIG93B.jpg" border="0" alt="FIG93B.jpg(35231 byte)" width="492" height="425">
+</a>
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+</td>
+</tr>
+</tbody></table>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="85%" align="center">
+<tbody><tr><td>
+<a name="59">&nbsp;</a>
+<hr size="7" color="#FF9966">
+<b>　　　MOV R8d,[BP+SI+d8]</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<table width="85%" align="center">
+<tbody><tr>
+<td>
+
+<p class="i">
+<font color="red">図4</font>
+の基本命令構造の命令です。
+<font color="blue">d8</font>
+を指定するための1バイトが追加されています。 
+</p>
+
+<a name="FIG94">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図94: <font color="#006699">MOV R8d,[BP+SI+d8]</font></font>
+</td>
+</tr>
+<tr>
+<td>
+<img src="./FIG94.jpg" border="0" alt="FIG94.jpg(6597 byte)" width="546" height="29">
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+<p class="i">
+本命令ではフラグレジスタは変化しません。
+</p>
+
+<a name="FIG95A">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図95A: <font color="#006699">MOV R8d,[BP+SI+d8] (奇数)</font></font>
+</td>
+</tr>
+<tr>
+<td bgcolor="silver">
+<a href="https://ldlabo.hishaku.com/NO20/file97.lzh" target="_blank">
+<img src="./FIG95A.jpg" border="0" alt="FIG95A.jpg(40229 byte)" width="505" height="456">
+</a>
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+<a name="FIG95B">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図95B: <font color="#006699">MOV R8d,[BP+SI+d8] (偶数)</font></font>
+</td>
+</tr>
+<tr>
+<td bgcolor="silver">
+<a href="https://ldlabo.hishaku.com/NO20/file98.lzh" target="_blank">
+<img src="./FIG95B.jpg" border="0" alt="FIG95B.jpg(41561 byte)" width="487" height="457">
+</a>
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+</td>
+</tr>
+</tbody></table>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="85%" align="center">
+<tbody><tr><td>
+<a name="60">&nbsp;</a>
+<hr size="7" color="#FF9966">
+<b>　　　MOV R8d,[BP+DI+d8]</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<table width="85%" align="center">
+<tbody><tr>
+<td>
+
+<p class="i">
+<font color="red">図4</font>
+の基本命令構造の命令です。
+<font color="blue">d8</font>
+を指定するための1バイトが追加されています。 
+</p>
+
+<a name="FIG96">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図96: <font color="#006699">MOV R8d,[BP+DI+d8]</font></font>
+</td>
+</tr>
+<tr>
+<td>
+<img src="./FIG96.jpg" border="0" alt="FIG96.jpg(6740 byte)" width="548" height="31">
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+<p class="i">
+本命令ではフラグレジスタは変化しません。
+</p>
+
+<a name="FIG97A">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図97A: <font color="#006699">MOV R8d,[BP+DI+d8] (奇数)</font></font>
+</td>
+</tr>
+<tr>
+<td bgcolor="silver">
+<a href="https://ldlabo.hishaku.com/NO20/file99.lzh" target="_blank">
+<img src="./FIG97A.jpg" border="0" alt="FIG97A.jpg(43505 byte)" width="504" height="459">
+</a>
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+<a name="FIG97B">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図97B: <font color="#006699">MOV R8d,[BP+DI+d8] (偶数)</font></font>
+</td>
+</tr>
+<tr>
+<td bgcolor="silver">
+<a href="https://ldlabo.hishaku.com/NO20/file100.lzh" target="_blank">
+<img src="./FIG97B.jpg" border="0" alt="FIG97B.jpg(40078 byte)" width="500" height="469">
+</a>
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+</td>
+</tr>
+</tbody></table>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="85%" align="center">
+<tbody><tr><td>
+<a name="61">&nbsp;</a>
+<hr size="7" color="#FF9966">
+<b>　　　MOV R8d,[SI+d16]</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<table width="85%" align="center">
+<tbody><tr>
+<td>
+
+<p class="i">
+<font color="red">図4</font>
+の基本命令構造の命令です。
+<font color="blue">d16</font>
+を指定するための2バイトが追加されています。 
+</p>
+
+<a name="FIG98">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図98: <font color="#006699">MOV R8d,[SI+d16]</font></font>
+</td>
+</tr>
+<tr>
+<td>
+<img src="./FIG98.jpg" border="0" alt="FIG98.jpg(8698 byte)" width="544" height="61">
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+<p class="i">
+本命令ではフラグレジスタは変化しません。
+</p>
+
+<a name="FIG99A">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図99A: <font color="#006699">MOV R8d,[SI+d16] (奇数)</font></font>
+</td>
+</tr>
+<tr>
+<td bgcolor="silver">
+<a href="https://ldlabo.hishaku.com/NO20/file101.lzh" target="_blank">
+<img src="./FIG99A.jpg" border="0" alt="FIG99A.jpg(42163 byte)" width="498" height="448">
+</a>
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+<a name="FIG99B">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図99B: <font color="#006699">MOV R8d,[SI+d16] (偶数)</font></font>
+</td>
+</tr>
+<tr>
+<td bgcolor="silver">
+<a href="https://ldlabo.hishaku.com/NO20/file102.lzh" target="_blank">
+<img src="./FIG99B.jpg" border="0" alt="FIG99B.jpg(38075 byte)" width="478" height="451">
+</a>
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+</td>
+</tr>
+</tbody></table>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="85%" align="center">
+<tbody><tr><td>
+<a name="62">&nbsp;</a>
+<hr size="7" color="#FF9966">
+<b>　　　MOV R8d,[DI+d16]</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<table width="85%" align="center">
+<tbody><tr>
+<td>
+
+<p class="i">
+<font color="red">図4</font>
+の基本命令構造の命令です。
+<font color="blue">d16</font>
+を指定するための2バイトが追加されています。 
+</p>
+
+<a name="FIG100">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図100: <font color="#006699">MOV R8d,[DI+d16]</font></font>
+</td>
+</tr>
+<tr>
+<td>
+<img src="./FIG100.jpg" border="0" alt="FIG100.jpg(8952 byte)" width="551" height="68">
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+<p class="i">
+本命令ではフラグレジスタは変化しません。
+</p>
+
+<a name="FIG101A">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図101A: <font color="#006699">MOV R8d,[DI+d16] (奇数)</font></font>
+</td>
+</tr>
+<tr>
+<td bgcolor="silver">
+<a href="https://ldlabo.hishaku.com/NO20/file103.lzh" target="_blank">
+<img src="./FIG101A.jpg" border="0" alt="FIG101A.jpg(42212 byte)" width="500" height="449">
+</a>
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+<a name="FIG101B">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図101B: <font color="#006699">MOV R8d,[DI+d16] (偶数)</font></font>
+</td>
+</tr>
+<tr>
+<td bgcolor="silver">
+<a href="https://ldlabo.hishaku.com/NO20/file104.lzh" target="_blank">
+<img src="./FIG101B.jpg" border="0" alt="FIG101B.jpg(40188 byte)" width="484" height="451">
+</a>
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+</td>
+</tr>
+</tbody></table>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="85%" align="center">
+<tbody><tr><td>
+<a name="63">&nbsp;</a>
+<hr size="7" color="#FF9966">
+<b>　　　MOV R8d,[BP+d16]</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<table width="85%" align="center">
+<tbody><tr>
+<td>
+
+<p class="i">
+<font color="red">図4</font>
+の基本命令構造の命令です。
+<font color="blue">d16</font>
+を指定するための2バイトが追加されています。 
+</p>
+
+<a name="FIG102">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図102: <font color="#006699">MOV R8d,[BP+d16]</font></font>
+</td>
+</tr>
+<tr>
+<td>
+<img src="./FIG102.jpg" border="0" alt="FIG102.jpg(9089 byte)" width="547" height="65">
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+<p class="i">
+本命令ではフラグレジスタは変化しません。
+</p>
+
+<a name="FIG103A">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図103A: <font color="#006699">MOV R8d,[BP+d16] (奇数)</font></font>
+</td>
+</tr>
+<tr>
+<td bgcolor="silver">
+<a href="https://ldlabo.hishaku.com/NO20/file105.lzh" target="_blank">
+<img src="./FIG103A.jpg" border="0" alt="FIG103A.jpg(40024 byte)" width="496" height="445">
+</a>
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+<a name="FIG103B">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図103B: <font color="#006699">MOV R8d,[BP+d16] (偶数)</font></font>
+</td>
+</tr>
+<tr>
+<td bgcolor="silver">
+<a href="https://ldlabo.hishaku.com/NO20/file106.lzh" target="_blank">
+<img src="./FIG103B.jpg" border="0" alt="FIG103B.jpg(41826 byte)" width="489" height="453">
+</a>
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+</td>
+</tr>
+</tbody></table>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="85%" align="center">
+<tbody><tr><td>
+<a name="64">&nbsp;</a>
+<hr size="7" color="#FF9966">
+<b>　　　MOV R8d,[BX+d16]</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<table width="85%" align="center">
+<tbody><tr>
+<td>
+
+<p class="i">
+<font color="red">図4</font>
+の基本命令構造の命令です。
+<font color="blue">d16</font>
+を指定するための2バイトが追加されています。 
+</p>
+
+<a name="FIG104">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図104: <font color="#006699">MOV R8d,[BX+d16]</font></font>
+</td>
+</tr>
+<tr>
+<td>
+<img src="./FIG104.jpg" border="0" alt="FIG104.jpg(8904 byte)" width="546" height="62">
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+<p class="i">
+本命令ではフラグレジスタは変化しません。
+</p>
+
+<a name="FIG105A">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図105A: <font color="#006699">MOV R8d,[BX+d16] (奇数)</font></font>
+</td>
+</tr>
+<tr>
+<td bgcolor="silver">
+<a href="https://ldlabo.hishaku.com/NO20/file107.lzh" target="_blank">
+<img src="./FIG105A.jpg" border="0" alt="FIG105A.jpg(35579 byte)" width="497" height="416">
+</a>
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+<a name="FIG105B">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図105B: <font color="#006699">MOV R8d,[BX+d16] (偶数)</font></font>
+</td>
+</tr>
+<tr>
+<td bgcolor="silver">
+<a href="https://ldlabo.hishaku.com/NO20/file108.lzh" target="_blank">
+<img src="./FIG105B.jpg" border="0" alt="FIG105B.jpg(34800 byte)" width="489" height="421">
+</a>
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+</td>
+</tr>
+</tbody></table>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="85%" align="center">
+<tbody><tr><td>
+<a name="65">&nbsp;</a>
+<hr size="7" color="#FF9966">
+<b>　　　MOV R8d,[BX+SI+d16]</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<table width="85%" align="center">
+<tbody><tr>
+<td>
+
+<p class="i">
+<font color="red">図4</font>
+の基本命令構造の命令です。
+<font color="blue">d16</font>
+を指定するための2バイトが追加されています。 
+</p>
+
+<a name="FIG106">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図106: <font color="#006699">MOV R8d,[BX+SI+d16]</font></font>
+</td>
+</tr>
+<tr>
+<td>
+<img src="./FIG106.jpg" border="0" alt="FIG106.jpg(8966 byte)" width="546" height="63">
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+<p class="i">
+本命令ではフラグレジスタは変化しません。
+</p>
+
+<a name="FIG107A">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図107A: <font color="#006699">MOV R8d,[BX+SI+d16] (奇数)</font></font>
+</td>
+</tr>
+<tr>
+<td bgcolor="silver">
+<a href="https://ldlabo.hishaku.com/NO20/file109.lzh" target="_blank">
+<img src="./FIG107A.jpg" border="0" alt="FIG107A.jpg(37878 byte)" width="513" height="428">
+</a>
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+<a name="FIG107B">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図107B: <font color="#006699">MOV R8d,[BX+SI+d16] (偶数)</font></font>
+</td>
+</tr>
+<tr>
+<td bgcolor="silver">
+<a href="https://ldlabo.hishaku.com/NO20/file110.lzh" target="_blank">
+<img src="./FIG107B.jpg" border="0" alt="FIG107B.jpg(37417 byte)" width="515" height="432">
+</a>
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+</td>
+</tr>
+</tbody></table>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="85%" align="center">
+<tbody><tr><td>
+<a name="66">&nbsp;</a>
+<hr size="7" color="#FF9966">
+<b>　　　MOV R8d,[BX+DI+d16]</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<table width="85%" align="center">
+<tbody><tr>
+<td>
+
+<p class="i">
+<font color="red">図4</font>
+の基本命令構造の命令です。
+<font color="blue">d16</font>
+を指定するための2バイトが追加されています。 
+</p>
+
+<a name="FIG108">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図108: <font color="#006699">MOV R8d,[BX+DI+d16]</font></font>
+</td>
+</tr>
+<tr>
+<td>
+<img src="./FIG108.jpg" border="0" alt="FIG108.jpg(8925 byte)" width="549" height="64">
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+<p class="i">
+本命令ではフラグレジスタは変化しません。
+</p>
+
+<a name="FIG109A">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図109A: <font color="#006699">MOV R8d,[BX+DI+d16] (奇数)</font></font>
+</td>
+</tr>
+<tr>
+<td bgcolor="silver">
+<a href="https://ldlabo.hishaku.com/NO20/file111.lzh" target="_blank">
+<img src="./FIG109A.jpg" border="0" alt="FIG109A.jpg(37715 byte)" width="515" height="437">
+</a>
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+<a name="FIG109B">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図109B: <font color="#006699">MOV R8d,[BX+DI+d16] (偶数)</font></font>
+</td>
+</tr>
+<tr>
+<td bgcolor="silver">
+<a href="https://ldlabo.hishaku.com/NO20/file112.lzh" target="_blank">
+<img src="./FIG109B.jpg" border="0" alt="FIG109B.jpg(39761 byte)" width="504" height="429">
+</a>
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+</td>
+</tr>
+</tbody></table>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="85%" align="center">
+<tbody><tr><td>
+<a name="67">&nbsp;</a>
+<hr size="7" color="#FF9966">
+<b>　　　MOV R8d,[BP+SI+d16]</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<table width="85%" align="center">
+<tbody><tr>
+<td>
+
+<p class="i">
+<font color="red">図4</font>
+の基本命令構造の命令です。
+<font color="blue">d16</font>
+を指定するための2バイトが追加されています。 
+</p>
+
+<a name="FIG110">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図110: <font color="#006699">MOV R8d,[BP+SI+d16]</font></font>
+</td>
+</tr>
+<tr>
+<td>
+<img src="./FIG110.jpg" border="0" alt="FIG110.jpg(8960 byte)" width="545" height="62">
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+<p class="i">
+本命令ではフラグレジスタは変化しません。
+</p>
+
+<a name="FIG111A">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図111A: <font color="#006699">MOV R8d,[BP+SI+d16] (奇数)</font></font>
+</td>
+</tr>
+<tr>
+<td bgcolor="silver">
+<a href="https://ldlabo.hishaku.com/NO20/file113.lzh" target="_blank">
+<img src="./FIG111A.jpg" border="0" alt="FIG111A.jpg(45874 byte)" width="521" height="465">
+</a>
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+<a name="FIG111B">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図111B: <font color="#006699">MOV R8d,[BP+SI+d16] (偶数)</font></font>
+</td>
+</tr>
+<tr>
+<td bgcolor="silver">
+<a href="https://ldlabo.hishaku.com/NO20/file114.lzh" target="_blank">
+<img src="./FIG111B.jpg" border="0" alt="FIG111B.jpg(44692 byte)" width="514" height="471">
+</a>
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+</td>
+</tr>
+</tbody></table>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="85%" align="center">
+<tbody><tr><td>
+<a name="68">&nbsp;</a>
+<hr size="7" color="#FF9966">
+<b>　　　MOV R8d,[BP+DI+d16]</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<table width="85%" align="center">
+<tbody><tr>
+<td>
+
+<p class="i">
+<font color="red">図4</font>
+の基本命令構造の命令です。
+<font color="blue">d16</font>
+を指定するための2バイトが追加されています。 
+</p>
+
+<a name="FIG112">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図112: <font color="#006699">MOV R8d,[BP+DI+d16]</font></font>
+</td>
+</tr>
+<tr>
+<td>
+<img src="./FIG112.jpg" border="0" alt="FIG112.jpg(9014 byte)" width="548" height="66">
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+<p class="i">
+本命令ではフラグレジスタは変化しません。
+</p>
+
+<a name="FIG113A">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図113A: <font color="#006699">MOV R8d,[BP+DI+d16] (奇数)</font></font>
+</td>
+</tr>
+<tr>
+<td bgcolor="silver">
+<a href="https://ldlabo.hishaku.com/NO20/file115.lzh" target="_blank">
+<img src="./FIG113A.jpg" border="0" alt="FIG113A.jpg(42982 byte)" width="520" height="455">
+</a>
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+<a name="FIG113B">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図113B: <font color="#006699">MOV R8d,[BP+DI+d16] (偶数)</font></font>
+</td>
+</tr>
+<tr>
+<td bgcolor="silver">
+<a href="https://ldlabo.hishaku.com/NO20/file116.lzh" target="_blank">
+<img src="./FIG113B.jpg" border="0" alt="FIG113B.jpg(45701 byte)" width="504" height="466">
+</a>
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+</td>
+</tr>
+</tbody></table>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="85%" align="center">
+<tbody><tr><td>
+<a name="69">&nbsp;</a>
+<hr size="7" color="#FF9966">
+<b>　　　MOV SRd,R16s</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<table width="85%" align="center">
+<tbody><tr>
+<td>
+
+<p class="i">
+<font color="red">図4</font>
+の基本命令構造の命令ですが受けのレジスタがセグメントレジスタです。
+</p>
+
+<a name="FIG114">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図114: <font color="#006699">MOV SRd,R16s</font></font>
+</td>
+</tr>
+<tr>
+<td>
+<img src="./FIG114.jpg" border="0" alt="FIG114.jpg(4543 byte)" width="347" height="27">
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+<a name="FIG116">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図116: <font color="#006699">セグメントレジスタ選択</font></font>
+</td>
+</tr>
+<tr>
+<td>
+<img src="./FIG116.jpg" border="0" alt="FIG116.jpg(7231 byte)" width="190" height="111">
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+<p class="i">
+本命令ではフラグレジスタは変化しません。
+</p>
+
+<a name="FIG115">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図115: <font color="#006699">MOV SRd,R16s</font></font>
+</td>
+</tr>
+<tr>
+<td bgcolor="silver">
+<a href="https://ldlabo.hishaku.com/NO20/file117.lzh" target="_blank">
+<img src="./FIG115A.jpg" border="0" alt="FIG115A.jpg(73874 byte)" width="511" height="812" align="left"><br clear="left">
+<img src="./FIG115B.jpg" border="0" alt="FIG115B.jpg(19169 byte)" width="507" height="251" align="left">
+</a>
+</td>
+</tr>
+</tbody></table>
+
+</td>
+</tr>
+</tbody></table>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="85%" align="center">
+<tbody><tr><td>
+<a name="70">&nbsp;</a>
+<hr size="7" color="#FF9966">
+<b>　　　MOV SRd,mem</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<table width="85%" align="center">
+<tbody><tr>
+<td>
+
+<p class="i">
+<font color="red">図4</font>
+の基本命令構造の命令ですが受けのレジスタがセグメントレジスタです。
+番地を指定するための2バイトが追加されています。 
+セグメントレジスタの選択は
+<font color="red">図116</font>
+を見てください。
+</p>
+
+<a name="FIG117">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図117: <font color="#006699">MOV SRd,mem</font></font>
+</td>
+</tr>
+<tr>
+<td>
+<img src="./FIG117.jpg" border="0" alt="FIG117.jpg(9129 byte)" width="538" height="61">
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+<p class="i">
+本命令ではフラグレジスタは変化しません。
+</p>
+
+<a name="FIG118A">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図118A: <font color="#006699">MOV SRd,mem (偶数)</font></font>
+</td>
+</tr>
+<tr>
+<td bgcolor="silver">
+<a href="https://ldlabo.hishaku.com/NO20/file118.lzh" target="_blank">
+<img src="./FIG118A.jpg" border="0" alt="FIG118A.jpg(39173 byte)" width="454" height="479">
+</a>
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+<a name="FIG118B">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図118B: <font color="#006699">MOV SRd,mem (奇数)</font></font>
+</td>
+</tr>
+<tr>
+<td bgcolor="silver">
+<a href="https://ldlabo.hishaku.com/NO20/file119.lzh" target="_blank">
+<img src="./FIG118B.jpg" border="0" alt="FIG118B.jpg(38602 byte)" width="456" height="484">
+</a>
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+</td>
+</tr>
+</tbody></table>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="85%" align="center">
+<tbody><tr><td>
+<a name="71">&nbsp;</a>
+<hr size="7" color="#FF9966">
+<b>　　　MOV SRs,R16d</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<table width="85%" align="center">
+<tbody><tr>
+<td>
+
+<p class="i">
+<font color="red">図4</font>
+の基本命令構造の命令ですが受けのレジスタがセグメントレジスタです。
+セグメントレジスタの選択は
+<font color="red">図116</font>
+を見てください。
+</p>
+
+<a name="FIG119">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図119: <font color="#006699">MOV SRs,R16d</font></font>
+</td>
+</tr>
+<tr>
+<td>
+<img src="./FIG119.jpg" border="0" alt="FIG119.jpg(5640 byte)" width="366" height="34">
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+<p class="i">
+本命令ではフラグレジスタは変化しません。
+</p>
+
+<a name="FIG120">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図120: <font color="#006699">MOV SRs,R16d</font></font>
+</td>
+</tr>
+<tr>
+<td bgcolor="silver">
+<a href="https://ldlabo.hishaku.com/NO20/file120.lzh" target="_blank">
+<img src="./FIG120A.jpg" border="0" alt="FIG120A.jpg(73722 byte)" width="509" height="801" align="left"><br clear="left">
+<img src="./FIG120B.jpg" border="0" alt="FIG120B.jpg(3579 byte)" width="506" height="100" align="left">
+</a>
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+</td>
+</tr>
+</tbody></table>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="85%" align="center">
+<tbody><tr><td>
+<a name="72">&nbsp;</a>
+<hr size="7" color="#FF9966">
+<b>　　　MOV mem,SRs</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<table width="85%" align="center">
+<tbody><tr>
+<td>
+
+<p class="i">
+<font color="red">図4</font>
+の基本命令構造の命令ですが送りのレジスタがセグメントレジスタです。
+番地を指定するための2バイトが追加されています。
+セグメントレジスタの選択は
+<font color="red">図116</font>
+を見てください。
+</p>
+
+<a name="FIG121">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図121: <font color="#006699">MOV mem,SRs</font></font>
+</td>
+</tr>
+<tr>
+<td>
+<img src="./FIG121.jpg" border="0" alt="FIG121.jpg(9399 byte)" width="562" height="74">
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+<p class="i">
+本命令ではフラグレジスタは変化しません。
+</p>
+
+<a name="FIG122A">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図122A: <font color="#006699">MOV mem,SRs (奇数)</font></font>
+</td>
+</tr>
+<tr>
+<td bgcolor="silver">
+<a href="https://ldlabo.hishaku.com/NO20/file121.lzh" target="_blank">
+<img src="./FIG122A.jpg" border="0" alt="FIG122A.jpg(41594 byte)" width="475" height="481">
+</a>
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+<a name="FIG122B">&nbsp;</a><table border="0" class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図122B: <font color="#006699">MOV mem,SRs (偶数)</font></font>
+</td>
+</tr>
+<tr>
+<td bgcolor="silver">
+<a href="https://ldlabo.hishaku.com/NO20/file122.lzh" target="_blank">
+<img src="./FIG122B.jpg" border="0" alt="FIG122B.jpg(38636 byte)" width="475" height="476">
+</a>
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+</td>
+</tr>
+</tbody></table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<br clear="left"><br><br><hr><br><br>
+
+
+
+</body></html>

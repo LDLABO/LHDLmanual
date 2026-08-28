@@ -1,0 +1,189 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+	
+    <link type="text/css" rel="stylesheet" href="./main.css">
+	<title></title>
+</head>
+
+<body bgcolor="#DEDD80">
+
+<a href="hontai.html#1" target="top"><font color="black" size="3"><b>8086</b></font></a>
+<hr>
+
+<b><font size="2" color="gray">目次</font></b>
+<hr>
+
+<font color="green" size="1">●</font><a href="hontai.html#2" target="top"><font color="green" size="2">レジスタセット</font></a>
+<br>
+<font color="green" size="1">●</font><a href="hontai.html#3" target="top"><font color="green" size="2">フラグレジスタ</font></a>
+<br>
+<font color="green" size="1">●</font><a href="hontai.html#4" target="top"><font color="green" size="2">セグメント</font></a>
+<br>
+<font color="green" size="1">◎</font><a href="hontai.html#5" target="top"><font color="#CC3399" size="2">セグメントレジスタ</font></a>
+<br>
+<font color="green" size="1">◎</font><a href="hontai.html#6" target="top"><font color="#CC3399" size="2">CSレジスタ</font></a>
+<br>
+<font color="green" size="1">◎</font><a href="hontai.html#7" target="top"><font color="#CC3399" size="2">DSレジスタ</font></a>
+<br>
+<font color="green" size="1">◎</font><a href="hontai.html#8" target="top"><font color="#CC3399" size="2">SSレジスタ</font></a>
+<br>
+<font color="green" size="1">◎</font><a href="hontai.html#9" target="top"><font color="#CC3399" size="2">ESレジスタ</font></a>
+<br>
+<font color="green" size="1">●</font><a href="hontai.html#10" target="top"><font color="green" size="2">初期化</font></a>
+<br>
+<font color="green" size="1">●</font><a href="hontai.html#11" target="top"><font color="green" size="2">メモリ操作</font></a>
+<br>
+<font color="green" size="1">●</font><a href="hontai.html#12" target="top"><font color="green" size="2">命令</font></a>
+<br>
+<font color="green" size="1">◎</font><a href="hontai.html#13" target="top"><font color="#CC3399" size="2">構造</font></a>
+<br>
+<font color="green" size="1">●</font><a href="hontai.html#14" target="top"><font color="green" size="2">MOV命令</font></a>
+<br>
+<font color="green" size="1">◎</font><a href="hontai.html#15" target="top"><font color="#CC3399" size="2">MOV AX ,mem</font></a>
+<br>
+<font color="green" size="1">◎</font><a href="hontai.html#16" target="top"><font color="#CC3399" size="2">MOV AL ,mem</font></a>
+<br>
+<font color="green" size="1">◎</font><a href="hontai.html#17" target="top"><font color="#CC3399" size="2">MOV mem ,AX</font></a>
+<br>
+<font color="green" size="1">◎</font><a href="hontai.html#18" target="top"><font color="#CC3399" size="2">MOV mem ,AL</font></a>
+<br>
+<font color="green" size="1">◎</font><a href="hontai.html#19" target="top"><font color="#CC3399" size="2">MOV R16d,R16s</font></a>
+<br>
+<font color="green" size="1">◎</font><a href="hontai.html#20" target="top"><font color="#CC3399" size="2">MOV R8d,R8s</font></a>
+<br>
+<font color="green" size="1">◎</font><a href="hontai.html#21" target="top"><font color="#CC3399" size="2">MOV R16d,mem</font></a>
+<br>
+<font color="green" size="1">◎</font><a href="hontai.html#22" target="top"><font color="#CC3399" size="2">MOV R16d,[BX]</font></a>
+<br>
+<font color="green" size="1">◎</font><a href="hontai.html#23" target="top"><font color="#CC3399" size="2">MOV R16d,[SI]</font></a>
+<br>
+<font color="green" size="1">◎</font><a href="hontai.html#24" target="top"><font color="#CC3399" size="2">MOV R16d,[DI]</font></a>
+<br>
+<font color="green" size="1">◎</font><a href="hontai.html#25" target="top"><font color="#CC3399" size="2">MOV R16d,[BX+SI]</font></a>
+<br>
+<font color="green" size="1">◎</font><a href="hontai.html#26" target="top"><font color="#CC3399" size="2">MOV R16d,[BX+DI]</font></a>
+<br>
+<font color="green" size="1">◎</font><a href="hontai.html#27" target="top"><font color="#CC3399" size="2">MOV R16d,[BP+SI]</font></a>
+<br>
+<font color="green" size="1">◎</font><a href="hontai.html#28" target="top"><font color="#CC3399" size="2">MOV R16d,[BP+DI]</font></a>
+<br>
+<font color="green" size="1">◎</font><a href="hontai.html#29" target="top"><font color="#CC3399" size="2">MOV R16d,[SI+d8]</font></a>
+<br>
+<font color="green" size="1">◎</font><a href="hontai.html#30" target="top"><font color="#CC3399" size="2">MOV R16d,[DI+d8]</font></a>
+<br>
+<font color="green" size="1">◎</font><a href="hontai.html#31" target="top"><font color="#CC3399" size="2">MOV R16d,[BX+d8]</font></a>
+<br>
+<font color="green" size="1">◎</font><a href="hontai.html#32" target="top"><font color="#CC3399" size="2">MOV R16d,[BP+d8]</font></a>
+<br>
+<font color="green" size="1">◎</font><a href="hontai.html#33" target="top"><font color="#CC3399" size="2">MOV R16d,[BX+SI+d8]</font></a>
+<br>
+<font color="green" size="1">◎</font><a href="hontai.html#34" target="top"><font color="#CC3399" size="2">MOV R16d,[BX+DI+d8]</font></a>
+<br>
+<font color="green" size="1">◎</font><a href="hontai.html#35" target="top"><font color="#CC3399" size="2">MOV R16d,[BP+SI+d8]</font></a>
+<br>
+<font color="green" size="1">◎</font><a href="hontai.html#36" target="top"><font color="#CC3399" size="2">MOV R16d,[BP+DI+d8]</font></a>
+<br>
+<font color="green" size="1">◎</font><a href="hontai.html#37" target="top"><font color="#CC3399" size="2">MOV R16d,[SI+d16]</font></a>
+<br>
+<font color="green" size="1">◎</font><a href="hontai.html#38" target="top"><font color="#CC3399" size="2">MOV R16d,[DI+d16]</font></a>
+<br>
+<font color="green" size="1">◎</font><a href="hontai.html#39" target="top"><font color="#CC3399" size="2">MOV R16d,[BP+d16]</font></a>
+<br>
+<font color="green" size="1">◎</font><a href="hontai.html#40" target="top"><font color="#CC3399" size="2">MOV R16d,[BX+d16]</font></a>
+<br>
+<font color="green" size="1">◎</font><a href="hontai.html#41" target="top"><font color="#CC3399" size="2">MOV R16d,[BX+SI+d16]</font></a>
+<br>
+<font color="green" size="1">◎</font><a href="hontai.html#42" target="top"><font color="#CC3399" size="2">MOV R16d,[BX+DI+d16]</font></a>
+<br>
+<font color="green" size="1">◎</font><a href="hontai.html#43" target="top"><font color="#CC3399" size="2">MOV R16d,[BP+SI+d16]</font></a>
+<br>
+<font color="green" size="1">◎</font><a href="hontai.html#44" target="top"><font color="#CC3399" size="2">MOV R16d,[BP+DI+d16]</font></a>
+<br>
+<font color="green" size="1">◎</font><a href="hontai.html#45" target="top"><font color="#CC3399" size="2">MOV R8d,mem</font></a>
+<br>
+<font color="green" size="1">◎</font><a href="hontai.html#46" target="top"><font color="#CC3399" size="2">MOV R8d,[BX]</font></a>
+<br>
+<font color="green" size="1">◎</font><a href="hontai.html#47" target="top"><font color="#CC3399" size="2">MOV R8d,[SI]</font></a>
+<br>
+<font color="green" size="1">◎</font><a href="hontai.html#48" target="top"><font color="#CC3399" size="2">MOV R8d,[DI]</font></a>
+<br>
+<font color="green" size="1">◎</font><a href="hontai.html#49" target="top"><font color="#CC3399" size="2">MOV R8d,[BX+SI]</font></a>
+<br>
+<font color="green" size="1">◎</font><a href="hontai.html#50" target="top"><font color="#CC3399" size="2">MOV R8d,[BX+DI]</font></a>
+<br>
+<font color="green" size="1">◎</font><a href="hontai.html#51" target="top"><font color="#CC3399" size="2">MOV R8d,[BP+SI]</font></a>
+<br>
+<font color="green" size="1">◎</font><a href="hontai.html#52" target="top"><font color="#CC3399" size="2">MOV R8d,[BP+DI]</font></a>
+<br>
+<font color="green" size="1">◎</font><a href="hontai.html#53" target="top"><font color="#CC3399" size="2">MOV R8d,[SI+d8]</font></a>
+<br>
+<font color="green" size="1">◎</font><a href="hontai.html#54" target="top"><font color="#CC3399" size="2">MOV R8d,[DI+d8]</font></a>
+<br>
+<font color="green" size="1">◎</font><a href="hontai.html#55" target="top"><font color="#CC3399" size="2">MOV R8d,[BP+d8]</font></a>
+<br>
+<font color="green" size="1">◎</font><a href="hontai.html#56" target="top"><font color="#CC3399" size="2">MOV R8d,[BX+d8]</font></a>
+<br>
+<font color="green" size="1">◎</font><a href="hontai.html#57" target="top"><font color="#CC3399" size="2">MOV R8d,[BX+SI+d8]</font></a>
+<br>
+<font color="green" size="1">◎</font><a href="hontai.html#58" target="top"><font color="#CC3399" size="2">MOV R8d,[BX+DI+d8]</font></a>
+<br>
+<font color="green" size="1">◎</font><a href="hontai.html#59" target="top"><font color="#CC3399" size="2">MOV R8d,[BP+SI+d8]</font></a>
+<br>
+<font color="green" size="1">◎</font><a href="hontai.html#60" target="top"><font color="#CC3399" size="2">MOV R8d,[BP+DI+d8]</font></a>
+<br>
+<font color="green" size="1">◎</font><a href="hontai.html#61" target="top"><font color="#CC3399" size="2">MOV R8d,[SI+d16]</font></a>
+<br>
+<font color="green" size="1">◎</font><a href="hontai.html#62" target="top"><font color="#CC3399" size="2">MOV R8d,[DI+d16]</font></a>
+<br>
+<font color="green" size="1">◎</font><a href="hontai.html#63" target="top"><font color="#CC3399" size="2">MOV R8d,[BP+d16]</font></a>
+<br>
+<font color="green" size="1">◎</font><a href="hontai.html#64" target="top"><font color="#CC3399" size="2">MOV R8d,[BX+d16]</font></a>
+<br>
+<font color="green" size="1">◎</font><a href="hontai.html#65" target="top"><font color="#CC3399" size="2">MOV R8d,[BX+SI+d16]</font></a>
+<br>
+<font color="green" size="1">◎</font><a href="hontai.html#66" target="top"><font color="#CC3399" size="2">MOV R8d,[BX+DI+d16]</font></a>
+<br>
+<font color="green" size="1">◎</font><a href="hontai.html#67" target="top"><font color="#CC3399" size="2">MOV R8d,[BP+SI+d16]</font></a>
+<br>
+<font color="green" size="1">◎</font><a href="hontai.html#68" target="top"><font color="#CC3399" size="2">MOV R8d,[BP+DI+d16]</font></a>
+<br>
+<font color="green" size="1">◎</font><a href="hontai.html#69" target="top"><font color="#CC3399" size="2">MOV SRd,R16s</font></a>
+<br>
+<font color="green" size="1">◎</font><a href="hontai.html#70" target="top"><font color="#CC3399" size="2">MOV SRd,mem</font></a>
+<br>
+<font color="green" size="1">◎</font><a href="hontai.html#71" target="top"><font color="#CC3399" size="2">MOV SRs,R16d</font></a>
+<br>
+<font color="green" size="1">◎</font><a href="hontai.html#72" target="top"><font color="#CC3399" size="2">MOV mem,SRs</font></a>
+<br>
+
+
+<font color="green" size="1">●</font><a href="hontai1.html#73" target="top"><font color="green" size="2">XCHG命令</font></a>
+<br>
+<font color="green" size="1">◎</font><a href="hontai1.html#74" target="top"><font color="#CC3399" size="2">XCHG AX ,R16</font></a>
+<br>
+<font color="green" size="1">◎</font><a href="hontai1.html#75" target="top"><font color="#CC3399" size="2">XCHG R8d ,R8s</font></a>
+<br>
+<font color="green" size="1">◎</font><a href="hontai1.html#76" target="top"><font color="#CC3399" size="2">XCHG R16d ,R16s</font></a>
+<br>
+<font color="green" size="1">◎</font><a href="hontai1.html#77" target="top"><font color="#CC3399" size="2">XCHG R16d ,mem</font></a>
+<br>
+<font color="green" size="1">◎</font><a href="hontai1.html#78" target="top"><font color="#CC3399" size="2">XCHG R8d ,mem</font></a>
+<br>
+
+
+
+
+
+
+
+
+
+<hr>
+<center>
+<a href="../NO20.htm" target="_top">戻る</a>
+</center>
+
+
+</body></html>
