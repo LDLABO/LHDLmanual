@@ -1,0 +1,178 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+	
+    <link type="text/css" rel="stylesheet" href="./main.css">
+	<title></title>
+</head>
+
+<body bgcolor="#DEDD80">
+
+<b>FDアダプタ</b>
+<hr>
+<b><font size="2" color="gray">目次</font></b><br><hr>
+<br>
+<a href="hontai.html#2" target="top"><font color="#993333" size="3">ディスクとFDDの使い方</font></a>
+<hr>
+<font color="green" size="1">●</font><a href="hontai.html#3" target="top"><font color="blue" size="2">ディスクの概要</font></a>
+<br>
+<font color="green" size="1">◎</font><a href="hontai.html#4" target="top"><font color="#6633FF" size="2">トラック上の記録方式</font></a>
+<br>
+<font color="green" size="1">○</font><a href="hontai.html#4A" target="top"><font color="#663380" size="2">FM 方式の原理</font></a>
+<br>
+<font color="green" size="1">○</font><a href="hontai.html#4B" target="top"><font color="#663380" size="2">MFM 方式の原理</font></a>
+<br>
+<font color="green" size="1">●</font><a href="hontai.html#6" target="top"><font color="blue" size="2">トラックフォーマットの概要</font></a>
+<br>
+<font color="green" size="1">◎</font><a href="hontai.html#7" target="top"><font color="#6633FF" size="2">セクタ</font></a>
+<br>
+<font color="green" size="1">○</font><a href="hontai.html#8" target="top"><font color="#663380" size="2">IDフィールド</font></a>
+<br>
+<font color="green" size="1">○</font><a href="hontai.html#9" target="top"><font color="#663380" size="2">DATAフィールド</font></a>
+<br>
+<font color="green" size="1">●</font><a href="hontai.html#10" target="top"><font color="blue" size="2">IBMトラックフォーマット</font></a>
+<br>
+<font color="green" size="1">◎</font><a href="hontai.html#11" target="top"><font color="#6633FF" size="2">データで同期を取る</font></a>
+<br>
+<font color="green" size="1">◎</font><a href="hontai.html#12" target="top"><font color="#6633FF" size="2">インデックスマーク</font></a>
+<br>
+<font color="green" size="1">◎</font><a href="hontai.html#13" target="top"><font color="#6633FF" size="2">隙間のデータ</font></a>
+<br>
+<font color="green" size="1">◎</font><a href="hontai.html#14" target="top"><font color="#6633FF" size="2">ディスク初期化</font></a>
+<br>
+<font color="green" size="1">●</font><a href="hontai.html#15" target="top"><font color="blue" size="2">FDDの機械的制御</font></a>
+<br>
+<font color="green" size="1">◎</font><a href="hontai.html#16" target="top"><font color="#6633FF" size="2">ヘッドの移動でトラックを選択する</font></a>
+<br>
+<font color="green" size="1">◎</font><a href="hontai.html#17" target="top"><font color="#6633FF" size="2">シリンダ番号とトラック番号</font></a>
+<br>
+<font color="green" size="1">◎</font><a href="hontai.html#18" target="top"><font color="#6633FF" size="2">待ち時間</font></a>
+<br>
+<font color="green" size="1">◎</font><a href="hontai.html#19" target="top"><font color="#6633FF" size="2">ディスク操作の準備</font></a>
+<br>
+<font color="green" size="1">●</font><a href="hontai.html#20" target="top"><font color="blue" size="2">PC用3.5 インチFDD</font></a>
+<br>
+
+<hr>
+<br>
+<a href="hontai2.html#21" target="top"><font color="#993333" size="3">FDCの概要</font></a>
+<hr>
+<font color="green" size="1">●</font><a href="hontai2.html#22" target="top"><font color="blue" size="2">ハードウェアインターフェース</font></a>
+<br>
+<font color="green" size="1">◎</font><a href="hontai2.html#23" target="top"><font color="#6633FF" size="2">CPUインターフェース</font></a>
+<br>
+<font color="green" size="1">◎</font><a href="hontai2.html#24" target="top"><font color="#6633FF" size="2">DMAインターフェース</font></a>
+<br>
+<font color="green" size="1">◎</font><a href="hontai2.html#25" target="top"><font color="#6633FF" size="2">ローカルメモリ</font></a>
+<br>
+<font color="green" size="1">◎</font><a href="hontai2.html#26" target="top"><font color="#6633FF" size="2">システム選択</font></a>
+<br>
+<font color="green" size="1">◎</font><a href="hontai2.html#27" target="top"><font color="#6633FF" size="2">プログラム転送</font></a>
+<br>
+<font color="green" size="1">○</font><a href="hontai2.html#27A" target="top"><font color="#663380" size="2">ポーリング転送</font></a>
+<br>
+<font color="green" size="1">○</font><a href="hontai2.html#27B" target="top"><font color="#663380" size="2">割り込み転送</font></a>
+<br>
+<font color="green" size="1">◎</font><a href="hontai2.html#28" target="top"><font color="#6633FF" size="2">FDDインターフェース</font></a>
+<br>
+<font color="green" size="1">○</font><a href="hontai2.html#28A" target="top"><font color="#663380" size="2">3.5インチ</font></a>
+<br>
+<font color="green" size="1">○</font><a href="hontai2.html#28B" target="top"><font color="#663380" size="2">5.25インチ</font></a>
+<br>
+<font color="green" size="1">○</font><a href="hontai2.html#28C" target="top"><font color="#663380" size="2">8インチ</font></a>
+<br>
+<font color="green" size="1">○</font><a href="hontai2.html#28D" target="top"><font color="#6633FF" size="2">インターフェース信号の概要</font></a>
+<br>
+<font color="green" size="1">●</font><a href="hontai2.html#29" target="top"><font color="blue" size="2">ソフトウェアインターフェース</font></a>
+<br>
+<font color="green" size="1">◎</font><a href="hontai2.html#30" target="top"><font color="#6633FF" size="2">コマンドレジスタ</font></a>
+<br>
+<font color="green" size="1">◎</font><a href="hontai2.html#31" target="top"><font color="#6633FF" size="2">ステータスレジスタ</font></a>
+<br>
+<font color="green" size="1">◎</font><a href="hontai2.html#32" target="top"><font color="#6633FF" size="2">エラーレジスタ</font></a>
+<br>
+<font color="green" size="1">◎</font><a href="hontai2.html#33" target="top"><font color="#6633FF" size="2">パラメータレジスタ</font></a>
+<br>
+<font color="green" size="1">◎</font><a href="hontai2.html#34" target="top"><font color="#6633FF" size="2">データレジスタ</font></a>
+<br>
+<font color="green" size="1">◎</font><a href="hontai2.html#35" target="top"><font color="#6633FF" size="2">割り込みマスクレジスタ</font></a>
+<br>
+<font color="green" size="1">◎</font><a href="hontai2.html#36" target="top"><font color="#6633FF" size="2">割り込みサービスレジスタ</font></a>
+<br>
+<font color="green" size="1">●</font><a href="hontai2.html#37" target="top"><font color="blue" size="2">命令セット</font></a>
+<br>
+<font color="green" size="1">◎</font><a href="hontai2.html#38" target="top"><font color="#6633FF" size="2">モータ安定時間</font></a>
+<br>
+<font color="green" size="1">◎</font><a href="hontai2.html#39" target="top"><font color="#6633FF" size="2">ヘッド操作</font></a>
+<br>
+<font color="green" size="1">◎</font><a href="hontai2.html#40" target="top"><font color="#6633FF" size="2">再試行回数</font></a>
+<br>
+<font color="green" size="1">◎</font><a href="hontai2.html#41" target="top"><font color="#6633FF" size="2">FDDステータスリード</font></a>
+<br>
+<font color="green" size="1">◎</font><a href="hontai2.html#42" target="top"><font color="#6633FF" size="2">ディスク初期化</font></a>
+<br>
+<font color="green" size="1">◎</font><a href="hontai2.html#43" target="top"><font color="#6633FF" size="2">ディスク読み出し</font></a>
+<br>
+<font color="green" size="1">◎</font><a href="hontai2.html#44" target="top"><font color="#6633FF" size="2">ディスク書き込み</font></a>
+<br>
+<font color="green" size="1">●</font><a href="hontai2.html#45" target="top"><font color="blue" size="2">命令の使い方</font></a>
+<br>
+<font color="green" size="1">◎</font><a href="hontai2.html#46" target="top"><font color="#6633FF" size="2">初期設定</font></a>
+<br>
+<font color="green" size="1">◎</font><a href="hontai2.html#47" target="top"><font color="#6633FF" size="2">機械的操作</font></a>
+<br>
+<font color="green" size="1">◎</font><a href="hontai2.html#48" target="top"><font color="#6633FF" size="2">セクタ情報</font></a>
+<br>
+<font color="green" size="1">◎</font><a href="hontai2.html#49" target="top"><font color="#6633FF" size="2">ディスク初期化</font></a>
+<br>
+<font color="green" size="1">◎</font><a href="hontai2.html#50" target="top"><font color="#6633FF" size="2">命令群Ⅱ</font></a>
+<br>
+<font color="green" size="1">◎</font><a href="hontai2.html#51" target="top"><font color="#6633FF" size="2">ディスク書き込み・読み出し</font></a>
+<br>
+<font color="green" size="1">●</font><a href="hontai2.html#52" target="top"><font color="blue" size="2">データ転送</font></a>
+<br>
+<font color="green" size="1">◎</font><a href="hontai2.html#53" target="top"><font color="#6633FF" size="2">ポーリング転送</font></a>
+<br>
+<font color="green" size="1">○</font><a href="hontai2.html#53A" target="top"><font color="#663380" size="2">読み出し</font></a>
+<br>
+<font color="green" size="1">○</font><a href="hontai2.html#53B" target="top"><font color="#663380" size="2">書き込み</font></a>
+<br>
+<font color="green" size="1">◎</font><a href="hontai2.html#54" target="top"><font color="#6633FF" size="2">割り込み転送</font></a>
+<br>
+<font color="green" size="1">○</font><a href="hontai2.html#54A" target="top"><font color="#663380" size="2">読み出し</font></a>
+<br>
+<font color="green" size="1">○</font><a href="hontai2.html#54B" target="top"><font color="#663380" size="2">書き込み</font></a>
+<br>
+<font color="green" size="1">◎</font><a href="hontai2.html#55" target="top"><font color="#6633FF" size="2">DMA転送</font></a>
+<br>
+<font color="green" size="1">◎</font><a href="hontai2.html#56" target="top"><font color="#6633FF" size="2">ローカルメモリ転送</font></a>
+<br>
+
+
+
+
+
+
+
+<br>
+<hr>
+<a href="hontai.html#5" target="top"><font color="blue" size="2"><font color="green" size="1">●</font>文献</font></a>
+<br>
+
+
+
+
+
+
+
+
+
+
+<hr>
+<center>
+<a href="../NO46.htm" target="_top">戻る</a>
+</center>
+
+
+</body></html>

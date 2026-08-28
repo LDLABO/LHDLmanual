@@ -1,0 +1,173 @@
+Release 8.2.02i - par I.33
+Copyright (c) 1995-2006 Xilinx, Inc.  All rights reserved.
+
+THU 13 DEC 21:38:11 2007
+
+# NOTE: This file is designed to be imported into a spreadsheet program
+# such as Microsoft Excel for viewing, printing and sorting. The |
+# character is used as the data field separator. This file is also designed
+# to support parsing.
+#
+INPUT FILE:       main_map.ncd
+OUTPUT FILE:      main.pad
+PART TYPE:        xc2s100
+SPEED GRADE:      -5
+PACKAGE:          tq144
+
+Pinout by Pin Number:
+
+-----|-----|-----|-----|-----|-----|-----|-----|-----|-----|-----|-----|-----|-----|-----|-----|
+Pin Number|Signal Name|Pin Usage|Pin Name|Direction|IO Standard|IO Bank Number|Drive (mA)|Slew Rate|Termination|IOB Delay|Voltage|Constraint|DCI Value|IO Register|Signal Integrity|
+P1|||VCCO|||0|||||3.30|||||
+P2|||TCK|||||||||||||
+P3|CPURESET0|IOB|IO|OUTPUT|LVTTL|0|12|SLOW|NONE**|||LOCATED||NO|NONE|
+P4|RESET0|IOB|IO|INPUT|LVTTL|0||||NONE||LOCATED||NO|NONE|
+P5|WE0|IOB|IO_VREF_0|OUTPUT|LVTTL|0|12|SLOW|NONE**|||LOCATED||NO|NONE|
+P6|RD0|IOB|IO_VREF_0|OUTPUT|LVTTL|0|12|SLOW|NONE**|||LOCATED||NO|NONE|
+P7|SCOUT0|IOB|IO|OUTPUT|LVTTL|0|12|SLOW|NONE**|||LOCATED||YES|NONE|
+P8|||GND|||||||||||||
+P9|||VCCINT||||||||2.5|||||
+P10|RTS0|IOB|IO|OUTPUT|LVTTL|0|12|SLOW|NONE**|||LOCATED||NO|NONE|
+P11|CTS0|IOB|IO|INPUT|LVTTL|0||||NONE||LOCATED||NO|NONE|
+P12|RXD0|IOB|IO_VREF_0|INPUT|LVTTL|0||||NONE||LOCATED||NO|NONE|
+P13|TXD0|IOB|IO|OUTPUT|LVTTL|0|12|SLOW|NONE**|||LOCATED||YES|NONE|
+P14|||VCCINT||||||||2.5|||||
+P15|clk|GCLKIOB|GCK3|INPUT|LVTTL|0||||NONE||LOCATED||NO|NONE|
+P16|||VCCO|||0|||||3.30|||||
+P17|||GND|||||||||||||
+P18||GCLKIOB|GCK2|UNUSED||1||||||||||
+P19|SC0|IOB|IO|INPUT|LVTTL|1||||NONE||LOCATED||NO|NONE|
+P20|SCL0|IOB|IO|OUTPUT|LVTTL|1|12|SLOW|NONE**|||LOCATED||YES|NONE|
+P21|SDA0|IOB|IO_VREF_1|BIDIR|LVTTL|1|12|SLOW|NONE**|NONE||LOCATED||YES|NONE|
+P22|WP0|IOB|IO|OUTPUT|LVTTL|1|12|SLOW|NONE**|||LOCATED||NO|NONE|
+P23|BUSACK0|IOB|IO|INPUT|LVTTL|1||||NONE||LOCATED||NO|NONE|
+P24|||VCCINT||||||||2.5|||||
+P25|||GND|||||||||||||
+P26|BUSREQ0|IOB|IO|OUTPUT|LVTTL|1|12|SLOW|NONE**|||LOCATED||NO|NONE|
+P27|Z80MREQ0|IOB|IO_VREF_1|INPUT|LVTTL|1||||NONE||LOCATED||NO|NONE|
+P28|Z80RD0|IOB|IO_VREF_1|INPUT|LVTTL|1||||NONE||LOCATED||NO|NONE|
+P29|Z80WR0|IOB|IO|INPUT|LVTTL|1||||NONE||LOCATED||NO|NONE|
+P30|Z80IORQ0|IOB|IO_WRITE|INPUT|LVTTL|1||||NONE||LOCATED||NO|NONE|
+P31||IOB|IO_CS|UNUSED||1||||||||||
+P32|||TDI|||||||||||||
+P33|||GND|||||||||||||
+P34|||TDO|||||||||||||
+P35|||VCCO|||0|||||3.30|||||
+P36|||VCCO|||1|||||any******|||||
+P37|||CCLK|||||||||||||
+P38||IOB|IO_DOUT_BUSY|UNUSED||2||||||||||
+P39||IOB|IO_DIN_D0|UNUSED||2||||||||||
+P40||IOB|IO|UNUSED||2||||||||||
+P41||IOB|IO_VREF_2|UNUSED||2||||||||||
+P42||IOB|IO|UNUSED||2||||||||||
+P43||IOB|IO_VREF_2|UNUSED||2||||||||||
+P44||IOB|IO_D1|UNUSED||2||||||||||
+P45|||GND|||||||||||||
+P46||IOB|IO_D2|UNUSED||2||||||||||
+P47||IOB|IO|UNUSED||2||||||||||
+P48||IOB|IO_VREF_2|UNUSED||2||||||||||
+P49||IOB|IO_D3|UNUSED||2||||||||||
+P50||IOB|IO|UNUSED||2||||||||||
+P51||PCIIOB|IO_IRDY|UNUSED||2||||||||||
+P52|||GND|||||||||||||
+P53|||VCCO|||1|||||any******|||||
+P54||PCIIOB|IO_TRDY|UNUSED||3||||||||||
+P55|||VCCINT||||||||2.5|||||
+P56||IOB|IO|UNUSED||3||||||||||
+P57||IOB|IO_D4|UNUSED||3||||||||||
+P58||IOB|IO_VREF_3|UNUSED||3||||||||||
+P59||IOB|IO|UNUSED||3||||||||||
+P60||IOB|IO_D5|UNUSED||3||||||||||
+P61|||GND|||||||||||||
+P62||IOB|IO_D6|UNUSED||3||||||||||
+P63||IOB|IO_VREF_3|UNUSED||3||||||||||
+P64||IOB|IO|UNUSED||3||||||||||
+P65||IOB|IO_VREF_3|UNUSED||3||||||||||
+P66||IOB|IO|UNUSED||3||||||||||
+P67||IOB|IO_D7|UNUSED||3||||||||||
+P68||IOB|IO_INIT|UNUSED||3||||||||||
+P69|||PROGRAM|||||||||||||
+P70|||VCCO|||1|||||any******|||||
+P71|||VCCO|||2|||||any******|||||
+P72|||DONE|||||||||||||
+P73|||GND|||||||||||||
+P74||IOB|IO|UNUSED||4||||||||||
+P75||IOB|IO|UNUSED||4||||||||||
+P76||IOB|IO|UNUSED||4||||||||||
+P77||IOB|IO_VREF_4|UNUSED||4||||||||||
+P78||IOB|IO|UNUSED||4||||||||||
+P79||IOB|IO_VREF_4|UNUSED||4||||||||||
+P80||IOB|IO|UNUSED||4||||||||||
+P81|||GND|||||||||||||
+P82|||VCCINT||||||||2.5|||||
+P83||IOB|IO|UNUSED||4||||||||||
+P84||IOB|IO|UNUSED||4||||||||||
+P85||IOB|IO_VREF_4|UNUSED||4||||||||||
+P86||IOB|IO|UNUSED||4||||||||||
+P87||IOB|IO|UNUSED||4||||||||||
+P88||GCLKIOB|GCK0|UNUSED||4||||||||||
+P89|||GND|||||||||||||
+P90|||VCCO|||2|||||any******|||||
+P91||GCLKIOB|GCK1|UNUSED||5||||||||||
+P92|||VCCINT||||||||2.5|||||
+P93||IOB|IO|UNUSED||5||||||||||
+P94||IOB|IO_VREF_5|UNUSED||5||||||||||
+P95||IOB|IO|UNUSED||5||||||||||
+P96||IOB|IO|UNUSED||5||||||||||
+P97|||VCCINT||||||||2.5|||||
+P98|||GND|||||||||||||
+P99||IOB|IO|UNUSED||5||||||||||
+P100||IOB|IO_VREF_5|UNUSED||5||||||||||
+P101||IOB|IO|UNUSED||5||||||||||
+P102||IOB|IO_VREF_5|UNUSED||5||||||||||
+P103||IOB|IO|UNUSED||5||||||||||
+P104|||NC|||||||||||||
+P105|||NC|||||||||||||
+P106|||M2|||||||||||||
+P107|||VCCO|||2|||||any******|||||
+P108|||VCCO|||3|||||3.30|||||
+P109|||M0|||||||||||||
+P110|||GND|||||||||||||
+P111|||M1|||||||||||||
+P112||IOB|IO|UNUSED||6||||||||||
+P113|DATA7|IOB|IO|BIDIR|LVTTL|6|12|SLOW|NONE**|IFD||LOCATED||YES|NONE|
+P114|DATA6|IOB|IO|BIDIR|LVTTL|6|12|SLOW|NONE**|IFD||LOCATED||YES|NONE|
+P115|DATA5|IOB|IO_VREF_6|BIDIR|LVTTL|6|12|SLOW|NONE**|IFD||LOCATED||YES|NONE|
+P116|DATA4|IOB|IO|BIDIR|LVTTL|6|12|SLOW|NONE**|IFD||LOCATED||YES|NONE|
+P117|DATA3|IOB|IO_VREF_6|BIDIR|LVTTL|6|12|SLOW|NONE**|IFD||LOCATED||YES|NONE|
+P118|DATA2|IOB|IO|BIDIR|LVTTL|6|12|SLOW|NONE**|IFD||LOCATED||YES|NONE|
+P119|||GND|||||||||||||
+P120|DATA1|IOB|IO|BIDIR|LVTTL|6|12|SLOW|NONE**|IFD||LOCATED||YES|NONE|
+P121|DATA0|IOB|IO|BIDIR|LVTTL|6|12|SLOW|NONE**|IFD||LOCATED||YES|NONE|
+P122|ADDRESS15|IOB|IO_VREF_6|TRISTATE|LVTTL|6|12|SLOW|NONE**|||LOCATED||YES|NONE|
+P123|ADDRESS14|IOB|IO|TRISTATE|LVTTL|6|12|SLOW|NONE**|||LOCATED||YES|NONE|
+P124|ADDRESS13|IOB|IO|TRISTATE|LVTTL|6|12|SLOW|NONE**|||LOCATED||YES|NONE|
+P125|||VCCINT||||||||2.5|||||
+P126|ADDRESS12|IOB|IO_TRDY|TRISTATE|LVTTL|6|12|SLOW|NONE**|||LOCATED||YES|NONE|
+P127|||VCCO|||3|||||3.30|||||
+P128|||GND|||||||||||||
+P129|ADDRESS11|IOB|IO_IRDY|TRISTATE|LVTTL|7|12|SLOW|NONE**|||LOCATED||YES|NONE|
+P130|ADDRESS10|IOB|IO|TRISTATE|LVTTL|7|12|SLOW|NONE**|||LOCATED||YES|NONE|
+P131|ADDRESS9|IOB|IO|TRISTATE|LVTTL|7|12|SLOW|NONE**|||LOCATED||YES|NONE|
+P132|ADDRESS8|IOB|IO_VREF_7|TRISTATE|LVTTL|7|12|SLOW|NONE**|||LOCATED||YES|NONE|
+P133|ADDRESS7|IOB|IO|TRISTATE|LVTTL|7|12|SLOW|NONE**|||LOCATED||YES|NONE|
+P134|ADDRESS6|IOB|IO|TRISTATE|LVTTL|7|12|SLOW|NONE**|||LOCATED||YES|NONE|
+P135|||GND|||||||||||||
+P136|ADDRESS5|IOB|IO|TRISTATE|LVTTL|7|12|SLOW|NONE**|||LOCATED||YES|NONE|
+P137|ADDRESS4|IOB|IO_VREF_7|TRISTATE|LVTTL|7|12|SLOW|NONE**|||LOCATED||YES|NONE|
+P138|ADDRESS3|IOB|IO|TRISTATE|LVTTL|7|12|SLOW|NONE**|||LOCATED||YES|NONE|
+P139|ADDRESS2|IOB|IO_VREF_7|TRISTATE|LVTTL|7|12|SLOW|NONE**|||LOCATED||YES|NONE|
+P140|ADDRESS1|IOB|IO|BIDIR|LVTTL|7|12|SLOW|NONE**|NONE||LOCATED||YES|NONE|
+P141|ADDRESS0|IOB|IO|BIDIR|LVTTL|7|12|SLOW|NONE**|NONE||LOCATED||YES|NONE|
+P142|||TMS|||||||||||||
+P143|||GND|||||||||||||
+P144|||VCCO|||3|||||3.30|||||
+
+-----|-----|-----|-----|-----|-----|-----|-----|-----|-----|-----|-----|-----|-----|-----|-----|
+
+* Default value.
+** This default Pullup/Pulldown value can be overridden in Bitgen. 
+****** Special VCCO requirements may apply. Please consult the device 
+       family datasheet for specific guideline on VCCO requirements. 
+
+

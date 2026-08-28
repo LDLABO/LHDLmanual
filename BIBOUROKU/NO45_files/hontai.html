@@ -1,0 +1,321 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+	
+    <link type="text/css" rel="stylesheet" href="./main.css">
+	<title></title>
+</head>
+<body>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="100%" align="center">
+<tbody><tr><td>
+<a name="1">&nbsp;</a>
+<hr>
+<b>　　　キーマウスブリッジ</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<p class="i">
+PCキーボードアダプタとPCマウスアダプタをプロセッサに橋渡しする論理です。
+</p>
+
+<a name="FIG1">&nbsp;</a><table>
+
+<tbody><tr><td align="center"><font color="red">図1: <font color="#336666">構成</font></font></td></tr>
+<tr><td>
+<img src="./FIG1.jpg" border="0" alt="FIG1.jpg(51152 byte)" width="753" height="345">
+</td>
+</tr>
+</tbody></table>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="100%" align="center">
+<tbody><tr><td>
+<a name="2">&nbsp;</a>
+<hr size="7" color="#6699CC">
+<b>　　　レジスタ</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<a name="FIG2">&nbsp;</a><table class="i" align="left">
+
+<tbody><tr><td align="center"><font color="red">図2: <font color="#336666">レジスタ</font></font></td></tr>
+<tr><td>
+<img src="./FIG2.jpg" border="0" alt="FIG2.jpg(23957 byte)" width="224" height="411">
+</td>
+</tr>
+</tbody></table>
+
+<p class="i">
+<font color="blue">RS</font>
+の値の
+<font color="red">0～12</font>
+で左のレジスタの
+<font color="red">R0～R12</font>
+を操作します。
+</p>
+
+<br clear="left">
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<br>
+<table width="100%" align="center">
+<tbody><tr><td>
+<a name="3">&nbsp;</a>
+<b>　　　R0 キーデータ</b>
+<hr color="#6633FF">
+</td></tr>
+</tbody></table>
+
+<a name="FIG4">&nbsp;</a><table class="i" align="left">
+
+<tbody><tr><td align="center"><font color="red">図4: <font color="#336666">R0 : キーデータ</font></font></td></tr>
+<tr><td>
+<img src="./FIG5.jpg" border="0" alt="FIG5.jpg(6073 byte)" width="204" height="136">
+</td>
+</tr>
+</tbody></table>
+
+<p class="i">
+状態が変化したキーが記憶されています、
+キー番号は
+<font color="red">図3</font>
+を見てください。
+</p>
+
+
+<br clear="left">
+
+<a name="FIG3">&nbsp;</a><table class="i">
+
+<tbody><tr><td align="center"><font color="red">図3: <font color="#336666">キー番号割り当て</font></font></td></tr>
+<tr><td>
+<img src="./FIG3.jpg" border="0" alt="FIG3.jpg(45663 byte)" width="834" height="315" align="left"><br clear="left">
+<img src="./FIG4.jpg" border="0" alt="FIG4.jpg(66194 byte)" width="845" height="301" align="left">
+</td>
+</tr>
+</tbody></table>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<br>
+<table width="100%" align="center">
+<tbody><tr><td>
+<a name="4">&nbsp;</a>
+<b>　　　R1 マウスデータ</b>
+<hr color="#6633FF">
+</td></tr>
+</tbody></table>
+
+<p class="i">
+2ボタンマウスまたは3ボタンマウスから受信した直近の
+データ
+を記憶しています。
+</p>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<br>
+<table width="100%" align="center">
+<tbody><tr><td>
+<a name="5">&nbsp;</a>
+<b>　　　R2 キーコマンド</b>
+<hr color="#6633FF">
+</td></tr>
+</tbody></table>
+
+<p class="i">
+キーボードに
+コマンド
+を発行するときに書き込みます。
+</p>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<br>
+<table width="100%" align="center">
+<tbody><tr><td>
+<a name="6">&nbsp;</a>
+<b>　　　R3 キーステータス</b>
+<hr color="#6633FF">
+</td></tr>
+</tbody></table>
+
+<p class="i">
+キーボードに発行したコマンドの結果を示します。
+</p>
+
+<a name="FIG5">&nbsp;</a><table class="i">
+
+<tbody><tr><td align="center"><font color="red">図5: <font color="#336666">R3 : キーステータス</font></font></td></tr>
+<tr><td>
+<img src="./FIG6.JPG" width="236" height="185" alt="FIG6.JPG">
+</td>
+</tr>
+</tbody></table>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<br>
+<table width="100%" align="center">
+<tbody><tr><td>
+<a name="7">&nbsp;</a>
+<b>　　　R4 キーデータ0</b>
+<hr color="#6633FF">
+</td></tr>
+</tbody></table>
+
+<p class="i">
+キーボードにコマンドを発行したときに
+キーボートの応答
+で送られてくる1番目のデータを記憶します。
+</p>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<br>
+<table width="100%" align="center">
+<tbody><tr><td>
+<a name="8">&nbsp;</a>
+<b>　　　R5 キーデータ1</b>
+<hr color="#6633FF">
+</td></tr>
+</tbody></table>
+
+<p class="i">
+キーボードにコマンドを発行したときに
+キーボートの応答
+で送られてくる2番目のデータを記憶します。
+</p>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<br>
+<table width="100%" align="center">
+<tbody><tr><td>
+<a name="9">&nbsp;</a>
+<b>　　　R6～R10 マウスデータ0～4</b>
+<hr color="#6633FF">
+</td></tr>
+</tbody></table>
+
+<p class="i">
+2ボタンマウスまたは3ボタンマウスから受信した1回分の
+データ
+を記憶しています。
+</p>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<br>
+<table width="100%" align="center">
+<tbody><tr><td>
+<a name="10">&nbsp;</a>
+<b>　　　R11 ステータスレジスタ</b>
+<hr color="#6633FF">
+</td></tr>
+</tbody></table>
+
+<p class="i">
+割り込み要求ビットに
+<font color="red">1</font>
+を書き込むと割り込み要求が
+<font color="blue">消去</font>
+されます。
+</p>
+
+<a name="FIG7">&nbsp;</a><table class="i">
+
+<tbody><tr><td align="center"><font color="red">図6: <font color="#336666">R11 : ステータスレジスタ</font></font></td></tr>
+<tr><td>
+<img src="./FIG7.jpg" border="0" alt="FIG7.jpg(8976 byte)" width="262" height="219">
+</td>
+</tr>
+</tbody></table>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<br>
+<table width="100%" align="center">
+<tbody><tr><td>
+<a name="11">&nbsp;</a>
+<b>　　　R12 モードレジスタ</b>
+<hr color="#6633FF">
+</td></tr>
+</tbody></table>
+
+
+
+<a name="FIG8">&nbsp;</a><table class="i">
+
+<tbody><tr><td align="center"><font color="red">図7: <font color="#336666">R12 : モードレジスタ</font></font></td></tr>
+<tr><td>
+<img src="./FIG8.jpg" border="0" alt="FIG8.jpg(10614 byte)" width="306" height="220">
+</td>
+</tr>
+</tbody></table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<br clear="left">
+<br clear="right">
+
+<br><br><hr><br><br>
+
+</body></html>

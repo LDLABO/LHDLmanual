@@ -1,0 +1,190 @@
+Release 8.2.02i Map I.33
+Xilinx Mapping Report File for Design 'main'
+
+Design Information
+------------------
+Command Line   : C:\Xilinx\bin\nt\map.exe -ise C:/work/pp/LD07K19A/LD07K19A.ise
+-intstyle ise -p xc2s100-tq144-5 -cm area -pr b -k 4 -c 100 -tx off -o
+main_map.ncd main.ngd main.pcf 
+Target Device  : xc2s100
+Target Package : tq144
+Target Speed   : -5
+Mapper Version : spartan2 -- $Revision: 1.34.32.1 $
+Mapped Date    : THU 13 DEC 21:26:31 2007
+Design Summary
+--------------
+Number of errors:      0
+Number of warnings:    1
+Logic Utilization:
+  Number of Slice Flip Flops:       547 out of  2,400   22%
+  Number of 4 input LUTs:         2,161 out of  2,400   90%
+Logic Distribution:
+    Number of occupied Slices:                       1,148 out of  1,200   95%
+    Number of Slices containing only related logic:  1,148 out of  1,148  100%
+    Number of Slices containing unrelated logic:         0 out of  1,148    0%
+        *See NOTES below for an explanation of the effects of unrelated logic
+Total Number 4 input LUTs:        2,165 out of  2,400   90%
+      Number used as logic:                     2,161
+      Number used as a route-thru:                  4
+   Number of bonded IOBs:            43 out of     92   46%
+      IOB Flip Flops:                              28
+   Number of GCLKs:                   1 out of      4   25%
+   Number of GCLKIOBs:                1 out of      4   25%
+
+Total equivalent gate count for design:  18,304
+Additional JTAG gate count for IOBs:  2,112
+Peak Memory Usage:  143 MB
+
+NOTES:
+
+   Related logic is defined as being logic that shares connectivity - e.g. two
+   LUTs are "related" if they share common inputs.  When assembling slices,
+   Map gives priority to combine logic that is related.  Doing so results in
+   the best timing performance.
+
+   Unrelated logic shares no connectivity.  Map will only begin packing
+   unrelated logic into a slice once 99% of the slices are occupied through
+   related logic packing.
+
+   Note that once logic distribution reaches the 99% level through related
+   logic packing, this does not mean the device is completely utilized.
+   Unrelated logic packing will then begin, continuing until all usable LUTs
+   and FFs are occupied.  Depending on your timing budget, increased levels of
+   unrelated logic packing may adversely affect the overall timing performance
+   of your design.
+
+Table of Contents
+-----------------
+Section 1 - Errors
+Section 2 - Warnings
+Section 3 - Informational
+Section 4 - Removed Logic Summary
+Section 5 - Removed Logic
+Section 6 - IOB Properties
+Section 7 - RPMs
+Section 8 - Guide Report
+Section 9 - Area Group and Partition Summary
+Section 10 - Modular Design Summary
+Section 11 - Timing Report
+Section 12 - Configuration String Information
+
+Section 1 - Errors
+------------------
+
+Section 2 - Warnings
+--------------------
+WARNING:Pack:266 - The function generator _or002711 failed to merge with F5
+   multiplexer n_n1170_f5.  There is a conflict for the FXMUX.  The design will
+   exhibit suboptimal timing.
+
+Section 3 - Informational
+-------------------------
+INFO:MapLib:562 - No environment variables are currently set.
+INFO:LIT:244 - All of the single ended outputs in this design are using slew
+   rate limited output drivers. The delay on speed critical single ended outputs
+   can be dramatically reduced by designating them as fast outputs in the
+   schematic.
+
+Section 4 - Removed Logic Summary
+---------------------------------
+   2 block(s) optimized away
+
+Section 5 - Removed Logic
+-------------------------
+
+Optimized Block(s):
+TYPE 		BLOCK
+GND 		XST_GND
+VCC 		XST_VCC
+
+To enable printing of redundant blocks removed and signals merged, set the
+detailed map report option and rerun map.
+
+Section 6 - IOB Properties
+--------------------------
+
++------------------------------------------------------------------------------------------------------------------------+
+| IOB Name                           | Type    | Direction | IO Standard | Drive    | Slew | Reg (s)  | Resistor | IOB   |
+|                                    |         |           |             | Strength | Rate |          |          | Delay |
++------------------------------------------------------------------------------------------------------------------------+
+| clk                                | GCLKIOB | INPUT     | LVTTL       |          |      |          |          |       |
+| ADDRESS0                           | IOB     | BIDIR     | LVTTL       | 12       | SLOW | OUTFF    |          |       |
+| ADDRESS1                           | IOB     | BIDIR     | LVTTL       | 12       | SLOW | OUTFF    |          |       |
+| ADDRESS2                           | IOB     | OUTPUT    | LVTTL       | 12       | SLOW | OUTFF    |          |       |
+| ADDRESS3                           | IOB     | OUTPUT    | LVTTL       | 12       | SLOW | OUTFF    |          |       |
+| ADDRESS4                           | IOB     | OUTPUT    | LVTTL       | 12       | SLOW | OUTFF    |          |       |
+| ADDRESS5                           | IOB     | OUTPUT    | LVTTL       | 12       | SLOW | OUTFF    |          |       |
+| ADDRESS6                           | IOB     | OUTPUT    | LVTTL       | 12       | SLOW | OUTFF    |          |       |
+| ADDRESS7                           | IOB     | OUTPUT    | LVTTL       | 12       | SLOW | OUTFF    |          |       |
+| ADDRESS8                           | IOB     | OUTPUT    | LVTTL       | 12       | SLOW | OUTFF    |          |       |
+| ADDRESS9                           | IOB     | OUTPUT    | LVTTL       | 12       | SLOW | OUTFF    |          |       |
+| ADDRESS10                          | IOB     | OUTPUT    | LVTTL       | 12       | SLOW | OUTFF    |          |       |
+| ADDRESS11                          | IOB     | OUTPUT    | LVTTL       | 12       | SLOW | OUTFF    |          |       |
+| ADDRESS12                          | IOB     | OUTPUT    | LVTTL       | 12       | SLOW | OUTFF    |          |       |
+| ADDRESS13                          | IOB     | OUTPUT    | LVTTL       | 12       | SLOW | OUTFF    |          |       |
+| ADDRESS14                          | IOB     | OUTPUT    | LVTTL       | 12       | SLOW | OUTFF    |          |       |
+| ADDRESS15                          | IOB     | OUTPUT    | LVTTL       | 12       | SLOW | OUTFF    |          |       |
+| BUSACK0                            | IOB     | INPUT     | LVTTL       |          |      |          |          |       |
+| BUSREQ0                            | IOB     | OUTPUT    | LVTTL       | 12       | SLOW |          |          |       |
+| CPURESET0                          | IOB     | OUTPUT    | LVTTL       | 12       | SLOW |          |          |       |
+| CTS0                               | IOB     | INPUT     | LVTTL       |          |      |          |          |       |
+| DATA0                              | IOB     | BIDIR     | LVTTL       | 12       | SLOW | INFF     |          | IFD   |
+| DATA1                              | IOB     | BIDIR     | LVTTL       | 12       | SLOW | INFF     |          | IFD   |
+| DATA2                              | IOB     | BIDIR     | LVTTL       | 12       | SLOW | INFF     |          | IFD   |
+| DATA3                              | IOB     | BIDIR     | LVTTL       | 12       | SLOW | INFF     |          | IFD   |
+| DATA4                              | IOB     | BIDIR     | LVTTL       | 12       | SLOW | INFF     |          | IFD   |
+| DATA5                              | IOB     | BIDIR     | LVTTL       | 12       | SLOW | INFF     |          | IFD   |
+| DATA6                              | IOB     | BIDIR     | LVTTL       | 12       | SLOW | INFF     |          | IFD   |
+| DATA7                              | IOB     | BIDIR     | LVTTL       | 12       | SLOW | INFF     |          | IFD   |
+| RD0                                | IOB     | OUTPUT    | LVTTL       | 12       | SLOW |          |          |       |
+| RESET0                             | IOB     | INPUT     | LVTTL       |          |      |          |          |       |
+| RTS0                               | IOB     | OUTPUT    | LVTTL       | 12       | SLOW |          |          |       |
+| RXD0                               | IOB     | INPUT     | LVTTL       |          |      |          |          |       |
+| SC0                                | IOB     | INPUT     | LVTTL       |          |      |          |          |       |
+| SCL0                               | IOB     | OUTPUT    | LVTTL       | 12       | SLOW | OUTFF    |          |       |
+| SCOUT0                             | IOB     | OUTPUT    | LVTTL       | 12       | SLOW | OUTFF    |          |       |
+| SDA0                               | IOB     | BIDIR     | LVTTL       | 12       | SLOW | OUTFF    |          |       |
+| TXD0                               | IOB     | OUTPUT    | LVTTL       | 12       | SLOW | OUTFF    |          |       |
+| WE0                                | IOB     | OUTPUT    | LVTTL       | 12       | SLOW |          |          |       |
+| WP0                                | IOB     | OUTPUT    | LVTTL       | 12       | SLOW |          |          |       |
+| Z80IORQ0                           | IOB     | INPUT     | LVTTL       |          |      |          |          |       |
+| Z80MREQ0                           | IOB     | INPUT     | LVTTL       |          |      |          |          |       |
+| Z80RD0                             | IOB     | INPUT     | LVTTL       |          |      |          |          |       |
+| Z80WR0                             | IOB     | INPUT     | LVTTL       |          |      |          |          |       |
++------------------------------------------------------------------------------------------------------------------------+
+
+Section 7 - RPMs
+----------------
+
+Section 8 - Guide Report
+------------------------
+Guide not run on this design.
+
+Section 9 - Area Group and Partition Summary
+--------------------------------------------
+
+Partition Implementation Status
+-------------------------------
+
+  No Partitions were found in this design.
+
+-------------------------------
+
+Area Group Information
+----------------------
+
+  No area groups were found in this design.
+
+----------------------
+
+Section 10 - Modular Design Summary
+-----------------------------------
+Modular Design not used for this design.
+
+Section 11 - Timing Report
+--------------------------
+No timing report for this architecture.
+
+Section 12 - Configuration String Details
+-----------------------------------------
+Use the "-detail" map option to print out Configuration Strings
