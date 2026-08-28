@@ -1,0 +1,860 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="ja"><head>
+    <meta charset="UTF-8">
+	
+    <link type="text/css" rel="stylesheet" href="./main.css">
+	<title></title>
+</head>
+<body>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="100%" align="center">
+<tbody><tr><td>
+<a name="1">&nbsp;</a>
+<hr size="20" color="#6699CC">
+<b>　　　コマンド</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="90%" align="center">
+<tbody><tr><td>
+<a name="2">&nbsp;</a>
+<hr size="20" color="#99CC66">
+<b>　　　メモリ表示</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<table width="85%" align="center">
+
+<tbody><tr>
+<td>
+<p class="i">
+コマンド名は
+<font color="blue"><b>D</b></font>
+です。この後に空白を挟んで要素を2 個続けて改行を置きます。
+<br>
+要素と要素の区切りは
+<font color="blue"><b>’,’</b></font>
+を使います。
+<br>
+1 番目の要素は開始の番地を2 番目の要素は終了の番地を16 進数で示します。
+</p>
+
+<table border="1" class="i">
+<tbody><tr>
+<td>
+<img src="./FIG1.jpg" border="0" alt="FIG1.jpg(36567 byte)" width="494" height="309">
+</td>
+</tr>
+</tbody></table>
+
+<p class="i">
+1 行に最大で16 個のメモリの内容を終了の番地まで表示します。
+</p>
+
+</td>
+</tr>
+</tbody></table>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="90%" align="center">
+<tbody><tr><td>
+<a name="3">&nbsp;</a>
+<hr size="20" color="#99CC66">
+<b>　　　メモリ変更</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<table width="85%" align="center">
+
+<tbody><tr>
+<td>
+<p class="i">
+コマンド名は
+<font color="blue"><b>S</b></font> 
+です。
+この後に空白を挟んで要素を1 個続けて改行します。
+要素は開始の番地を16 進数で示します。
+</p>
+
+<table border="1" class="i">
+<tbody><tr>
+<td>
+<img src="./FIG2.jpg" border="0" alt="FIG2.jpg(4633 byte)" width="171" height="130">
+</td>
+</tr>
+</tbody></table>
+
+<p class="i">
+以降、メモリの内容が表示されて入力待ちになるので、変更内容を入力して改行します。
+変更しない場合は改行のみ行います。終了する場合は
+<font color="blue"><b>’.’</b></font> 
+を入力します。
+</p>
+
+</td>
+</tr>
+</tbody></table>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="90%" align="center">
+<tbody><tr><td>
+<a name="4">&nbsp;</a>
+<hr size="20" color="#99CC66">
+<b>　　　インテルへクスファイル受信</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<table width="85%" align="center">
+
+<tbody><tr>
+<td>
+<p class="i">
+コマンド名は
+<font color="blue"><b>HEX</b></font> 
+です。
+</p>
+
+<table border="1" class="i">
+<tbody><tr>
+<td>
+<img src="./FIG3.jpg" border="0" alt="FIG3.jpg(1274 byte)" width="106" height="55">
+</td>
+</tr>
+</tbody></table>
+
+<p class="i">
+インテルへクスファイルを受信してバスのメモリに書き込みます。
+</p>
+
+</td>
+</tr>
+</tbody></table>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="90%" align="center">
+<tbody><tr><td>
+<a name="5">&nbsp;</a>
+<hr size="20" color="#99CC66">
+<b>　　　バスマスタ初期化</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<table width="85%" align="center">
+
+<tbody><tr>
+<td>
+
+<p class="i">
+コマンド名は
+<font color="blue"><b>RES</b></font> 
+です。
+</p>
+
+<table border="1" class="i">
+<tbody><tr>
+<td>
+<img src="./FIG4.jpg" border="0" alt="FIG4.jpg(1223 byte)" width="82" height="58">
+</td>
+</tr>
+</tbody></table>
+
+</td>
+</tr>
+</tbody></table>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="90%" align="center">
+<tbody><tr><td>
+<a name="6">&nbsp;</a>
+<hr size="20" color="#99CC66">
+<b>　　　EEPROM 読み出し</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<table width="85%" align="center">
+
+<tbody><tr>
+<td>
+
+<p class="i">
+コマンド名は
+<font color="blue"><b>EEPR</b></font> 
+です。
+範囲を入力して改行します。
+</p>
+
+<table border="1" class="i">
+<tbody><tr>
+<td>
+<img src="./FIG5.jpg" border="0" alt="FIG5.jpg(1467 byte)" width="104" height="53">
+</td>
+</tr>
+</tbody></table>
+
+<p class="i">
+EEPROM から
+<font color="blue"><b>範囲</b></font>
+で指定された領域を読み出してバスのメモリに書き込みます。
+</p>
+
+</td>
+</tr>
+</tbody></table>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="90%" align="center">
+<tbody><tr><td>
+<a name="7">&nbsp;</a>
+<hr size="20" color="#99CC66">
+<b>　　　EEPROM 書き込み</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<table width="85%" align="center">
+
+<tbody><tr>
+<td>
+
+<p class="i">
+コマンド名は
+<font color="blue"><b>EEPW</b></font> 
+です。
+範囲を入力して改行します。
+</p>
+
+<table border="1" class="i">
+<tbody><tr>
+<td>
+<img src="./FIG6.jpg" border="0" alt="FIG6.jpg(1482 byte)" width="102" height="56">
+</td>
+</tr>
+</tbody></table>
+
+<p class="i">
+バスのメモリから
+<font color="blue"><b>範囲</b></font>
+で指定された領域を読み出してEEPROM に書き込みます。
+</p>
+
+</td>
+</tr>
+</tbody></table>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="100%" align="center">
+<tbody><tr><td>
+<a name="8">&nbsp;</a>
+<hr size="20" color="#6699CC">
+<b>　　　文字入力機構</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<a name="FIG1">&nbsp;</a><table class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図1:<font color="#003366">文字入力機構</font></font>
+</td>
+</tr>
+<tr>
+<td>
+<img src="./FIG7.jpg" border="0" alt="FIG7.jpg(5491 byte)" width="278" height="87">
+</td>
+</tr>
+</tbody></table>
+
+<a name="FIG2">&nbsp;</a><table class="i" align="right">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図2:<font color="#003366">コマンドバッファ</font></font>
+</td>
+</tr>
+<tr>
+<td>
+<img src="./FIG8.jpg" border="0" alt="FIG8.jpg(11831 byte)" width="110" height="423">
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left">
+<br clear="right">
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="90%" align="center">
+<tbody><tr><td>
+<a name="9">&nbsp;</a>
+<hr size="20" color="#99CC66">
+<b>　　　本体</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<table width="85%" align="center">
+<tbody><tr>
+<td>
+
+<p class="i">
+ASCII コードの1 文字を収容する8 ビットのレジスタを16 個使ってコマンドバッファの
+<font color="blue">cmd0buf～cmd15buf</font> 
+を構成します。
+<br>
+<font color="red">図2</font> 
+は
+<font color="green">D 1234,5678</font> 
+を収容した例です。
+</p>
+
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left">
+<br clear="right">
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="90%" align="center">
+<tbody><tr><td>
+<a name="10">&nbsp;</a>
+<hr size="20" color="#99CC66">
+<b>　　　文字入力制御</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<table width="85%" align="center">
+<tbody><tr>
+<td>
+
+<p class="i">
+<font color="blue">RDATAIN</font> 
+に受信データが確定すると
+<font color="blue">GETP</font> 
+に起点がでます。受信データをどのバッファに記憶するかは
+<font color="blue">point</font> 
+で決定します。
+</p>
+
+<a name="FIG3">&nbsp;</a><table class="i" align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図3:<font color="#003366">コマンドバッファ1 個</font></font>
+</td>
+</tr>
+<tr>
+<td>
+<img src="./FIG9.jpg" border="0" alt="FIG9.jpg(4974 byte)" width="248" height="99" align="left">
+</td>
+</tr>
+</tbody></table>
+
+<p class="i">
+<font color="blue">getp. □</font> 
+(□=0～15) は
+<font color="blue">point</font> 
+の値によって選択した位置に
+<font color="blue">GETP</font> 
+の起点を出力します。
+</p>
+
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left">
+<br clear="right">
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="100%" align="center">
+<tbody><tr><td>
+<a name="11">&nbsp;</a>
+<hr size="20" color="#6699CC">
+<b>　　　コマンド解析機構</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="90%" align="center">
+<tbody><tr><td>
+<a name="12">&nbsp;</a>
+<hr size="20" color="#99CC66">
+<b>　　　コマンドの検出</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<a name="FIG10">&nbsp;</a><table align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図4:<font color="#003366">主行程(<font color="blue">sequence</font>)</font></font>
+</td>
+</tr>
+<tr>
+<td>
+<img src="./FIG10.jpg" border="0" alt="FIG10.jpg(25919 byte)" width="357" height="879">
+</td>
+</tr>
+</tbody></table>
+
+<p class="i">
+受信文字はバッファの先頭から収容されていきます。コ
+マンドはバッファの先頭からコマンド名に該当する文字
+が配置されて区切り文字が続いていることで認識しま
+す。どのコマンドで認識したかは
+<font color="blue">cmdno</font> 
+で示します。
+</p>
+
+<br clear="left">
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="90%" align="center">
+<tbody><tr><td>
+<a name="13">&nbsp;</a>
+<hr size="20" color="#99CC66">
+<b>　　　要素の取り出し</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<p class="i"> 
+コマンドの文字列は改行により確定とみなします。この
+後に要素を取り出します。コマンド文字列と主行程の
+<font color="red">図4</font> 
+との関係は
+<font color="red">図5</font> 
+のようになります。
+要素を取り出すとき
+<font color="red">図6</font> 
+のように位置と文字数を検出します。
+コマンドバッファの文字列から
+<font color="red">図7</font> 
+のように
+<font color="blue">count</font> 
+を取り出しの位置にして
+<font color="blue">pm0data</font> 
+に数値化します。
+</p>
+
+<a name="FIG11">&nbsp;</a><table align="left" class="i">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図5:<font color="#003366">主行程とコマンド文字列</font></font>
+</td>
+</tr>
+<tr>
+<td>
+<img src="./FIG11.jpg" border="0" alt="FIG11.jpg(14718 byte)" width="464" height="168">
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left">
+
+<a name="FIG12">&nbsp;</a><table align="left" class="i">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図6:<font color="#003366">要素の位置と文字数</font></font>
+</td>
+</tr>
+<tr>
+<td>
+<img src="./FIG12.jpg" border="0" alt="FIG12.jpg(9396 byte)" width="334" height="126">
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left">
+
+<a name="FIG13">&nbsp;</a><table align="left" class="i">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図7:<font color="#003366">要素の取り出しと数値化</font></font>
+</td>
+</tr>
+<tr>
+<td>
+<img src="./FIG13.jpg" border="0" alt="FIG13.jpg(11078 byte)" width="307" height="163">
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left">
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="90%" align="center">
+<tbody><tr><td>
+<a name="14">&nbsp;</a>
+<hr size="20" color="#99CC66">
+<b>　　　コマンド実行</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<p class="i">
+文字が入力されているときは文字の入力行程です、改
+行によってコマンド解析行程に移ります。
+<font color="blue">cmdinto</font> 
+が1のときコマンド解析行程に移ったことを示し、さらに主
+行程の
+<font color="blue">sequence</font> 
+が11 のときコマンド実行に移ったこ
+とを示します。各行程と指標との関係は
+<font color="red">図8</font> 
+のようになっています。
+</p>
+
+<a name="FIG14">&nbsp;</a><table align="left" class="i">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図8:<font color="#003366">各行程と信号指標</font></font>
+</td>
+</tr>
+<tr>
+<td>
+<img src="./FIG14.jpg" border="0" alt="FIG14.jpg(8239 byte)" width="320" height="125">
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left">
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="100%" align="center">
+<tbody><tr><td>
+<a name="15">&nbsp;</a>
+<hr size="20" color="#6699CC">
+<b>　　　メモリ表示コマンド</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<a name="FIG15">&nbsp;</a><table align="left" class="i">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図9:<font color="#003366">dump 行程(<font color="blue">dumpseq</font>)</font></font>
+</td>
+</tr>
+<tr>
+<td>
+<img src="./FIG15.jpg" border="0" alt="FIG15.jpg(6995 byte)" width="146" height="337">
+</td>
+</tr>
+</tbody></table>
+
+<p class="i">
+メモリの開始番地は
+<font color="blue">pm0data</font> 
+に終了番地は
+<font color="blue">pm1data</font> 
+に示します。
+<font color="blue">dump</font> 
+行程と表示位置の関係は
+<font color="red">図10</font> 
+のようになります。
+<font color="blue">dump</font>
+の実行における1 文字づつの送り出しは
+<font color="red">図11</font> 
+のようになります。
+</p>
+
+<br clear="left">
+
+<a name="FIG16">&nbsp;</a><table align="left" class="i">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図10:<font color="#003366">dump 行程と表示位置</font></font>
+</td>
+</tr>
+<tr>
+<td>
+<img src="./FIG16.jpg" border="0" alt="FIG16.jpg(12959 byte)" width="479" height="138">
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left">
+
+<a name="FIG17">&nbsp;</a><table align="left" class="i">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図11:<font color="#003366">dump の実行と信号指標</font></font>
+</td>
+</tr>
+<tr>
+<td>
+<img src="./FIG17.jpg" border="0" alt="FIG17.jpg(12220 byte)" width="443" height="117">
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left">
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="100%" align="center">
+<tbody><tr><td>
+<a name="16">&nbsp;</a>
+<hr size="20" color="#6699CC">
+<b>　　　データ送信</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<a name="FIG18">&nbsp;</a><table align="left" class="i">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図12:<font color="#003366">送信行程</font></font>
+</td>
+</tr>
+<tr>
+<td>
+<img src="./FIG18.jpg" border="0" alt="FIG18.jpg(8734 byte)" width="339" height="190">
+</td>
+</tr>
+</tbody></table>
+
+<p class="i">
+文字受信時のエコーやコマンド実行時の文字の送信行程は
+<font color="red">図12</font> 
+のようになります。
+<font color="blue">BUSY</font> 
+が
+<font color="red">1</font> 
+であれば送信中を示し
+<font color="blue">busyfallp</font> 
+が
+<font color="red">1</font> 
+であれば送信終了を示します。
+</p>
+
+<br clear="left">
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="100%" align="center">
+<tbody><tr><td>
+<a name="17">&nbsp;</a>
+<hr size="20" color="#6699CC">
+<b>　　　メモリ変更コマンド</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<a name="FIG19">&nbsp;</a><table align="left" class="i">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図13:<font color="#003366">setm 行程(<font color="blue">setmseq</font>)</font></font>
+</td>
+</tr>
+<tr>
+<td>
+<img src="./FIG19.jpg" border="0" alt="FIG19.jpg(25568 byte)" width="340" height="781">
+</td>
+</tr>
+</tbody></table>
+
+<p class="i">
+メモリの番地の開始位置は
+<font color="blue">pm0data</font> 
+に示します。
+コマンドの実行は
+<font color="red">図13</font> 
+のようになります。
+</p>
+
+<br clear="left">
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="100%" align="center">
+<tbody><tr><td>
+<a name="18">&nbsp;</a>
+<hr size="20" color="#6699CC">
+<b>　　　データ受信</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<a name="FIG20">&nbsp;</a><table align="left" class="i">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図14:<font color="#003366">データ受信</font></font>
+</td>
+</tr>
+<tr>
+<td>
+<img src="./FIG20.jpg" border="0" alt="FIG20.jpg(5327 byte)" width="227" height="136">
+</td>
+</tr>
+</tbody></table>
+
+<p class="i">
+<font color="blue">GETP</font> 
+が
+<font color="red">1</font> 
+のときにデータが受信されたことを示します。
+</p>
+
+<br clear="left">
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="100%" align="center">
+<tbody><tr><td>
+<a name="19">&nbsp;</a>
+<hr size="20" color="#6699CC">
+<b>　　　メモリ読み出し</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<a name="FIG21">&nbsp;</a><table align="left" class="i">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図15:<font color="#003366">メモリ読み出し</font></font>
+</td>
+</tr>
+<tr>
+<td>
+<img src="./FIG21.jpg" border="0" alt="FIG21.jpg(5444 byte)" width="217" height="125">
+</td>
+</tr>
+</tbody></table>
+
+<p class="i">
+メモリのデータは
+<font color="blue">MR</font> 
+が
+<font color="red">1</font> 
+のときに
+<font color="blue">memdata</font> 
+に記憶します。
+</p>
+
+<br clear="left">
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="100%" align="center">
+<tbody><tr><td>
+<a name="20">&nbsp;</a>
+<hr size="20" color="#6699CC">
+<b>　　　メモリ書き込み</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<a name="FIG22">&nbsp;</a><table align="left" class="i">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図16:<font color="#003366">メモリ書き込み</font></font>
+</td>
+</tr>
+<tr>
+<td>
+<img src="./FIG22.jpg" border="0" alt="FIG22.jpg(5174 byte)" width="215" height="119">
+</td>
+</tr>
+</tbody></table>
+
+<p class="i">
+</p>
+
+
+
+
+
+
+
+
+
+
+
+<br clear="left">
+<br clear="right">
+
+<br><br><hr><br><br>
+
+</body></html>
