@@ -1,0 +1,261 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link type="text/css" rel="stylesheet" href="./main.css">
+
+<body>
+<br>
+<h1>チャタリング除去</h1>
+双投型のスイッチはCOM端子にハイレベルを接続して
+NO,NC端子はプルダウンしてから下の論理のswa,swbに
+接続するとチャタリングを除去したスイッチの状態を
+取り込めます。
+<h6>SAMPLE.L</h6>
+<pre lang="ja">
+{ =============================================== }
+{      チャタリング除去                           }
+{ =============================================== }
+logicname sample
+
+{ =============================================== }
+{      実効譜                                     }
+{ =============================================== }
+entity main
+input  swa,swb;
+output q;
+bitr   regq;
+
+   if (swb)
+      regq=0;
+   else
+      if (swa)
+         regq=1;
+      else
+         regq=regq;
+      endif
+   endif
+
+   q=regq;
+
+ende
+
+{ =============================================== }
+{      機能実行譜                                 }
+{ =============================================== }
+entity sim
+output swa,swb;
+output q;
+bitr   tc[5];
+input  simres;
+
+   part main(swa,swb,q)
+   if (!simres) tc=tc+1; endif
+
+   switch(tc)
+      case 1: swb=1;
+      case 3: swa=1;
+      case 5: swa=1;
+      case 7: swa=1;
+      case 10: swb=1;
+      case 13: swa=1;
+      case 20: swa=1; swb=1;
+      case 22: swb=1;
+      case 24: swb=1;
+   endswitch
+
+ende
+endlogic
+</pre>
+<hr>
+<img src="./FG04G07B.jpg" alt="">
+<br><br>
+上が機能実行の結果です、双投型のスイッチではswa
+とswbが同時にチャタリングすることはありません。
+<h6>e0.VHD</h6>
+<pre lang="ja">library IEEE;
+
+use IEEE.std_logic_1164.all;
+
+entity main is
+
+   port(clk                                 : in    std_logic;
+        swb0                                : in    std_logic;
+        swa0                                : in    std_logic;
+        q0                                  : out   std_logic);
+
+end main;
+
+architecture RTL of main is
+signal n_n4                                : std_logic ;
+
+begin
+
+process(clk) begin
+   if (clk' event and clk='1') then
+
+      n_n4 &lt;= (not swb0 and swa0)
+         or (n_n4 and not swb0 and not swa0) ;
+
+   end if;
+end process;
+
+q0 &lt;= (n_n4) ;
+
+end RTL;
+</pre>
+<hr>
+上がVHDLの論理式に出力したものです。<br>
+チップ化するときにPLDメーカの開発ツールでも検証
+するときは下のe1.vhdを使って下さい。<br>
+これは実効譜の設計論理に機能実行譜の検証論理を追
+加して一体にしたものです。<br>
+この譜の入力はCLKと初期化だけで他の入力信号は検
+証論理が時系列に配置します。
+<h6>e1.VHD</h6>
+<pre lang="ja">library IEEE;
+
+use IEEE.std_logic_1164.all;
+
+entity sim is
+
+   port(clk                                     : in    std_logic;
+        sim_swb0                                : out   std_logic;
+        sim_swa0                                : out   std_logic;
+        sim_q0                                  : out   std_logic;
+        simres0                                 : in    std_logic);
+
+end sim;
+
+architecture RTL of sim is
+signal n_n4                                : std_logic ;
+signal n_n16                               : std_logic ;
+signal n_n17                               : std_logic ;
+signal n_n18                               : std_logic ;
+signal n_n19                               : std_logic ;
+signal n_n20                               : std_logic ;
+signal n_n30                               : std_logic ;
+signal n_n31                               : std_logic ;
+signal n_n32                               : std_logic ;
+signal swb0                                : std_logic ;
+signal swa0                                : std_logic ;
+signal q0                                  : std_logic ;
+
+begin
+
+process(clk) begin
+   if (clk' event and clk='1') then
+
+      n_n4 &lt;= (not swb0 and swa0)
+         or (n_n4 and not swb0 and not swa0) ;
+
+      n_n16 &lt;= (not n_n16 and not simres0) ;
+
+      n_n17 &lt;= (not n_n17 and n_n16 and not simres0)
+         or (n_n17 and not n_n16 and not simres0) ;
+
+      n_n18 &lt;= (not n_n18 and n_n17 and n_n16 and not simres0)
+         or (n_n18 and not simres0 and not n_n30) ;
+
+      n_n19 &lt;= (not n_n19 and n_n18 and n_n17 and n_n16 and not simres0)
+         or (n_n19 and not simres0 and not n_n31) ;
+
+      n_n20 &lt;= (not n_n20 and n_n19 and n_n18 and n_n17 and n_n16 and not simres0)
+         or (n_n20 and not simres0 and not n_n32) ;
+
+   end if;
+end process;
+
+q0 &lt;= (n_n4) ;
+
+n_n30 &lt;= (n_n17 and n_n16 and not simres0) ;
+
+n_n31 &lt;= (n_n18 and n_n17 and n_n16 and not simres0) ;
+
+n_n32 &lt;= (n_n19 and n_n18 and n_n17 and n_n16 and not simres0) ;
+
+swb0 &lt;= (n_n16 and not n_n17 and not n_n18 and not n_n19 and not n_n20)
+   or (not n_n16 and n_n17 and not n_n18 and n_n19 and not n_n20)
+   or (not n_n16 and not n_n17 and not n_n18 and n_n19 and n_n20)
+   or (not n_n16 and n_n18 and not n_n19 and n_n20) ;
+
+swa0 &lt;= (not n_n16 and not n_n17 and n_n18 and not n_n19 and n_n20)
+   or (n_n16 and n_n17 and not n_n19 and not n_n20)
+   or (n_n16 and n_n18 and not n_n19 and not n_n20)
+   or (n_n16 and not n_n17 and n_n18 and not n_n20) ;
+
+sim_swb0 &lt;= swb0 ;
+sim_swa0 &lt;= swa0 ;
+sim_q0 &lt;= q0 ;
+
+end RTL;
+</pre>
+<hr>
+上の譜のテストベンチが下の譜です。<br>
+初期化とCLKを定義しているだけです。<br>
+<h6>s1.VHD</h6>
+<pre lang="ja">library IEEE;
+
+use IEEE.std_logic_1164.all;
+
+entity TESTBENCH is
+end TESTBENCH ;
+
+architecture  behavior of TESTBENCH is
+
+   component sim
+   port(clk                                     : in    std_logic;
+        sim_swb0                                : out   std_logic;
+        sim_swa0                                : out   std_logic;
+        sim_q0                                  : out   std_logic;
+        simres0                                 : in    std_logic);
+   end component ;
+
+constant CLK_CYCLE : Time := 20 ns ;
+
+signal clk                                     : std_logic ;
+signal simres0                                 : std_logic ;
+signal sim_swb0                                : std_logic ;
+signal sim_swa0                                : std_logic ;
+signal sim_q0                                  : std_logic ;
+
+begin
+
+   unit : sim port map (
+      clk =&gt; clk,
+      sim_swb0 =&gt; sim_swb0,
+      sim_swa0 =&gt; sim_swa0,
+      sim_q0 =&gt; sim_q0,
+      simres0 =&gt; simres0);
+
+   process begin
+      clk &lt;= '1';
+      wait for CLK_CYCLE/2;
+      clk &lt;= '0';
+      wait for CLK_CYCLE/2;
+   end process;
+
+   process begin
+      simres0 &lt;= '0';
+      wait for CLK_CYCLE*2;
+      simres0 &lt;= '1';
+      wait for CLK_CYCLE*5;
+      simres0 &lt;= '0';
+      wait for CLK_CYCLE*30;
+   end process;
+end;
+</pre>
+<hr>
+上のe1.vhdとs1.vhdをPLDメーカの開発ツールで検証
+すると下の結果が得られました。<br>
+e1.vhdは検証用のものです、チップ化はe0.vhdで行い
+ます。
+<br><br>
+<img src="./FG04G07C.jpg" alt="">
+<hr>
+LSIM用の検証用の論理譜はt1.simです、これには検証
+用の論理譜が追加されています。<br>
+全信号の動きは下のようになっています、swa0より下
+が検証論理の信号です。<br><br>
+<img src="./FG04G07D.jpg" alt="">
+
+<br><br><br><hr><br>
+
+</body></html>
