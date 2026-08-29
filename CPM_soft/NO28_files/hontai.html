@@ -1,0 +1,238 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!-- saved from url=(0042)https://ldlabo.hishaku.com/NO28/hontai.htm -->
+<html lang="ja"><head>
+<meta charset="UTF-8">
+	
+    <link type="text/css" rel="stylesheet" href="./main.css">
+	<title></title>
+</head>
+<body>
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="100%" align="center">
+<tbody><tr><td>
+<a name="1">&nbsp;</a>
+<hr size="20" color="#6699CC">
+<b>　　　Aztec C v1.06D Professional for CP/M-80</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<p class="i">
+8080のアセンブリ言語を出力するコンパイラとアセンブラ、リンカを持っています。
+CP/M80版には使い方を示すファイルは含まれていませんがCP/M86版のマニュアル
+があるようなので参考になるかもしれません。
+</p>
+
+<p class="i">
+このツールの入手は
+<a href="http://www.retroarchive.org/" target="_blank">http://www.retroarchive.org/</a>
+の下の所からできます。
+</p>
+
+<table border="1" class="i">
+<tbody><tr><td>
+<a href="http://www.retroarchive.org/cpm/lang/lang.htm" target="_blank">
+<img src="./FIG1.jpg" border="0" alt="FIG1.jpg(4277 byte)" width="443" height="37">
+</a>
+</td>
+</tr>
+</tbody></table>
+
+<p class="i">
+フリーで配布されていたHITECH-CのCP/M80版は現在(2007.12.25)はサイトから無くなってい
+るようですから入手可能なCP/M80の標準的なCコンパイラとして取り上げてみます。
+</p>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="100%" align="center">
+<tbody><tr><td>
+<a name="2">&nbsp;</a>
+<hr size="7" color="#6699CC">
+<b>　　　使い方</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<br>
+
+<table class="i" bgcolor="silver" align="left">
+<tbody><tr><td>
+<img src="./FIG2.jpg" border="0" alt="FIG2.jpg(12085 byte)" width="274" height="242">
+</td>
+</tr>
+</tbody></table>
+
+<p align="i">
+入手した圧縮ファイルを展開してみるとヘッダファイルがひとつもありませんでした。
+左の試験用のプログラムも
+<font color="blue"></font></p><pre><font color="blue">#include ＜stdio.h＞</font></pre>
+を書かなくても済みました。
+<p></p>
+
+<br clear="left"><br>
+
+<p class="i">
+コンパイラが
+<font color="blue">CC.COM</font>
+、アセンブラが
+<font color="blue">AS.COM</font>
+、リンカが
+<font color="blue">LN.COM</font>
+です。
+これらを下のように
+<font color="blue">CP/Mエミュレータ</font>
+を使って
+<font color="blue">tests.c</font>
+の実行プログラムの
+<font color="blue">TESTS.COM</font>
+を得ます。
+</p>
+
+
+<table class="i" align="left">
+<tbody><tr><td>
+<img src="./FIG3.jpg" border="0" alt="FIG3.jpg(44527 byte)" width="669" height="481">
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+<p class="i">
+アセンブラは
+<font color="blue">-L</font>
+オプションでアセンブルリストを出力します。
+リンカは
+<font color="blue">-T</font>
+オプションでシンボルテーブルを出力します。
+</p>
+
+<table class="i" align="left">
+<tbody><tr><td>
+<img src="./FIG4.jpg" border="0" alt="FIG4.jpg(20180 byte)" width="293" height="337">
+</td>
+</tr>
+</tbody></table>
+
+<p class="i">
+<font color="blue">TESTS.COM</font>
+を
+<br><font color="red">BIN2HEX　TESTS.COM　100　&gt;　TESTS.HEX</font><br>
+でインテルへクスファイルに変換してCPMアダプタの動いているメモリモニタの基板に転送します。
+これを実行したものが左です。
+<br>
+最後にファイル操作のシステムコールを発行しているようです。
+<br>
+また本コンパイラの出力するプログラムはコンソールの入力に対してエコーを返さないようなので
+通信プログラムの
+<font color="blue">local echo</font>
+を有効にしないと入力する文字が見えなくなります。
+</p>
+
+<br clear="left"><br>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="100%" align="center">
+<tbody><tr><td>
+<a name="3">&nbsp;</a>
+<hr size="7" color="#6699CC">
+<b>　　　インラインアセンブラ</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<br>
+
+<table class="i" bgcolor="silver" align="left">
+<tbody><tr><td>
+<img src="./FIG5.jpg" border="0" alt="FIG5.jpg(19756 byte)" width="279" height="493">
+</td>
+</tr>
+</tbody></table>
+
+<p class="i">
+8080のアセンブリ言語でのインラインアセンブラが使えます。
+<br>
+左は
+<font color="blue">hello world!!</font>
+の後にコンソールから
+<font color="blue">"N"</font>
+の入力を待って次を続けるプログラムです。
+<br>
+インラインアセンブラの中では
+<font color="blue">#define</font>
+文などで定義された定数は使えないようでした。
+</p>
+
+<br clear="left">
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="100%" align="center">
+<tbody><tr><td>
+<a name="4">&nbsp;</a>
+<hr size="7" color="#6699CC">
+<b>　　　直接IO操作</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<p class="i">
+<font color="blue">SMALL C</font>
+で使ったプログラムを少し変えて書きました。
+変えたのは
+<font color="blue">include</font>
+文を外したことと、文字列を
+<font color="blue">static</font>
+にして関数内に戻したことと、インラインアセンブラを
+<font color="blue">8080</font>
+アセンブリ言語の表記にしたことです。
+</p>
+
+<table class="i" bgcolor="silver" align="left">
+<tbody><tr><td>
+<img src="./FIG6.jpg" border="0" alt="FIG6.jpg(19300 byte)" width="498" height="458">
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+<p class="i">
+このプログラムの大きさは
+<font color="blue">3.38K</font>
+バイトでした。
+</p>
+
+<table class="i" align="left">
+<tbody><tr><td>
+<img src="./FIG7.jpg" border="0" alt="FIG7.jpg(17101 byte)" width="293" height="211">
+</td>
+</tr>
+</tbody></table>
+
+
+
+
+
+
+
+
+
+<br clear="left">
+<br clear="right">
+
+<br><br><hr><br><br>
+
+</body></html>

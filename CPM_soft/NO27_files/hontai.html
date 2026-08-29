@@ -1,0 +1,355 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!-- saved from url=(0042)https://ldlabo.hishaku.com/NO27/hontai.htm -->
+<html lang="ja"><head>
+<meta charset="UTF-8">
+    <link type="text/css" rel="stylesheet" href="./main.css">
+	<title></title>
+</head>
+<body>
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="100%" align="center">
+<tbody><tr><td>
+<a name="1">&nbsp;</a>
+<hr size="20" color="#6699CC">
+<b>　　　SDCC Z80</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<p class="i">
+SDCCの出力するZ80コードをメモリモニタとCP/Mアダプタの上で動かすプログラミング
+について考察します。
+<br>
+SDCCは独立して実行できるプログラムを出力するのでスタートアップルーチンを持って
+いますが、これを含めるとダウンロード時にCP/Mアダプタの領域を書き換えるので
+<font color="blue">SDCC -mz80 --no-std-crt0 TEST.C</font>
+のようにスタートアップルーチンを使わないコンパイルをします。
+<br>
+コード領域とデータ領域を省略した場合はそれぞれ
+<font color="blue">200H</font>
+番地と
+<font color="blue">8000H</font>
+番地に設定されていました。
+</p>
+
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="100%" align="center">
+<tbody><tr><td>
+<a name="2">&nbsp;</a>
+<hr size="7" color="#6699CC">
+<b>　　　標準入出力</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<a name="FIG1">&nbsp;</a><table align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図1:コンソール入出力</font>
+</td>
+</tr>
+<tr><td bgcolor="silver">
+<img src="./FIG1.jpg" border="0" alt="FIG1.jpg(23934 byte)" width="287" height="558">
+</td>
+<td>&nbsp;</td>
+</tr>
+</tbody></table>
+
+<p class="i">
+SDCCは標準入出力文として
+<font color="blue">printf</font>
+と
+<font color="blue">gets</font>
+を備えています。
+これらを利用したプログラムを
+<font color="red">図1</font>
+のように書けます。
+<br>
+標準入出力文の末端にあるI/O操作はこちらで書いて追加する必要があります。
+<br>
+<font color="blue">printf</font>
+は最終的に
+<font color="red">図2</font>
+の
+<font color="blue">putchar</font>
+を呼び出していますがここで機能番号をレジスタ
+<font color="blue">A</font>
+に送信データをレジスタ
+<font color="blue">L</font>
+に渡して
+<font color="blue">RST 8H</font>
+を実行しています。
+<br>
+ここの内容はスタートアップルーチンにあるのですが
+<font color="blue">RET</font>
+があるだけなので自分の環境に合わせたプログラムがこの位置に必要なことが分かります。
+</p>
+
+<a name="FIG2">&nbsp;</a><table align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図2:putchar.s</font>
+</td>
+</tr>
+<tr><td bgcolor="silver">
+<img src="./FIG2.jpg" border="0" alt="FIG2.jpg(11349 byte)" width="242" height="314">
+</td>
+<td>&nbsp;</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+<a name="FIG3">&nbsp;</a><table align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図3:CONOUT.ASM</font>
+</td>
+</tr>
+<tr><td bgcolor="silver">
+<img src="./FIG3.jpg" border="0" alt="FIG3.jpg(10937 byte)" width="272" height="293">
+</td>
+<td>&nbsp;</td>
+</tr>
+</tbody></table>
+
+<p class="i">
+<font color="blue">printf</font>
+文が動くためには
+<font color="red">図3</font>
+のプログラムをメモリに配置します。
+
+レジスタ
+<font color="blue">A</font>
+に機能番号があります、これが
+<font color="red">1</font>なら
+<font color="blue">putchar</font>
+から呼ばれている分けです。
+機能番号が
+<font color="red">0</font>のときはプログラムの終了のとき呼び出されていますのでWBOOTに分岐します。
+これを
+<font color="blue">RET</font>
+で戻すとスタートアップルーチン内のプログラムで
+<font color="blue">HALT</font>
+が実行されてCPUが停止します。
+<br>
+<font color="blue">gets</font>
+文は最終的に
+<font color="blue">getchar</font>
+を呼び出していますが
+<font color="blue">SDCC</font>
+には準備していないようです。
+<br>
+そこで自分の環境に合わせて作ったのが
+<font color="red">図1</font>
+の下のプログラムです。
+これで
+<font color="blue">200H</font>
+番地から実行したようすが
+<font color="red">図4</font>
+です。
+</p>
+
+<br clear="left"><br>
+
+
+<a name="FIG4">&nbsp;</a><table align="left">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図4:コンソール実行</font>
+</td>
+</tr>
+<tr><td bgcolor="#FFFFCC">
+<pre>&gt;
+&gt;GO 200
+hello world!!
+
+abcdefg
+
+(abcdefg)
+
+CP/M ADAPTER ver 1.0a
+</pre>
+</td>
+<td>&nbsp;</td>
+</tr>
+</tbody></table>
+
+<br clear="left">
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="100%" align="center">
+<tbody><tr><td>
+<a name="3">&nbsp;</a>
+<hr size="7" color="#6699CC">
+<b>　　　IO直接操作</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<p class="i">
+CP/Mのシステムコールを使わないプログラムです。
+このプログラムは最初は
+<font color="blue">スタートアップルーチン</font>
+をリンクせずに実行させてみたのですが動きませんでした、
+理由は文字列が無かったからです。
+文字列は
+<font color="blue">スタートアップルーチン</font>
+から呼び出されるプログラムによって所定の位置に文字列が書き込まれる仕組みになっていました。
+</p>
+
+
+<a name="FIG5">&nbsp;</a><table class="i">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図5:IO直接操作</font>
+</td>
+</tr>
+<tr><td bgcolor="silver">
+<img src="./FIG4.jpg" border="0" alt="FIG4.jpg(27866 byte)" width="495" height="426">
+</td>
+<td>&nbsp;</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+<p class="i">
+初期値を持つ変数宣言は
+<font color="blue">スタートアップルーチン</font>
+が不可欠のようなので付属の
+<font color="blue">crt0.s</font>
+を見てみます。
+<br>
+</p><ul class="i">
+<li class="i">① はCP/Mアダプタの領域を書き換えるので削除します。</li>
+<li class="i">② はそのままでは何もせずに帰ってくるので番地を変更します。</li>
+<li class="i">③ は該当する処理を書いていないので ret だけにします。</li>
+<li class="i">④ はCP/Mアダプタに戻る分岐命令にします。</li>
+</ul>
+<p></p>
+
+<a name="FIG6">&nbsp;</a><table class="i">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図6:crt0.s</font>
+</td>
+</tr>
+<tr><td bgcolor="silver">
+<img src="./FIG5A.jpg" border="0" alt="FIG5A.jpg(41618 byte)" width="450" height="823"><br clear="left">
+<img src="./FIG5B.jpg" border="0" alt="FIG5B.jpg(11267 byte)" width="450" height="237">
+</td>
+<td>&nbsp;</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+<p class="i">
+変更後の
+<font color="blue">crt0.s</font>
+です。
+文字列を初期化するプログラムの位置はマップファイルを見ると
+<font color="blue">s__GSINIT</font>
+のようです。
+</p>
+
+<a name="FIG7">&nbsp;</a><table class="i">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図7:修正crt0.s</font>
+</td>
+</tr>
+<tr><td bgcolor="silver">
+<img src="./FIG6.jpg" border="0" alt="FIG6.jpg(40507 byte)" width="490" height="750">
+</td>
+<td>&nbsp;</td>
+</tr>
+</tbody></table>
+
+<a name="FIG8">&nbsp;</a><table class="i">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図8:修正crt0.sのアセンブル</font>
+</td>
+</tr>
+<tr><td>
+<img src="./FIG7.jpg" border="0" alt="FIG7.jpg(13157 byte)" width="413" height="120">
+</td>
+<td>&nbsp;</td>
+</tr>
+</tbody></table>
+
+
+<a name="FIG9">&nbsp;</a><table class="i">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図9:crt0.oをリンクするコンパイル</font>
+</td>
+</tr>
+<tr><td>
+<img src="./FIG8.jpg" border="0" alt="FIG8.jpg(18236 byte)" width="461" height="156">
+</td>
+<td>&nbsp;</td>
+</tr>
+</tbody></table>
+
+
+<a name="FIG10">&nbsp;</a><table class="i">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図10:実行</font>
+</td>
+</tr>
+<tr><td>
+<img src="./FIG9.jpg" border="0" alt="FIG9.jpg(16269 byte)" width="309" height="229">
+</td>
+<td>&nbsp;</td>
+</tr>
+</tbody></table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<br clear="left">
+<br clear="right">
+
+<br><br><hr><br><br>
+
+</body></html>

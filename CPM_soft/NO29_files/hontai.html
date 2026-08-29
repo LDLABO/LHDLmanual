@@ -1,0 +1,256 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!-- saved from url=(0042)https://ldlabo.hishaku.com/NO29/hontai.htm -->
+<html lang="ja"><head>
+    <meta charset="UTF-8">
+	
+    <link type="text/css" rel="stylesheet" href="./main.css">
+	<title></title>
+</head>
+<body>
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="100%" align="center">
+<tbody><tr><td>
+<a name="1">&nbsp;</a>
+<hr size="20" color="#6699CC">
+<b>　　　SMALL C/Plus v1.0</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<p class="i">
+Z80のアセンブリ言語を出力するコンパイラとアセンブラ、リンカとオプチマイザを持っています。
+</p>
+
+<p class="i">
+このツールの入手は
+<a href="http://www.cpm.z80.de/" target="_blank">http://www.cpm.z80.de/</a>
+の下の所からできます。
+</p>
+
+<table border="1" class="i">
+<tbody><tr><td>
+<a href="http://www.cpm.z80.de/small_c.html" target="_blank">
+<img src="./FIG1.jpg" border="0" alt="FIG1.jpg(12492 byte)" width="630" height="50">
+</a>
+</td>
+</tr>
+</tbody></table>
+
+<p class="i">
+フリーで配布されていたHITECH-CのCP/M80版は現在(2007.12.25)はサイトから無くなってい
+るようですから入手可能なCP/M80のZ80版のCコンパイラとして取り上げてみます。
+</p>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="100%" align="center">
+<tbody><tr><td>
+<a name="2">&nbsp;</a>
+<hr size="7" color="#6699CC">
+<b>　　　使い方</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<br>
+
+<table class="i" bgcolor="silver" align="left">
+<tbody><tr><td>
+<img src="./FIG2.jpg" border="0" alt="FIG2.jpg(13258 byte)" width="275" height="279">
+</td>
+</tr>
+</tbody></table>
+
+<p class="i">
+コンパイラが
+<font color="blue">CC0.COM</font>
+、アセンブラが
+<font color="blue">ZMAC.COM</font>
+、リンカが
+<font color="blue">ZLINK.COM</font>
+、オプチマイザが
+<font color="blue">ZOPT.COM</font>
+です。
+これらを下のように
+<font color="blue">CP/Mエミュレータ</font>
+を使って
+<font color="blue">tests.c</font>
+の実行プログラムの
+<font color="blue">TESTS.COM</font>
+を得ます。
+<br><br>
+<font color="blue">ZRES.COM</font>
+は
+<font color="blue">CLIB.LIB</font>
+から
+<font color="blue">TESTS.C</font>
+が必要とするもの抜き出して
+<font color="blue">CLIB.OBJ</font>
+を作っているようです。
+リンカでは拡張子が
+<font color="blue">OBJ</font>
+のファイルをリンクしています。
+</p>
+
+<br clear="left"><br>
+
+<ul class="i">
+<li class="i"><font color="red">CC0　TESTS</font></li>
+<li class="i"><font color="red">ZOPT　TESTS</font></li>
+<li class="i"><font color="red">ZMAC　TESTS=TESTS</font></li>
+<li class="i"><font color="red">ZRES　B:　CLIB　TESTS</font></li>
+<li class="i"><font color="red">ZLINK　TESTS,TESTS=TESTS,IOLIB,CLIB</font></li>
+</ul>
+
+<br>
+
+<table class="i" align="left">
+<tbody><tr><td>
+<img src="./FIG3A.jpg" border="0" alt="FIG3A.jpg(42665 byte)" width="669" height="481" align="left"><br clear="left"><br>
+<img src="./FIG3B.jpg" border="0" alt="FIG3B.jpg(51949 byte)" width="669" height="481" align="left"><br clear="left"><br>
+<img src="./FIG3C.jpg" border="0" alt="FIG3C.jpg(44002 byte)" width="669" height="481" align="left"><br clear="left"><br>
+<img src="./FIG3D.jpg" border="0" alt="FIG3D.jpg(59606 byte)" width="669" height="553">
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+<p class="i">
+各プログラムの使い方は付属のドキュメントファイルを参照してください。
+</p>
+
+<table class="i" align="left">
+<tbody><tr><td>
+<img src="./FIG4.jpg" border="0" alt="FIG4.jpg(18107 byte)" width="269" height="247">
+</td>
+</tr>
+</tbody></table>
+
+<p class="i">
+<font color="blue">TESTS.COM</font>
+を
+<br><font color="red">BIN2HEX　TESTS.COM　100　&gt;　TESTS.HEX</font><br>
+でインテルへクスファイルに変換してCPMアダプタの動いているメモリモニタの基板に転送します。
+これを実行したものが左です。
+<br>
+最初にファイル操作のシステムコールを発行しているようです。
+<br>
+また本コンパイラの出力するプログラムはコンソールの入力に対してエコーを返さないようなので
+通信プログラムの
+<font color="blue">local echo</font>
+を有効にしないと入力する文字が見えなくなります。
+</p>
+
+<br clear="left"><br>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="100%" align="center">
+<tbody><tr><td>
+<a name="3">&nbsp;</a>
+<hr size="7" color="#6699CC">
+<b>　　　インラインアセンブラ</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<br>
+
+<table class="i" bgcolor="silver" align="left">
+<tbody><tr><td>
+<img src="./FIG5.jpg" border="0" alt="FIG5.jpg(20417 byte)" width="288" height="485">
+</td>
+</tr>
+</tbody></table>
+
+<p class="i">
+Z80のアセンブリ言語でのインラインアセンブラが使えます。
+<br>
+左は
+<font color="blue">hello world!!</font>
+の後にコンソールから
+<font color="blue">"N"</font>
+の入力を待って次を続けるプログラムです。
+<br>
+インラインアセンブラの中では
+<font color="blue">#define</font>
+文などで定義された定数は使えないようでした。
+</p>
+
+<br clear="left">
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="100%" align="center">
+<tbody><tr><td>
+<a name="4">&nbsp;</a>
+<hr size="7" color="#6699CC">
+<b>　　　IO直接操作</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<br>
+
+<table class="i" bgcolor="silver" align="left">
+<tbody><tr><td>
+<img src="./FIG6.jpg" border="0" alt="FIG6.jpg(21094 byte)" width="424" height="483">
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+<p class="i">
+<font color="blue">printf</font>
+文などを使わずに直接IOを操作して文字列を送信するプログラムを書いてみました。
+プログラム上では必要ないのですがコンパイルの次のアセンブルで未定義エラーがでるので
+<font color="blue">stdio .h</font>
+はいかなる場合も必要とするようです。
+インラインアセンブラではローカル変数の位置がわからないのでグローバル変数を使いました
+<font color="blue">char a</font>
+はコンパイラのアセンブリ言語の出力を見ると
+<font color="blue">qa</font>
+になっているようです。
+</p>
+
+<table class="i" align="left">
+<tbody><tr><td>
+<img src="./FIG7.jpg" border="0" alt="FIG7.jpg(17051 byte)" width="293" height="211">
+</td>
+</tr>
+</tbody></table>
+
+<p class="i">
+組み込み用途のコンパイラでなければシステムコールを使っていないようなプログラムでも
+バージョン番号などの取り出しのシステムコールはほぼ行っていると思って間違いありません。
+他にシステムコールを呼び出すときのBDOSの位置でシステムのメモリの大きさを判定している場合などもあります。
+CP/Mのないところで実行させることも難しいこではありませんがシステムコールやBIOSの直接の呼び出しにも少しですが対応する必要もあります。
+このプログラムの大きさは
+<font color="blue">3.75K</font>
+バイトでした。
+</p>
+
+<br clear="left">
+
+
+
+
+
+
+<br clear="left">
+<br clear="right">
+
+<br><br><hr><br><br>
+
+</body></html>

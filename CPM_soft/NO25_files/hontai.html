@@ -1,0 +1,1384 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!-- saved from url=(0041)http://ldlabo.hishaku.com/NO25/hontai.htm -->
+<html lang="ja"><head>
+<meta charset="UTF-8">
+	
+    <link type="text/css" rel="stylesheet" href="./main.css">
+	<title></title>
+
+<body>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="100%" align="center">
+<tbody><tr><td>
+<a name="1">&nbsp;</a>
+<hr size="20" color="#6699CC">
+<b>　　　BASCOM</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<p class="i">
+マイクロソフト社のBASICコンパイラです。
+</p>
+
+<table bgcolor="silver" align="left" class="i">
+<tbody><tr><td>
+<pre>00010 PRINT "HELLO WORLD"
+00020 END
+</pre>
+</td>
+</tr>
+</tbody></table>
+
+<p class="i">
+左が最も簡単なBASICのプログラムです。
+</p>
+
+<br clear="left">
+
+<p class="i">
+CPMエミュレータを使って下のように
+<font color="blue">コンパイル -&gt; リンク -&gt; 実行</font> を行います。
+</p>
+
+<table class="i">
+<tbody><tr><td>
+<img src="./FIG06L01A.jpg" border="0" alt="FIG06L01A.jpg(37918 byte)" width="509" height="462">
+</td>
+</tr>
+</tbody></table>
+
+<p class="i">
+このツールの入手は
+<a href="http://www.retroarchive.org/" target="_blank">http://www.retroarchive.org/</a>
+の下の所からできます。
+</p>
+
+<table border="1" class="i">
+<tbody><tr><td>
+<a href="http://www.retroarchive.org/cpm/lang/lang.htm" target="_blank">
+<img src="./FIG06L01B.jpg" border="0" alt="FIG06L01B.jpg(6332 byte)" width="460" height="45">
+</a>
+</td>
+</tr>
+</tbody></table>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="100%" align="center">
+<tbody><tr><td>
+<a name="2">&nbsp;</a>
+<hr size="7" color="#6699CC">
+<b>　　　自作環境で使う場合</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<p class="i">
+BASICコンパイラで作ったプログラムをCP/Mの外で使う
+場合に問題になるのは
+<font color="blue">システムコール</font>
+をどうするかと言うことがあります。
+
+<font color="blue">INPUT</font>文
+や
+<font color="blue">PRINT</font>文
+はシステムコールがあります。
+
+システムコールを無視する場合でも5番地にRETのコードの
+<font color="blue">C9</font>
+を置いて呼び出しからの戻しとします。
+</p>
+
+<p class="i">
+CP/M80ではCOMファイルが実行プログラムですがインテル
+へクスファイルを得る場合はリンク時に下のコマンドを
+実行します。
+
+<br><br>
+
+</p><pre>          <font color="blue" size="3">CPM</font> <font size="3">L80 TEST,TEST/N/E/</font><font color="red" size="3">X</font>
+</pre>
+
+<p></p>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="100%" align="center">
+<tbody><tr><td>
+<a name="3">&nbsp;</a>
+<hr size="7" color="#6699CC">
+<b>　　　メモリの読み書き</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<table bgcolor="silver" class="i" align="left">
+<tbody><tr><td>
+<pre>00010 A%=PEEK(&amp;H1234)
+00020 POKE &amp;H1236,A%
+00030 END
+</pre>
+</td></tr>
+</tbody></table>
+
+<p class="i">
+メモリの番地を指定しての直接の読み書きは左のよう
+になります。
+<br>
+<font color="blue">A%</font>
+は16ビットの変数です、1234hから読み出して1236hに
+書き込んでいます。
+</p>
+
+<br clear="left">
+
+<br>
+
+<table bgcolor="silver" class="i" align="left">
+<tbody><tr><td>
+<pre>BASCOM 5.30a- Copyright 1979,80,81
+(C) by MICROSOFT - 31948 Bytes Free
+
+ 0014 0007      00010 A%=PEEK(&amp;H1234)
+        ** 0014'I00000: CALL    $530 
+        ** 0017'L00010: 
+        ** 0017'        LDA     1234
+        ** 001A'        MOV     L,A
+        ** 001B'        MVI     H,00
+        ** 001D'        SHLD    A%
+ 0020 0009      00020 POKE &amp;H1236,A%
+        ** 0020'L00020: LHLD    A%
+        ** 0023'        MOV     A,L
+        ** 0024'        STA     1236
+ 0027 0009      00030 END
+        ** 0027'L00030: CALL    $END 
+ 002A 0009      
+        ** 002A'        CALL    $END 
+ 002F 0013      
+
+00000 Fatal Error(s)
+31831 Bytes Free
+</pre>
+</td></tr>
+</tbody></table>
+
+<p class="i">
+左のコンパイルリストを見ると
+<font color="blue">0014'</font>
+はプログラム開始の呼び出し
+<font color="blue">0027'</font>
+はプログラム終了の呼び出しで他に呼び出しを行って
+いません。
+
+必要なコードは
+<font color="blue">0017'</font>
+から
+<font color="blue">0024'</font>
+までのコードと分かります。
+<br>
+<br>
+このプログラムは4955バイトなのですが必要なコード
+は16バイトです。
+このように呼び出しのないコードを書いた場合は最小
+限の大きさに切り取ることができます。
+</p>
+
+<br clear="left">
+
+<br>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="100%" align="center">
+<tbody><tr><td>
+<a name="4">&nbsp;</a>
+<hr size="7" color="#6699CC">
+<b>　　　ポートの読み書き</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<table bgcolor="silver" class="i" align="left">
+<tbody><tr><td>
+<pre>00010 A%=INP(&amp;H12)
+00020 OUT &amp;H13,A%
+00030 END
+</pre>
+</td></tr>
+</tbody></table>
+
+<p class="i">
+ポートの番地を指定しての直接の読み書きは左のよう
+になります。
+<br>
+<font color="blue">A%</font>
+は16ビットの変数です、12hから読み出して13hに
+書き込んでいます。
+</p>
+
+<br clear="left">
+
+<br>
+
+<table bgcolor="silver" class="i" align="left">
+<tbody><tr><td>
+<pre>BASCOM 5.30a- Copyright 1979,80,81
+(C) by MICROSOFT - 31948 Bytes Free
+
+ 0014 0007      00010 A%=INP(&amp;H12)
+        ** 0014'I00000: CALL    $530 
+        ** 0017'L00010: 
+        ** 0017'        IN      12
+        ** 0019'        MOV     L,A
+        ** 001A'        MVI     H,00
+        ** 001C'        SHLD    A%
+ 001F 0009      00020 OUT &amp;H13,A%
+        ** 001F'L00020: LHLD    A%
+        ** 0022'        MOV     A,L
+        ** 0023'        OUT     13
+ 0025 0009      00030 END
+        ** 0025'L00030: CALL    $END 
+ 0028 0009      
+        ** 0028'        CALL    $END 
+ 002D 0013      
+
+00000 Fatal Error(s)
+31806 Bytes Free
+</pre>
+</td></tr>
+</tbody></table>
+
+<br clear="left">
+
+<br>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="100%" align="center">
+<tbody><tr><td>
+<a name="5">&nbsp;</a>
+<hr size="7" color="#6699CC">
+<b>　　　16ビットの加算</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<table bgcolor="silver" class="i" align="left">
+<tbody><tr><td><pre>00010 A%=INP(&amp;H12)
+00020 B%=INP(&amp;H13)
+00030 C%=A%+B%
+00040 OUT &amp;H14,C%
+00050 END
+</pre>
+</td></tr>
+</tbody></table>
+
+<br clear="left">
+
+<br>
+
+<table bgcolor="silver" class="i" align="left">
+<tbody><tr><td>
+<pre>BASCOM 5.30a- Copyright 1979,80,81
+(C) by MICROSOFT - 31948 Bytes Free
+
+ 0014 0007      00010 A%=INP(&amp;H12)
+        ** 0014'I00000: CALL    $530 
+        ** 0017'L00010: 
+        ** 0017'        IN      12
+        ** 0019'        MOV     L,A
+        ** 001A'        MVI     H,00
+        ** 001C'        SHLD    A%
+ 001F 0009      00020 B%=INP(&amp;H13)
+        ** 001F'L00020: IN      13
+        ** 0021'        MOV     L,A
+        ** 0022'        MVI     H,00
+        ** 0024'        SHLD    B%
+ 0027 000B      00030 C%=A%+B%
+        ** 0027'L00030: LHLD    A%
+        ** 002A'        XCHG
+        ** 002B'        LHLD    B%
+        ** 002E'        DAD     D
+        ** 002F'        SHLD    C%
+ 0032 000D      00040 OUT &amp;H14,C%
+        ** 0032'L00040: LHLD    C%
+        ** 0035'        MOV     A,L
+        ** 0036'        OUT     14
+ 0038 000D      00050 END
+        ** 0038'L00050: CALL    $END 
+ 003B 000D      
+        ** 003B'        CALL    $END 
+ 0040 0017      
+
+00000 Fatal Error(s)
+31759 Bytes Free
+</pre>
+</td></tr>
+</tbody></table>
+
+<p class="i">
+コンパイルリストを見ると16ビットの加算は
+<font color="blue">DAD D</font> (8080)
+で行われています。
+これはZ80では
+<font color="blue">ADD HL,DE</font>
+です。
+</p>
+
+<br clear="left">
+
+<br>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="100%" align="center">
+<tbody><tr><td>
+<a name="6">&nbsp;</a>
+<hr size="20" color="#6699CC">
+<b>　　　文法</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<p class="i">
+本稿で解説しているBASICは古い形式のものなので基本
+的な情報を掲載します。
+BASICコンパイラの正規の解説書は持っていないのでマ
+イクロソフト系のBASICの文法書から抜粋します。
+</p>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="100%" align="center">
+<tbody><tr><td>
+<a name="7">&nbsp;</a>
+<hr size="7" color="#6699CC">
+<b>　　　文字セット</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<ul class="i">
+<li>英字 AからZまでの26文字</li>
+<li>数字 0から9までの10文字</li>
+</ul>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="100%" align="center">
+<tbody><tr><td>
+<a name="8">&nbsp;</a>
+<hr size="7" color="#6699CC">
+<b>　　　定数</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="80%" align="center">
+<tbody><tr><td>
+<a name="9">&nbsp;</a>
+<hr size="3" color="#6699CC">
+<b>　　　文字定数</b>
+<hr>
+
+<p class="i">
+BASICで使える文字セットを並べ、全体を引用符
+( <font color="red">"</font> )
+で囲って指定します。
+</p>
+
+<p class="i">
+[例]&nbsp;&nbsp; "HELLO WORLD"
+</p>
+
+</td></tr>
+</tbody></table>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="80%" align="center">
+<tbody><tr><td>
+<a name="10">&nbsp;</a>
+<hr size="3" color="#6699CC">
+<b>　　　数値定数</b>
+<hr>
+
+<p class="i">
+数値定数には、次の五つの形式があります。
+</p>
+
+</td></tr>
+</tbody></table>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="80%" align="center">
+<tbody><tr><td>
+<a name="11">&nbsp;</a>
+<!-- <hr size="3" color="#6699CC"> -->
+<br>
+<b>　　　整数形式</b>
+<hr>
+
+<p class="i">
+プラス(+)またはマイナス(-)の符号に続いて一つ以上
+の数字を並べたもので、プラス符号は省略することも
+できます。
+<br>
+プラス符号の付いたものを正の整数、マイナス符号の
+付いたものを負の整数と呼び、整数の値の範囲は
+<font color="blue">-32768から+32767</font>
+までです。
+</p>
+
+<table class="i">
+<tbody><tr>
+<td>[例]</td>
+<td>
+<ul>
+<li>1</li>
+<li>+123</li>
+<li>-32767</li>
+</ul>
+</td>
+</tr>
+</tbody></table>
+
+</td></tr>
+</tbody></table>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="80%" align="center">
+<tbody><tr><td>
+<a name="12">&nbsp;</a>
+<br>
+<b>　　　固定小数点形式</b>
+<hr>
+
+<p class="i">
+符号に続いて、整数部、小数点、小数部の順に書いた
+もので、プラス符号は省略することができます。
+整数部と小数部のうち、一方は省略できますが、両方
+とも省略することはできません、小数部は
+( <font color="red"><b>.</b></font> )
+で表します。
+</p>
+
+<table class="i">
+<tbody><tr>
+<td>[例]</td>
+<td>
+<ul>
+<li>1.0</li>
+<li>-123.11</li>
+<li>.999</li>
+</ul>
+</td>
+</tr>
+</tbody></table>
+
+</td></tr>
+</tbody></table>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="80%" align="center">
+<tbody><tr><td>
+<a name="13">&nbsp;</a>
+<br>
+<b>　　　浮動小数点形式</b>
+<hr>
+
+<p class="i">
+指数形式で表現された正または負の数値で、符号に続
+いて、整数部、小数点、小数部、指数部の順に書いた
+ものです。
+プラス符号は省略することができます。
+また、整数部、小数部のうち、一方の省略ができます
+。
+指数部は単精度では
+<font color="blue">E[{±}]nn</font>
+で表し、倍精度では
+<font color="blue">D[{±}]nn</font>
+で表します。なお、
+<font color="blue">nn</font>
+は整数で、0から38までです。
+</p>
+
+<table class="i">
+<tbody><tr>
+<td>[例]</td>
+<td>
+<ul>
+<li>520.18E+7</li>
+<li>108E-18</li>
+<li>0.1256E+12</li>
+<li>0.99999999D-8</li>
+</ul>
+</td>
+</tr>
+</tbody></table>
+
+</td></tr>
+</tbody></table>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="80%" align="center">
+<tbody><tr><td>
+<a name="14">&nbsp;</a>
+<br>
+<b>　　　16進形式</b>
+<hr>
+
+<p class="i">
+プレフィックス&amp;Hに続いて、16進数(0～9,A～F)を並べ
+て書いたものです。
+先行する0を除いて4桁まで書くことができ、&amp;H0から&amp;HFFFF
+までの範囲を表すことができます。
+この形式で入力された16進数は、符号無し10進数に変
+換されて出力されます。
+</p>
+
+<table class="i">
+<tbody><tr>
+<td>[例]</td>
+<td>
+<ul>
+<li>&amp;H64</li>
+<li>&amp;H003F</li>
+</ul>
+</td>
+</tr>
+</tbody></table>
+
+</td></tr>
+</tbody></table>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="80%" align="center">
+<tbody><tr><td>
+<a name="15">&nbsp;</a>
+<br>
+<b>　　　8進形式</b>
+<hr>
+
+<p class="i">
+プレフィックス&amp;Oまたは&amp;に続いて8進数(0～7)を並べ
+て書いたものです。
+先行する0を除いて6桁まで書くことができ、&amp;O0～&amp;O177777
+までの範囲を表すことができます、この形式で入力さ
+れた8進数は、符号無し10進数に変換されて出力されま
+す。
+</p>
+
+<table class="i">
+<tbody><tr>
+<td>[例]</td>
+<td>
+<ul>
+<li>&amp;O0123</li>
+<li>&amp;O123456</li>
+</ul>
+</td>
+</tr>
+</tbody></table>
+
+</td></tr>
+</tbody></table>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="80%" align="center">
+<tbody><tr><td>
+<a name="16">&nbsp;</a>
+<br>
+<b>　　　単精度と倍精度の数値定数</b>
+<hr>
+
+<p class="i">
+数値定数には、単精度定数と倍精度定数があります。
+単精度定数は、7桁までの精度で格納され、6桁までの
+桁数で表示されます。
+<br>
+倍精度定数は、17桁の精度で格納され、16桁までの桁
+数で表示されます。
+<br>
+単精度定数および倍精度定数で表現できる数値の絶対
+値は、約3.0×10<sup><small>-39</small></sup>から
+1.7×10<sup><small>+38</small></sup>までであり、
+3.0×10<sup><small>-39</small></sup>より小さい数
+は0になります。
+<br>
+単精度数値定数は次のいずれかに当てはまるものです
+。
+</p>
+
+<ol class="i">
+<li class="i">有効桁数が7桁以下の定数</li>
+<li class="i">Eを用いた指数形式で表現されたもの</li>
+<li class="i">最後に感嘆符( <font color="red"><b>!</b></font> )が書かれた定数</li>
+</ol>
+
+<table class="i">
+<tbody><tr>
+<td>[例]</td>
+<td>
+<ul>
+<li>13.6</li>
+<li>-1.23E+6</li>
+<li>862.1!</li>
+<li>520</li>
+</ul>
+</td>
+</tr>
+</tbody></table>
+
+<p class="i">
+倍精度数値定数は、次のいずれかに当てはまるものです。
+</p>
+
+<ol class="i">
+<li class="i">有効桁数が8桁以上の定数</li>
+<li class="i">Dを用いた指数形式で表現されたもの</li>
+<li class="i">最後にナンバ記号( <font color="red"><b>#</b></font> )が書かれた定数</li>
+</ol>
+
+<table class="i">
+<tbody><tr>
+<td>[例]</td>
+<td>
+<ul>
+<li>1368792702</li>
+<li>-1.5670D-12</li>
+<li>562.983#</li>
+<li>852.138269012</li>
+</ul>
+</td>
+</tr>
+</tbody></table>
+
+</td></tr>
+</tbody></table>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="100%" align="center">
+<tbody><tr><td>
+<a name="17">&nbsp;</a>
+<hr size="7" color="#6699CC">
+<b>　　　変数</b>
+<hr>
+
+<p class="i">
+変数は、BASICのプログラムの中で使われる値を表すた
+めに使われる名前です。
+変数はプログラムの中で値が与えられるまでは、その
+値は0になっています。
+</p>
+
+</td></tr>
+</tbody></table>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="85%" align="center">
+<tbody><tr><td>
+<a name="18">&nbsp;</a>
+<hr size="3" color="#6699CC">
+<b>　　　変数名と型宣言文字</b>
+<hr>
+
+<p class="i">
+変数名は、255文字以内の英数字で構成されますが、最
+初の文字は英字でなければなりません、BASICは最初の
+16文字+型宣言文字により変数名を区別します。
+<br>
+変数名は予約語であってはなりません、BASICで使われ
+るコマンド名、ステートメント名、関数名、演算子名
+などのキーワードは、全て予約語です。
+<br>
+変数は数値、文字列のいずれをも表すことができます
+。
+変数名の直後に型宣言文字を付けて、その変数が表す
+値の型を宣言することができ、この型宣言文字には次
+のものがあります。
+</p>
+
+<ul class="i">
+<li class="i"><font color="blue"><b>％</b></font>&nbsp;&nbsp;整数変数を示し、一つの変数につき、2バイトのデータ格納域を必要とします。</li>
+<li class="i"><font color="blue"><b>！</b></font>&nbsp;&nbsp;単精度変数を示し、一つの変数につき、4バイトのデータ格納域を必要とします。</li>
+<li class="i"><font color="blue"><b>＃</b></font>&nbsp;&nbsp;倍精度変数を示し、一つの変数につき、8バイトのデータ格納域を必要とします。</li>
+<li class="i"><font color="blue"><b>＄</b></font>&nbsp;&nbsp;文字変数を示し、最大255文字のデータを格納することができます。</li>
+</ul>
+
+<p class="i">
+型宣言もなく型宣言文字も伴わない変数名は、単精度
+形式の数値を表すものとして扱われます。
+</p>
+
+<table class="i">
+<tbody><tr>
+<td>[例]</td>
+<td>
+<ul>
+<li>A%&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;整数変数</li>
+<li>PNT!&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;単精度変数</li>
+<li>MAX#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;倍精度変数</li>
+<li>L$&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;文字変数</li>
+<li>AB&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;単精度変数</li>
+</ul>
+</td>
+</tr>
+</tbody></table>
+
+</td></tr>
+</tbody></table>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="85%" align="center">
+<tbody><tr><td>
+<a name="19">&nbsp;</a>
+<hr size="3" color="#6699CC">
+<b>　　　配列変数</b>
+<hr>
+
+<p class="i">
+配列は、同じ性質を持つ複数個のデータの集まりです。
+配列は同一名でその要素を参照することができ、それ
+ぞれの要素は添字により順序付けられます。
+ある変数を配列変数として宣言するためには、
+<font color="blue">DIM</font>
+文を用いて次のように行います。
+</p>
+
+<p class="i">
+　　　<font size="4" color="blue"><b>DIM</b></font>　変数名 (添字の最大値[,添字の最大値]・・・・・・・)
+</p>
+
+<p class="i">
+カッコの中に書かれた添字の最大値の個数により、そ
+の配列変数の次元数を指定します。
+配列の次元は、1次元から多次元の指定が行えます。
+添字の最大値は整数形式で、0から32767の範囲でなけ
+ればなりません。
+配列変数の一要素の参照は、各次元の添字を指定した
+添字付き名で行い、その形式は次のとおりです。
+</p>
+
+<p class="i">
+　　　変数名　(第1次元の添字[,第2次元の添字]・・・・・・・)
+</p>
+
+<p class="i">
+変数名の直後にカッコでくくって各次元の添字を指定
+します。
+この中に書かれた添字の個数は、配列変数の次元数と
+一致しなければなりません。
+添字は数値式で、その値は0から添字の最大値までです
+。
+各次元の添字の結果が整数でない場合は、小数部を切
+り捨てた整数に変換されます。
+</p>
+
+<table class="i">
+<tbody><tr>
+<td>[例]</td>
+<td>
+&nbsp;DIM A(2,2)
+</td>
+</tr>
+<tr>
+<td></td>
+<td>
+2次元の配列を宣言しています。配列の各要素の参照は次のようになります。
+</td>
+</tr>
+<tr><td></td><td>A(1,1)</td></tr>
+<tr><td></td><td>A(1,2)</td></tr>
+<tr><td></td><td>A(2,1)</td></tr>
+<tr><td></td><td>A(2,2)</td></tr>
+</tbody></table>
+
+</td></tr>
+</tbody></table>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="100%" align="center">
+<tbody><tr><td>
+<a name="20">&nbsp;</a>
+<hr size="7" color="#6699CC">
+<b>　　　式</b>
+<hr>
+
+<p class="i">
+式は演算の方法を示すもので、定数や変数、関数を演
+算子で結んで指定します。
+式には算術式、関係式、論理式および文字式があり、
+この中で算術式、関係式および論理式を数値式と呼び
+ます。
+</p>
+
+</td></tr>
+</tbody></table>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="85%" align="center">
+<tbody><tr><td>
+<a name="21">&nbsp;</a>
+<hr size="3" color="#6699CC">
+<b>　　　算術式</b>
+<hr>
+
+<p class="i">
+算術式は、変数、定数、関数などの数値データを算術
+演算子で結んだものです。
+また算術演算子のない数値データのみの場合も算術式
+と呼びます。
+算術演算子には次のものがあります。
+</p>
+
+<ul class="i">
+<li class="i">＋　　　　加算を行います。</li>
+<li class="i">－　　　　減算を行います。</li>
+<li class="i">＊　　　　乗算を行います。</li>
+<li class="i">／　　　　浮動小数点除算を行います。</li>
+<li class="i">＾ 　　　　ベキ乗を行います。</li>
+<li class="i">￥　　　　整数の除算を行います。結果は浮動小数点除算の小数点以下を切り捨てた値となります。</li>
+<li class="i">ＭＯＤ　　整数の除算の剰余を求めます。</li>
+</ul>
+
+<p class="i">
+整数の除算 ( <font color="red">￥</font> ) および
+、整数の剰余( <font color="red">MOD</font> ) の演
+算において、オペランドが整数形式でないときは、小
+数部を四捨五入し、整数に変換してから演算が行われ
+ます。
+</p>
+
+<table class="i">
+<tbody><tr>
+<td>[例]</td>
+<td>
+<ul>
+<li>24.35 \ 6.87 = 24 \ 7 = 3</li>
+<li>10.2 MOD 4 = 10 MOD 4 = 2</li>
+</ul>
+</td>
+</tr>
+</tbody></table>
+
+</td></tr>
+</tbody></table>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="100%" align="center">
+<tbody><tr><td>
+<a name="22">&nbsp;</a>
+<hr size="20" color="#6699CC">
+<b>　　　プログラミング</b>
+<hr>
+
+<p class="i">
+ファイル操作以外のCP/M環境を実装したZ80CPUを搭載したボードコンピュータで
+のプログラミングについて述べます。
+<br>
+Z80のメモリ空間は64Kバイトですが、現在はシリアルEEPROMの1個に記憶できる容量です。
+電源投入時にプログラムをこのEEPROMからSRAMに展開すればプログラムをROMとRAMに分離
+する必要が無くなりました。
+<br>
+よってCP/M上のコンパイラが出力するCOMファイルを変更せずにメモリに展開して実行で
+きるようになりました。
+<br>
+Z80の論理設計は当WEBにおいて論理設計を終了していますが、
+いずれ大容量のPLDが低価格して同時に小ピン化すればZ80をPLDに収めても苦にならない
+時が来ると思います。
+<br>
+CP/Mのソフトウェアはいわゆる組み込みコンピュータにおける実行ということでは制約は
+なにも無くなったと言えます。
+</p>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="100%" align="center">
+<tbody><tr><td>
+<a name="23">&nbsp;</a>
+<hr size="7" color="#6699CC">
+<b>　　　コンソール入出力</b>
+<hr>
+
+<br>
+
+<table align="left">
+<tbody><tr><td bgcolor="silver">
+<pre>00010 PRINT "CONSOLE TEST"
+00020 PRINT
+00030 INPUT "A=",A
+00040 INPUT "B=",B
+00050 PRINT "A+B=";A+B
+00060 GOTO 20
+00150 END
+</pre>
+</td>
+<td>&nbsp;</td>
+</tr>
+</tbody></table>
+
+<p class="i">
+コンソールへの出力でプログラム開始の文字列を表示してから2変数の入力を
+コンソールから行い足し算の結果をコンソールに出力するものです。
+</p>
+
+<br clear="left"><br>
+
+<table align="left">
+<tbody><tr><td bgcolor="#FFFFCC">
+<pre>&gt;HEX
+&gt;3DC2B5287CB71F677D1F6FC90600D608DAE728435A510E67
+&gt;1928E30000C3
+&gt;GO 100
+CONSOLE TEST
+
+A=12
+B=34
+A+B= 46
+
+A=123
+B=456
+A+B= 579
+
+A=1234
+B=5678
+A+B= 6912
+
+A=1.23
+B=4.56
+A+B= 5.79
+
+A=^C
+
+STOP at address 014C
+
+CP/M ADAPTER ver 1.0a
+</pre>
+</td>
+<td>&nbsp;</td>
+</tr>
+</tbody></table>
+
+<p class="i">
+すでにCP/Mアダプタが動いているところに
+<font color="blue">HEXコマンド</font>
+でプログラムをダウンロードします。
+<br>
+<font color="blue">L80</font>
+の出力するHEXファイルの後尾に意味不明のデータが付けられていますが
+プログラムの実行に支障はないようです。
+<br>
+<font color="blue">GOコマンド</font>
+で100番地から実行します。
+<br>
+プログラムはループしていますから
+<font color="blue">CTRL-C</font>
+を押して中断させます。
+<br>
+プログラムは中断の表示をしてCP/Mアダプタに戻りました。
+</p>
+
+<br clear="left">
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="100%" align="center">
+<tbody><tr><td>
+<a name="24">&nbsp;</a>
+<hr size="7" color="#6699CC">
+<b>　　　入力ポート</b>
+<hr>
+
+<br>
+
+<table align="left">
+<tbody><tr><td bgcolor="silver">
+<pre>00010 PRINT "IN PORT TEST"
+00020 PRINT
+00030 PRINT "PUSH ANY KEY"
+00040 PRINT
+00050 A%=INP(0)                     '制御ポート読み出し
+00060 A%=A% AND 1                   '受信ビットを残す
+00070 IF A%=0 THEN 50               '受信しているか判断
+00080 B%=INP(1)                     '受信データ読み出し
+00090 IF B%=ASC(".") THEN 120       '"."なら終わり
+00100 PRINT "RECEIVE DATA = ";B%
+00110 GOTO 30
+00120 END
+</pre>
+</td>
+<td>&nbsp;</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+<table align="left">
+<tbody><tr><td bgcolor="#FFFFCC">
+<pre>&gt;GO 100
+IN PORT TEST
+
+PUSH ANY KEY
+
+RECEIVE DATA =  49
+PUSH ANY KEY
+
+RECEIVE DATA =  50
+PUSH ANY KEY
+
+RECEIVE DATA =  51
+PUSH ANY KEY
+
+CP/M ADAPTER ver 1.0a
+</pre>
+</td>
+<td>&nbsp;</td>
+</tr>
+</tbody></table>
+
+<p class="i">
+<font color="blue">PUSH ANY KEY</font>
+の表示のあとに
+<font color="red">1</font>
+,
+<font color="red">2</font>
+,
+<font color="red">3</font>
+と入力しています。
+<br>
+すると該当するASCIIコードが10進数で表示されます。
+<br>
+次に
+<font color="red"><b>．</b></font>
+を入力すると実行を終了します。
+</p>
+
+<br clear="left">
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="100%" align="center">
+<tbody><tr><td>
+<a name="25">&nbsp;</a>
+<hr size="7" color="#6699CC">
+<b>　　　出力ポート</b>
+<hr>
+
+<br>
+
+<table align="left">
+<tbody><tr><td bgcolor="silver">
+<pre>00010 PRINT "OUT PORT TEST"
+00020 PRINT
+00030 C=0
+00040 A%=INP(0)         '制御ポート読み出し
+00050 A%=A% AND 2       '送信ビットを残す
+00060 IF A%&lt;&gt;0 THEN 40  '送信できるか判断
+00070 C%=C%+1
+00080 OUT 2,C%+&amp;H30     '送信
+00090 IF C%=3 THEN 120  '3なら終わり
+00100 GOTO 40
+00110 PRINT
+00120 END
+</pre>
+</td>
+<td>&nbsp;</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+<table align="left">
+<tbody><tr><td bgcolor="#FFFFCC">
+<pre>&gt;GO 100
+OUT PORT TEST
+
+123
+
+CP/M ADAPTER ver 1.0a
+</pre>
+</td>
+<td>&nbsp;</td>
+</tr>
+</tbody></table>
+
+<p class="i">
+<font color="red">123</font>
+と出力して実行を終了しています。
+</p>
+
+<br clear="left">
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="100%" align="center">
+<tbody><tr><td>
+<a name="26">&nbsp;</a>
+<hr size="7" color="#6699CC">
+<b>　　　指定メモリ書き込み</b>
+<hr>
+
+<br>
+
+<table align="left">
+<tbody><tr><td bgcolor="silver">
+<pre>00010 PRINT "POKE TEST"
+00020 PRINT
+00030 POKE &amp;H8000,&amp;H55
+00040 POKE &amp;H8001,&amp;HAA
+00050 POKE &amp;H8002,1
+00060 POKE &amp;H8003,2
+00070 C%=&amp;H23
+00080 POKE &amp;H8004,C%
+00090 POKE &amp;H8005,C%+1
+00100 POKE &amp;H8006,C%+2
+00110 END
+</pre>
+</td>
+<td>&nbsp;</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+<table align="left">
+<tbody><tr><td bgcolor="#FFFFCC">
+<pre>&gt;GO 100
+POKE TEST
+
+CP/M ADAPTER ver 1.0a
+
+&gt;D 8000
+8000 55 AA 01 02 23 24 25 00 00 00 00 00 00 00 00 00
+8010 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+8020 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+8030 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+8040 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+8050 00 00 00 00 00 00 0&gt;
+&gt;
+</pre>
+</td>
+<td>&nbsp;</td>
+</tr>
+</tbody></table>
+
+<p class="i">
+プログラムの実行後に
+<font color="blue">Dコマンド</font>
+で
+<font color="blue">8000H</font>
+番地を表示しています。
+</p>
+
+<br clear="left">
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="100%" align="center">
+<tbody><tr><td>
+<a name="27">&nbsp;</a>
+<hr size="7" color="#6699CC">
+<b>　　　指定メモリ読み出し</b>
+<hr>
+
+<br>
+
+<table align="left">
+<tbody><tr><td bgcolor="silver">
+<pre>00010 PRINT "PEEK TEST"
+00020 PRINT
+00030 FOR I=&amp;H8000 TO &amp;H800A STEP 1
+00040    A=PEEK(I)
+00050    PRINT HEX$(I);" = ";HEX$(A)
+00060 NEXT I
+00070 END
+</pre>
+</td>
+<td>&nbsp;</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+<table align="left">
+<tbody><tr><td bgcolor="#FFFFCC">
+<pre>&gt;GO 100
+PEEK TEST
+
+8000 = 12
+8001 = 34
+8002 = 56
+8003 = 78
+8004 = 9A
+8005 = BC
+8006 = DE
+8007 = F0
+8008 = 55
+8009 = AA
+800A = 0
+
+CP/M ADAPTER ver 1.0a
+
+&gt;D 8000
+8000 12 34 56 78 9A BC DE F0 55 AA 00 00 00 00 00 00
+8010 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+8020 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+8030 00 &gt;
+&gt;
+</pre>
+</td>
+<td>&nbsp;</td>
+</tr>
+</tbody></table>
+
+<p class="i">
+<font color="blue">8000H～800AH</font>
+番地のメモリを表示して実行を終了しています。
+</p>
+
+<br clear="left">
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="100%" align="center">
+<tbody><tr><td>
+<a name="28">&nbsp;</a>
+<hr size="7" color="#6699CC">
+<b>　　　IO直接操作</b>
+<hr>
+
+<br>
+
+<table class="i" bgcolor="silver">
+<tbody><tr>
+<td>
+<img src="./FIG1.jpg" border="0" alt="FIG1.jpg(27242 byte)" width="714" height="259">
+</td>
+</tr>
+</tbody></table>
+
+<br>
+
+<table class="i" align="left">
+<tbody><tr>
+<td>
+<img src="./FIG2.jpg" border="0" alt="FIG2.jpg(15004 byte)" width="293" height="229">
+</td>
+</tr>
+</tbody></table>
+
+<p class="i">
+CP/Mの無いところで動くことのできるシステムコールを使わないプログラムです。
+<font color="blue">5.5K</font>
+バイトの大きさです。
+</p>
+
+<br clear="left">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<br clear="left">
+
+<br><br><hr><br><br>
+
+
+
+</body></html>
