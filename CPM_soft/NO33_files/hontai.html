@@ -1,0 +1,162 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!-- saved from url=(0042)https://ldlabo.hishaku.com/NO33/hontai.htm -->
+<html lang="ja"><head>
+    <meta charset="UTF-8">
+	
+    <link type="text/css" rel="stylesheet" href="./main(1).css">
+	<title></title>
+</head>
+<body>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="100%" align="center">
+<tbody><tr><td>
+<a name="1">&nbsp;</a>
+<hr size="20" color="#6699CC">
+<b>　　　Pascal/MT+ CP/M80</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<p class="i">
+コンパイラとリンカで構成されています。
+アセンブラはついていませんがリンカはマイクロソフト社のアセンブラの
+<font color="blue">M80</font>
+の出力する
+<font color="blue">REL</font>
+ファイルをリンクできるようです。
+Pascal/MT+は組み込み用途も考慮された手続きや関数が追加されています、
+それらに加えてインラインアセンブラも付いていて組み込み用途にも使える
+Pascalの標準環境と言えると思います。
+</p>
+
+<p class="i">
+このツールの入手は
+<a href="http://www.cpm.z80.de/" target="_blank">http://www.cpm.z80.de/</a>
+の下の所からできます。
+</p>
+
+<table border="1" class="i">
+<tbody><tr><td>
+<a href="http://www.cpm.z80.de/binary.html" target="_blank">
+<img src="./FIG1.jpg" border="0" alt="FIG1.jpg(5097 byte)" width="409" height="42">
+</a>
+</td>
+</tr>
+</tbody></table>
+
+<p class="i">
+マニュアルは下のところにあります。
+</p>
+
+<table border="1" class="i">
+<tbody><tr><td>
+<a href="http://www.cpm.z80.de/drilib.html" target="_blank">
+<img src="./FIG6.jpg" border="0" alt="FIG6.jpg(6309 byte)" width="627" height="38">
+</a>
+</td>
+</tr>
+</tbody></table>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="100%" align="center">
+<tbody><tr><td>
+<a name="2">&nbsp;</a>
+<hr size="7" color="#6699CC">
+<b>　　　使い方</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<br>
+
+<table class="i" bgcolor="silver" align="left">
+<tbody><tr><td>
+<img src="./FIG3.jpg" border="0" alt="FIG3.jpg(13207 byte)" width="268" height="226">
+</td>
+</tr>
+</tbody></table>
+
+<p class="i">
+コンパイラの
+<font color="blue">MTPLUS .COM</font>
+が
+<font color="blue">ERL</font>
+ファイルを出力します。
+それを
+<font color="blue">LINKMT .COM</font>
+でライブラリの
+<font color="blue">PASLIB.ERL</font>
+から必要なプログラムをリンクして
+<font color="blue">COM</font>
+ファイルを出力します。
+</p>
+
+<br clear="left"><br>
+
+<table class="i" align="left">
+<tbody><tr><td>
+<img src="./FIG2.jpg" border="0" alt="FIG2.jpg(43800 byte)" width="669" height="481" align="left"><br clear="left">
+<img src="./FIG4.jpg" border="0" alt="FIG4.jpg(47380 byte)" width="669" height="481" align="left">
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left">
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="100%" align="center">
+<tbody><tr><td>
+<a name="3">&nbsp;</a>
+<hr size="7" color="#6699CC">
+<b>　　　IO直接操作</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<br>
+
+<table class="i" bgcolor="silver" align="left">
+<tbody><tr><td>
+<img src="./FIG5.jpg" border="0" alt="FIG5.jpg(26478 byte)" width="388" height="455">
+</td>
+</tr>
+</tbody></table>
+
+<p class="i">
+<font color="green">Hello World!! Pascal/MT+</font>
+とコンソールに表示するプログラムです。
+Pascal/MT+はビット操作の関数が準備されているのでインラインアセンブラを使いませんでした。
+また文字列操作の関数を使ったので文字列の制御文字を含ませることもできました。
+<br>
+<font color="blue">string</font>
+型の文字列の先頭の
+<font color="blue">msgc[0]</font>
+は文字数になっているので文字本体は
+<font color="blue">msgc[1]</font>
+からです。
+</p>
+
+
+
+
+
+
+
+
+
+<br clear="left">
+<br clear="right">
+
+<br><br><hr><br><br>
+
+</body></html>

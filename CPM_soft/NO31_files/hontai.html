@@ -1,0 +1,203 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!-- saved from url=(0042)https://ldlabo.hishaku.com/NO31/hontai.htm -->
+<html lang="ja"><head>
+    <meta charset="UTF-8">
+	
+    <link type="text/css" rel="stylesheet" href="./main.css">
+	<title></title>
+</head>
+<body>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="100%" align="center">
+<tbody><tr><td>
+<a name="1">&nbsp;</a>
+<hr size="20" color="#6699CC">
+<b>　　　PLM80</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<p class="i">
+組み込み専用の言語でありコンパイラです。
+CP/Mではなく ISIS で動いていたものですが MSDOS で動く ISISエミュレータで動かせます。 
+<br>
+他の言語ならインラインアセンブラで書くかアセンブラの出力を連結してしたものも、PLM
+なら書けると思います。
+しかしBASIC言語のような便利さはありませんので自分で書いて揃える必要があります。
+アセンブリ言語で書いていたものを高級言語で書きたい場合には80系特有のIO操作も番地を
+指定しての読み書きやプログラムの呼び出しも標準的な記述で可能です。
+</p>
+
+<p class="i">
+このツールの入手は
+<a href="http://www.cpm.z80.de/" target="_blank">http://www.cpm.z80.de/</a>
+の下の所からできます。
+</p>
+
+<table border="1" class="i">
+<tbody><tr><td>
+<a href="http://www.cpm.z80.de/binary.html" target="_blank">
+<img src="./FIG1.jpg" border="0" alt="FIG1.jpg(21360 byte)" width="488" height="95">
+</a>
+</td>
+</tr>
+</tbody></table>
+
+<p class="i">
+言語の解説はこちらにあります。
+</p>
+
+<table border="1" class="i">
+<tbody><tr><td>
+<a href="http://www.cpm.z80.de/drilib.html" target="_blank">
+<img src="./FIG3.jpg" border="0" alt="FIG3.jpg(4555 byte)" width="379" height="37">
+</a>
+</td>
+</tr>
+</tbody></table>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="100%" align="center">
+<tbody><tr><td>
+<a name="2">&nbsp;</a>
+<hr size="7" color="#6699CC">
+<b>　　　使い方</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<br>
+
+<table class="i" align="left" bgcolor="silver">
+<tbody><tr><td>
+<img src="./FIG2.jpg" border="0" alt="FIG2.jpg(27162 byte)" width="592" height="441">
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+<p class="i">
+本コンパイラはCP/Mプログラムでのコンソールの入出力のようなものは準備していませんので
+アセンブリ言語で書き下ろすようなプログラムを例に書いてみました。
+<br>
+PLM80のプログラムは最後にHALTを実行して停止するのでCP/Mアダプタに戻るために
+<font color="blue">call WBOOT</font>
+を付けています。
+</p>
+
+<table class="i" align="left">
+<tbody><tr><td>
+<img src="./FIG4.jpg" border="0" alt="FIG4.jpg(54691 byte)" width="667" height="481">
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+<p class="i">
+コマンドを個別に実行すると上のようになります。
+<font color="blue">TESTS.PLM</font>
+から
+<font color="blue">TESTS.HEX</font>
+を得る
+<font color="blue">CC.BAT</font>
+を作ってみました。
+</p>
+
+<table class="i" align="left" border="1">
+<tbody><tr><td>
+<a href="http://www.cpm.z80.de/binary.html" target="_blank">
+<img src="./FIG5.jpg" border="0" alt="FIG5.jpg(13531 byte)" width="500" height="57">
+</a>
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+<p class="i">
+PLM80コンパイラが最終的に出力したファイルをCP/Mの
+<font color="blue">COM</font>
+形式に変換しますが、これには
+<font color="blue">OBJCPM .COM</font>
+が必要です。
+これはCPMプログラムです上のところの
+<font color="red">8080/Z80 CP/M (185K)</font>
+にあります。
+</p>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="100%" align="center">
+<tbody><tr><td>
+<a name="3">&nbsp;</a>
+<hr size="3" color="#6699CC">
+<b>　　　CC.BAT</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<br>
+
+<table class="i" align="left" bgcolor="#FFFF99">
+<tbody><tr><td><font color="red">CC.BAT</font></td></tr>
+<tr><td>
+<pre>SET :F0:=.
+SET :F1:=.
+ISIS &lt; CC.SUB
+CPM OBJCPM TESTS
+BIN2HEX TESTS.COM 100 &gt; TESTS.HEX
+</pre>
+</td>
+</tr>
+</tbody></table>
+
+<p class="i">
+<font color="blue">ISIS</font>
+の実行にあたっては環境変数の設定が必要です。
+</p>
+
+<br clear="left"><br>
+
+<table class="i" align="left" bgcolor="#FFFF99">
+<tbody><tr><td><font color="red">CC.SUB</font></td></tr>
+<tr><td>
+<pre>PLM80 TESTS.PLM
+LINK TESTS.OBJ,PLM80.LIB TO TESTS.MOD
+LOCATE TESTS.MOD CODE(0100H) STACKSIZE(100) MAP PRINT(TESTS.TRA)
+EXIT
+</pre>
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+<table class="i" align="left">
+<tbody><tr><td>
+<img src="./FIG6.jpg" border="0" alt="FIG6.jpg(14839 byte)" width="309" height="247">
+</td>
+</tr>
+</tbody></table>
+
+<p class="i">
+PLM80の出力はCP/Mのシステムコールを呼ぶことはないので何の問題もなく実行できます。
+</p>
+
+
+<br clear="left">
+<br clear="right">
+
+<br><br><hr><br><br>
+
+</body></html>

@@ -1,0 +1,238 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!-- saved from url=(0042)https://ldlabo.hishaku.com/NO34/hontai.htm -->
+<html lang="ja"><head>
+    <meta charset="UTF-8">
+	
+    <link type="text/css" rel="stylesheet" href="./main.css">
+	<title></title>
+</head>
+<body>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="100%" align="center">
+<tbody><tr><td>
+<a name="1">&nbsp;</a>
+<hr size="20" color="#6699CC">
+<b>　　　Modula2 CP/M80</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<p class="i">
+コンパイラとリンカで構成されています。
+アセンブラはついていませんがマイクロソフト社のアセンブラの
+<font color="blue">M80</font>
+の出力する
+<font color="blue">REL</font>
+ファイルを本コンパイラの形式に変換するプログラムが付いており
+それで変換したものがリンクできます。
+リンカは組み込み用途にも使える機能を備えています。
+<br>
+8ビットのコンパイラでは珍しくメモリやIOを直接操作する手続きなどが追加されていませんが
+マニュアルで
+<font color="blue">M80</font>
+のアセンブリ言語で手続きにする方法が詳説されているので標準の手続きにない機能が必要な人は
+<font color="blue">M80</font>
+を使って追加してくれと言うことでしょう。
+</p>
+
+<p class="i">
+このツールの入手は
+<a href="http://www.cpm.z80.de/" target="_blank">http://www.cpm.z80.de/</a>
+の下の所からできます。
+</p>
+
+<table border="1" class="i">
+<tbody><tr><td>
+<a href="http://www.cpm.z80.de/develop.htm" target="_blank">
+<img src="./FIG1.jpg" border="0" alt="FIG1.jpg(38019 byte)" width="405" height="285">
+</a>
+</td>
+</tr>
+</tbody></table>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="100%" align="center">
+<tbody><tr><td>
+<a name="2">&nbsp;</a>
+<hr size="20" color="#6699CC">
+<b>　　　使い方</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<br>
+
+<table class="i" bgcolor="silver">
+<tbody><tr><td>
+<img src="./FIG3.jpg" border="0" alt="FIG3.jpg(24478 byte)" width="484" height="339">
+</td>
+</tr>
+</tbody></table>
+
+<br>
+
+<table class="i">
+<tbody><tr><td>
+<img src="./FIG2.jpg" border="0" alt="FIG2.jpg(41037 byte)" width="669" height="481">
+</td>
+</tr>
+</tbody></table>
+
+<br>
+
+<table class="i">
+<tbody><tr><td>
+<img src="./FIG4.jpg" border="0" alt="FIG4.jpg(17672 byte)" width="285" height="283">
+</td>
+</tr>
+</tbody></table>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="100%" align="center">
+<tbody><tr><td>
+<a name="3">&nbsp;</a>
+<hr size="20" color="#6699CC">
+<b>　　　アセンブラ手続きの書き方</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<br>
+
+<p class="i">
+5種類の手続きをアセンブリ言語で書きます下がModula2言語で書いた定義モジュールです。
+<br>
+すべてバイト操作のプログラムなのですが8ビットの型の変数がないので16ビットの
+<font color="blue">INTEGER</font>
+型の変数で下位の8ビットだけを使っています。
+</p>
+
+<table class="i" bgcolor="silver">
+<tbody><tr><td>
+<img src="./FIG5.jpg" border="0" alt="FIG5.jpg(28613 byte)" width="492" height="200">
+</td>
+</tr>
+</tbody></table>
+
+<p class="i">
+下がアセンブリ言語で書いたプログラムの本体です。
+</p>
+
+<table class="i" bgcolor="silver">
+<tbody><tr><td>
+<img src="./FIG6A.jpg" border="0" alt="FIG6A.jpg(42435 byte)" width="529" height="802" align="left"><br clear="left">
+<img src="./FIG6B.jpg" border="0" alt="FIG6B.jpg(23476 byte)" width="527" height="538" align="left">
+</td>
+</tr>
+</tbody></table>
+
+<p class="i">
+下のコマンド操作で
+<font color="blue">IO .REL</font>
+から
+<font color="blue">IO .MRL</font>
+が得られて
+本コンパイラのリンカの
+<font color="blue">ML .COM</font>
+でリンクできるファイルが出来上がります。
+</p>
+
+<table class="i">
+<tbody><tr><td>
+<img src="./FIG7.jpg" border="0" alt="FIG7.jpg(29042 byte)" width="669" height="301">
+</td>
+</tr>
+</tbody></table>
+
+<p class="i">
+定義モジュールを1回だけコンパイルしておけばいつでも手続きを使用できます。
+</p>
+
+<table class="i">
+<tbody><tr><td>
+<img src="./FIG9.jpg" border="0" alt="FIG9.jpg(27027 byte)" width="669" height="265">
+</td>
+</tr>
+</tbody></table>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="100%" align="center">
+<tbody><tr><td>
+<a name="4">&nbsp;</a>
+<hr size="20" color="#6699CC">
+<b>　　　IO直接操作</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<br>
+
+<table class="i" bgcolor="silver" align="left">
+<tbody><tr><td>
+<img src="./FIG8.jpg" border="0" alt="FIG8.jpg(36015 byte)" width="360" height="636">
+</td>
+</tr>
+</tbody></table>
+
+<p class="i">
+上で作った手続きを使用して
+<font color="green">Hello World!! by Modula2</font>
+を表示するプログラムを書いてみました。
+<br>
+Modula2はC言語などと比較して手続きの定義や使用の方法が厳密なのでアセンブラ言語で
+どんどん手続きを増やしても自然と整理整頓されるので混乱しないと思います。
+アセンブリ言語で部品を書いてModula2言語で統括して使うと言うのもすっきりとしていて
+本コンパイラが独自の拡張をしていないのもかえって好感が持てます。
+</p>
+
+<br clear="left"><br>
+
+<table class="i">
+<tbody><tr><td>
+<img src="./FIG10.jpg" border="0" alt="FIG10.jpg(15720 byte)" width="277" height="247">
+</td>
+</tr>
+</tbody></table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<br clear="left">
+<br clear="right">
+
+<br><br><hr><br><br>
+
+</body></html>

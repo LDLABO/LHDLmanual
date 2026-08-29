@@ -1,0 +1,254 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!-- saved from url=(0042)https://ldlabo.hishaku.com/NO35/hontai.htm -->
+<html lang="ja"><head>
+    <meta charset="UTF-8">
+	
+    <link type="text/css" rel="stylesheet" href="./main.css">
+	<title></title>
+</head>
+<body>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="100%" align="center">
+<tbody><tr><td>
+<a name="1">&nbsp;</a>
+<hr size="20" color="#6699CC">
+<b>　　　FORTRAN80</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<p class="i">
+コンパイラとリンカで
+<font color="blue">COM</font>
+ファイルを作ります。
+IO操作やメモリ操作の関数が追加されていますが
+リンカが
+<font color="blue">L80</font>
+なので
+<font color="blue">M80</font>
+によってアセンブリ言語で作ったファイルと連結できます。
+本コンパイラの準拠するFORTRANはまったく構造化されていない時期のものでBASICよりも
+構造化されていませんが論理演算がビット単位なのでアセンブリ言語で書くようなプログ
+ラムも可能です。
+<br>
+コンパイラのオプションでアセンブリ言語によるリストが得られるのでコンパイラ出力と
+アセンブリ言語で書いたプログラムを連結する子細が分かります。
+<br>
+下から入手できるものはZ80のアセンブリ言語によるリストを出力します旧版は8080のア
+センブリ言語を出力していました。
+</p>
+
+<p class="i">
+このツールの入手は
+<a href="http://www.retroarchive.org/" target="_blank">http://www.retroarchive.org/</a>
+の下の所からできます。
+</p>
+
+<table border="1" class="i">
+<tbody><tr><td>
+<a href="http://www.retroarchive.org/cpm/lang/lang.htm" target="_blank">
+<img src="./FIG1.jpg" border="0" alt="FIG1.jpg(2971 byte)" width="346" height="39">
+</a>
+</td>
+</tr>
+</tbody></table>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="100%" align="center">
+<tbody><tr><td>
+<a name="2">&nbsp;</a>
+<hr size="7" color="#6699CC">
+<b>　　　使い方</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<br>
+
+<table class="i" bgcolor="silver">
+<tbody><tr><td>
+<img src="./FIG2.jpg" border="0" alt="FIG2.jpg(17912 byte)" width="429" height="195">
+</td>
+</tr>
+</tbody></table>
+
+<br>
+
+<table class="i">
+<tbody><tr><td>
+<img src="./FIG3.jpg" border="0" alt="FIG3.jpg(41778 byte)" width="669" height="481">
+</td>
+</tr>
+</tbody></table>
+
+<br>
+
+<table class="i">
+<tbody><tr><td>
+<img src="./FIG4.jpg" border="0" alt="FIG4.jpg(17579 byte)" width="293" height="229">
+</td>
+</tr>
+</tbody></table>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="100%" align="center">
+<tbody><tr><td>
+<a name="3">&nbsp;</a>
+<hr size="7" color="#6699CC">
+<b>　　　IO直接操作</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<br>
+
+<p class="i">
+FORTRAN80の言語仕様は構造化プログラミングを取り入れる前のものなので書き方が堅苦しいですが
+アセンブリ言語だと思へば、ほぼ同じような感覚で書けます。
+実際にアセンブリ言語との連結もせずにここまで書けました、他の言語
+ではインラインアセンブラなどで補助が必要なものもあります。
+また、下のプログラムの場合はコンパイラのライブラリをほとんど何も使っていないので
+<font color="blue">768</font>
+バイトなのですが普通のコンパイラではこの大きさで出力するものは珍しく組み込み用
+途のコンパイラなみの大きさで出力していると思います。
+</p>
+
+<table class="i" bgcolor="silver">
+<tbody><tr><td>
+<img src="./FIG5.jpg" border="0" alt="FIG5.jpg(22968 byte)" width="627" height="278">
+</td>
+</tr>
+</tbody></table>
+
+<br>
+
+<table class="i">
+<tbody><tr><td>
+<img src="./FIG6.jpg" border="0" alt="FIG6.jpg(15271 byte)" width="293" height="211">
+</td>
+</tr>
+</tbody></table>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="100%" align="center">
+<tbody><tr><td>
+<a name="4">&nbsp;</a>
+<hr size="7" color="#6699CC">
+<b>　　　アセンブリ言語との接続</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<br>
+
+<p class="i">
+FOTRAN言語の関数の形でアセンブリ言語に連結してみます。
+まずFORTRANのプログラムの方を先に書いてコンパイルしてみます、
+ファイル名を
+<font color="blue">TEST2S .FOR</font>
+とすると
+<font color="blue">=TEST2S/L</font>
+のコマンドでコンパイルリストが得られます。
+</p>
+
+<table class="i" bgcolor="silver">
+<tbody><tr>
+<td valign="top">
+<img src="./FIG7.jpg" border="0" alt="FIG7.jpg(10831 byte)" width="283" height="248">
+</td>
+<td>
+&nbsp;&nbsp;
+</td>
+<td>
+<img src="./FIG8.jpg" border="0" alt="FIG8.jpg(17873 byte)" width="457" height="328">
+</td>
+</tr>
+</tbody></table>
+
+<br>
+
+<p class="i">
+アセンブリ言語で書くプログラムは
+<font color="blue">BITOR</font>
+で2個の引数の論理和を返す関数です、
+<font color="blue">FORTRAN80</font>
+では論理演算はビット単位で行うので必要のないものです。
+<br>
+下のリストの
+<font color="red">CALL BITOR</font>
+の上を見ると引数の渡され方が下を見ると戻り値の受け取り方が分かりますので
+これに合うように
+<font color="blue">BITOR</font>
+のアセンブリ言語のプログラム本体を書きます。
+</p>
+
+<br>
+
+<table class="i" bgcolor="silver">
+<tbody><tr><td>
+<img src="./FIG9.jpg" border="0" alt="FIG9.jpg(65629 byte)" width="523" height="711">
+</td>
+</tr>
+</tbody></table>
+
+<br>
+
+<p class="i">
+下はコンパイルリストとアセンブルリストが得られるコマンド操作です。
+</p>
+
+<table class="i">
+<tbody><tr><td>
+<img src="./FIG10.jpg" border="0" alt="FIG10.jpg(35742 byte)" width="533" height="480">
+</td>
+</tr>
+</tbody></table>
+
+<p class="i">
+出来たプログラムを実行してみると
+<font color="red">2</font> 
+と 
+<font color="red">4</font> 
+の論理和が 
+<font color="red">6</font> 
+となっています。
+</p>
+
+<p class="i">
+引数と戻り値の受け渡しが合えばアセンブリ言語のプログラムは自由にかけますから
+プログラム全体の構造やアセンブリ言語で書きたくない計算などはFORTRANのほうで
+書けばよいでしょう、アセンブリ言語のコンパイルリストが出力されるおかげで逆ア
+センブラやデバッガを使って解析する必要がないのは助かります。
+</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<br clear="left">
+<br clear="right">
+
+<br><br><hr><br><br>
+
+</body></html>

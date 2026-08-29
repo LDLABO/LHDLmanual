@@ -1,0 +1,499 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!-- saved from url=(0042)https://ldlabo.hishaku.com/NO32/hontai.htm -->
+<html lang="ja"><head>
+   <meta charset="UTF-8">
+	
+    <link type="text/css" rel="stylesheet" href="./main.css">
+	<title></title>
+</head>
+<body>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="100%" align="center">
+<tbody><tr><td>
+<a name="1">&nbsp;</a>
+<hr size="20" color="#6699CC">
+<b>　　　Turbo Pascal CP/M80</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<p class="i">
+Turbo Pascal はコンパイラとスクリーンエディタを備えた統合環境です。
+アセンブラやリンカはありませんが80系の入出力操作や番地を指定してのメモリ操作などの
+装置制御のためのプログラミングを支援しています。
+またアセンブリ言語を差し込むインラインアセンブラはありませんがコードを埋め込むインライン文が準備されています。
+PASCALをBASICのように便利に使えるようになっています。
+<br>
+しかしながらPASCAL言語の仕様ではビット単位の論理演算ができないようなので
+8ビットの入力ポートを読んで2を論理積してビット2の値を判定するようなことはできません、
+またTurbo Pascalにはポートの入出力はあるものの文字型のデータを割り当てられません。
+</p>
+
+<p class="i">
+このツールの入手は
+<a href="http://www.retroarchive.org/" target="_blank">http://www.retroarchive.org/</a>
+の下の所からできます。
+</p>
+
+<table border="1" class="i">
+<tbody><tr><td>
+<a href="http://www.retroarchive.org/cpm/lang/lang.htm" target="_blank">
+<img src="./FIG1.jpg" border="0" alt="FIG1.jpg(2659 byte)" width="382" height="44">
+</a>
+</td>
+</tr>
+</tbody></table>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="100%" align="center">
+<tbody><tr><td>
+<a name="2">&nbsp;</a>
+<hr size="7" color="#6699CC">
+<b>　　　準備</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<p class="i">
+Turubo Pascal は統合環境の中でファイルの選択やコンパイルなどの指示をします。
+<font color="blue">TURBO .COM</font>
+を実行するとそれが使えます。
+統合環境はエスケープシーケンスを使っていますがWindowsのコンソールは
+<font color="red">ANSI</font>
+に対応していますからこれに合わせると見映えはよくなります。
+そのままでも支障はありません。
+<br>
+<font color="blue">TURBO .COM</font>
+を
+<font color="red">ANSI</font>
+対応にするには
+<font color="blue">Screen installation</font>
+をします。
+
+</p>
+
+<hr>
+
+<p class="i">
+<font color="blue">TINST .COM</font>
+を実行する。
+</p>
+
+<table class="i" align="left">
+<tbody><tr>
+<td>
+<img src="./FIG2.jpg" border="0" alt="FIG2.jpg(29530 byte)" width="669" height="481">
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+<p class="i">
+<font color="blue">S</font>
+を押す。
+</p>
+
+<table class="i" align="left">
+<tbody><tr>
+<td>
+<img src="./FIG3.jpg" border="0" alt="FIG3.jpg(69527 byte)" width="669" height="481">
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+<p class="i">
+<font color="blue">ANSI</font>
+の
+<font color="red">6</font>
+を選択する。
+</p>
+
+<table class="i" align="left">
+<tbody><tr>
+<td>
+<img src="./FIG4.jpg" border="0" alt="FIG4.jpg(74777 byte)" width="669" height="481">
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+<p class="i">
+<font color="red">N</font>
+を選択する。
+</p>
+
+<table class="i" align="left">
+<tbody><tr>
+<td>
+<img src="./FIG5.jpg" border="0" alt="FIG5.jpg(78017 byte)" width="669" height="481">
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+<p class="i">
+改行する。
+</p>
+
+<table class="i" align="left">
+<tbody><tr>
+<td>
+<img src="./FIG2.jpg" border="0" alt="FIG2.jpg(29530 byte)" width="669" height="481">
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+<p class="i">
+<font color="blue">Q</font>
+を押す。
+<br><br>
+<font color="blue">ANSI</font>
+対応に書き換えられた
+<font color="blue">TURBO .COM</font>
+になっています。
+</p>
+
+<table class="i" align="left">
+<tbody><tr>
+<td>
+<img src="./FIG6.jpg" border="0" alt="FIG6.jpg(31194 byte)" width="669" height="481">
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left">
+
+<p class="i">
+<font color="blue">Y</font>
+を押す。
+</p>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="100%" align="center">
+<tbody><tr><td>
+<a name="3">&nbsp;</a>
+<hr size="7" color="#6699CC">
+<b>　　　使い方</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<br>
+
+<table class="i" align="left" bgcolor="silver">
+<tbody><tr>
+<td>
+<img src="./FIG21.jpg" border="0" alt="FIG21.jpg(11031 byte)" width="280" height="218">
+</td>
+</tr>
+</tbody></table>
+
+<p class="i">
+この
+<font color="blue">TESTS .PAS</font>
+のプログラムをコンパイルしてみます。
+<br>
+統合開発環境にはエディタも入っていますがこの上で作ったソースファイルでなくても支障はありません。
+</p>
+
+<br clear="left"><br>
+
+<table class="i" align="left">
+<tbody><tr>
+<td>
+<img src="./FIG7.jpg" border="0" alt="FIG7.jpg(29732 byte)" width="669" height="481">
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left">
+
+<p class="i">
+<font color="blue">W</font>
+を押す。
+</p>
+
+<table class="i" align="left">
+<tbody><tr>
+<td>
+<img src="./FIG8.jpg" border="0" alt="FIG8.jpg(30963 byte)" width="669" height="481">
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left">
+
+<p class="i">
+<font color="blue">TESTS .PAS</font>
+を指定する。
+</p>
+
+<table class="i" align="left">
+<tbody><tr>
+<td>
+<img src="./FIG9.jpg" border="0" alt="FIG9.jpg(33097 byte)" width="669" height="481">
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left">
+
+<p class="i">
+改行する。
+</p>
+
+<table class="i" align="left">
+<tbody><tr>
+<td>
+<img src="./FIG10.jpg" border="0" alt="FIG10.jpg(31091 byte)" width="669" height="481">
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left">
+
+<p class="i">
+<font color="blue">R</font>
+を押すとプログラムが実行されます。
+</p>
+
+<table class="i" align="left">
+<tbody><tr>
+<td>
+<img src="./FIG11.jpg" border="0" alt="FIG11.jpg(38862 byte)" width="669" height="481">
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+<p class="i">
+<font color="blue">O</font>
+を押す。
+<br>
+</p>
+
+<table class="i" align="left">
+<tbody><tr>
+<td>
+<img src="./FIG12.jpg" border="0" alt="FIG12.jpg(22309 byte)" width="669" height="481">
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+<p class="i">
+<font color="blue">C</font>
+を押す。
+<br>
+コンパイルの結果を
+<font color="blue">COM</font>
+ファイルに出力するようにします。
+</p>
+
+<table class="i" align="left">
+<tbody><tr>
+<td>
+<img src="./FIG13.jpg" border="0" alt="FIG13.jpg(27204 byte)" width="669" height="481">
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left">
+
+<p class="i">
+<font color="blue">E</font>
+を押す。
+</p>
+
+<table class="i" align="left">
+<tbody><tr>
+<td>
+<img src="./FIG14.jpg" border="0" alt="FIG14.jpg(28308 byte)" width="669" height="481">
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+<p class="i">
+<font color="blue">8000</font>
+を指定します。
+<br>
+CP/Mアダプタでも実行させる場合は
+<font color="blue">End Address</font>
+を
+<font color="blue">F000H</font>
+未満に修正する必要があります。
+そうしないとメモリ不足のエラーを表示してプログラムが終了してしまいます。
+</p>
+
+<table class="i" align="left">
+<tbody><tr>
+<td>
+<img src="./FIG15.jpg" border="0" alt="FIG15.jpg(27096 byte)" width="669" height="481">
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left">
+
+<p class="i">
+<font color="blue">Q</font>
+を押す。
+</p>
+
+<table class="i" align="left">
+<tbody><tr>
+<td>
+<img src="./FIG16.jpg" border="0" alt="FIG16.jpg(31019 byte)" width="669" height="481">
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+<p class="i">
+<font color="blue">C</font>
+を押す。
+<br>
+ここでコンパイルしてその結果がファイルに出力されます。
+</p>
+
+<table class="i" align="left">
+<tbody><tr>
+<td>
+<img src="./FIG17.jpg" border="0" alt="FIG17.jpg(40580 byte)" width="669" height="481">
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left">
+
+<p class="i">
+<font color="blue">Q</font>
+を押す。
+</p>
+
+<table class="i" align="left">
+<tbody><tr>
+<td>
+<img src="./FIG17.jpg" border="0" alt="FIG17.jpg(40580 byte)" width="669" height="481">
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+<p class="i">
+ここで
+<font color="blue">TURBO .COM</font>
+の実行が終了しました。
+<font color="blue">TESTS .COM</font>
+が出来ているので実行してみます。
+</p>
+
+<table class="i" align="left">
+<tbody><tr>
+<td>
+<img src="./FIG19.jpg" border="0" alt="FIG19.jpg(41290 byte)" width="669" height="481">
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+<table class="i" align="left">
+<tbody><tr>
+<td>
+<img src="./FIG20.jpg" border="0" alt="FIG20.jpg(16412 byte)" width="293" height="247">
+</td>
+</tr>
+</tbody></table>
+
+<p class="i">
+CP/Mアダプタでも実行させてみました。
+</p>
+
+<br clear="left">
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="100%" align="center">
+<tbody><tr><td>
+<a name="4">&nbsp;</a>
+<hr size="7" color="#6699CC">
+<b>　　　IO直接操作</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<br>
+
+<p class="i">
+<font color="blue">write</font>
+文を使わずに直接IO操作してコンソールに
+<font color="blue">Hello World!!</font>
+と表示するプログラムを作ってみました。
+Turbo Pascalでビット操作ができないので
+<font color="blue">inline</font>
+文を使った関数を作りました。
+</p>
+
+<table class="i" align="left" bgcolor="silver">
+<tbody><tr>
+<td>
+<img src="./FIG22A.jpg" border="0" alt="FIG22A.jpg(57366 byte)" width="693" height="797" align="left"><br clear="left">
+<img src="./FIG22B.jpg" border="0" alt="FIG22B.jpg(17145 byte)" width="695" height="377" align="left">
+</td>
+</tr>
+</tbody></table>
+
+<br clear="left"><br>
+
+<p class="i">
+文字列に制御文字を含ませる方法とか関数に文字列を渡す方法とか分からないこともあるのですが
+<font color="blue">inline</font>
+文で関数を書けば解決可能です。
+</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<br clear="left">
+<br clear="right">
+
+<br><br><hr><br><br>
+
+</body></html>
