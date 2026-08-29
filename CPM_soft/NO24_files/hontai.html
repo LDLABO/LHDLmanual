@@ -1,0 +1,1292 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!-- saved from url=(0042)https://ldlabo.hishaku.com/NO24/hontai.htm -->
+<html lang="ja"><head>
+<meta charset="UTF-8">
+	
+    <link type="text/css" rel="stylesheet" href="./main(1).css">
+	<title></title>
+</head>
+<body>
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="100%" align="center">
+<tbody><tr><td>
+<a name="1">&nbsp;</a>
+<hr size="20" color="#6699CC">
+<b>　　　Z80アセンブラプログラミング</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="100%" align="center">
+<tbody><tr><td>
+<a name="1A">&nbsp;</a>
+<hr size="7" color="#6699CC">
+<b>　　　実行環境</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<p class="i">
+<a href="../NO22_files/main.htm" target="_top">メモリモニタ</a>
+を利用します、
+Z80は
+<font color="red">図1</font>
+のように接続されています。
+メモリモニタは
+<font color="blue">BUSREQ</font>
+でZ80とメモリを切り離します。
+また
+<font color="blue">RESET</font>
+でZ80の初期化も行います。
+</p>
+
+
+<a name="FIG0">&nbsp;</a><table class="i" align="center">
+
+<tbody><tr>
+<td align="center">
+<font color="red">図1:構成</font>
+</td>
+</tr>
+<tr>
+<td>
+<img src="./FIG0.jpg" border="0" alt="FIG0.jpg(19734 byte)" width="403" height="265">
+
+</td>
+</tr>
+</tbody></table>
+
+
+<ul class="i">
+<li class="i">
+メモリモニタがメモリ操作を行うのでZ80のプログラムが何も動いていないところから
+動かしたいプログラムをメモリに設置して動かすことも出来ます。
+</li>
+<li class="i">
+CP/Mプログラムを動かしたいときは
+<font color="blue">CP/Mアダプタ</font>
+をメモリに予め設置しておけばファイル操作が含まれていなければ動きます。
+</li>
+<li class="i">
+電源投入後のメモリモニタの動きはEEPROMの内容をSRAMに設置してプロセッサを初期化
+しています。
+CP/MプログラムでもそうでないものでもEEPROMに書き込んでおけば電源投入後に実行す
+ることができます。
+</li>
+<li class="i">
+CP/Mプログラムのためのコンソールをメモリモニタが受け付けるのですがCP/Mのプログ
+ラムでなくてもZ80からRS232Cを操作してパソコンと通信することができます。
+</li>
+</ul>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="100%" align="center">
+<tbody><tr><td>
+<a name="1B">&nbsp;</a>
+<hr size="7" color="#6699CC">
+<b>　　　プログラムの作成</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<p class="i">
+アセンブラでプログラムを作るのに次のフリーソフトのアセンブラが勧められます。
+</p>
+
+<ul class="i">
+<li class="i"><a href="http://www.vector.co.jp/soft/dos/prog/se008546.html" target="_top">XASM</a></li>
+<li class="i"><a href="http://www.vector.co.jp/soft/dos/prog/se010074.html" target="_top">AASM</a></li>
+<li class="i"><a href="http://systemload.net/modules/mydownloads/viewcat.php?cid=7" target="_top">XA80,XA80W</a></li>
+</ul>
+
+<p class="i">
+最終的にはプログラムをインテルへクスファイルにすればメモリモニタの
+<font color="blue">HEXコマンド</font>
+でメモリに展開できます。
+<br>
+CP/MのアセンブラでCOMファイルのときは
+<a href="http://systemload.net/modules/mydownloads/viewcat.php?cid=7" target="_top">バイナリファイル→ＨＥＸファイル変換ツール</a>
+を使ってください。
+</p>
+
+<br clear="left">
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="100%" align="center">
+<tbody><tr><td>
+<a name="1C">&nbsp;</a>
+<hr size="7" color="#6699CC">
+<b>　　　プログラムの実行</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<p class="i">
+Z80は初期化すると0番地から実行を始めます。
+そのときそこにプログラムがなければZ80は暴走してしまいます。
+メモリモニタの
+<font color="blue">HEXコマンド</font>
+がメモリに書き込みしている間はメモリはZ80から切り離されていますが
+書き込みが終わるとZ80に接続されます。
+<br>
+このときに暴走しているZ80にプログラムを壊される可能性があります。
+<br>
+CP/Mアダプタは
+<font color="blue">0～100h番地</font>
+と
+<font color="blue">F000～FFFFh番地</font>
+を使いますが事前に
+<font color="blue">EEPROM</font>
+に書き込んでおけば電源投入後にはZ80ではCP/Mアダプタが実行されてい
+るので前期以外へのメモリ番地の書き込みは支障なく行えます。
+<br>
+CP/Mアダプタは
+<font color="blue">GOコマンド</font>
+を実装していますので
+<font color="red">GO 番地</font>
+とすれば番地で指定した位置にあるプログラムを実行できます。
+<br>
+プログラムは最後に
+<font color="blue">0番地</font>
+への分岐を実行すればCP/Mアダプタに実行を戻せます。
+</p>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="100%" align="center">
+<tbody><tr><td>
+<a name="1D">&nbsp;</a>
+<hr size="20" color="#009966">
+<b>　　　プログラム</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="100%" align="center">
+<tbody><tr><td>
+<a name="2">&nbsp;</a>
+<hr size="7" color="#6699CC">
+<b>　　　メモリに書き込む</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<table align="left">
+<tbody><tr><td bgcolor="silver">
+<pre>                ORG       100H
+0100: 3E 55     LD        A,55H
+0102: 32 00 80  LD        (8000H),A
+0105: C3 00 00  JP        0
+                END
+</pre>
+</td>
+<td>&nbsp;</td>
+</tr>
+</tbody></table>
+
+<p class="i">
+レジスタに値を設置して直接番地を指定して書き込みます。
+</p>
+
+<br clear="left"><br>
+
+<table align="left">
+<tbody><tr><td bgcolor="#FFFFCC">
+<pre>&gt;D 8000
+&gt;8000 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+&gt;8010 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+&gt;8020 00 00 00 00 00 00 00 &gt;
+&gt;
+&gt;GO 100
+&gt;CP/M ADAPTER Ver 0.1a
+&gt;D 8000
+&gt;8000 55 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+&gt;8010 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+&gt;8020 00 00 00 00 00 00 00 &gt;
+&gt;
+</pre>
+</td>
+<td>&nbsp;</td>
+</tr>
+</tbody></table>
+
+<p class="i">
+プログラムの実行後の8000h番地に55hが書き込まれています。
+</p>
+
+<br clear="left">
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="100%" align="center">
+<tbody><tr><td>
+<a name="3">&nbsp;</a>
+<hr size="7" color="#6699CC">
+<b>　　　メモリを読み出す</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<table align="left">
+<tbody><tr><td bgcolor="silver">
+<pre>               ORG       100H
+0100: 3A 00 80 LD        A,(8000H)
+0103: 32 01 80 LD        (8001H),A
+0106: C3 00 00 JP        0
+               END
+</pre>
+</td>
+<td>&nbsp;</td>
+</tr>
+</tbody></table>
+
+<p class="i">
+先のプログラムで書き込んだ8000h番地の値を読み出して8001h番地に書き込みます。
+</p>
+
+<br clear="left">
+
+<table align="left">
+<tbody><tr><td bgcolor="#FFFFCC">
+<pre>&gt;GO 100
+&gt;CP/M ADAPTER Ver 0.1a
+
+
+&gt;D 8000
+8000 55 55 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+8010 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+8020 00 00 00 00 00 00 00 00 00 &gt;
+&gt;
+</pre>
+</td>
+<td>&nbsp;</td>
+</tr>
+</tbody></table>
+
+<p class="i">
+プログラムの実行後に8001h番地に8000h番地と同じ値が書き込まれています。
+</p>
+
+<br clear="left">
+
+<hr>
+
+<p class="i">
+<font color="red" size="2">
+Z80では LD (メモリ),(メモリ) の命令はありません。
+</font>
+</p>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="100%" align="center">
+<tbody><tr><td>
+<a name="4">&nbsp;</a>
+<hr size="7" color="#6699CC">
+<b>　　　IO操作</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<p class="i">
+通信ポートを利用してIO操作のプログラムを作ってみます。
+<font color="blue">CNTP</font>
+のビット1が1のときは送信中なのでこのビットが0のときに
+<font color="blue">SENDP</font>
+に送信データを書き込むとメモリモニタが送信してくれます。
+</p>
+
+<br>
+
+<table class="i" bgcolor="silver">
+<tbody><tr><td>
+<img src="./FIG1.jpg" border="0" alt="FIG1.jpg(17965 byte)" width="483" height="361">
+</td></tr>
+</tbody></table>
+
+<p class="i">
+IO操作も専用の
+<font color="blue">IN</font>
+や
+<font color="blue">OUT</font>
+の命令を使うだけでメモリ操作と似ています。
+</p>
+
+<br>
+
+<table class="i" align="left">
+<tbody><tr><td>
+<img src="./FIG2.jpg" border="0" alt="FIG2.jpg(15041 byte)" width="301" height="211">
+</td></tr>
+</tbody></table>
+
+<p class="i">
+<font color="blue">STRING</font>
+から始まった文字列を1文字ずつ読み出して
+<font color="red">0</font>
+で無ければ送信します、
+<font color="red">0</font>
+なら文字列の終端に達したのでプログラムを終わらせます。
+</p>
+
+<br clear="left">
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="100%" align="center">
+<tbody><tr><td>
+<a name="5">&nbsp;</a>
+<hr size="7" color="#6699CC">
+<b>　　　システムコール</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<p class="i">
+<font color="blue">XASM</font>
+でも
+<font color="blue">CP/M</font>
+のプログラムを作ることができます。
+コンソールへ1文字を送るシステムコールを使って文字列を送るプログラムを書いてみます。
+システムコールは次の手順で発行します。
+</p><ul class="i">
+<li class="i">レジスタCに機能番号2を置く。</li>
+<li class="i">レジスタEに文字データを置く。</li>
+<li class="i">5番地を呼び出す。</li>
+</ul>
+
+<p></p>
+
+<table class="i" bgcolor="silver">
+<tbody><tr><td>
+<img src="./FIG3.jpg" border="0" alt="FIG3.jpg(19040 byte)" width="439" height="398">
+</td></tr>
+</tbody></table>
+
+<br>
+
+<table class="i">
+<tbody><tr><td>
+<img src="./FIG4.jpg" border="0" alt="FIG4.jpg(40968 byte)" width="453" height="390">
+</td></tr>
+</tbody></table>
+
+<br>
+
+<table class="i">
+<tbody><tr><td>
+<img src="./FIG5.jpg" border="0" alt="FIG5.jpg(16834 byte)" width="333" height="229">
+</td></tr>
+</tbody></table>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="100%" align="center">
+<tbody><tr><td>
+<a name="6">&nbsp;</a>
+<hr size="7" color="#6699CC">
+<b>　　　8ビット足し算</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<p class="i">
+Z80は8ビットの加算の命令を持っています。
+メモリにある2個の8ビットの値を加算して結果をメモリに書き込みます。
+プログラムはメモリの値をレジスタに記憶してそのレジスタを加算する書き方にしました。
+8ビット同士の加算結果は9ビットです、9ビット目は
+<a href="http://ldlabo.hishaku.com/NO16/hontai.htm#2">フラグレジスタ</a>
+の
+<font color="blue">C</font>
+に記憶されます。
+</p>
+
+<table class="i" bgcolor="silver">
+<tbody><tr><td>
+<img src="./FIG6.jpg" border="0" alt="FIG6.jpg(19539 byte)" width="419" height="375">
+</td></tr>
+</tbody></table>
+
+<p class="i">
+10進数で
+<font color="blue">12</font>
+と
+<font color="blue">34</font>
+を加算しています。
+結果は
+<font color="blue">202H</font>
+番地から書き込まれています。
+フラグCは第0ビットですから9ビット目は
+<font color="blue">0</font>
+です。
+</p>
+
+<table class="i">
+<tbody><tr><td>
+<img src="./FIG7.jpg" border="0" alt="FIG7.jpg(22163 byte)" width="461" height="229">
+</td></tr>
+</tbody></table>
+
+<p class="i">
+NAを10進数で
+<font color="blue">255</font>
+にNBを
+<font color="blue">1</font>
+にして同プログラムを実行するとNA+NB=256ですが16進数では
+<font color="blue">100H</font>
+になります。
+
+<font color="red">赤枠</font>
+で示した部分がフラグの値ですがフラグ
+<font color="blue">C</font>
+が
+<font color="blue">1</font>
+になっています。
+</p>
+
+<table class="i">
+<tbody><tr><td>
+<img src="./FIG8.jpg" border="0" alt="FIG8.jpg(36076 byte)" width="469" height="391">
+</td></tr>
+</tbody></table>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="100%" align="center">
+<tbody><tr><td>
+<a name="7">&nbsp;</a>
+<hr size="7" color="#6699CC">
+<b>　　　16ビット足し算</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<p class="i">
+Z80は16ビットの加算の命令を持っています。
+メモリにある2個の16ビットの値を加算して結果をメモリに書き込みます。
+プログラムはメモリの値をレジスタに記憶してそのレジスタを加算する書き方にしました。
+16ビット同士の加算結果は17ビットです、17ビット目は フラグレジスタ の C に記憶されます。
+</p>
+
+<table class="i" bgcolor="silver">
+<tbody><tr><td>
+<img src="./FIG9.jpg" border="0" alt="FIG9.jpg(20393 byte)" width="457" height="375">
+</td></tr>
+</tbody></table>
+
+<p class="i">
+10進数で
+<font color="blue">1234</font>
+と
+<font color="blue">5678</font>
+を加算しています。
+結果は
+<font color="blue">204H</font>
+番地から書き込まれています。
+フラグCは第0ビットですから17ビット目は
+<font color="blue">0</font>
+です。
+</p>
+
+<table class="i">
+<tbody><tr><td>
+<img src="./FIG10.jpg" border="0" alt="FIG10.jpg(39408 byte)" width="469" height="445">
+</td></tr>
+</tbody></table>
+
+<p class="i">
+NAを10進数で
+<font color="blue">65535</font>
+にNBを
+<font color="blue">1</font>
+にして同プログラムを実行するとNA+NB=65536ですが16進数では
+<font color="blue">10000H</font>
+になります。
+
+<font color="red">赤枠</font>
+で示した部分がフラグの値ですがフラグ
+<font color="blue">C</font>
+が
+<font color="blue">1</font>
+になっています。
+</p>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="100%" align="center">
+<tbody><tr><td>
+<a name="8">&nbsp;</a>
+<hr size="7" color="#6699CC">
+<b>　　　32ビット足し算</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<p class="i">
+Z80は16ビットの加算命令を持っているので32ビットの加算においても16ビットの加算を2回行えば32ビットの計算ができます。
+基本的にはいくらビット数が多いときでもそれに必要な計算を繰り返すことで結果は求められます。
+</p>
+
+
+<table class="i" bgcolor="silver">
+<tbody><tr><td>
+<img src="./FIG11.jpg" border="0" alt="FIG11.jpg(40586 byte)" width="478" height="484">
+</td></tr>
+</tbody></table>
+
+<p class="i">
+12345678+87654321=99999999
+は16進数で
+<font color="red">5F5E0FFH</font>
+になります。
+</p>
+
+<table class="i">
+<tbody><tr><td>
+<img src="./FIG12.jpg" border="0" alt="FIG12.jpg(28413 byte)" width="469" height="301">
+</td></tr>
+</tbody></table>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="100%" align="center">
+<tbody><tr><td>
+<a name="9">&nbsp;</a>
+<hr size="7" color="#6699CC">
+<b>　　　8ビット引き算</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<p class="i">
+Z80は8ビットの減算の命令を持っています。
+メモリにある2個の8ビットの値を減算して結果をメモリに書き込みます。
+プログラムはメモリの値をレジスタに記憶してそのレジスタを減算する書き方にしました。
+8ビット同士の減算結果は9ビットです、9ビット目は
+<a href="http://ldlabo.hishaku.com/NO16/hontai.htm#2">フラグレジスタ</a>
+の
+<font color="blue">C</font>
+に記憶されます。
+</p>
+
+<table class="i" bgcolor="silver">
+<tbody><tr><td>
+<img src="./FIG13.jpg" border="0" alt="FIG13.jpg(19474 byte)" width="450" height="390">
+</td></tr>
+</tbody></table>
+
+<p class="i">
+引き算は
+<font color="blue">A-B</font>
+の場合はBを補数にすると
+<font color="blue">A+(-B)</font>
+の計算と同じなので論理的にはBの補数を加算することになります。
+フラグCの値は9ビット目が反転されたものですがAがBよりも小さくて桁借りがあったことを示します。
+</p>
+
+<table class="i">
+<tbody><tr><td>
+<img src="./FIG14.jpg" border="0" alt="FIG14.jpg(26959 byte)" width="461" height="265">
+</td></tr>
+</tbody></table>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="100%" align="center">
+<tbody><tr><td>
+<a name="10">&nbsp;</a>
+<hr size="7" color="#6699CC">
+<b>　　　16ビット引き算</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<p class="i">
+Z80は16ビットの減算の命令を持っています。
+メモリにある2個の16ビットの値を減算して結果をメモリに書き込みます。
+プログラムはメモリの値をレジスタに記憶してそのレジスタを減算する書き方にしました。
+16ビット同士の減算結果は17ビットです、17ビット目は
+<a href="http://ldlabo.hishaku.com/NO16/hontai.htm#2">フラグレジスタ</a>
+の
+<font color="blue">C</font>
+に記憶されます。
+</p>
+
+<table class="i" bgcolor="silver">
+<tbody><tr><td>
+<img src="./FIG15.jpg" border="0" alt="FIG15.jpg(22009 byte)" width="453" height="422">
+</td></tr>
+</tbody></table>
+
+<br>
+
+<table class="i">
+<tbody><tr><td>
+<img src="./FIG16.jpg" border="0" alt="FIG16.jpg(26305 byte)" width="469" height="265">
+</td></tr>
+</tbody></table>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="100%" align="center">
+<tbody><tr><td>
+<a name="11">&nbsp;</a>
+<hr size="7" color="#6699CC">
+<b>　　　32ビット引き算</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<p class="i">
+Z80は16ビットの減算命令を持っているので32ビットの減算においても16ビットの減算を2回行えば32ビットの計算ができます。
+基本的にはいくらビット数が多いときでもそれに必要な計算を繰り返すことで結果は求められます。
+</p>
+
+<table class="i" bgcolor="silver">
+<tbody><tr><td>
+<img src="./FIG17.jpg" border="0" alt="FIG17.jpg(40539 byte)" width="470" height="498">
+</td></tr>
+</tbody></table>
+
+<p class="i">
+87654321-12345678=75308643
+は16進数で
+<font color="red">47D1E63H</font>
+になります。
+</p>
+
+<table class="i">
+<tbody><tr><td>
+<img src="./FIG18.jpg" border="0" alt="FIG18.jpg(27011 byte)" width="469" height="265">
+</td></tr>
+</tbody></table>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="100%" align="center">
+<tbody><tr><td>
+<a name="12">&nbsp;</a>
+<hr size="7" color="#6699CC">
+<b>　　　8ビット掛け算</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<p class="i">
+Z80は乗算の命令を持っていませんので加算を繰り返して乗算の結果を得ます。
+下のプログラムは筆算の計算手順と同じことを2進数で行っています。
+</p>
+
+<table class="i" bgcolor="silver">
+<tbody><tr><td>
+<img src="./FIG19.jpg" border="0" alt="FIG19.jpg(43861 byte)" width="696" height="504">
+</td></tr>
+</tbody></table>
+
+<p class="i">
+<font color="blue">12×34=408</font>
+は16進数で
+<font color="red">198</font>
+です。
+</p>
+
+<table class="i">
+<tbody><tr><td>
+<img src="./FIG20.jpg" border="0" alt="FIG20.jpg(27127 byte)" width="469" height="265">
+</td></tr>
+</tbody></table>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="100%" align="center">
+<tbody><tr><td>
+<a name="13">&nbsp;</a>
+<hr size="7" color="#6699CC">
+<b>　　　16ビット掛け算</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<p class="i">
+
+</p>
+
+<table class="i" bgcolor="silver">
+<tbody><tr><td>
+<img src="./FIG21A.jpg" border="0" alt="FIG21A.jpg(52012 byte)" width="551" height="806" align="left"><br clear="left">
+<img src="./FIG21B.jpg" border="0" alt="FIG21B.jpg(9719 byte)" width="547" height="192" align="left">
+</td></tr>
+</tbody></table>
+
+<p class="i">
+<font color="blue">1234×5678=7006652</font>
+は16進数で
+<font color="red">6AE9BC</font>
+です。
+</p>
+
+<table class="i">
+<tbody><tr><td>
+<img src="./FIG22.jpg" border="0" alt="FIG22.jpg(27042 byte)" width="477" height="229">
+</td></tr>
+</tbody></table>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="100%" align="center">
+<tbody><tr><td>
+<a name="14">&nbsp;</a>
+<hr size="7" color="#6699CC">
+<b>　　　32ビット掛け算</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<p class="i">
+
+</p>
+
+<table class="i" bgcolor="silver">
+<tbody><tr><td>
+<img src="./FIG23A.jpg" border="0" alt="FIG23A.jpg(42250 byte)" width="544" height="829" align="left"><br clear="left">
+<img src="./FIG23B.jpg" border="0" alt="FIG23B.jpg(23565 byte)" width="545" height="360" align="left">
+</td></tr>
+</tbody></table>
+
+<p class="i">
+<font color="blue">12345678×87654321=1082152022374638</font>
+は16進数で
+<font color="red">3D83626E2F8EE</font>
+です。
+</p>
+
+<table class="i">
+<tbody><tr><td>
+<img src="./FIG24.jpg" border="0" alt="FIG24.jpg(32378 byte)" width="477" height="283">
+</td></tr>
+</tbody></table>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="100%" align="center">
+<tbody><tr><td>
+<a name="15">&nbsp;</a>
+<hr size="7" color="#6699CC">
+<b>　　　8ビット割り算</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<p class="i">
+
+</p>
+
+<table class="i" bgcolor="silver">
+<tbody><tr><td>
+<img src="./FIG25.jpg" border="0" alt="FIG25.jpg(33814 byte)" width="544" height="681">
+</td></tr>
+</tbody></table>
+
+<p class="i">
+<font color="blue">234÷12=19余り6</font>
+は16進数で
+<font color="red">13H余り6H</font>
+です。
+</p>
+
+<table class="i">
+<tbody><tr><td>
+<img src="./FIG26.jpg" border="0" alt="FIG26.jpg(26480 byte)" width="485" height="247">
+</td></tr>
+</tbody></table>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="100%" align="center">
+<tbody><tr><td>
+<a name="16">&nbsp;</a>
+<hr size="7" color="#6699CC">
+<b>　　　16ビット割り算</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<p class="i">
+
+</p>
+
+<table class="i" bgcolor="silver">
+<tbody><tr><td>
+<img src="./FIG27A.jpg" border="0" alt="FIG27A.jpg(42830 byte)" width="543" height="789" align="left"><br clear="left">
+<img src="./FIG27B.jpg" border="0" alt="FIG27B.jpg(1208 byte)" width="548" height="31" align="left">
+</td></tr>
+</tbody></table>
+
+<p class="i">
+<font color="blue">56789÷1234=46余り25</font>
+は16進数で
+<font color="red">2EH余り19H</font>
+です。
+</p>
+
+<table class="i">
+<tbody><tr><td>
+<img src="./FIG28.jpg" border="0" alt="FIG28.jpg(26983 byte)" width="493" height="247">
+</td></tr>
+</tbody></table>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="100%" align="center">
+<tbody><tr><td>
+<a name="17">&nbsp;</a>
+<hr size="7" color="#6699CC">
+<b>　　　32ビット割り算</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<p class="i">
+
+</p>
+
+<table class="i" bgcolor="silver">
+<tbody><tr><td>
+<img src="./FIG29A.jpg" border="0" alt="FIG29A.jpg(43338 byte)" width="546" height="814" align="left"><br clear="left">
+<img src="./FIG29B.jpg" border="0" alt="FIG29B.jpg(31040 byte)" width="545" height="460" align="left">
+</td></tr>
+</tbody></table>
+
+<p class="i">
+<font color="blue">987654321÷123456=8000余り6321</font>
+は16進数で
+<font color="red">1F40H余り18B1H</font>
+です。
+</p>
+
+<table class="i">
+<tbody><tr><td>
+<img src="./FIG30.jpg" border="0" alt="FIG30.jpg(26719 byte)" width="485" height="247">
+</td></tr>
+</tbody></table>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="100%" align="center">
+<tbody><tr><td>
+<a name="18">&nbsp;</a>
+<hr size="7" color="#6699CC">
+<b>　　　文字列受信</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<p class="i">
+通信プログラムを端末として文字列を通信し改行までをメモリに蓄えるプログラムです。
+文字列は
+<font color="blue">SIZE</font>
+で示した文字数を超えた場合は改行と同じくプログラムを終わらせます。
+<font color="blue">制御文字</font>
+では改行の
+<font color="red">0DH</font>
+と後退の
+<font color="red">08H</font>
+が使えます。
+</p>
+
+<table class="i" bgcolor="silver">
+<tbody><tr><td>
+<img src="./FIG31A.jpg" border="0" alt="FIG31A.jpg(44435 byte)" width="546" height="828" align="left"><br clear="left">
+<img src="./FIG31B.jpg" border="0" alt="FIG31B.jpg(25090 byte)" width="547" height="436" align="left">
+</td></tr>
+</tbody></table>
+
+<br>
+
+<table class="i">
+<tbody><tr><td>
+<img src="./FIG32.jpg" border="0" alt="FIG32.jpg(33730 byte)" width="477" height="319">
+</td></tr>
+</tbody></table>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="100%" align="center">
+<tbody><tr><td>
+<a name="19">&nbsp;</a>
+<hr size="7" color="#6699CC">
+<b>　　　10進数の文字列をBCDに変換</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<p class="i">
+10進数の文字列の個数は2桁で1バイトに数値化するので偶数個にします。
+</p>
+
+<table class="i" bgcolor="silver">
+<tbody><tr><td>
+<img src="./FIG33.jpg" border="0" alt="FIG33.jpg(20731 byte)" width="474" height="533">
+</td></tr>
+</tbody></table>
+
+<br>
+
+<table class="i">
+<tbody><tr><td>
+<img src="./FIG34.jpg" border="0" alt="FIG34.jpg(27538 byte)" width="477" height="265">
+</td></tr>
+</tbody></table>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="100%" align="center">
+<tbody><tr><td>
+<a name="20">&nbsp;</a>
+<hr size="7" color="#6699CC">
+<b>　　　10進数の文字列を数値に変換</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<p class="i">
+10進数の文字列を数値に変換します。
+10進数なので文字コードは
+<font color="blue">0～9</font>
+が
+<font color="blue">30H～39H</font>
+ですから
+<font color="blue">30H</font>
+を引くと一桁の10進数の数値が取り出せます。
+これを過去に取り出した分を10倍してから加算することを終了文字まで連続していくと数値化できます。
+<br>
+10倍するプログラムはサブルーチンにしました。
+計算方法は
+<font color="blue">8倍+2倍=10倍</font>
+です8倍は上位に3ビットの移動した値で2倍は上位に1ビット移動した値です。
+</p>
+
+<table class="i" bgcolor="silver">
+<tbody><tr><td>
+<img src="./FIG35A.jpg" border="0" alt="FIG35A.jpg(47391 byte)" width="588" height="801" align="left"><br clear="left">
+<img src="./FIG35B.jpg" border="0" alt="FIG35B.jpg(54351 byte)" width="587" height="973" align="left">
+</td></tr>
+</tbody></table>
+
+<br>
+
+<p class="i">
+10進数の
+<font color="blue">123456</font>
+は16進数で
+<font color="blue">1E240H</font>
+です。
+</p>
+
+<table class="i">
+<tbody><tr><td>
+<img src="./FIG36.jpg" border="0" alt="FIG36.jpg(35996 byte)" width="477" height="283">
+</td></tr>
+</tbody></table>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="100%" align="center">
+<tbody><tr><td>
+<a name="21">&nbsp;</a>
+<hr size="7" color="#6699CC">
+<b>　　　16進数の文字列を数値に変換</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<p class="i">
+16進数の文字列を数値に変換します。
+16進数は
+<font color="blue">0～9</font>
+と
+<font color="blue">A～F</font>
+と
+<font color="blue">a～f</font>
+の文字を使いますこれ以外の文字があった場合はプログラムを終了します。
+16進数の文字列の先頭から1文字ずつ数値化してこれを過去に取り出した分を16倍してから加算することを終了文字まで連続していくと数値化できます。
+16倍は上位に4ビットの移動した値です。
+</p>
+
+<table class="i" bgcolor="silver">
+<tbody><tr><td>
+<img src="./FIG37A.jpg" border="0" alt="FIG37A.jpg(41179 byte)" width="589" height="805" align="left"><br clear="left">
+<img src="./FIG37B.jpg" border="0" alt="FIG37B.jpg(33892 byte)" width="589" height="618" align="left">
+</td></tr>
+</tbody></table>
+
+<br>
+
+<table class="i">
+<tbody><tr><td>
+<img src="./FIG38.jpg" border="0" alt="FIG38.jpg(26395 byte)" width="469" height="247">
+</td></tr>
+</tbody></table>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="100%" align="center">
+<tbody><tr><td>
+<a name="22">&nbsp;</a>
+<hr size="7" color="#6699CC">
+<b>　　　2進数の文字列を数値に変換</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<p class="i">
+2進数の文字列を数値に変換します。
+2進数は
+<font color="blue">0</font>
+と
+<font color="blue">1</font>
+の文字を使いますこれ以外の文字があった場合はプログラムを終了します。
+2進数の文字列の先頭から1文字ずつ数値化してこれを過去に取り出した分を2倍してから加算することを終了文字まで連続していくと数値化できます。
+2倍は上位に1ビットの移動した値です。
+</p>
+
+<table class="i" bgcolor="silver">
+<tbody><tr><td>
+<img src="./FIG39A.jpg" border="0" alt="FIG39A.jpg(43712 byte)" width="589" height="813" align="left"><br clear="left">
+<img src="./FIG39B.jpg" border="0" alt="FIG39B.jpg(14034 byte)" width="589" height="269" align="left">
+</td></tr>
+</tbody></table>
+
+<br>
+
+<p class="i">
+2進数の
+<font color="blue">10100101</font>
+は16進数で
+<font color="blue">A5H</font>
+です。
+</p>
+
+<table class="i">
+<tbody><tr><td>
+<img src="./FIG40.jpg" border="0" alt="FIG40.jpg(26607 byte)" width="469" height="247">
+</td></tr>
+</tbody></table>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="100%" align="center">
+<tbody><tr><td>
+<a name="23">&nbsp;</a>
+<hr size="7" color="#6699CC">
+<b>　　　数値を10進数の文字列に変換</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<p class="i">
+数値を10で割って余りを文字化します、その除数を数値にして除数が0になるまで繰り返すと文字化できます。
+プログラムでは文字化を完了後に送信してみました。
+</p>
+
+<table class="i" bgcolor="silver">
+<tbody><tr><td>
+<img src="./FIG41A.jpg" border="0" alt="FIG41A.jpg(47528 byte)" width="587" height="809" align="left"><br clear="left">
+<img src="./FIG41B.jpg" border="0" alt="FIG41B.jpg(64599 byte)" width="588" height="1068" align="left"><br clear="left">
+<img src="./FIG41C.jpg" border="0" alt="FIG41C.jpg(24362 byte)" width="588" height="437" align="left">
+</td></tr>
+</tbody></table>
+
+<br>
+
+<p class="i">
+</p>
+
+<table class="i">
+<tbody><tr><td>
+<img src="./FIG42.jpg" border="0" alt="FIG42.jpg(27231 byte)" width="477" height="265">
+</td></tr>
+</tbody></table>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="100%" align="center">
+<tbody><tr><td>
+<a name="24">&nbsp;</a>
+<hr size="7" color="#6699CC">
+<b>　　　数値を16進数の文字列に変換</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<p class="i">
+数値を16で割って余りを文字化します、その除数を数値にして除数が0になるまで繰り返すと文字化できます。
+プログラムでは文字化を完了後に送信してみました。
+</p>
+
+<table class="i" bgcolor="silver">
+<tbody><tr><td>
+<img src="./FIG43A.jpg" border="0" alt="FIG43A.jpg(45184 byte)" width="589" height="816" align="left"><br clear="left">
+<img src="./FIG43B.jpg" border="0" alt="FIG43B.jpg(64654 byte)" width="587" height="1071" align="left"><br clear="left">
+<img src="./FIG43C.jpg" border="0" alt="FIG43C.jpg(29034 byte)" width="588" height="530" align="left">
+</td></tr>
+</tbody></table>
+
+<br>
+
+<p class="i">
+</p>
+
+<table class="i">
+<tbody><tr><td>
+<img src="./FIG44.jpg" border="0" alt="FIG44.jpg(22501 byte)" width="493" height="247">
+</td></tr>
+</tbody></table>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="100%" align="center">
+<tbody><tr><td>
+<a name="25">&nbsp;</a>
+<hr size="7" color="#6699CC">
+<b>　　　数値を2進数の文字列に変換</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<p class="i">
+数値を2で割って余りを文字化します、その除数を数値にして除数が0になるまで繰り返すと文字化できます。
+プログラムでは文字化を完了後に送信してみました。
+</p>
+
+<table class="i" bgcolor="silver">
+<tbody><tr><td>
+<img src="./FIG45A.jpg" border="0" alt="FIG45A.jpg(47925 byte)" width="586" height="815" align="left"><br clear="left">
+<img src="./FIG45B.jpg" border="0" alt="FIG45B.jpg(36911 byte)" width="590" height="656" align="left">
+</td></tr>
+</tbody></table>
+
+<br>
+
+<p class="i">
+</p>
+
+<table class="i">
+<tbody><tr><td>
+<img src="./FIG46.jpg" border="0" alt="FIG46.jpg(28117 byte)" width="477" height="283">
+</td></tr>
+</tbody></table>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="100%" align="center">
+<tbody><tr><td>
+<a name="26">&nbsp;</a>
+<hr size="7" color="#6699CC">
+<b>　　　数値を大きさで並び替える</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<p class="i">
+11個のバイト値を比較して大きい方を下位の番地に入れ替えます。
+</p>
+
+<table class="i" bgcolor="silver">
+<tbody><tr><td>
+<img src="./FIG47.jpg" border="0" alt="FIG47.jpg(25548 byte)" width="585" height="556">
+</td></tr>
+</tbody></table>
+
+<br>
+
+<p class="i">
+</p>
+
+<table class="i">
+<tbody><tr><td>
+<img src="./FIG48.jpg" border="0" alt="FIG48.jpg(26450 byte)" width="477" height="247">
+</td></tr>
+</tbody></table>
+
+
+
+
+
+
+
+
+
+
+<br clear="left">
+
+<br><br><hr><br><br>
+
+</body></html>
