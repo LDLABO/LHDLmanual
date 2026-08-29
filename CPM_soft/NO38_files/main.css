@@ -1,0 +1,53 @@
+
+   BODY { line-height: 150% ;charset=Shift_JIS}
+
+   PRE  { line-height: 100% }
+
+
+   H1 {
+      font-size: large;
+      text-align: center;
+      background-color: #003399;
+      color: white; align=center
+      }
+
+   H2 {
+      font-size: large;
+      text-align: center;
+      background-color: #9999CC;
+      color: black; align=center
+      }
+
+   H3 {
+      text-align: center;
+      background-color: #99FF99;
+      color: black; align=center
+      }
+
+   H4 {
+      text-align: center;
+      background-color: #95DDDE;
+      color: black; align=center
+      }
+
+   H5 {
+      text-align: center;
+      background-color: #CCCCCC;
+      color: black; align=center
+      }
+
+   H6 {
+      text-align: center;
+      background-color: #FFD69E;
+      color: gray; align=center
+      }
+
+   IMG {
+       border-color: #ffffff;
+       }
+
+   .i { margin-left: 3em; margin-right: 3em; }
+
+
+
+   .j { margin-left: 15em; margin-right: 15em; }

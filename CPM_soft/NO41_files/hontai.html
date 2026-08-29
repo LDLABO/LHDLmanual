@@ -1,0 +1,702 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!-- saved from url=(0042)https://ldlabo.hishaku.com/NO41/hontai.htm -->
+<html lang="ja"><head>
+    <meta charset="UTF-8">
+	
+    <link type="text/css" rel="stylesheet" href="./main.css">
+	<title></title>
+</head>
+<body>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="100%" align="center">
+<tbody><tr><td>
+<a name="1">&nbsp;</a>
+<hr size="20" color="#6699CC">
+<b>　　　AASM</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<p class="i">
+開発元サイトの紹介文です。
+<br><br>
+<font color="red">
+「AASMは汎用マクロアセンブラで、マクロ定義によって様々なCPUに対応可能です。
+　Version3.50からＣ言語ライクなマクロも定義できるようになりました。」
+</font>
+<br><br>
+<font color="blue">Z80/HD64180,H8,AVR,PIC</font>
+のマクロが同梱されています。
+Z80のアセンブラとして使う場合は
+<font color="blue">XASM</font>
+などで書いたプログラムでもほぼ書き換えをしなくても済みます。
+出力はインテルへクスファイルです、同梱された別のプログラムでモトーラS形式やバイナリファイルへの相互変換もできます。
+またオフセットを付けることもできます。
+</p>
+
+<p class="i">
+<a href="https://web.archive.org/web/20250323184442/http://www9.plala.or.jp/sagae_/download.html#aasm" target="_blank">https://web.archive.org/web/20250323184442/http://www9.plala.or.jp/sagae_/download.html#aasm</a>
+の下のところから入手できます。
+</p>
+
+<table class="i">
+<tbody><tr><td>
+<a href="https://web.archive.org/web/20250323184442/http://www9.plala.or.jp/sagae_/download.html#aasm" target="_blank">
+<img src="./FIG1.jpg" border="0" alt="FIG1.jpg(14024 byte)" width="377" height="94">
+</a>
+</td>
+</tr>
+</tbody></table>
+
+<p class="i">
+<font color="blue">AASM</font>
+は独自のプロセッサを作るときのプログラミング環境の問題の解決と言う点で論理設計者の
+大きな助けになります。
+またプロセッサを設計する前に命令セットの運用試験のようなこともできます。
+たとえば新規プロセッサのアセンブリ言語に対してその命令が実行された結果と同じ結果に
+なるような
+<font color="blue">Z80</font>
+の命令群をマクロで定義すれば新規プロセッサのための命令セットを
+<font color="blue">Z80</font>
+で実行することができるので新規プロセッサの設計前に命令セットの使い勝手を試すことが
+できるのです。
+</p>
+
+<p class="i">
+他の使い方として
+<font color="blue">H8</font>
+のアセンブリ言語を
+<font color="blue">Z80</font>
+で実行させるとかもできますし、その逆もできます。
+<font color="blue">AASM</font>
+の存在はアセンブリ言語と言うものに面白い視点を投げかけているように思います。
+</p>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="100%" align="center">
+<tbody><tr><td>
+<a name="2">&nbsp;</a>
+<hr size="20" color="#6699CC">
+<b>　　　使い方</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<p class="i">
+マクロを指定しないでアセンブルするときは
+<font color="blue">AASM .MAC</font>
+が暗黙的に指定されたことになります。
+これは
+<font color="blue">Ｚ８０、ＨＤ６４１８０用マクロ定義</font>
+です。
+マクロを自分で書きたい人にはこのファイルが良い見本になると思います。
+<br>
+<font color="blue">Z80</font>
+は裏レジスタを持っていますのでレジスタ
+<font color="blue">A</font>
+から
+<font color="blue">B,C,D,E,H,L</font>
+は表と裏で2組持っています。
+これらを表裏あわせて16ビットとすると16ビットのレジスタを
+<font color="blue">AX,BX,CX,DX,EX,FX,GX</font>
+と7本持っていることになります。
+既存のレジスタ
+<font color="blue">A,B,C,D,E,H,L</font>
+は
+<font color="blue">AL,BL,CL,DL,EL,FL,GL</font>
+と重なります。
+
+</p>
+
+<table class="i">
+<tbody><tr><td>
+<img src="./FIG2.jpg" border="0" alt="FIG2.jpg(10180 byte)" width="400" height="164">
+</td>
+</tr>
+</tbody></table>
+
+<br>
+
+<p class="i">
+Z80のマクロ定義ファイルの
+<font color="blue">AASM .MAC</font>
+に下のマクロを書き足します。
+</p>
+
+<table class="i" bgcolor="silver">
+<tbody><tr><td>
+<img src="./FIG3.jpg" border="0" alt="FIG3.jpg(22059 byte)" width="443" height="247">
+</td>
+</tr>
+</tbody></table>
+
+<br>
+
+<table class="i" bgcolor="silver" align="left">
+<tbody><tr><td>
+<img src="./FIG4.jpg" border="0" alt="FIG4.jpg(4888 byte)" width="227" height="152">
+</td>
+</tr>
+</tbody></table>
+
+<p class="i">
+16ビットのレジスタ
+<font color="blue">AX</font>
+を使ったプログラムを書いてアセンブルします。
+</p>
+
+<br clear="left"><br>
+
+<table class="i">
+<tbody><tr><td>
+<img src="./FIG6.jpg" border="0" alt="FIG6.jpg(32576 byte)" width="669" height="481">
+</td>
+</tr>
+</tbody></table>
+
+<br>
+
+<p class="i">
+アセンブル結果です。
+</p>
+
+<table class="i" bgcolor="silver">
+<tbody><tr><td>
+<img src="./FIG5.jpg" border="0" alt="FIG5.jpg(13227 byte)" width="447" height="193">
+</td>
+</tr>
+</tbody></table>
+
+<br>
+
+<p class="i">
+実行結果です。
+レジスタ
+<font color="blue">AX</font>
+の値がメモリの
+<font color="blue">5678H</font>
+番地に書き込まれています。
+</p>
+
+<table class="i">
+<tbody><tr><td>
+<img src="./FIG7.jpg" border="0" alt="FIG7.jpg(22268 byte)" width="477" height="247">
+</td>
+</tr>
+</tbody></table>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="100%" align="center">
+<tbody><tr><td>
+<a name="3">&nbsp;</a>
+<hr size="20" color="#6699CC">
+<b>　　　SH.MAC</b>
+<hr>
+</td></tr>
+</tbody></table>
+
+<p class="i">
+SHマイコンのマクロ定義です。
+</p>
+
+<hr>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="100%" align="center">
+<tbody><tr><td>
+<a name="4">&nbsp;</a>
+<b>　　　<u>汎用レジスタ</u></b>
+</td></tr>
+</tbody></table>
+
+<table class="i">
+<tbody><tr><td>
+<img src="./FIG8.jpg" border="0" alt="FIG8.jpg(6159 byte)" width="618" height="38">
+</td>
+</tr>
+</tbody></table>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="100%" align="center">
+<tbody><tr><td>
+<a name="5">&nbsp;</a>
+<b>　　　<u>ADD Rm,Rn</u></b>
+</td></tr>
+</tbody></table>
+
+<table class="i">
+<tbody><tr><td>
+<img src="./FIG9.jpg" border="0" alt="FIG9.jpg(4145 byte)" width="272" height="61">
+</td>
+</tr>
+</tbody></table>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="100%" align="center">
+<tbody><tr><td>
+<a name="6">&nbsp;</a>
+<b>　　　<u>ADD #imm8,Rn</u></b>
+</td></tr>
+</tbody></table>
+
+<table class="i">
+<tbody><tr><td>
+<img src="./FIG10.jpg" border="0" alt="FIG10.jpg(3576 byte)" width="209" height="66">
+</td>
+</tr>
+</tbody></table>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="100%" align="center">
+<tbody><tr><td>
+<a name="7">&nbsp;</a>
+<b>　　　<u>ADDC Rm,Rn</u></b>
+</td></tr>
+</tbody></table>
+
+<table class="i">
+<tbody><tr><td>
+<img src="./FIG11.jpg" border="0" alt="FIG11.jpg(4312 byte)" width="279" height="68">
+</td>
+</tr>
+</tbody></table>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="100%" align="center">
+<tbody><tr><td>
+<a name="8">&nbsp;</a>
+<b>　　　<u>ADDV Rm,Rn</u></b>
+</td></tr>
+</tbody></table>
+
+<table class="i">
+<tbody><tr><td>
+<img src="./FIG12.jpg" border="0" alt="FIG12.jpg(4116 byte)" width="280" height="63">
+</td>
+</tr>
+</tbody></table>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="100%" align="center">
+<tbody><tr><td>
+<a name="9">&nbsp;</a>
+<b>　　　<u>AND Rm,Rn</u></b>
+</td></tr>
+</tbody></table>
+
+<table class="i">
+<tbody><tr><td>
+<img src="./FIG13.jpg" border="0" alt="FIG13.jpg(4129 byte)" width="265" height="64">
+</td>
+</tr>
+</tbody></table>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="100%" align="center">
+<tbody><tr><td>
+<a name="10">&nbsp;</a>
+<b>　　　<u>AND #imm,R0</u></b>
+</td></tr>
+</tbody></table>
+
+<table class="i">
+<tbody><tr><td>
+<img src="./FIG14.jpg" border="0" alt="FIG14.jpg(3836 byte)" width="210" height="65">
+</td>
+</tr>
+</tbody></table>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="100%" align="center">
+<tbody><tr><td>
+<a name="11">&nbsp;</a>
+<b>　　　<u>AND #imm,@(R0,GBR)</u></b>
+</td></tr>
+</tbody></table>
+
+<table class="i">
+<tbody><tr><td>
+<img src="./FIG15.jpg" border="0" alt="FIG15.jpg(4329 byte)" width="274" height="71">
+</td>
+</tr>
+</tbody></table>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="100%" align="center">
+<tbody><tr><td>
+<a name="12">&nbsp;</a>
+<b>　　　<u>BF label</u></b>
+</td></tr>
+</tbody></table>
+
+<table class="i">
+<tbody><tr><td>
+<img src="./FIG16.jpg" border="0" alt="FIG16.jpg(17778 byte)" width="559" height="183">
+</td>
+</tr>
+</tbody></table>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="100%" align="center">
+<tbody><tr><td>
+<a name="13">&nbsp;</a>
+<b>　　　<u>BF/S label</u></b>
+</td></tr>
+</tbody></table>
+
+<table class="i">
+<tbody><tr><td>
+<img src="./FIG17A.jpg" border="0" alt="FIG17A.jpg(12669 byte)" width="586" height="86" align="left"><br clear="left">
+<img src="./FIG17B.jpg" border="0" alt="FIG17B.jpg(4635 byte)" width="588" height="85" align="left">
+</td>
+</tr>
+</tbody></table>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="100%" align="center">
+<tbody><tr><td>
+<a name="14">&nbsp;</a>
+<b>　　　<u>BRA label</u></b>
+</td></tr>
+</tbody></table>
+
+<table class="i">
+<tbody><tr><td>
+<img src="./FIG18.jpg" border="0" alt="FIG18.jpg(20339 byte)" width="559" height="196">
+</td>
+</tr>
+</tbody></table>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="100%" align="center">
+<tbody><tr><td>
+<a name="15">&nbsp;</a>
+<b>　　　<u>BRAF Rm</u></b>
+</td></tr>
+</tbody></table>
+
+<table class="i">
+<tbody><tr><td>
+<img src="./FIG19.jpg" border="0" alt="FIG19.jpg(3106 byte)" width="136" height="76">
+</td>
+</tr>
+</tbody></table>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="100%" align="center">
+<tbody><tr><td>
+<a name="16">&nbsp;</a>
+<b>　　　<u>BSR label</u></b>
+</td></tr>
+</tbody></table>
+
+<table class="i">
+<tbody><tr><td>
+<img src="./FIG20.jpg" border="0" alt="FIG20.jpg(19701 byte)" width="554" height="193">
+</td>
+</tr>
+</tbody></table>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="100%" align="center">
+<tbody><tr><td>
+<a name="17">&nbsp;</a>
+<b>　　　<u>BSRF Rm</u></b>
+</td></tr>
+</tbody></table>
+
+<table class="i">
+<tbody><tr><td>
+<img src="./FIG21.jpg" border="0" alt="FIG21.jpg(3019 byte)" width="145" height="86">
+</td>
+</tr>
+</tbody></table>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="100%" align="center">
+<tbody><tr><td>
+<a name="18">&nbsp;</a>
+<b>　　　<u>BT label</u></b>
+</td></tr>
+</tbody></table>
+
+<table class="i">
+<tbody><tr><td>
+<img src="./FIG22.jpg" border="0" alt="FIG22.jpg(17602 byte)" width="550" height="178">
+</td>
+</tr>
+</tbody></table>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="100%" align="center">
+<tbody><tr><td>
+<a name="19">&nbsp;</a>
+<b>　　　<u>BT/S label</u></b>
+</td></tr>
+</tbody></table>
+
+<table class="i">
+<tbody><tr><td>
+<img src="./FIG23.jpg" border="0" alt="FIG23.jpg(17762 byte)" width="549" height="173">
+</td>
+</tr>
+</tbody></table>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="100%" align="center">
+<tbody><tr><td>
+<a name="20">&nbsp;</a>
+<b>　　　<u>CLRMAC</u></b>
+</td></tr>
+</tbody></table>
+
+<table class="i">
+<tbody><tr><td>
+<img src="./FIG24.jpg" border="0" alt="FIG24.jpg(3217 byte)" width="137" height="76">
+</td>
+</tr>
+</tbody></table>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="100%" align="center">
+<tbody><tr><td>
+<a name="21">&nbsp;</a>
+<b>　　　<u>CLRT</u></b>
+</td></tr>
+</tbody></table>
+
+<table class="i">
+<tbody><tr><td>
+<img src="./FIG25.jpg" border="0" alt="FIG25.jpg(3122 byte)" width="131" height="78">
+</td>
+</tr>
+</tbody></table>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="100%" align="center">
+<tbody><tr><td>
+<a name="22">&nbsp;</a>
+<b>　　　<u>CMP/EQ Rm,Rn</u></b>
+</td></tr>
+</tbody></table>
+
+<table class="i">
+<tbody><tr><td>
+<img src="./FIG26.jpg" border="0" alt="FIG26.jpg(4091 byte)" width="171" height="81">
+</td>
+</tr>
+</tbody></table>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="100%" align="center">
+<tbody><tr><td>
+<a name="23">&nbsp;</a>
+<b>　　　<u>CMP/GE Rm,Rn</u></b>
+</td></tr>
+</tbody></table>
+
+<table class="i">
+<tbody><tr><td>
+<img src="./FIG27.jpg" border="0" alt="FIG27.jpg(4348 byte)" width="182" height="74">
+</td>
+</tr>
+</tbody></table>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="100%" align="center">
+<tbody><tr><td>
+<a name="24">&nbsp;</a>
+<b>　　　<u>CMP/GT Rm,Rn</u></b>
+</td></tr>
+</tbody></table>
+
+<table class="i">
+<tbody><tr><td>
+<img src="./FIG28.jpg" border="0" alt="FIG28.jpg(4258 byte)" width="175" height="80">
+</td>
+</tr>
+</tbody></table>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="100%" align="center">
+<tbody><tr><td>
+<a name="25">&nbsp;</a>
+<b>　　　<u>CMP/HI Rm,Rn</u></b>
+</td></tr>
+</tbody></table>
+
+<table class="i">
+<tbody><tr><td>
+<img src="./FIG29.jpg" border="0" alt="FIG29.jpg(4153 byte)" width="177" height="76">
+</td>
+</tr>
+</tbody></table>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="100%" align="center">
+<tbody><tr><td>
+<a name="26">&nbsp;</a>
+<b>　　　<u>CMP/HS Rm,Rn</u></b>
+</td></tr>
+</tbody></table>
+
+<table class="i">
+<tbody><tr><td>
+<img src="./FIG30.jpg" border="0" alt="FIG30.jpg(4273 byte)" width="177" height="79">
+</td>
+</tr>
+</tbody></table>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="100%" align="center">
+<tbody><tr><td>
+<a name="27">&nbsp;</a>
+<b>　　　<u>CMP/PL Rn</u></b>
+</td></tr>
+</tbody></table>
+
+<table class="i">
+<tbody><tr><td>
+<img src="./FIG31.jpg" border="0" alt="FIG31.jpg(3572 byte)" width="153" height="71">
+</td>
+</tr>
+</tbody></table>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="100%" align="center">
+<tbody><tr><td>
+<a name="28">&nbsp;</a>
+<b>　　　<u>CMP/PZ Rn</u></b>
+</td></tr>
+</tbody></table>
+
+<table class="i">
+<tbody><tr><td>
+<img src="./FIG32.jpg" border="0" alt="FIG32.jpg(3677 byte)" width="154" height="77">
+</td>
+</tr>
+</tbody></table>
+
+<!-- ----------------------------------------------------------------- -->
+<!--                                                                   -->
+<!-- ----------------------------------------------------------------- -->
+
+<table width="100%" align="center">
+<tbody><tr><td>
+<a name="29">&nbsp;</a>
+<b>　　　<u>CMP/STR Rm,Rn</u></b>
+</td></tr>
+</tbody></table>
+
+<table class="i">
+<tbody><tr><td>
+<img src="./FIG33.jpg" border="0" alt="FIG33.jpg(5766 byte)" width="193" height="80">
+</td>
+</tr>
+</tbody></table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<br clear="left">
+<br clear="right">
+
+
+
+<br><br><hr><br><br>
+
+</body></html>
